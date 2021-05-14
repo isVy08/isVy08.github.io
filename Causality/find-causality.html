@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<body style="font-family: sans-serif;
+font-size: 110%; 
+text-align:justify;
+padding-left: 3cm;
+padding-right: 3cm;
+padding-top: 1cm;
+">
+
+<header style="font-size:200%">
+    A Little Thinking on Causality
+</header>
+<hr>
+<article>
+
+<h1>Beyond Correlation: Introduction to Causal Thinking (Part 2)</h1>
+If correlation is not causation, then what is?
+
+<br><br> 
+<a href="what-is-causality.html">Intro to Causal Thinking (Part 1)</a>
+
+<div class="p1">
+    <h2>How can we find Causality?</h2>
+
+    The outcomes are counterfactual because in reality, only one of such outcomes occurs for each individual. 
+    Let’s say we set John up for viewing at least 3 product options (X = 1) but no sales was generated (Y = 0). 
+    Then John’s counterfactual outcome <span style="font-family: Courier New;">Y<sub>i</sub> (X = 1)</span> would be his actual outcome, which equals 0 
+    while his other counterfactual outcome <span style="font-family: Courier New;">Y<sub>i</sub> (X = 0)</span> remains forever unobserved.
+
+    <br><br>
+    However, if I was able to design such an experiment in which I randomly assigned some users to treatment X = 1 and the others to treatment X = 0, 
+    then <strong>association would be causation</strong>, or
+
+    <br>
+    <p style="padding-left: 1cm; font-family: Courier New;">
+        P( Y = 1 | do(X) = 1) = P( Y = 1 | X = 1)
+    </p>
+
+    It is proved that randomized experiments or randomized control trials (RCT) can yield convincing causal relationships. 
+    However, it is not always physically feasible to conduct a RCT. 
+    In this case, in order to restrict a random user to view less than 3 product options, we may have had to “corrupt” our own website to display only no more than 2 products. 
+    But doing so would have caused users to bounce as they may think there’s something wrong with the site. 
+    Sometimes, it is unethical or legally impermissible to perform such an experiment. 
+    Imagine a study to investigate whether obesity causes heart diseases requires feeding participants with junk food over an extended period of time to fatten them up!
+
+    <br><br>
+    Fortunately, significant progress has been made within the field of causal inference for the past decade. 
+    And the Causal Revolution has equipped us with sufficient languages and methodologies to derive causality from observational studies.
+
+    <h2>From Correlation to Causation</h2>
+    <p>
+        Let’s retrace a bit. 
+        <span style="font-family: Courier New;">P( Y | do(X) )</span>
+        can only be estimated through intervention in a randomized experiment. 
+        Without RCTs, we are left with classical probability 
+        <span style="font-family: Courier New;">P( Y | X )</span>.
+        The goal is to use this observational data to estimate causal effect by eliminating the do-operator. 
+        We cannot remove it by physically deleting the do notation but must go through legitimate and standardized manipulations.
+    </p>
+    <p>
+        Facing the difficulty of translating the observed insights to causal action, we had a hunch that other factors must have come into play. 
+        One possible factor is users’ intention. A user with high intention to buy the product tends to consider more options, thus more likely to complete the transaction. 
+        These entangled effects among these factors can be illustrated via a causal diagram
+    </p>
+
+    <p style="text-align: center;">
+        <img src="causal-diagram.png" alt="Causal Diagram">
+    </p>
+
+    <p>
+        The graph consists of 3 nodes representing variables <i>Intention (Z)</i>, <i>Product View (X)</i> and <i>Purchase Likelihood (Y)</i>. 
+        The direction of the edges or arrows indicates the causal effect from one variable to another. 
+        The graph shows that Intention is the common cause of <i>Product View</i> and <i>Purchase Likelihood</i>, represented by two arrows pointing from <i>Intention</i> to the other variables. 
+        The presence of one or more variables that renders causation distinct from association between treatment and outcome is called <strong>confounding</strong> and <i>Intention</i> is referred to as <strong>confounder</strong>. 
+        
+        <br><br>
+        Some literature restricts the definition of confounding to biases due to common causes of treatment and outcome and uses different terms for other sources of biases. 
+        Such diagram is known as <strong>Directed Acyclic Graph (DAG)</strong>, which incorporates knowledge and assumptions about the causal structure of interest which helps clarify the conceptutal problem at hand.
+    </p>
+
+    <p>
+        For structures like this one, if we assume that there are no other confounders, the causal effect of Product View on Purchase Likelihood can be determined by conditioning on Intention. 
+        Without adjusting for Intention, information is said to flow from Product View to Purchase Likelihood, which explains why an association was found before Intention is introduced. 
+        If we look at the data on users with low intention only, we may see that users do not make any purchase regardless of how many options they have viewed. Mathematically, this is equivalent to
+
+        <p style="padding-left: 1cm; font-family: Courier New;">
+            P(Y = 1 | X = 1, Z = 0) = P( Y = 1 | X = 0, Z = 0)
+        </p>
+    </p>
+    <p>
+        Given that our model is robust, we can get the same result by conditioning on users with high intention. 
+        Then we can conclude that viewing 3 or more products does not cause users to purchase.
+   
+        <br><br>
+        It is crucial to note that controlling for the third variable(s) does not always eliminate confounding bias. 
+        Sometimes, it is the controlling practice that leads to biases. 
+        The path that links X and Y through their common cause Z is an example of a <strong>backdoor path</strong> and this backdoor path can be blocked by controlling for Z to yield causal-effect relationship.
+        
+        <br><br>
+        Adjustment for confounding requires knowledge and data of sufficient set of confounders. 
+        Back to our example, measuring a user’s intention would be quite of a challenge, especially when most of our visitors remained unidentified. 
+        Other methods to justify causality include Judea Pearl’s <strong>do-calculus</strong> and <strong>front-door criterion</strong> (manipulation the direct path from X to Y without passing through Z). 
+        How to find causality is a massive topic, which I will explain in details in another article.
+    </p>
+    <h2>Conclusion</h2>
+    <p>
+        Humans are endowed with the ability to reason causally. 
+        In the face of discrepancy, we are tempted to question why in the hope of discovering causes and effects. 
+        Whenever I struggled to answer a causal question, I attributed the difficulty to lack of sufficient sample or robust techniques. 
+        It never occurred to me that the answer was not contained in the data in the first place nor could be obtained from traditional statistical analysis.
+        
+        <br><br>
+        It is absolutely normal to find your mind boggle upon the first touch with causal inference. 
+        Let the burning questions drive you to explore the marvels of causality.
+    </p>
+    
+</div>
+
+
+
+
+<h3>References</h3>
+<ul style="font-style: italic;">
+    <li >
+        Causality: Models, Reasoning and Inference — Judea Pearl (2009)
+    </li>
+    <li>
+        Causal inference in statistics: An overview — Judea Pearl (2009)
+    </li>
+    <li>
+        The Book of Why: The New Science of Cause and Effect — Judea Pearl and Dana Mackenzie (2018)
+    </li>
+    <li>
+        Causal Inference: What If — Miguel A. Hernán and James M. Robins (2020)
+    </li>
+</ul>
+
+
+
+
+
+</article>
+</body>
+</html>
