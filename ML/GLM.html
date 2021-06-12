@@ -14260,24 +14260,153 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h1 id="GENERALIZED-LINEAR-MODEL">GENERALIZED LINEAR MODEL<a class="anchor-link" href="#GENERALIZED-LINEAR-MODEL">&#182;</a></h1><hr>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>OVERVIEW OF LINEAR MODEL AND EXPLAIN THE PREDICTION E(Y|X) INSTEAD OF ANY X</p>
+
+<p>List of contents &amp; Assumptions</p>
+<p>Summarize the assumptions, details on which section to find the answer. Thinking flow and mentions a bit about logistic regression</p>
+<p>Given a machine learning problem and a dataset, we select a model to tackle it.</p>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Let $y_1, y_2, ..., y_n$ denote $n$ independent observations on the target variable $Y$. A <strong>generalized linear model (GLM)</strong> assumes</p>
-<h4 id="1.-Exponential-Family">1. Exponential Family<a class="anchor-link" href="#1.-Exponential-Family">&#182;</a></h4><p>$Y | X \sim$ exponential family distribution with probability density function and parameters $\theta, \phi$</p>
-$$f(Y = y|X) = \exp\left( \frac{y\theta-b(\theta)}{a(\phi)} + c(y,\phi)\right)$$<p>Here $a(\phi), b(\theta)$ and $c(y,\phi$) are known functions. The distribution of $Y$ has mean and variance</p>
-$$\mathrm{E}(Y|X) = \mu = b'(\theta)$$$$\mathrm{var}(Y|X) = \sigma^2 = b''(\theta)a(\theta)$$<p>where $b'(\theta)$ and $b'(\theta)$ respectively are the first and second derivative of $b(\theta)$.</p>
-<h4 id="2.-Link-Function">2. Link Function<a class="anchor-link" href="#2.-Link-Function">&#182;</a></h4><p>There exists a link function $g$ linear on X such that
+<h2 id="1.-Regression-Model-and-Least-Squares">1. Regression Model and Least Squares<a class="anchor-link" href="#1.-Regression-Model-and-Least-Squares">&#182;</a></h2><p>Given data of a continuous target variable $y$ and a $d$-dimensional vector $x$ of input variables, we assume $y$ arises from a deterministic function $g(x, W)$ plus Gaussian noise $\epsilon$.<br>
+$$y = g(x, W) + \epsilon$$</p>
+<p>Without the noise, the actual value $y$ would equal the output of $g(x, W)$. Thus, we incur a loss when choosing a specific estimate $g(x, W)$ for $y$ is $\quad L\left(y, g(x,W)\right)$.</p>
+<p>A common choice of loss function in regression problems is the <strong>sum-of-square</strong> error function. The average or expected loss is given by</p>
+$$\mathrm{E}[L] = \iint L\left(y, g(x,W)\right)p(x, y) \ \mathrm{dxdy} = \iint \{y - g(x, W)\}^2p(x,y) \ \mathrm{dxdy}$$<p>The goal is to choose $g(x, W)$ in order to minimize $\mathrm{E}[L]$. Applying calculus of variation yields</p>
+$$\frac{\delta E[L]}{\delta g(x, W)} = 2 \int\{y - g(x, W)\} p(x,y) \ \mathrm{dxdy} = 0$$<p>Solving for $g(x, W)$ using the sum and product rules of probability, we have</p>
+$$g(x,W) = \frac{\int yp(x, y)\ \mathrm{dy}}{p(x)} = \int yp(y|x)dy = \mathrm{E}_{y}[y|x]$$<p>The optimal estimate for $y$ is the expected value of $y$ conditioned on $x$.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="2.-Linear-Regression-Model">2. Linear Regression Model<a class="anchor-link" href="#2.-Linear-Regression-Model">&#182;</a></h2><p>The first assumption of linear regression models lies in its linearity - in that $g$ is a linear on $W$ and can be extended to be a linear basis function</p>
+$$g(X, W) = W^T\varphi(X)$$<p>To facilitate the derivation of $g(x,W)=\mathrm{E}_{y}[y|x]$, we also have to assume $E[\epsilon|x]=0$. This explains why we assume $\epsilon$ to be a random variable with zero mean and variance $\sigma^2$.</p>
+<p>But why should $\epsilon$ be a $\textsf{Gaussian}$?</p>
+<p>If $\epsilon$ is a $\textsf{Gaussian}$ random variable, this implies $y$ also follows a $\textsf{Normal}$ distribution conditioned on $x$. There are two main reasons</p>
+<ol>
+<li>For regression problems, the output variable $y$ is continuous, so $\mathsf{Gaussian}$ is an intuitively natural choice. </li>
+</ol>
+<ol>
+<li>Optimizing the likelihood function given by $\mathsf{Normal}$ probability density function motivates the choice of <strong>sum-of-square</strong> loss function, which helps us understand the model complexity characterized by the concepts of $\textbf{Bias}$ and $\textbf{Variance}$. This will be explained in the next section.    </li>
+</ol>
+<ol>
+<li><p>Because the assumption of $\mathsf{Gaussian}$ gives rise to the use of squared loss function, the conditional mean is simply $E_y[y|x] = g(x,W) = W^TX$, and minimizing this loss function results in a close-form solution.</p>
+<p>Later we will look into an extension of simple linear models in which more complicated transformations of $E_y[y|x]$ are required for the linearity assumption to hold, and in some cases we don't have such a nice analytical solution.</p>
+</li>
+</ol>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="3.-Bias-Variance-Decomposition">3. Bias-Variance Decomposition<a class="anchor-link" href="#3.-Bias-Variance-Decomposition">&#182;</a></h2><p>$\textbf{Bias}$ refers to the accuracy of the model predictions. $\textbf{Bias Error}$ measures the difference between the expected or average prediction of our model and the true value. The prediction itself is a random variable as it tends to change when the model learns from a different dataset. This indicates how much the predictions of multiple models in general deviate from the true value.</p>
+<p>$\textbf{Variance}$ indicates how consistent the predictions are for a given data point. It measures the degree to which the predictions vary from one another over different training sets.</p>
+<p>We want our model to have low $\textbf{Bias}$ and low $\textbf{Variance}$, but there's a trade-off.</p>
+<p>For a given data point $x_n$ with true value $y_n$, we use $\textbf{Boostrapping}$ technique to train our model on $L$ $\textbf{boostrap}$ samples and get the average prediction 
+$$\bar g(x_n) = \frac{1}{L} \sum_{l=1}^{L} g_l(x_n)$$</p>
+<p>$\textbf{Bias}$ and $\textbf{Variance}$ of the model is 
+$$\textbf{Bias}^2 = \frac{1}{N} \sum_n^N\left(\bar g_n(x_n) - y_n\right)^2$$</p>
+$$\textbf{Variance} = \frac{1}{L} \sum_{l=1}^{L} \left(g_l(x_n) - \bar g_n\right)^2$$<p>The <strong>generalization error</strong> is the expected error over different sets of inputs $x$, given as 
+$$\epsilon_{y,g}(y) = \int [g(x) - y(x)]^2 p(x) \ \mathrm{dx}$$</p>
+<p>We have trained the model on $L$ different training sets $D$, the unbiased estimate for $\epsilon$ is</p>
+$$E_D \left( [g_{D}(x) - y(x)]^2\right)$$<p>Let me remind you that we are doing this for a single data point $x_n$. The subscript $n$ is discarded for the simplicity of notations.</p>
+$$E_D \left( [g_{D}(x) - y(x)]^2\right) =  E_D \left( [g_D(x) \ - E_D\left(g_D(x)\right) \ + E_D\left(g_D(x)\right) \ - y(x)]^2 \right)$$$$= E_D \left( [g_D(x) \ - E_D\left(g_D(x)\right)]^2 \ + [E_D\left(g_D(x)\right) \ - y(x)]^2 + 2[g_D(x) \ - E_D\left(g_D(x)\right)][E_D\left(g_D(x)\right) \ - y(x)]\right)$$<p>Notice that $E_D\left(g_D(x)\right) = \bar g(x)$.</p>
+<ul>
+<li>The first term becomes $E \left(g_l(x) - \bar g(x)\right)^2 = \textbf{Variance} $  since $l$ is equivalent to $D$</li>
+</ul>
+<ul>
+<li>The second term becomes $E [\left(\bar g(x) - y(x)\right)]^2 = \textbf{Bias}^2 $</li>
+</ul>
+<ul>
+<li><p>The product in the third term is made up of $(1)$ the model standard deviation and $(2)$ the random noise $\epsilon$. These two components are independent, so the expectation of the product is the product of each expectation.</p>
+<p>Previously, we assume $E(\epsilon|x) = 0$ so the second expectation component is zero, ruling out the third term.</p>
+</li>
+</ul>
+<p>Hence, we have 
+$$\textbf{Generalization Error} = \textbf{Bias}^2 + \textbf{Variance}$$.</p>
+<p>This means that regression models optimized on the sum-of-square loss function under $\textsf{Gaussian}$ distribution are subject to the trade-off between $\textbf{Bias}^2 + \textbf{Variance}$. These quantities control the model complexity and tell us a lot about fitting capacity of the model for the problem at hand.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="4.-Generalized-Linear-Model">4. Generalized Linear Model<a class="anchor-link" href="#4.-Generalized-Linear-Model">&#182;</a></h2><p>Let $y_1, y_2, ..., y_n$ denote $n$ independent observations on the target variable $Y$ conditioned on input $X$. A <strong>generalized linear model (GLM)</strong> assumes</p>
+<h4 id="1.-Exponential-Family">1. Exponential Family<a class="anchor-link" href="#1.-Exponential-Family">&#182;</a></h4><p>$Y|X\sim$ exponential family distribution with probability density function and parameters $\theta, \phi$</p>
+$$f(Y = y|\theta,\phi) = \exp\left( \frac{y\theta-b(\theta)}{a(\phi)} + c(y,\phi)\right) \quad (\ast)$$<p></p>
+<p>Here $a(\phi), b(\theta)$ and $c(y,\phi$) are known functions. The distribution of $Y$ has mean and variance</p>
+$$\mathrm{E}(Y|X) = \mu = b'(\theta)$$$$\mathrm{Var}(Y|X) = \sigma^2 = b''(\theta)a(\phi)$$<p>where $b'(\theta)$ and $b'(\theta)$ respectively are the first and second derivative of $b(\theta)$.</p>
+<h4 id="2.-Link-Function">2. Link Function<a class="anchor-link" href="#2.-Link-Function">&#182;</a></h4><p>There exists a link function $g$ such that
 $$g(\mu) = W^T X$$</p>
-<p>Recall that linear models predict the expected value of $Y$ for a given $X$, that is $\mathrm{E}(Y|X)$ or $\mu$</p>
+<p>Recall that if the squared loss function is used, the optimal prediction of linear regression models for a new value $X$ is the conditional mean of $Y$ , that is $\mathrm{E}(Y|X)$ or $\mu$. GLM allows for non-linearity by introducing a <i>transformation</i> on the expected value so that it is linear on $W$ and $X$, or more generally on the basis $\varphi(X)$.</p>
+<p>Common examples in exponential family include $\textsf{Normal}, \textsf{Bernoulli}, \text{or }  \textsf{Poisson}$ distributions. The function $g$ can be an $\textsf{Identity}, \textsf{Log}, \textsf{Logit}, \text{or } \textsf{Reciprocal}$ function.</p>
 
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="4.1.-An-Alternative-View-of-Linear-Regression">4.1. An Alternative View of Linear Regression<a class="anchor-link" href="#4.1.-An-Alternative-View-of-Linear-Regression">&#182;</a></h3><p>We will now see how these properties give rise to the normal distribution assumption of linear regression models, which assumes $Y$ follows a $\textsf{Normal}$ distribution, and uses an $\textsf{Identity}$ link function.</p>
+<p>With $\textsf{Identity}$ function $g$, $$g(\mu) = \mu = W^TX$$</p>
+<p>We dig into the density function to derive the corresponding parameters $\theta, \phi$ and the functions $a, b, c$.</p>
+<p>Let's say, a single observation $y_n \sim \mathcal{N}\left(\mu_n, \sigma_n\right)$ with mean $\mu_n$ and variance $\sigma_n$. The density function is given as</p>
+$$f(y_n) = \frac{1}{\sigma_n\sqrt{2\pi}} \exp\left(\frac{-(y_n - \mu_n)^2}{2\sigma_n^2}\right) = \exp\left(\log{2\pi\sigma^2}\right)^{\frac{-1}{2}} \exp\left(\frac{2y_n\sigma_n - y_n^2 - \sigma^2}{2\sigma_n^2}\right)$$$$f(y_n) = \exp\left( \frac{y_n\mu_n - 0.5\mu_n^2}{\sigma_n^2} - 0.5\left(\frac{y_n^2}{\sigma_n^2} + \log{2\pi\sigma^2}\right)\right)$$<p>Comparing this function against $(\ast)$ yields $$b(\theta) = 0.5\mu_n^2$$</p>
+$$\mathrm{E}(Y|X) = b'(\theta) = \mu_n = \theta \quad \text{and} \quad \phi=\sigma^2$$<p></p>
+<p>We also have $a(\phi) = \sigma^2$ and the second term in the exponent is one form of $c(y_n, \phi)$</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="4.2.-An-Alternative-View-of-Logistic-Regression">4.2. An Alternative View of Logistic Regression<a class="anchor-link" href="#4.2.-An-Alternative-View-of-Logistic-Regression">&#182;</a></h3><p>In this section, you are assumed to be familiar with Logistic Regression. In the case of binary classification, let $p$ be the probability of an observation belongs to the positive class.</p>
+<p>The model assumes the $\textsf{log odds} \ \log\left(\frac{p}{1-p}\right)$ is linear on $W$. 
+<br>If the $\textsf{log odds} \ge 0$, the observation is more likely to be in the positive clas, and otherwise for $\textsf{log odds} &lt; 0$.</p>
+<p>Logistic Regression is another application of GLM for classification problem. Here $y_n$ follows a $\textsf{Bernoulii}$ distribution with mean $p$, variance $p(1-p)$ and density function 
+$$f(y_n) = y_np + (1-y_n)(1-p) \quad y_n \in \{0,1\}$$</p>
+<p>Thus, we have the $\textsf{log-likelihood}$ function 
+$$\mathcal{L_{y_n}} = y_n\log p + (1-y_n)\log (1-p)$$</p>
+<p>This can be re-written in the exponential form as 
+$$f(y_n) = \exp\left(y_n\log \frac{p}{1-p} - \log\frac{1}{1-p}\right)$$</p>
+<p>Here $\phi = 1$, $c(y_n, \phi)=0$ and<br>
+$$\theta = \log \frac{p}{1-p} \quad \text{and} \quad b(\theta) = \log\frac{1}{1-p} = \log (1+ e^\theta) $$</p>
+<p>The conditional mean is thus given as 
+$$\mathrm{E}(Y|X) = b'(\theta) = \frac{e^\theta}{1+e^\theta} = p$$
+and this give rise to a natural choice of the $\textsf{logit}$ link function $g$
+$$g(p) = \log \frac{p}{1-p} = W^TX$$</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="4.3.-Maximum-Likelihood">4.3. Maximum Likelihood<a class="anchor-link" href="#4.3.-Maximum-Likelihood">&#182;</a></h3><p>An important observation in the above cases is that $g$ links the conditional mean $\mu$ back to the parameter $\theta$. Such choices of $g$, i.e., $\textsf{Identity}$ or $\textsf{Logit}$ functions are called <strong>Canonical Links</strong>.</p>
+<p>In most widely used models such as linear or logistic regression, the function $a(\phi)$ has the form</p>
+$$a(\phi) = \frac{\phi}{k} $$<p>where $k$ is a known <i>prior weight</i>. When $k=1$, it is called <strong>Canonical exponential family</strong>, which includes the $\textsf{Normal}$ and  $\textsf{Bernoulli}$ distributions we have seen. Others include $\textsf{Poisson}$ or $\textsf{Gamma}$ distribution.</p>
+<p>Recall that 
+$$\mathrm{E}(Y|X) = \mu = b'(\theta)$$
+$$\mathrm{Var}(Y|X) = \sigma^2 = b''(\theta)a(\phi)$$</p>
+<p>You can see when $\phi &gt; 0$ and $k&gt;0$, $b''(\theta) &gt; 0$ as variance is positive, so the function $b(.)$ is <strong>strictly convex</strong> and $b'(\theta) = \mu$ is <strong>strictly increasing</strong>. In other words, increasing $\theta$ also increases $\mu$. The canonical link function is one that $g(\mu) = \theta$.</p>
+<p>Thus , $g(\mu) = (b')^{-1} (\mu)$ and $g$ is also <strong>strictly increasing</strong>.</p>
+<p>To understand what this property means, we must go back to our optimization problem.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>With $\theta, \phi \text{ and } W$ being the model parameters, we wish to find the values of the parameters that maximize the likelihood function $f(Y | X)$. 
+$$f(Y|X) = \prod_{n}^{N} f(y_n | X, W, \theta, \phi) = \prod_{n}^{N} \exp\left( \frac{y_n\theta-b(\theta)}{a(\phi)} + c(y,\phi)\right)$$</p>
+<p>To make life easy, we maximize the log-likelihood, which is given by 
+$$\mathcal{L} = \sum_{n}^{N} \left( \frac{y_n\theta-b(\theta)}{a(\phi)} + c(y,\phi)\right) $$</p>
+<p>To make it easier, let's only focus on the <strong>canonical</strong> link function. For supervised learning, $y_n$ is known, and by imposing on $Y$ a known distribution, we can determine values for $\theta$ and $\phi$. Thus, we now only care about finding the optimal $W$.</p>
+<p>We know that $g(\mu) = \theta = W^TX$. The log-likehood function with respect to $W$ can be written as
+$$\mathcal{L(W)} = \sum_{n}^{N} \left( \frac{y_n W^TX-b(W^TX)}{a(\phi)} + c(y,\phi)\right) $$</p>
+<p>If $g$ is canonical and $\phi &gt; 0$, the function $b(.)$ is strictly convex. This then makes $\mathcal{L(W)}$ <strong>strictly concave</strong>.</p>
+<p>This means that the maximum likelihood estimator $W$ is a unique solution. If any of the assumptions do not hold, $\mathcal{L(W)}$ may no longer be concave, resulting in multiple local maxima.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="References">References<a class="anchor-link" href="#References">&#182;</a></h2>
 </div>
 </div>
 </body>
