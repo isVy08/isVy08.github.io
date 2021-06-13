@@ -14259,21 +14259,44 @@ a.anchor-link {
 
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="GENERALIZED-LINEAR-MODEL">GENERALIZED LINEAR MODEL<a class="anchor-link" href="#GENERALIZED-LINEAR-MODEL">&#182;</a></h1><hr>
+<h1 id="Linear-Regression-Model">Linear Regression Model<a class="anchor-link" href="#Linear-Regression-Model">&#182;</a></h1><hr>
 
-<p>List of contents &amp; Assumptions</p>
-<p>Summarize the assumptions, details on which section to find the answer. Thinking flow and mentions a bit about logistic regression</p>
-<p>Given a machine learning problem and a dataset, we select a model to tackle it.</p>
+<p>In this note, I explain the assumptions underlying <strong>Linear Regression</strong>, an old-school machine learning model but remains widely used today. Though the original idea is very simple, it forms the bedrock of modern machine learning techniques.</p>
+<p>Regression refers to the task of predicting values for a continuous random variable $Y$ from an input variable $X$. To verify the assumptions of linear regression, we need to understand about <strong>Generalized Linear Model (GLM)</strong> which generalizes linear regression model to allow for more flexibilty. <strong>Logistic Regression</strong> is another design choice of GLM for classification task, which will also be briefly discussed.</p>
+<p>Let's now focus on Regression.</p>
+<p>Given examples of the target variable $y$ and $d$-dimensional input vectors $x$, we assume $y$ arises from a deterministic function $g(x, W)$ plus Gaussian noise $\epsilon$</p>
+$$y = g(x, W) + \epsilon \quad (\ast) $$
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Assumptions">Assumptions<a class="anchor-link" href="#Assumptions">&#182;</a></h2><p><strong>The key assumptions of Linear regression model are</strong></p>
+<ol>
+<li><p>$g$ is a linear on $W$ and any basis forms of $X$. 
+$$g(X, W) = W^T\varphi(X)$$</p>
+<p>where $\varphi$ is a basis function applied on $X$, usually non-linear to relax the contraints of linearity. In simple linear regression model, $\varphi$ is $\textsf{Identity}$.</p>
+</li>
+</ol>
+<ol>
+<li>None of the input variables is constant, and there are no exact linear relationships among them. </li>
+</ol>
+<ol>
+<li>The observations $\{(X_n, y_n): n = 1, 2, ..., N\}$ are randomly sampled and independent from each other. </li>
+</ol>
+<ol>
+<li>Given any values of $X$, The noise $\epsilon$ is $\textsf{normally}$ distributed with zero mean $E[\epsilon|x] = 0$ and constant variance $\sigma^2$</li>
+</ol>
+<p>The biggest motivation any of assumptions is mathematical convenience. (<strong>Assumption $1$</strong>) Linear function is a basic and natural choice to begin with, though the linearity itself restricts the model's capacity on more complex non-linear problems. In this linear relationship, the input variables cannot be perfectly correlated (<strong>Assumption $2$</strong>) since the weight $W_d$ measure the additional change in $y$ for $1$ unit change in $x_d$, given all the other $x's$ held constant. If any two $x_1$ and $x_2$ are linearly correlated such as $x_2 = kx_1$, this will not make sense, so feature selection is critical. However, it is acceptable to include polynominal terms, for instance $x^2$ since they are not exactly linear - $x$ can vary for a fixed value of $x^2$.</p>
+<p><strong>Assumption $3$</strong> is applied to nearly all problems that involve maximizing likelihood function. In this case, we can do optimization for all observations at once by multiplying each individual likelihood functions, or summing the log-likehood's, which is even easier to calculate derivatives. It's again mathematical convenient while not very difficult to achieve in practice.</p>
+<p><strong>Assumption $4$</strong> is more tricky. It's practically a particular design choice for a linear model. To understand why, we first look into the loss function for regression.</p>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="1.-Regression-Model-and-Least-Squares">1. Regression Model and Least Squares<a class="anchor-link" href="#1.-Regression-Model-and-Least-Squares">&#182;</a></h2><p>Given data of a continuous target variable $y$ and a $d$-dimensional vector $x$ of input variables, we assume $y$ arises from a deterministic function $g(x, W)$ plus Gaussian noise $\epsilon$.<br>
-$$y = g(x, W) + \epsilon$$</p>
-<p>Without the noise, the actual value $y$ would equal the output of $g(x, W)$. Thus, we incur a loss when choosing a specific estimate $g(x, W)$ for $y$ is $\quad L\left(y, g(x,W)\right)$.</p>
-<p>A common choice of loss function in regression problems is the <strong>sum-of-square</strong> error function. The average or expected loss is given by</p>
-$$\mathrm{E}[L] = \iint L\left(y, g(x,W)\right)p(x, y) \ \mathrm{dxdy} = \iint \{y - g(x, W)\}^2p(x,y) \ \mathrm{dxdy}$$<p>The goal is to choose $g(x, W)$ in order to minimize $\mathrm{E}[L]$. Applying calculus of variation yields</p>
+<h2 id="1.-Error-Function">1. Error Function<a class="anchor-link" href="#1.-Error-Function">&#182;</a></h2><p>The equation $(*)$ implies that without the noise, the actual value $y$ would equal the output of $g(x, W)$. Thus, we incur a loss when choosing a specific estimate $g(x, W)$ for $y$, $\quad L\left(y, g(x,W)\right)$.</p>
+<p>A common choice of loss function in regression problems is the <strong>sum-of-squaredd</strong> error function. The average or expected loss is given by</p>
+$$E[L] = \iint L\left(y, g(x,W)\right)p(x, y) \ \mathrm{dxdy} = \iint \{y - g(x, W)\}^2p(x,y) \ \mathrm{dxdy}$$<p>The goal is to choose $g(x, W)$ in order to minimize $\mathrm{E}[L]$. Applying calculus of variation yields</p>
 $$\frac{\delta E[L]}{\delta g(x, W)} = 2 \int\{y - g(x, W)\} p(x,y) \ \mathrm{dxdy} = 0$$<p>Solving for $g(x, W)$ using the sum and product rules of probability, we have</p>
 $$g(x,W) = \frac{\int yp(x, y)\ \mathrm{dy}}{p(x)} = \int yp(y|x)dy = \mathrm{E}_{y}[y|x]$$<p>The optimal estimate for $y$ is the expected value of $y$ conditioned on $x$.</p>
 
@@ -14281,19 +14304,17 @@ $$g(x,W) = \frac{\int yp(x, y)\ \mathrm{dy}}{p(x)} = \int yp(y|x)dy = \mathrm{E}
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="2.-Linear-Regression-Model">2. Linear Regression Model<a class="anchor-link" href="#2.-Linear-Regression-Model">&#182;</a></h2><p>The first assumption of linear regression models lies in its linearity - in that $g$ is a linear on $W$ and can be extended to be a linear basis function</p>
-$$g(X, W) = W^T\varphi(X)$$<p>To facilitate the derivation of $g(x,W)=\mathrm{E}_{y}[y|x]$, we also have to assume $E[\epsilon|x]=0$. This explains why we assume $\epsilon$ to be a random variable with zero mean and variance $\sigma^2$.</p>
-<p>But why should $\epsilon$ be a $\textsf{Gaussian}$?</p>
+<h4 id="Why-should-$\epsilon$-be-a-$\textsf{Gaussian}$?">Why should $\epsilon$ be a $\textsf{Gaussian}$?<a class="anchor-link" href="#Why-should-$\epsilon$-be-a-$\textsf{Gaussian}$?">&#182;</a></h4><p>Taking expectation over $(*)$, the result $g(x,W)=E_{y}[y|x]$ requires $E[\epsilon|x]=0$.</p>
 <p>If $\epsilon$ is a $\textsf{Gaussian}$ random variable, this implies $y$ also follows a $\textsf{Normal}$ distribution conditioned on $x$. There are two main reasons</p>
 <ol>
 <li>For regression problems, the output variable $y$ is continuous, so $\mathsf{Gaussian}$ is an intuitively natural choice. </li>
 </ol>
 <ol>
-<li>Optimizing the likelihood function given by $\mathsf{Normal}$ probability density function motivates the choice of <strong>sum-of-square</strong> loss function, which helps us understand the model complexity characterized by the concepts of $\textbf{Bias}$ and $\textbf{Variance}$. This will be explained in the next section.    </li>
+<li>Optimizing the likelihood function given by $\mathsf{Normal}$ probability density function motivates the choice of <strong>sum-of-squaredd</strong> loss function, which helps us understand the model complexity characterized by the concepts of $\textbf{Bias}$ and $\textbf{Variance}$. This will be explained in the section $3$.    </li>
 </ol>
 <ol>
-<li><p>Because the assumption of $\mathsf{Gaussian}$ gives rise to the use of squared loss function, the conditional mean is simply $E_y[y|x] = g(x,W) = W^TX$, and minimizing this loss function results in a close-form solution.</p>
-<p>Later we will look into an extension of simple linear models in which more complicated transformations of $E_y[y|x]$ are required for the linearity assumption to hold, and in some cases we don't have such a nice analytical solution.</p>
+<li><p>Because the assumption of $\mathsf{Gaussian}$ gives rise to the use of squared loss function, the conditional mean is simply $E_y[y|x] = g(x,W) = W^TX$, and minimizing this loss function results in a closed-form solution.</p>
+<p>In section $4$, we will look into an extension of simple linear models in which more complicated transformations of $E_y[y|x]$ are required for the linearity assumption to hold, and in some cases we don't have such a nice analytical solution.</p>
 </li>
 </ol>
 
@@ -14326,15 +14347,16 @@ $$E_D \left( [g_{D}(x) - y(x)]^2\right) =  E_D \left( [g_D(x) \ - E_D\left(g_D(x
 </ul>
 <p>Hence, we have 
 $$\textbf{Generalization Error} = \textbf{Bias}^2 + \textbf{Variance}$$.</p>
-<p>This means that regression models optimized on the sum-of-square loss function under $\textsf{Gaussian}$ distribution are subject to the trade-off between $\textbf{Bias}^2 + \textbf{Variance}$. These quantities control the model complexity and tell us a lot about fitting capacity of the model for the problem at hand.</p>
+<p>This means that regression models optimized on the sum-of-squaredd loss function under $\textsf{Gaussian}$ distribution are subject to the trade-off between $\textbf{Bias}^2 + \textbf{Variance}$. These quantities control the model complexity and tell us a lot about fitting capacity of the model for the problem at hand.</p>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="4.-Generalized-Linear-Model">4. Generalized Linear Model<a class="anchor-link" href="#4.-Generalized-Linear-Model">&#182;</a></h2><p>Let $y_1, y_2, ..., y_n$ denote $n$ independent observations on the target variable $Y$ conditioned on input $X$. A <strong>generalized linear model (GLM)</strong> assumes</p>
+<h2 id="4.-Generalized-Linear-Model">4. Generalized Linear Model<a class="anchor-link" href="#4.-Generalized-Linear-Model">&#182;</a></h2><p>Let $y_1, y_2, ..., y_n$ denote $n$ independent observations on the target variable $Y$ conditioned on input $X$.</p>
+<p>A <strong>generalized linear model (GLM)</strong> generalizes linear regression model in $2$ ways:</p>
 <h4 id="1.-Exponential-Family">1. Exponential Family<a class="anchor-link" href="#1.-Exponential-Family">&#182;</a></h4><p>$Y|X\sim$ exponential family distribution with probability density function and parameters $\theta, \phi$</p>
-$$f(Y = y|\theta,\phi) = \exp\left( \frac{y\theta-b(\theta)}{a(\phi)} + c(y,\phi)\right) \quad (\ast)$$<p></p>
+$$f(Y = y|\theta,\phi) = \exp\left( \frac{y\theta-b(\theta)}{a(\phi)} + c(y,\phi)\right) \quad (\ast\ast)$$<p></p>
 <p>Here $a(\phi), b(\theta)$ and $c(y,\phi$) are known functions. The distribution of $Y$ has mean and variance</p>
 $$\mathrm{E}(Y|X) = \mu = b'(\theta)$$$$\mathrm{Var}(Y|X) = \sigma^2 = b''(\theta)a(\phi)$$<p>where $b'(\theta)$ and $b'(\theta)$ respectively are the first and second derivative of $b(\theta)$.</p>
 <h4 id="2.-Link-Function">2. Link Function<a class="anchor-link" href="#2.-Link-Function">&#182;</a></h4><p>There exists a link function $g$ such that
@@ -14352,7 +14374,8 @@ $$g(\mu) = W^T X$$</p>
 <p>Let's say, a single observation $y_n \sim \mathcal{N}\left(\mu_n, \sigma_n\right)$ with mean $\mu_n$ and variance $\sigma_n$. The density function is given as</p>
 $$f(y_n) = \frac{1}{\sigma_n\sqrt{2\pi}} \exp\left(\frac{-(y_n - \mu_n)^2}{2\sigma_n^2}\right) = \exp\left(\log{2\pi\sigma^2}\right)^{\frac{-1}{2}} \exp\left(\frac{2y_n\sigma_n - y_n^2 - \sigma^2}{2\sigma_n^2}\right)$$$$f(y_n) = \exp\left( \frac{y_n\mu_n - 0.5\mu_n^2}{\sigma_n^2} - 0.5\left(\frac{y_n^2}{\sigma_n^2} + \log{2\pi\sigma^2}\right)\right)$$<p>Comparing this function against $(\ast)$ yields $$b(\theta) = 0.5\mu_n^2$$</p>
 $$\mathrm{E}(Y|X) = b'(\theta) = \mu_n = \theta \quad \text{and} \quad \phi=\sigma^2$$<p></p>
-<p>We also have $a(\phi) = \sigma^2$ and the second term in the exponent is one form of $c(y_n, \phi)$</p>
+<p>We also have $a(\phi) = \sigma^2$ and the second term in the exponent is one form of $c(y_n, \phi)$.</p>
+<p>One important observation is maximizing the density function above is equivalent to minimizing $(y_n - \mu_n)^2 = (y_n - \mathrm{E}(Y|X))^2$, which is the <strong>sum-of-squaredd</strong>.</p>
 
 </div>
 </div>
@@ -14406,7 +14429,14 @@ $$\mathcal{L(W)} = \sum_{n}^{N} \left( \frac{y_n W^TX-b(W^TX)}{a(\phi)} + c(y,\p
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="References">References<a class="anchor-link" href="#References">&#182;</a></h2>
+<h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h2><p>Assuming $\textsf{Gaussian}$ noise $\epsilon$ leads to $Y|X \sim \mathcal{N}(\mu, \sigma)$, which gives rise to the <strong>sum-of-squared</strong> loss function and $\textsf{Identity}$ link function. These ensure the loss function is strictly concave, thereby having a unique solution. All of these assumptions are <strong>Gauss-Markov Assumptions</strong>. The technique of minimizing the loss function by setting the derive equal to zero and solving it is called <strong>Ordinary Least Squares (OLS)</strong>. Under these assumptions, we can guarantee the analytical estimates of $W$ is unbiased OLS. You can read more about the proof in Chapter 3 of the book Introductory Econometrics (Wooldridge 2012).</p>
+<p>Among the assumptions, the assumption of constant variance $\sigma^2$ plays no role in the unbiasedness and consistency of the estimators. However, you can see that if $\sigma^2$ is not constant, the model has another parameter and the optimization problem becomes more complicated. The problem is referred to as <strong>Heteroskedasticity</strong>, and it affects the robustness of confidence intervals and $t$ test statistics. The consequence of <strong>Heteroskedasticity</strong> is more severe for time series analysis. In many machine learning applications, the variance is safely assumed fixed and known.</p>
+<h3 id="References">References<a class="anchor-link" href="#References">&#182;</a></h3><ul>
+<li>Pattern Recognition And Machine Learning - Bishop (2006)</li>
+<li>Introductory Econometrics : A Modern Approach - Wooldridge (2012)</li>
+<li>Statistics For Applications - MIT 18.650</li>
+</ul>
+
 </div>
 </div>
 </body>
