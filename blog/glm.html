@@ -4,18 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="main.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="../main.css">    
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script src="main.js"></script>
     <title>Vy Vo</title>
 </head>
 <body>
     <div class="navigation">
-        <div class="name">VY VO</div>
-        <div><a href="index.html">HOME</a></div>
-        <div><a href="blog.html">BLOG</a></div>
+        <div class="name"><a href="../index.html">VY VO</a></div>
+        <div><a href="../blog.html">BLOG</a></div>
+        <div><a href="../cv.html">CV</a></div>
     </div>
 
     <article class="article-template">
@@ -24,8 +22,10 @@
             <!--
             <p id="test"></p>
             -->
-            <h1>LINEAR REGRESSION MODEL</h1>
-            <p>In this note, I explain the assumptions underlying <span class="bold-text">Linear Regression</span>, an old-school machine learning model but remains widely used today. Though the original idea is very simple, it forms the bedrock of modern machine learning techniques.</p>
+            <h1>LINEAR ASSUMPTIONS</h1>
+            <p>Every machine learning journey starts with a simple linear model. I choose to explain the assumptions underlying <span class="bold-text">Linear Regression</span>, an old-school machine learning model but remains widely used today. 
+                Though the original idea is very simple, it forms the bedrock of modern machine learning techniques to which the same thinking applies.
+            </p>
             <p>Regression refers to the task of predicting values for a continuous random variable Y from an input variable X. To verify the assumptions of linear regression, we need to understand about <span class="bold-text">Generalized Linear Model (GLM)</span> which generalizes linear regression model to allow for more flexibilty. <span class="bold-text">Logistic Regression</span> is another design choice of GLM for classification task, which will also be briefly discussed.</p>
             <p>Let's now focus on Regression.</p>
             <p>Given examples of the target variable \(y\) and \(d\)-dimensional input vectors \(x\), we assume \(y\) arises from a deterministic function \(g(x, W)\) plus Gaussian noice \(\epsilon\) </p>
@@ -164,5 +164,7 @@
         </div>
         <div></div>
     </article>
+    <footer style="text-align: center;"> <medium>&copy; VY VO 2021.</medium> </footer> 
+    <br>
 </body>
 </html>
