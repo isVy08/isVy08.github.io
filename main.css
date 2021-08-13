@@ -15,7 +15,7 @@ html, body {
     grid-gap: 1em;
     justify-items: left;
     padding-left: 200px;
-    padding-right: 200px;
+    padding-right: 150px;
     padding-bottom: 10px;
     padding-top: 15px;
     align-items: center;
@@ -111,6 +111,7 @@ li {
     font-size: 24px;
     font-weight: 600;
     padding-right: 200px;
+    padding-bottom: 50px;
 }
 
 .caption {
@@ -126,12 +127,12 @@ a.article-link:hover {
 }
 
 .article-template {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+
     word-spacing: 5px;
     line-height: 22px;
-    padding-bottom: 50px;
+    padding: 5px 350px 50px 240px ;
     font-family: 'PT Sans';
+    text-align: justify;
 }
 
 span.italic-text, .italic-text {
