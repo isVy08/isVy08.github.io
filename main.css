@@ -102,24 +102,26 @@ li {
 
 .blog-content {
     display: grid;
-    grid-template-columns: 0.5fr 3fr 0.5fr;
-    padding-left: 150px;
+    grid-template-rows: 15px 15px;
+    padding-left: 100px;
 }
 
 .articles {
     display: grid;
     grid-row-gap: 40px;
     font-size: 24px;
+    font-weight: 600;
+    padding-right: 200px;
 }
 
-.date {
+.caption {
     color: grey;
     font-weight:lighter;
     font-size: 16px;
 }
 
 a.article-link:hover {
-    color: #555555;
+    color:black;
     font-size: 25px;
     text-decoration: underline;
 }
