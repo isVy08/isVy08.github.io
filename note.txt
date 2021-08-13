@@ -1,0 +1,43 @@
+
+SIDE NOTE:
+
+Hi sis here is briefly break down the structure of your Webpage
+
+I used Grid system to manage the page instead of flexbox. Don't worry about this 
+part I've done all of the heavy work and you just need to insert your article based on my 
+manual. That would save you a bit of time :))
+
+About the main.js don't worry about it either. I will enhance that part soon.
+
+MAIN NOTE:
+
+- MATH FORMULAS AND SYMBOLS:
+    + If it is inline with the text, use \(\). First execute the HTML format in "Mathjax" using "TeX" format.
+        For instance b^2 (b to the power of 2) will be written as \(b^2\).
+    + If you wanted to insert the entire formula then also use the "Tex" format. However, use $${}$$ instead of \(\)
+        For instance, $${g(\mu) = \mu = W^TX}$$ where the formula should be written within the { __ } bracket.
+
+- HEADING AND SECTION TITLE: 
+    + HEADING: A Heading of article you should use <h1> tag.  
+    + SECTION TITLE: Use <h3> tag. 
+
+- REFERENCING: 
+    Create an <ul> tag and then <li> tag. Then put class="italic-text" to ensure the text is in italic
+    Here is the sample: (You might as well just copy and paste it).
+    <ul class="italic-text"> 
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+
+- BOLD AND ITALIC TEXT WITHIN THE ARTICLE OR PARAGRAPH: 
+    Create a <span> tag then: 
+        + If you wanted the text to be bold --> class="bold-text" (Copy and paste to your desired text).
+            <span class="bold-text">(Insert the text here)</span>
+        
+        + If you wanted to text to be italic --> class="italic-text" (Copy and paste as well).
+            <span class="italic-text">(Insert the text here)</span>
+
+- PARAGRAPH:
+    Each paragraph will be used a single <p> tag just to make sure that the structure is clear and easy to maintain. 
+
