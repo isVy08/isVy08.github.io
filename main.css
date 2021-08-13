@@ -101,14 +101,13 @@ li {
 }
 
 .blog-content {
-    display: grid;
-    grid-template-rows: 15px 15px;
     padding-left: 100px;
+    grid-template-rows: 1fr 0.5fr 1fr;
 }
 
 .articles {
     display: grid;
-    grid-row-gap: 40px;
+    grid-row-gap: 20px;
     font-size: 24px;
     font-weight: 600;
     padding-right: 200px;
