@@ -3,59 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="main.css">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+    
+    <meta name="description" content="Vy Vo">
+    <meta property="og:description" content="Vy Vo">
     <title>Vy Vo</title>
+
+    <link rel="stylesheet" href="main.css">
 </head>
+
 <body>
-    <!--Navigation bar-->
 
-    <div class="navigation">
-        <div class="name"><a href="index.html">VY VO</a></div>
-        <div><a href="blog.html">BLOG</a></div>
-        <div><a href="projects.html">PROJECTS</a></div>
-    </div>
-
-    <!--Second div is for the main contain-->
-    <div class="body">
-        <div></div>
-    <!--Side bar-->    
-        <div class="sidebar">
-            <img class ="imgprofile"src="icon/vyphoto.jpeg" alt="Vy's profile picture">
-            <p></p>
-            <ul class="no-dot">
-                <img class="icons" src="icon/Facebook.png" alt="Facebook Icon" width="15px" height="15px">
-                <li><a class="IconText" href="https://www.facebook.com/isVy08/">Facebook</a></li>
-                <img class="icons" src="icon/Twitter.png" alt="Twitter Icon" width="15px" height="15px">
-                <li><a class="IconText"href="https://twitter.com/isVy08">Twitter</a></li>
-                <img class="icons" src="icon/LinkedIn.png" alt="LinkedIn Icon" width="15px" height="15px">
-                <li><a class="IconText"href="https://www.linkedin.com/in/vy-vo-4079b2b4/">LinkedIn</a></li>
-                <img class="icons" src="icon/GitHub.png" alt="GitHub Icon" width="15px" height="15px">
-                <li><a class="IconText"href="https://github.com/isVy08/">GitHub</a></li>
-            </ul>
-        </div>
-
-    <!--This div is for articles
-    Each article will have its own div-->
-        <div class="blog-content">
-            <div></div>
-            <div class="articles">
-                <br>
-                <!--First Article-->
-                <div>
-                    <span class="caption">March 2020</span><br>
-                    <a class="article-link" href="blog/data-job-landscape.html">Data Scientist Career Guide</a>
-                    <a class="article-link" style='color:blue;font-size: 20px;'; href="https://github.com/isVy08/data-jobs-landscape/">[GitHub]</a>                    
-                    <br><span class="caption">A quick overview of Data Science jobs around the world. </span>
-                </div>
-
-                
+    <div class="wrapper-masthead">
+        <div class="container">
+          <header class="masthead clearfix">
+            <a href="index.html" class="site-avatar"><img src="icon/vv.png" /></a>
+  
+            <div class="site-info">
+              <h1 class="site-name"><a href="index.html">Vy Vo</a></h1>
+              <p class="site-description">Let's live without regrets</p>
             </div>
-            <div><br></div>
-            <footer style="text-align: center;"> <medium>&copy; VY VO 2021.</medium> </footer>
-            <br>
-        </div>    
-    </div>
-</body>
+  
+            <nav>
+                <a href="blog.html">Blog</a>
+              <a href="projects.html">Projects</a>
+              <a href="https://github.com/isVy08">GitHub Repo</a>
+            </nav>
+          </header>
+        </div>
+      </div>
 
+
+    <div id="main" role="main" class="container">
+        <div class="posts"> 
+        <div style="font-size: 20px;">
+            <!--First Article-->
+            <div>
+                <span class="caption">March 2020</span>
+                <br><a href="blog/data-job-landscape.html">Data Scientist Career Guide</a>
+                <br><span class="caption">A quick overview of Data Science jobs around the world. </span>
+                <a style='font-size: 15px;text-decoration: underline;'; href="https://github.com/isVy08/data-jobs-landscape/">[GitHub]</a>                    
+
+            </div>
+            <br>
+        
+     </div>
+
+    </div>   
+    <div class="wrapper-footer">
+        <div class="container">
+          <footer class="footer">
+            
+      
+      <a href="https://www.facebook.com/isVy08"><i class="svg-icon facebook"></i></a>        
+      <a href="https://twitter.com/isVy08"><i class="svg-icon twitter"></i></a>
+      <a href="https://www.linkedin.com/in/isvy08/"><i class="svg-icon linkedin"></i></a>  
+  
+          </footer>
+        </div>
+      </div> 
+
+</body>
 </html>
+

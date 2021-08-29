@@ -3,23 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../main.css">    
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async
-            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-    </script>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+    
+    <meta name="description" content="Vy Vo">
+    <meta property="og:description" content="Vy Vo">
     <title>Vy Vo</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="../main.css">
 </head>
-<body>
-    <div class="navigation">
-        <div class="name"><a href="../index.html">VY VO</a></div>
-        <div><a href="../blog.html">BLOG</a></div>
-        <div><a href="../projects.html">PROJECTS</a></div>
-    </div>
 
-    <article class="article-template">
-        <div></div>
+<body>
+
+    <div class="wrapper-masthead">
+        <div class="container">
+          <header class="masthead clearfix">
+            <a href="index.html" class="site-avatar"><img src="../icon/vv.png" /></a>
+  
+            <div class="site-info">
+              <h1 class="site-name"><a href="../index.html">Vy Vo</a></h1>
+              <p class="site-description">Let's live without regrets</p>
+            </div>
+  
+            <nav>
+                <a href="../blog.html">Blog</a>
+              <a href="../projects.html">Projects</a>
+              <a href="https://github.com/isVy08">GitHub Repo</a>
+            </nav>
+          </header>
+        </div>
+      </div>
+
+
+    <div id="main" role="main" class="container">
+        <div class="posts"> 
+
+    <article class="post" style="text-align: justify;">
         <div>
             <!--
             <p id="test"></p>
@@ -158,15 +177,26 @@
             called read <span class="bold-text">Ordinary Least Squares (OLS)</span>. Under these assumptions, we can guarantee the anylytical estimates of \(W\) is unbiased OLS. You can read more about the proof in Chapter 3 of the book Introductory Econometrics (Wooldrige 2012).</p>
             <p>Among the assumptions, the assumption of constant variance  \(\sigma^2\) plays no role in the unbiasedness and consistency of the estimators. However, you can see that if \(\sigma^2\) is not constant, the model has another parameter and the optimization problem becomes more complicated. The problem is referred to as <span class="bold-text">Heteroskedasticity</span>, and it affects the robustness of confidence intervals and \(t\) test statistics. The consequence of <span class="bold-text">Heteroskedasticity</span> is more severe for time series analysis. In many machine learning applications, the variance is safely assumed fixed and known.</p>
             <h3>References</h3>
-            <ul class="italic-text">
+            <ul style="font-style: italic;">
                 <li>Pattern Recognition And Machine Learning -Bishop (2006)</li>
                 <li>Introductory Econometrics: A Modern Approach - Wooldridge (2012)</li>
                 <li>Statistic For Application - MIT 18.650</li>
             </ul>
         </div>
-        <div></div>
     </article>
-    <footer style="text-align: center;"> <medium>&copy; VY VO 2021.</medium> </footer> 
-    <br>
+        </div>
+    </div>
+    <div class="wrapper-footer">
+    <div class="container">
+    <footer class="footer">
+
+
+    <a href="https://www.facebook.com/isVy08"><i class="svg-icon facebook"></i></a>        
+    <a href="https://twitter.com/isVy08"><i class="svg-icon twitter"></i></a>
+    <a href="https://www.linkedin.com/in/isvy08/"><i class="svg-icon linkedin"></i></a>  
+
+    </footer>
+    </div>
+    </div> 
 </body>
 </html>
