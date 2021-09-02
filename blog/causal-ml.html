@@ -38,7 +38,7 @@
     <div id="main" role="main" class="container">
         <div class="posts"> 
 
-    <article class="post" style="text-align: justify;">
+    <article class="post">
         <div>
             <h1>CAUSAL MACHINE LEARNING</h1>
             The application of Causality to solve Machine Learning (ML) problems roots from the idea that there exists a true causal data-generating structure underlying observational data, which if machines can learn it, will improve their robustness and generalization capacity. 
@@ -66,14 +66,32 @@
             </figure>
             <br>
             A simple structural causal model is illustrated in the Figure 1 taken from the paper. \(C\) is the cause variable and \(E\) is the effect variable. 
-            \(N_{C}\) is a noise variable influencing \(C\) and \(N_{E}\) influences \(E\) via \(E = \phi(C, N_{E}) (*)\). 
-            \(N_{C}\) and \(N_{E}\) are independent, also \(P(N_{C})\) and \(P(N_{E})\) are normally assumed Gaussian. 
-            <br><br>
+            \(N_{C}\) is a noise variable influencing \(C\) and \(N_{E}\) influences \(E\) via 
+            $$E = \varphi(C, N_{E}) = \Phi(C) + N_{E} \quad (*)$$
+            where \(N_{C}\) and \(N_{E}\) are independent. \(P(N_{C})\) and \(P(N_{E})\) are normally assumed Gaussian. 
+            <br>
             In all cases, we are given training points sampled from \(\mathsf{P}(Y,X)\). 
             <h4>Causal Learning: Predicting Effect from Cause</h4>
+            <img src='causal-dir.png' alt='causal-learning' />
+            <br>
+            <h4>AntiCausal Learning: Predicting Cause from Effect</h4>
+            In this case, \(\mathsf{P}(Y|X)\) is sensitive to change in \(P(Y)\). It would better to model \(\mathsf{P}(X|Y)\) first and construct \(\mathsf{P}(Y|X)\) using Bayes’ rule. 
+            <br><br>
+            <img src='anticausal-dir.png' alt='anticausal-learning'/>
+
+            <br>
+            Details on the solutions can be found in the paper. Most early works as this one were dedicated to regression problems, though the general idea remains. 
+            <br><br>
+            Works that assume shift in joint distribution \(\mathsf{P}(Y,X)\) is due to covariate shift implies causal direction. 
+            I classify these papers as <strong>Causal Invariant Predictors</strong>.
+            Some other papers assuming anticausal direction attempt to learn invariant representation \(\Phi(C)\) under label shift, thus categorized into <strong>Causal Invariant Representations</strong>. 
+            <br><br>
+            I want to emphasize that both directions are possible and applicable to different scenarios. 
+            On the other hand, there are also other lines of work that rely on loose causal assumptions e.g., <strong>Invariant Risk Minimization</strong> or focus on <strong>learning the underlying independent mechanisms</strong>. 
             
-
-
+            <br><br>
+            The full paper list is available <a href="https://github.com/isVy08/causal-ai/">here.</a>
+            <br>And a quick summary of <strong>Causal Invariant Predictors</strong> papers is here.
 
     
     </article>
