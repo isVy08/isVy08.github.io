@@ -41,57 +41,60 @@
     <article class="post">
         <div>
             <h1>CAUSAL MACHINE LEARNING</h1>
-            The application of Causality to solve Machine Learning (ML) problems roots from the idea that there exists a true causal data-generating structure underlying observational data, which if machines can learn it, will improve their robustness and generalization capacity. 
-            Thus, a large majority of the papers at the intersection of Causality and ML focus on tackling Out-of-Distribution (Domain) Generalization. However, I personally would love to see more efforts towards high-level causal reasoning i.e., teach machines to reason causally. 
-            <br><br>
-            Two key concepts particularly useful for Domain Generalization (DG) are <strong>Invariance</strong> and <strong>Intervention</strong>. 
-            Intervention in this context refers to the changes in the joint distribution \(\mathsf{P}(Y,X)\), and according to the <strong>Principles of Independent Mechanisms</strong>, some parts of the causal generative model remain invariant under certain interventions. 
-            This means interventions on one variable only alter its conditional distribution given its causes, leaving the other mechanisms unchanged. This notion of invariance is expected to support transferability and robustness to distribution shift. 
-           <br><br>
-           For readers who are not familiar with causal concepts, I suggest you ready up on works by Judea Pearls, Bernhard Schölkopf and Jonas Peters. 
-           Though there are tons of good reads out there, my go-to is <a href="https://mitpress.mit.edu/books/elements-causal-inference/">Elements of Causal Inference</a> by Peters, Janzing and Schölkopf (2017). 
-           <br><br>
-           In this post, I summarize the paper <a href="https://icml.cc/2012/papers/625.pdf/">On Causal and Anticausal Learning</a> by these authors (again), which I find to be a good starting point to navigate research in this area. 
-           I also collect and categorize <a href="https://github.com/isVy08/causal-ai/">Causal ML papers</a> based on this paper.            
+            <p>
+              The application of Causality to solve Machine Learning (ML) problems roots from the idea that there exists a true causal data-generating structure underlying observational data, which if machines can learn it, will improve their robustness and generalization capacity. 
+              Thus, a large majority of the papers at the intersection of Causality and ML focus on tackling Out-of-Distribution (Domain) Generalization. However, I personally would love to see more efforts towards high-level causal reasoning i.e., teach machines to reason causally. 
+            </p>
+            <p>
+              Two key concepts particularly useful for Domain Generalization (DG) are <strong>Invariance</strong> and <strong>Intervention</strong>. 
+              Intervention in this context refers to the changes in the joint distribution \(\mathsf{P}(Y,X)\), and according to the <strong>Principles of Independent Mechanisms</strong>, some parts of the causal generative model remain invariant under certain interventions. 
+              This means interventions on one variable only alter its conditional distribution given its causes, leaving the other mechanisms unchanged. This notion of invariance is expected to support transferability and robustness to distribution shift.   
+            </p>
+            <p>
+              For readers who are not familiar with causal concepts, I suggest you ready up on works by Judea Pearls, Bernhard Schölkopf and Jonas Peters. 
+              Though there are tons of good reads out there, my go-to is <a href="https://mitpress.mit.edu/books/elements-causal-inference/">Elements of Causal Inference</a> by Peters, Janzing and Schölkopf (2017). 
+            </p>
+            <p>
+              In this post, I summarize the paper <a href="https://icml.cc/2012/papers/625.pdf/">On Causal and Anticausal Learning</a> by these authors (again), which I find to be a good starting point to navigate research in this area. 
+              I also collect and categorize <a href="https://github.com/isVy08/causal-ai/">Causal ML papers</a> based on this paper.            
+            </p>
 
            <h2>Causal or not Causal?</h2> 
            Given inputs \(X\) and target \(Y\), it can either be \(X\) causes \(Y\) \( (X \rightarrow Y)\) or \(Y\) causes \(X\) \((Y \rightarrow X)\). 
            The former direction is <italic>causal</italic> and the latter is <italic>anticausal</italic>. Each gives rise to a variety of (symmetric) settings where the common goal is to learn the condition distribution \(\mathsf{P}(Y|X)\).
            The key take-away is not to apply Bayes rule blindly, rather to understand the properties of different causal structures and make assumptions where appropriate.  
-
            <br><br>
            <figure style="text-align: center;">
                 <img src='causal-ml.png' alt='simplescm' />
                 <figcaption style="font-style: italic; font-size: small;">Figure 1</figcaption>
             </figure>
-            <br>
+            <p>
             A simple structural causal model is illustrated in the Figure 1 taken from the paper. \(C\) is the cause variable and \(E\) is the effect variable. 
             \(N_{C}\) is a noise variable influencing \(C\) and \(N_{E}\) influences \(E\) via 
             $$E = \varphi(C, N_{E}) = \Phi(C) + N_{E} \quad (*)$$
             where \(N_{C}\) and \(N_{E}\) are independent. \(P(N_{C})\) and \(P(N_{E})\) are normally assumed Gaussian. 
-            <br>
+            </p>
             In all cases, we are given training points sampled from \(\mathsf{P}(Y,X)\). 
             <h4>Causal Learning: Predicting Effect from Cause</h4>
             <img src='causal-dir.png' alt='causal-learning' />
-            <br>
+            <p>
             <h4>AntiCausal Learning: Predicting Cause from Effect</h4>
             In this case, \(\mathsf{P}(Y|X)\) is sensitive to change in \(P(Y)\). It would better to model \(\mathsf{P}(X|Y)\) first and construct \(\mathsf{P}(Y|X)\) using Bayes’ rule. 
-            <br><br>
+            </p>
             <img src='anticausal-dir.png' alt='anticausal-learning'/>
-
             <br>
             Details on the solutions can be found in the paper. Most early works as this one were dedicated to regression problems, though the general idea remains. 
-            <br><br>
+            <p>
             Works that assume shift in joint distribution \(\mathsf{P}(Y,X)\) is due to covariate shift implies causal direction. 
             I classify these papers as <strong>Causal Invariant Predictors</strong>.
             Some other papers assuming anticausal direction attempt to learn invariant representation \(\Phi(C)\) under label shift, thus categorized into <strong>Causal Invariant Representations</strong>. 
-            <br><br>
+            </p>
+            <p>
             I want to emphasize that both directions are possible and applicable to different scenarios. 
             On the other hand, there are also other lines of work that rely on loose causal assumptions e.g., <strong>Invariant Risk Minimization</strong> or focus on <strong>learning the underlying independent mechanisms</strong>. 
-            
-            <br><br>
+            </p>
             The full paper list is available <a href="https://github.com/isVy08/causal-ai/">here.</a>
-            <br>And a quick summary of <strong>Causal Invariant Predictors</strong> papers is here.
+            <br>And a quick summary of <strong>Causal Invariant Predictors</strong> papers is written <a href="causal-ip.html">here</a>.
 
     
     </article>

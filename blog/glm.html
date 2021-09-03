@@ -176,7 +176,7 @@
             <p>Assuming \(\textsf{Gaussian}\) noise \(\epsilon\) leads to \(Y|X \sim \mathcal{N}(\mu, \sigma)\), which gives rise to the  <span class="bold-text">sum-of-squared</span> loss function and \(\textsf{Identity}\) link function. These ensure the loss function is stricly concave, thereby having a unique solution. All of these assumptions are <span class="bold-text">Gauss-Markov Assumptions</span>. The technique of minimising the loss function by setting the derive equal to zero and solving it is 
             called read <span class="bold-text">Ordinary Least Squares (OLS)</span>. Under these assumptions, we can guarantee the anylytical estimates of \(W\) is unbiased OLS. You can read more about the proof in Chapter 3 of the book Introductory Econometrics (Wooldrige 2012).</p>
             <p>Among the assumptions, the assumption of constant variance  \(\sigma^2\) plays no role in the unbiasedness and consistency of the estimators. However, you can see that if \(\sigma^2\) is not constant, the model has another parameter and the optimization problem becomes more complicated. The problem is referred to as <span class="bold-text">Heteroskedasticity</span>, and it affects the robustness of confidence intervals and \(t\) test statistics. The consequence of <span class="bold-text">Heteroskedasticity</span> is more severe for time series analysis. In many machine learning applications, the variance is safely assumed fixed and known.</p>
-            <h3>References</h3>
+            <h4>References</h4>
             <ul style="font-style: italic;">
                 <li>Pattern Recognition And Machine Learning -Bishop (2006)</li>
                 <li>Introductory Econometrics: A Modern Approach - Wooldridge (2012)</li>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+    
+    <meta name="description" content="Vy Vo">
+    <meta property="og:description" content="Intro to Causal Thinking"/>
+    <title>Vy Vo</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="../main.css">
+</head>
+
+<body>
+
+    <div class="wrapper-masthead">
+        <div class="container">
+          <header class="masthead clearfix">
+            <a href="https://isvy08.github.io/" class="site-avatar"><img src="../icon/vv.png" /></a>
+  
+            <div class="site-info">
+              <h1 class="site-name"><a href="https://isvy08.github.io/">Vy Vo</a></h1>
+              <p class="site-description">What's life without whimsy</p>
+            </div>
+  
+            <nav>
+                <a href="../blog.html">Blog</a>
+              <a href="../projects.html">Projects</a>
+              <a href="https://github.com/isVy08">GitHub Repo</a>
+            </nav>
+          </header>
+        </div>
+      </div>
+
+
+    <div id="main" role="main" class="container">
+        <div class="posts"> 
+
+    <article class="post">
+        <div>
+            <h1>CAUSAL INVARIANT PREDICTORS</h1>
+            <p>
+              As discussed in <a href="causal-ml.html">Intro to Causal ML</a>, papers in this category tend to assume \(X\) is the cause of \(Y\), 
+              and attribute changes in joint distribution \(P(X,Y)\) to covariate shift. Thus, the objective to learn invariant distribution \(P(Y|X)\), resulting in predictor \(E(Y|X)\), or to identify a subset of features out of \(X\) or learn presentations \(\Phi(X)\) that satisfies this condition.   
+            </p>
+            
+            <p>
+              The concept of invariant predictors probably rooted from <a href="#ref-1">[1]</a>. The paper claims there exists a set of coefficients that yield the same conditional distribution for all environments \(\varepsilon \in E\). 
+              Like <a href="#ref-1">[1]</a>, the algorithms proposed in <a href="#ref-2">[2]</a>, <a href="#ref-3">[3]</a> and <a href="#ref-5">[5]</a> are suited for regression problems, while <a href="#ref-5">[4]</a> is mainly focused on discrimination. Though classification problems can be viewed as a special case of regression, it is not clear how the knowledge can be transferred. 
+              <a href="#ref-1">[1]</a> and <a href="#ref-2">[2]</a> present a general framework on any kind of interventions while <a href="#ref-3">[3]</a> targets domain adaptation and <a href="#ref-4">[4]</a>, <a href="#ref-4">[5]</a> applies to soft interventions via \(do\) calculus. 
+            </p>
+            <p>  
+              The big theme is to formulate the invariant conditions and suggest methods to uncover subsets of features that meet these condition to be invariant. 
+              <a href="#ref-1">[1]</a> believes invariance remains in the regression coefficients (termed <strong>plausible causal coefficients</strong>), not in \(X\) itself like the other papers, and the approach is to use a range of hypothesis tests to detect these coefficients. 
+              In <a href="#ref-2">[2]</a>, a subset \(S\) can be extracted from \(X\), and if \(S\) is found invariant, it leads to robust properties for DG. Once an invariant set is known, traditional methods for covariate shift can be applied. 
+              Their strategy is to brute force to find \(S\) that gives the lowest validation error. The resulting subset is in fact an estimate and more statistical tests are should further be conducted for verification. 
+            </p>
+            <p>
+              On the oher hand, <a href="#ref-3">[3]</a> and <a href="#ref-5">[5]</a> define \(S\) more rigorously. In <a href="#ref-3">[3]</a>, a system is described by a set of content variables \(C_{i}\) and system variables \(X_{j}\) where \(C_{i}\) are exogenous and \(X_{i}\) are endogenous. 
+              Thus, \(C_{i}\) is domain dependent and subject to interventions. If a set \(A\) neither in \(C\) nor contains \(Y\) satisfies \(C \bot Y|A\), the conditional distribution \(P(Y|A\) is invariant under domain shift
+              $$P(Y|A,C=0) = P(Y|A, C=1)$$
+              In their setting, \(P(C)\) is known, which is the full distribution of source and target domains. They propose a brute-force algorithm testing all possible conditional independences to uncover \(A\).   
+              Regression bias in domain adaption can be decomposed into <strong>transfer bias</strong> and <strong>incomplete information bias</strong> (only select \(A\) in prediction), as depicted below 
+              <figure style="text-align: center;">
+                <img src='reg-bias.png' alt='total-reg-bias' />
+                <figcaption style="font-style: italic; font-size: small;">Figure taken from the paper</figcaption>
+              </figure>
+              <br>
+              \(A\) is invariant, so transfer bias now is zero. Thus, \(A\) can then used to learn the invariant predictor \(E(Y|X)\) by mimizing incomplete information bias. However, whether this is the optimal predictor is questionable.  
+            </p>
+            <p>
+              <a href="#ref-5">[5]</a> somewhat answers this question. The authors here formulate invariance using causal factorization. The system includes a target variable \(Y\), an invariant set \(X_{s}\) and a mutable set \(X_{m}\) where 
+              \(X_{s} := \{X_{i} | p^{\epsilon}(x_{i}|pa_{i} \equiv p(x_{i}|pa_{i})\}\) \(\forall \epsilon \in E\) and  \(X_{m} := \{X_{i} | p^{\epsilon}(x_{i}|pa_{i} \ne p^{\epsilon'}(x_{i}|pa_{i})\}\) \(\exists \epsilon , \epsilon' \in E\).
+            
+              <br><br>The joint distribution \(p^{\epsilon}(x,y)\) varies across domain, represented by the following causal framework
+              $$p^{\epsilon}(x,y) = p(y|pa_{y}) \prod_{x_{i} \in x_{s}} p(x_{i}|pa_{i}) \prod_{x_{i} \in x_{m}} p^{\epsilon}(x_{i}|pa_{i}), \text{for } \epsilon \in E$$ 
+              This means that changes in \(p^{\epsilon}(x,y)\) are caused by changes in individual \(p^{\epsilon}(x_{i}|pa_{i})\)
+            </p>
+            <p>
+              On top of this, they assume the mechanism generating \(Y\) is stable across domains i.e., \(p^{\epsilon}(y|pa_{y} \equiv p(x|pa_{y})\}\).
+              Under soft interventions \(do (X_{m} = x_{m})\), fixing \(X_{m}\) to a constant value \(x_{m}\), the conditional probability \(p^{\epsilon}(Y|x_{s}, do (x_{m}))\) is invariant.
+              Thus, the invariant predictor \(f^{*}(x) := p^{\epsilon}(Y|x_{s}, do (x_{m}))\) is also stable, and additionally minimizes the maximum quadratic loss over all domains
+              $$f^{*}(x) = \text{argmin}_{f: \mathcal{X} \mapsto \mathcal{Y}} \text{ max}_{P^{\epsilon} \in \mathcal{P}} \ E^{P^{\epsilon}}[(Y-f(X))^{2}] $$
+            </p>
+            <p>
+              They prove this minimax property by (1) providing conditions of causal structures which the property immediately follows, 
+              (2) assuming additive noise model and based on this, they transform a min-max into a max-min problem, which is the building block for their algorithm.  
+            </p>
+            <p>
+              Paper <a href="#ref-5">[5]</a> (RELIC) addresses the biggest drawback of the other papers - the failure of extension to Deep Learning settings which are non-linear and multi-dimensional. 
+              The paper establishes a link between DL and Causality through a task-agnostic framework with experiments mainly done on visual recognition tasks. They leverage causality to explain the success behind self-supervised representation learning and modify the regular contrastive loss objective to include an invariance regularization term that is empircally demonstrated to recover SOTA results. 
+              
+              <figure style="text-align: center;">
+                <img src='relic-graph.png' alt='relic-causal-graph'/>
+                <figcaption style="font-style: italic; font-size: small;">Figure taken from the paper</figcaption>
+              </figure>
+              <br>
+              The true data generating process assumed in RELIC follows the above causal graph in which two independent variables <italic>Style</italic> \(S\) and <italic>Content</italic> \(C\) jointly construct the image \(X\). \(X\) then determines target \(Y\) through a representation \(f(X)\). 
+              \(S\) is subject to changes under interventions while \(C\) is the invariant factor. They simulate interventions through a series of content-preserving data augmentations.
+              Each augmentation introduces a different style possibly observed in the environment.
+              The goal is to an optimal invariant representation that satisfies
+              $$p^{do (S=s_i)}(Y_t|C) = p^{do (S=s_j)}(Y_t|C) \ \forall s_{i}, s{j} \in S$$
+              
+              Instead of brute force, they propose a more efficient method to learn \(f(X)\), by simply adding to the vanilla constrative loss a invariance regularization term. 
+              This term measures the discrepancy of the same distribution of a pair of data points \((x_{i}, x_{j})\) but between two different interventions, denoted as
+              $$KL(p^{do (a_{lk})}, p^{do (a_{qt})})$$
+              where \(x_{i}\) is under interventions \(s_{l}\), \(s_{q}\) and \(x_{j}\) is under interventions \(s_{k}\), \(s_{t}\)
+              The loss objective is optimized over the full set of data and pairs of augmentations \(a_{qt}\). 
+              This is explicitly to enforce data structures are shared across interventions, thus forcing the model to learn the invariant factors.
+            </p>
+            <p>
+              Notice in the figure, \(T\) refers to differnt environments or task setups. Here they also prove that if \(f(X)\) can be learned optimally in an instance discrimination task (a refinement), \(f(X)\) can be generalized to other settings. 
+            </p>
+
+            <p>
+              Identifiability is still a challenging problem. Thus, behind each of these frameworks is a causal structure assumed to hold that must be supported with another set of assumptions. 
+              Readers are encouraged to go through them in detail to grasp the underlying background on why and how they work.    
+            </p>
+
+            <h4>References</h4>
+              <a id="ref-1">[1]</a> Peters, J., Bühlmann, P., & Meinshausen, N. (2016). Causal inference by using invariant prediction: identification and confidence intervals. Journal of the Royal Statistical Society. Series B (Statistical Methodology), 947-1012.<br><br>
+              <a id="ref-2">[2]</a> Rojas-Carulla, M., Schölkopf, B., Turner, R., & Peters, J. (2018). Invariant models for causal transfer learning. The Journal of Machine Learning Research, 19(1), 1309-1342.<br><br>
+              <a id="ref-3">[3]</a> Magliacane, S., van Ommen, T., Claassen, T., Bongers, S., Versteeg, P., & Mooij, J. M. (2017). Domain adaptation by using causal inference to predict invariant conditional distributions. arXiv preprint arXiv:1707.06422.<br><br>
+              <a id="ref-4">[4]</a> Mitrovic, J., McWilliams, B., Walker, J., Buesing, L., & Blundell, C. (2020). Representation learning via invariant causal mechanisms. arXiv preprint arXiv:2010.07922.<br><br>
+              <a id="ref-5">[5]</a> Zheng, X., Sun, X., Chen, W., & Liu, T. Y. (2021). Causally Invariant Predictor with Shift-Robustness. arXiv preprint arXiv:2107.01876.<br><br>
+
+                    
+
+    </article>
+        </div>
+    </div>
+    <div class="wrapper-footer">
+        <div class="container">
+        <footer class="footer">
+
+
+        <a href="https://www.facebook.com/isVy08"><i class="svg-icon facebook"></i></a>        
+        <a href="https://twitter.com/isVy08"><i class="svg-icon twitter"></i></a>
+        <a href="https://www.linkedin.com/in/isvy08/"><i class="svg-icon linkedin"></i></a>
+        <br><p style="font-size: 10px;">&copy; 2021 Vy Vo. Powered by Jekyll and Jekyll Now Theme</p>   
+
+        </footer>
+        </div>
+    </div> 
+</body>
+</html>
