@@ -43,7 +43,7 @@
             <h1>CAUSAL INVARIANT PREDICTORS</h1>
             <p>
               As discussed in <a href="causal-ml.html">Intro to Causal ML</a>, papers in this category tend to assume \(X\) is the cause of \(Y\), 
-              and attribute changes in joint distribution \(P(X,Y)\) to covariate shift. Thus, the objective to learn invariant distribution \(P(Y|X)\), resulting in predictor \(E(Y|X)\), or to identify a subset of features out of \(X\) or learn presentations \(\Phi(X)\) that satisfies this condition.   
+              and attribute changes in joint distribution \(P(X,Y)\) to covariate shift. Thus, the objective is to learn invariant distribution \(P(Y|X)\), resulting in invariant predictor \(E(Y|X)\), or to identify a subset of features out of \(X\) or learn presentations \(\Phi(X)\) that satisfies this condition.   
             </p>
             
             <p>
@@ -79,7 +79,7 @@
               This means that changes in \(p^{\epsilon}(x,y)\) are caused by changes in individual \(p^{\epsilon}(x_{i}|pa_{i})\)
             </p>
             <p>
-              On top of this, they assume the mechanism generating \(Y\) is stable across domains i.e., \(p^{\epsilon}(y|pa_{y} \equiv p(x|pa_{y})\}\).
+              On top of this, they assume the mechanism generating \(Y\) is stable across domains i.e., \(p^{\epsilon}(y|pa_{y} \equiv p(y|pa_{y})\}\).
               Under soft interventions \(do (X_{m} = x_{m})\), fixing \(X_{m}\) to a constant value \(x_{m}\), the conditional probability \(p^{\epsilon}(Y|x_{s}, do (x_{m}))\) is invariant.
               Thus, the invariant predictor \(f^{*}(x) := p^{\epsilon}(Y|x_{s}, do (x_{m}))\) is also stable, and additionally minimizes the maximum quadratic loss over all domains
               $$f^{*}(x) = \text{argmin}_{f: \mathcal{X} \mapsto \mathcal{Y}} \text{ max}_{P^{\epsilon} \in \mathcal{P}} \ E^{P^{\epsilon}}[(Y-f(X))^{2}] $$
