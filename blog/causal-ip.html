@@ -42,14 +42,14 @@
         <div>
             <h1>CAUSAL INVARIANT PREDICTORS</h1>
             <p>
-              As discussed in <a href="causal-ml.html">Intro to Causal ML</a>, papers in this category tend to assume \(X\) is the cause of \(Y\), 
-              and attribute changes in joint distribution \(P(X,Y)\) to covariate shift. Thus, the objective is to learn invariant distribution \(P(Y|X)\), resulting in invariant predictor \(E(Y|X)\), or to identify a subset of features out of \(X\) or learn presentations \(\Phi(X)\) that satisfies this condition.   
+              As discussed in <a href="anticausal.html">On Causal and Anticausal Learning</a>, papers in this category tend to assume \(X\) is the cause of \(Y\), 
+              and attribute changes in joint distribution \(P(X,Y)\) to covariate shift. Thus, the objective is to learn invariant distribution \(P(Y|X)\), resulting in invariant predictor \(E(Y|X)\), or to identify a subset of features out of \(X\) or learn presentations \(\Phi(X)\) that satisfy this condition.   
             </p>
             
             <p>
               The concept of invariant predictors probably rooted from <a href="#ref-1">[1]</a>. The paper claims there exists a set of coefficients that yield the same conditional distribution for all environments \(\varepsilon \in E\). 
-              Like <a href="#ref-1">[1]</a>, the algorithms proposed in <a href="#ref-2">[2]</a>, <a href="#ref-3">[3]</a> and <a href="#ref-5">[5]</a> are suited for regression problems, while <a href="#ref-5">[4]</a> is mainly focused on discrimination. Though classification problems can be viewed as a special case of regression, it is not clear how the knowledge can be transferred. 
-              <a href="#ref-1">[1]</a> and <a href="#ref-2">[2]</a> present a general framework on any kind of interventions while <a href="#ref-3">[3]</a> targets domain adaptation and <a href="#ref-4">[4]</a>, <a href="#ref-4">[5]</a> applies to soft interventions via \(do\) calculus. 
+              Like <a href="#ref-1">[1]</a>, the algorithms proposed in <a href="#ref-2">[2]</a>, <a href="#ref-3">[3]</a> and <a href="#ref-5">[5]</a> are suited for regression problems, while <a href="#ref-5">[4]</a> is mainly focused on discrimination. Though classification can be viewed as a special case of regression, it is not clear how the knowledge can be transferred. 
+              <a href="#ref-1">[1]</a> and <a href="#ref-2">[2]</a> present general frameworks that work on any kinds of interventions while <a href="#ref-3">[3]</a> targets domain adaptation and <a href="#ref-4">[4]</a>, <a href="#ref-4">[5]</a> are applicable to soft interventions via \(do\) calculus. 
             </p>
             <p>  
               The big theme is to formulate the invariant conditions and suggest methods to uncover subsets of features that meet these condition to be invariant. 
@@ -59,7 +59,7 @@
             </p>
             <p>
               On the oher hand, <a href="#ref-3">[3]</a> and <a href="#ref-5">[5]</a> define \(S\) more rigorously. In <a href="#ref-3">[3]</a>, a system is described by a set of content variables \(C_{i}\) and system variables \(X_{j}\) where \(C_{i}\) are exogenous and \(X_{i}\) are endogenous. 
-              Thus, \(C_{i}\) is domain dependent and subject to interventions. If a set \(A\) neither in \(C\) nor contains \(Y\) satisfies \(C \bot Y|A\), the conditional distribution \(P(Y|A\) is invariant under domain shift
+              Thus, \(C_{i}\) is domain dependent and subject to interventions. If a set \(A\) is neither in \(C\) nor contains \(Y\) satisfies \(C \bot Y|A\), the conditional distribution \(P(Y|A)\) is invariant under domain shift
               $$P(Y|A,C=0) = P(Y|A, C=1)$$
               In their setting, \(P(C)\) is known, which is the full distribution of source and target domains. They propose a brute-force algorithm testing all possible conditional independences to uncover \(A\).   
               Regression bias in domain adaption can be decomposed into <strong>transfer bias</strong> and <strong>incomplete information bias</strong> (only select \(A\) in prediction), as depicted below 
@@ -89,7 +89,7 @@
               (2) assuming additive noise model and based on this, they transform a min-max into a max-min problem, which is the building block for their algorithm.  
             </p>
             <p>
-              <a href="#ref-4">[4]</a> (RELIC) addresses the biggest drawback of the other papers - the failure of extension to Deep Learning settings which are non-linear and multi-dimensional. 
+              <a href="#ref-4">[4]</a> proposes RELIC that addresses the biggest drawback of the other papers - the failure of extension to Deep Learning settings which are non-linear and multi-dimensional. 
               The paper establishes a link between DL and Causality through a task-agnostic framework with experiments mainly done on visual recognition tasks. They leverage causality to explain the success behind self-supervised representation learning and modify the regular contrastive loss objective to include an invariance regularization term that is empircally demonstrated to recover SOTA results. 
               
               <figure style="text-align: center;">
@@ -111,7 +111,7 @@
               This is explicitly to enforce data structures are shared across interventions, thus forcing the model to learn the invariant factors.
             </p>
             <p>
-              Notice in the figure, \(T\) refers to differnt environments or task setups. Here they also prove that if \(f(X)\) can be learned optimally in an instance discrimination task (a refinement), \(f(X)\) can be generalized to other settings. 
+              Notice in the figure, \(T\) refers to different environments or task setups. Here they also prove that if \(f(X)\) can be learned optimally in an instance discrimination task (a refinement), \(f(X)\) can be generalized to other settings. 
             </p>
 
             <p>
