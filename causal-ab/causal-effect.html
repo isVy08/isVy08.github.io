@@ -151,9 +151,49 @@
               
         </p>
         <p>
-            What is commonly mistaken with causal effect is the conditional probabilities from such observational data. 
-            We have \
+            The missing values ? indicate counterfactual outcomes are never observed. What is commonly mistaken with causal effect is the conditional probabilities from such observational data. 
+            We have \(\mathrm{P}(Y=1|A=1)\) is the proportion of individuals who die among those receiving the treatment, and \(\mathrm{P}(Y=1|A=0)\) is the proportion of individuals who die among those who not. 
+            A quick calculation yields \(\mathrm{P}(Y=1|A=1) = 0\) and \(\mathrm{P}(Y=1|A=0) = 3/6 = 0.5\). 
         </p>
+        <p>
+            If \(\mathrm{P}(Y=1|A=1) = \mathrm{P}(Y=1|A=0)\), then \(A\) and \(Y\) are independent, in other words \(A\) does not predict \(Y\). In our example, there exists a correlation between these two variables.
+            You may already see that the conditional probabilities and the average causal effects calculated above are not equal. This is the first sign. 
+            Second, in the full example where there are 20 individuals in the population, the average causal effect is zero, but \(A\) and \(Y\) are still correlated. So, do check it out in the book.  
+        </p>
+        <p>
+            If you do the calculation manually, you must observe that causal effects are calculated over the entire population in Table 1, while associational probabilities only take half of the population into account.  
+            Figure 1.1 in the book illustrates this best
+            <figure style="text-align: center;">
+                <img src='causation-isnot-association.png' alt='causation-vs-association'/>
+                <figcaption style="font-size: small;">Figure taken from the paper</figcaption>
+            </figure>
+            <br>I quote the authors' explanation:
+        </p>
+        <q class="caption" style="font-style: italic;">That is, inferences about causation are concerned with what if questions in counterfactual worlds, such as “what would be the risk if everybody had been treated?” and “what would be the risk if everybody had been untreated?”, 
+            whereas inferences about association are concerned with questions in the actual world, such as “what is the risk in the treated?” and “what is the risk in the untreated?” - Hernán & Robins (2010).</q>
+        
+        <h3>Randomization</h3>
+        <p>
+            Ok, so potential outcomes are impossible, and observational data cannot provide the true causal effect. Now what? 
+            <br><br>
+            We return to our very assumption of a perfect scenario. Provided an ideal randomized experiment with sufficient control, association is causation. 
+            Suppose we are still given the data in Table 2, randomization guarantees whether a person is treated or not is determined purely by chance, or there would be no confounding bias.
+            Formally, the counterfactual outcome \(Y^{a}\) and observed treatment \(A\) are <strong>independent</strong>, \(Y^{a} \perp A\).
+        </p>
+        <p>
+            The key concept is <strong>Exchangeability</strong>. This means if the experimental group became the control group, and the control group now received the treatment, the expected outcome would be the same. 
+            Thus, the average causal effect in the treated equals the causal effect among the untreated group, and must equal to the marginal effect the whole population. 
+            $$\mathrm{E}(Y^{a}|A=1) = \mathrm{E}(Y^{a}|A=0) = \mathrm{E}(Y^{a})$$
+            Randomization allows for exchangeability. Therefore, our ideal randomized experiment permits us to compute the counterfactual risk under treatment in the population because it is equal to the associational probability in the treated.
+            $$\mathrm{P}(Y^{a=1} = 1) = \mathrm{P}(Y=1|A=1)$$ 
+        </p>
+        <p>
+            If the missing values in Table 2 were filled in, we would be able to determine whether exchangeability holds in the population by comparing \(\mathrm{P}(Y^{a=0}=1|A=1)\) with \(\mathrm{P}(Y^{a=0}=1|A=0)\). 
+            Again, this is impossible. However, lack of exchangeability does not imply our experiment is not randomized. We can design an experiment in which exchangeability (or randomization) holds within subsets of the population.
+            Let me introduce <strong>Conditional Randomization</strong>.  
+        </p>
+        <h3>Conditional Randomization</h3>
+
 
 
 
