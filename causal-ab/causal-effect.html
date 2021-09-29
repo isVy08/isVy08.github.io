@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+    
+    <meta name="description" content="Vy Vo">
+    <meta property="og:description" content="Intro to Causal Thinking"/>
+    <title>Vy Vo</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="../main.css">
+</head>
+
+<body>
+
+    <div class="wrapper-masthead">
+        <div class="container">
+          <header class="masthead clearfix">
+            <a href="https://isvy08.github.io/" class="site-avatar"><img src="../icon/vv.png" /></a>
+  
+            <div class="site-info">
+              <h1 class="site-name"><a href="https://isvy08.github.io/">Vy Vo</a></h1>
+              <p class="site-description">What's life without whimsy</p>
+            </div>
+  
+            <nav>
+                <a href="../blog.html">Blog</a>
+              <a href="../projects.html">Projects</a>
+              <a href="https://github.com/isVy08">GitHub Repo</a>
+            </nav>
+          </header>
+        </div>
+      </div>
+
+
+    <div id="main" role="main" class="container">
+        <div class="posts"> 
+
+    <article class="post" style="text-align: justify;">
+        <div>
+            <h1>A Perfect Scenario</h1>
+            <span><a href="/">Intro to Causal A/B Testing</a></span>
+            
+            <p>
+                The most common examples of randomized experiments in causal inference literature, often called randomized controlled trials (RCTs) are clinical trials that compare the effect of drugs, diagnostic procedures or other medical treatments. 
+                In these experiments, participants are divided into two groups: one group is assigned the treatment (experimental) and the other group either receives the conventional treatment (control) or does not get treated (e.g., a placebo). 
+                A/B test can further involve one or more variants of the treatment, which would then become an A/B/C or A/B/C/D test with more experimental groups accordingly. 
+            </p>
+            <p>
+                To make it simple, we assume the task is to compare the outcomes between when action \(A\) is taken and when action \(A\) is not taken. 
+                If the two outcomes differ, we say action \(A\) has a causal effect on the outcome. The knowledge is taken from Chapter 1 – 4 in the book <a href="https://cdn1.sph.harvard.edu/wp-content/uploads/sites/1268/2019/10/ci_hernanrobins_1oct19.pdf">Causal Inference: What If</a>  (Hernán & Robins, 2010). 
+                I borrow the same notations and examples for convenience.  
+            </p>
+           
+            <h3>Measures of Causal Effect</h3>
+            <p>
+                Consider two random variables: a binary treatment variable \(A\) (1 = treated, 0 = untreated) and a binary outcome variable \(Y\) (1 = die, 0 = alive)
+                <li>\(Y^{a=1}\) is the outcome variable that would have been observed under the treatment value \(a=1\)</li>
+                <li>\(Y^{a=0}\) is the outcome variable that would have been observed under the treatment value \(a=0\)</li>  
+            </p>
+            <p>
+                Suppose for some god-know-how reasons, you are magically given the data in Table 1 (extracted from Table 1.1, page 5)
+                <table style="width: 50%;">
+                    <tr>
+                      <th style="font-weight: bold;">Participants</th>
+                      <th style="font-weight: bold;">\(Y^{a=0}\)</th> 
+                      <th style="font-weight: bold;">\(Y^{a=1}\)</th>
+                    </tr>
+                    <tr>
+                      <td>Rheia</td><td>0</td><td>1</td>
+                    </tr>
+                    <tr>
+                      <td>Kronos</td><td>1</td><td>0</td>
+                    </tr>   
+                    <tr>
+                      <td>Demeter</td><td>0</td><td>0</td>
+                    </tr>  
+                    <tr>
+                      <td>Hades</td><td>0</td><td>0</td>
+                    </tr> 
+                    <tr>
+                      <td>Hera</td><td>0</td><td>0</td>
+                    </tr>                 
+                    <tr>
+                        <td>Artemis</td><td>1</td><td>1</td>
+                    </tr>                 
+                    <tr>
+                        <td>Apollo</td><td>1</td><td>0</td>
+                    </tr>                 
+                </table>
+                <figcaption style="font-size: small; text-align: center;">Table 1</figcaption>  
+                  
+            </p>
+            <p>
+                For the individual Kronos, \(Y^{a=0}=1\) means that she would die if not given the treatment and \(Y^{a=1}=1\) means she would survive if got treated. 
+                Because \(Y^{a=0} \ne Y^{a=1} \), we say the treatment \(A\) <strong>has a causal effect</strong> on Kronos' outcome. 
+                In contrast, the outcomes for Demeter are the same \(Y^{a=0} = Y^{a=1} = 0\), which says that \(A\) has <strong>no causal effect</strong> for Demeter. 
+                These are called <i>potential</i> or <i>counterfactual outcomes</i>, since in reality, only one of such situations is actually observed for an individual. 
+                He either receives the treatment or not. 
+            </p>
+            <p>
+                However, we still can aggregate the effects to calculate the <strong>average causal effect</strong> of a population of all individuals.
+                We say there is an average causal effect of treatment \(A\) on outcome \(Y\) if 
+                $$\mathrm{E}(Y^{a=1}) \ne \mathrm{E}(Y^{a=0})$$
+            </p>
+            <p>
+                As we are considering binary scenarios, \(\mathrm{E}(Y^{a=1}) = \mathrm{P}(Y^{a=1} = 1)\). 
+                Similarly, \(\mathrm{E}(Y^{a=0}) = \mathrm{P}(Y^{a=0} = 1)\). 
+                In this case, these simply are equal to the proportions of individuals who die under each treatment value, \(\mathrm{P}(Y^{a=0} = 1) = 3/7\) and \(\mathrm{P}(Y^{a=1} = 1) = 2/7\). 
+            </p>
+            <p>
+                \(A\) does have a causal effect on \(Y\). I must emphasize this does not rule the null effect for individuals. 
+                When there is no causal effect for any individuals in the population, the average causal effect is zero, but not the other way around.
+            </p>
+            <p>
+                In the book, the authors refer to these quantities as causal/counteractional risks. There are multiple ways to measure causal effects
+                $$\quad\quad\quad\quad\quad (1) \ \mathrm{P}(Y^{a=1} = 1) - \mathrm{P}(Y^{a=0} = 1) \ \textrm{: causal risk difference}$$
+                $$(2)\quad\quad\quad\quad \frac{\mathrm{P}(Y^{a=1} = 1)}{\mathrm{P}(Y^{a=0} = 1)} \ \textrm{: causal risk ratio}$$
+                $$\quad\quad\quad (3) \ \frac{\mathrm{P}(Y^{a=1} = 1)/\mathrm{P}(Y^{a=1} = 0)}{\mathrm{P}(Y^{a=0} = 1)/\mathrm{P}(Y^{a=0} = 0)} \ \text{: causal odds ratio}$$
+            </p>
+    
+            <h3>Non-graphical Illustration of Why Causation is not Association</h3>
+
+            <p>
+                The fact \(A\) is statistically correlated with \(Y\) in the observation data does not imply \(A\) has a causal effect on \(Y\) is beyond question. 
+                This is because the relationship between \(A\) and \(Y\) may be confounded - roughly saying that there may be a third variable that is a common cause of \(A\) and \(Y\). 
+                For example, the patients in the experimental group has more serious condition than the control group. This will be best understood when we have a causal graph as discussed in <a href="../blog/causality-2.html">Intro to Causal Thinking (Part 2)</a>. 
+                We will visit causal models later in the tutorial, but here under the potential outcome framework, Hernán & Robins provide another perspective that sheds light on this fundamental discrepancy.   
+            </p>
+            <p>In reality, this is the data we can actually collect (extracted from Table 2.1)</p>
+            <table style="width: 50%;">
+                <tr>
+                  <th style="font-weight: bold;">Participants</th>
+                  <th style="font-weight: bold;">\(A\)</th>
+                  <th style="font-weight: bold;">\(Y\)</th>  
+                  <th style="font-weight: bold;">\(Y^{a=0}\)</th> 
+                  <th style="font-weight: bold;">\(Y^{a=1}\)</th>
+                </tr>
+                
+                <tr><td>Rheia</td><td>0</td><td>0</td><td>0</td><td>?</td></tr>  
+                <tr><td>Kronos</td><td>0</td><td>1</td><td>1</td><td>?</td></tr> 
+                <tr><td>Demeter</td><td>0</td><td>0</td><td>0</td><td>?</td></tr> 
+                <tr><td>Hades</td><td>0</td><td>0</td><td>0</td><td>?</td></tr> 
+                <tr><td>Hera</td><td>1</td><td>0</td><td>?</td><td>0</td></tr> 
+                <tr><td>Artemis</td><td>0</td><td>1</td><td>1</td><td>?</td></tr> 
+                <tr><td>Apollo</td><td>0</td><td>1</td><td>1</td><td>?</td></tr> 
+            </table>
+            <figcaption style="font-size: small; text-align: center;">Table 2</figcaption>  
+              
+        </p>
+        <p>
+            What is commonly mistaken with causal effect is the conditional probabilities from such observational data. 
+            We have \
+        </p>
+
+
+
+
+
+
+        </div>
+    </article>
+        </div>
+    </div>
+    <div class="wrapper-footer">
+        <div class="container">
+        <footer class="footer">
+
+
+        <a href="https://www.facebook.com/isVy08"><i class="svg-icon facebook"></i></a>        
+        <a href="https://twitter.com/isVy08"><i class="svg-icon twitter"></i></a>
+        <a href="https://www.linkedin.com/in/isvy08/"><i class="svg-icon linkedin"></i></a>
+        <br><p style="font-size: 10px;">&copy; 2021 Vy Vo. Powered by Jekyll and Jekyll Now Theme</p>   
+
+        </footer>
+        </div>
+    </div> 
+</body>
+</html>
