@@ -42,9 +42,86 @@
         <div>
             <h1>Intro to Causal A/B Testing</h1>
             <span><a href="../blog/causality-1.html">Intro to Causal Thinking (Part 1)</a></span><br>
-            <span><a href="../blog/causality-2.html">Intro to Causal Thinking (Part 2)</a></span>
-            
+            <span><a href="../blog/causality-2.html">Intro to Causal Thinking (Part 2)</a></span> 
         </div>
+        <h3>Why A/B Testing?</h3>
+        <p>
+          <i>" When in doubt, do experiments ! "</i> -  myself
+          <br><br>
+          A/B testing is an experimental method that compares the performance between two versions of a solution, and has been widely adopted for product development in tech firms. 
+          Need no introduction, A/B testing is a natural way to escape from your maze of observational assumptions and get into the minds of users to understand how they actually respond to your offerings. 
+        </p>
+        <p>
+          Statistically, it is one basic form of randomized experiments. Randomization is the key to validating the effect of a treatment, in other words to establishing cause and effect relationships. 
+          Experimental data provides insights about the world that cannot be derived from pure correlations held within observational data alone.  
+        </p>
+        <p>
+          Why we should care about Causality is a must-have introduction in nearly all Causal Inference literature. 
+          Check <a href="https://hdsr.duqduq.org/pub/wjhth9tr/release/1">this</a> out or lazily go through my 2-minute article <a href="../blog/causality-2.html">Intro to Causal Thinking</a>, in which I describe my struggle to act on statistical correlations that might resonate with you. 
+        </p>
+        <p>
+          If you are not familiar with A/B testing, make sure you take <a href="https://hbr.org/2017/06/a-refresher-on-ab-testing ">this refresher</a> beforehand.
+        </p>
+        <h3>A Reason to Begin</h3>
+        <p>
+          The situation is, you have a treatment \(T\) (e.g., a red button) and a desired outcome \(Y\) (e.g, increased click-through rate). The fundamental question is
+          $$\textit{Does changing the button color to red make users click more?}$$
+          This leads to several pain points such as
+          <li>How can I verify that \(T\) will cause \(Y\)? </li>
+          <li>How can I quantify this effect?</li>
+          <li>If not \(T\), what truly causes Y and how can I find it?</li>
+        </p>
+        <p>
+          Let’s say you can conduct an A/B test, obtain the data and run them through a series of significance analysis. If the result is significant, then are you sure to have a solution that is guaranteed to work? Is it the actual causal effect?
+        </p>
+        <p>
+          Unfortunately, even if you manage to run a randomized experiment, lots of things can go wrong. First and foremost, is your experiment properly designed? What if it fails? And what if an experiment is not feasible?
+        </p>
+        <p>
+          The list goes on. Luckily, research progress in the field of Causal Inference can help us address most of these challenges. Let’s explore this together (seriously, together) !
+        </p>
+        <h3>Roadmap</h3>
+        <p>
+          We will start with a perfect scenario in which a randomized experiment is feasible and well-designed. I will then introduce how and to what extent you can determine whether a treatment takes effect. After that, I will provide some guidance on how you can properly design an A/B test that supports the analysis of post-experimental data.
+        </p>
+        <p>
+          But experiments are not always viable while observational data is massive and prevalent. The secret is that if we assume there is an underlying causal structure in the observational data, there are formal techniques to derive causal quantities from statistical ones. This however requires a causal (often graphical) model. We will see what a causal model is about, how to construct one, under what assumptions we are able to estimate causal relations and how. 
+        </p>
+        <p>
+          Until this point, we will have tackled the issues of <strong>Identification</strong> and <strong>Estimation</strong>. 
+          However, there is another bottleneck: identifying a causal graph, or in general discovering causal structure is an extremely daunting task. This is a challenge of <strong>Causal Discovery</strong> and <strong>Structure Learning</strong>, which has not yet been completely solved. We will take a peek at what researchers have done so far. 
+        </p>
+        <p>
+          Causal Inference in a <strong>D.I.E</strong> flowchart, but let’s do it backwards ! 
+          $$Discovery \rightarrow Identification \rightarrow Estimation$$
+          Finally, I hope to wrap this up with case studies from how tech firms such as LinkedIn, Microsoft, Netflix and Uber apply Causal Inference (spoilers, they have a dedicated team of data scientists for this), and walk you through some tools to automate the computation.  
+        </p>
+        <p>
+          The roadmap is as follow
+          <ul><a href="causal-effect.html">1. A Perfect Scenario</a></ul>
+          <ul><a href="experimental-design.html">2. Causal A/B Testing Design: Cautions & Tips</a></ul>
+          <ul style="color:darkgrey">3. Causal Inference with Observational Data: Identification & Estimation</ul>
+          <ul style="color:darkgrey">4. Causal Discovery: Learning Causal Structures</ul>
+          <ul style="color:darkgrey">5. Case Studies & Tools</ul>
+
+        </p>
+        <h3>Preliminaries</h3>
+        <p>
+          A good background is highly recommended. I think <a href="https://causalai.net/r60.pdf">this one paper</a> by Bareinbom and colleagues is enough to grasp the philosophies and build up a foundation. 
+          For visual learners, visit the first few videos in the amazing course by <a href="https://www.youtube.com/playlist?list=PLoazKTcS0Rzb6bb9L508cyJ1z-U9iWkA0">Brady Neal on YouTube</a>.
+          <br><br>
+          I also have a collection of useful materials I have literally read <a href="https://github.com/isVy08/causal-ai/">here</a>. Trace the citations therein for more formal readings. (Disclaimer: I’m Pearl’s biased)   
+        </p>
+        <h3>On a personal note,</h3>
+        <p>
+          It is the Book of Why (Pearl and Mackenzie 2018) that got me excited about Data Science in the first place. I believe causality is the ultimate goldmine to dig - data cannot speak for itself. The beauty of data is not in the glamorous visualizations we build, rather lies in the yet-to-be-discovered insights that explain the world around us and inform actions to make meaningful changes accordingly.
+        </p>
+        <p>
+          I set myself a goal to master Causal Inference, motivated by nothing but self-fulfillment. Thus, I can only write as much as I learn and I admit we are just scratching the surface. 
+          This should only be treated as a pocket tutorial and by no means replace formal training. 
+          For topics I have not yet dived in, I try to provide useful references in advance, from which you can do additional reading in your own time. If you come across any good reads or get struck by ideas, loop me in the discussion.
+        </p>
+
     </article>
         </div>
     </div>
