@@ -42,8 +42,216 @@
         <div>
             <h1>A Not-so-Perfect Scenario</h1>
             <span><a href="intro.html">Intro to Causal A/B Testing</a></span><br>
-            <span><a href="causal-effect.html">A Perfect Scenario</a></span>
-            
+            <span><a href="causal-effect-1.html">A Perfect Scenario</a></span>
+          <p>
+            An ideal randomized experiment is unrealistic, and multiple factors come to play in real-word experiments. 
+            We will consider common scenarios in which measuring and calculating causal effects are not-so straightforward. 
+          </p>
+          <p>
+            Again, this article is sponsored by Chapter 4 - 10 in the book <a href="https://cdn1.sph.harvard.edu/wp-content/uploads/sites/1268/2019/10/ci_hernanrobins_1oct19.pdf">Causal Inference: What If</a>  (Hernán & Robins, 2010).
+          </p>
+          <h3>Heterogeneous treatment effects</h3>
+          <p>
+            Heterogeneity in treatment means treatment effects vary across different segments in the population. The book refers to it as effect modification, and provides a formal definition of effect modifier: 
+            <i>V modifies the effect of A on Y when the average causal effect of A on Y varies across levels of V</i>
+          </p>
+          <p>
+            In the previous article, we subset the population by \(L\) to guarantee conditional exchangeability through conditional randomization. But in that case, \(L\) is only needed to calculate the average causal effect of the entire population using Standardization or Inverse Probability Weighting. 
+            \(L\) now has another role. It is very rare that the average or counterfactual risks in each subset \(L=1\) and \(L=0\) are equal, causing the aggregated causal effect to be influenced by the proportion of \(L=1\) and \(L=0\) individuals in the population. 
+          </p>  
+          <p>
+            Intuitively, that a treatment benefits the entire population does not mean it benefits every segment of individuals. For instance, the causal risk difference of women is positive while the causal risk difference of men is negative. 
+            Thus, the treatment is beneficial to women but harmful to men. If the population had a higher proportion of women than men, the average causal effect would be positive, but applying the treatment population-wise would be detrimental to men. 
+            The book also introduces a more interesting example in which the average causal effects of women and men are equal in magnitude but in the opposite direction, resulting in the aggregated effect happening to be zero. 
+            In this case, we cannot say that \(A\) has no effect on \(Y\), because it does in each subset. Furthermore, we know that customization or personalization has a positive impact on the product performance from users’ perspective. Therefore, we need techniques to measure segment-specific (or stratum-specific) causal effects
+          </p>
+          <p>
+            Complicated as it may sound, the calculation is much simpler. A quick note before we start: 
+            <br>In statistics, when we say adjusting for a variable \(V\), it means controlling for or conditioning on \(V\).  
+          </p>
+          <h4>1. Stratification</h4>
+          <p>
+            First, if \(L\) is also an effect modifier, we can “adjust for \(L\)” by calculating conditional causal effects through Standardization or IPW, that is measuring the average causal effect in the subsets defined by \(L=1\) and \(L=0\) respectively. 
+            This technique is called <strong>Stratification</strong> (splitting the population into non-overlapping subsets). 
+            <br><br>
+            In the event that there exists both \(L\) and \(V\), Stratification is different from Standardization and IPW. 
+            We must first stratify the population by \(V\) (e.g., \(V=0\) and \(V=1\)) and then adjust for \(L\) at all of its levels. 
+            Specifically, we need to compute causal effects in 4 combinations \(V=0 / L=0\), \(V=1 / L=1\), \(V=0 / L=1\) and \(V=1 / L=0\) because we need \(L\) for conditional exchangeability. 
+            $$\mathrm{E}(Y^{a=1}|V=0) = \mathrm{P}(Y^{a=1}=1|V=0)$$ 
+            $$= \mathrm{P}(Y^{a=1}=1|V=0,L=0) \times \mathrm{P}(L=0|V=0) + \mathrm{P}(Y^{a=1}=1|V=0,L=1) \times \mathrm{P}(L=1|V=0) $$
+            $$= \mathrm{P}(Y=1|A=1,V=0,L=0) \times \mathrm{P}(L=0|V=0) + \mathrm{P}(Y=1|A=1,V=0,L=1) \times \mathrm{P}(L=1|V=0) $$
+            You can follow the same procedure to derive \(\mathrm{E}(Y^{a=1}|V=1)\), \(\mathrm{E}(Y^{a=0}|V=0)\) and \(\mathrm{E}(Y^{a=0}|V=0)\) 
+          </p>
+          <h4>2. Matching</h4>
+          <p>
+            Suppose we have the data below. <strong>Matching</strong> attempts to create multiple subsets based on one or more factors \(X\) (covariates). 
+            <table style="width: 50%;">
+              <tr>
+                <th style="font-weight: bold;">Participants</th>
+                <th style="font-weight: bold;">\(L\)</th> 
+                <th style="font-weight: bold;">\(A\)</th>
+                <th style="font-weight: bold;">\(Y\)</th>  
+              </tr>
+              
+              <tr><td>Rheia</td><td>0</td><td>0</td><td>0</td></tr>  
+              <tr><td>Kronos</td><td>0</td><td>1</td><td>1</td></tr> 
+              <tr><td>Demeter</td><td>0</td><td>0</td><td>0</td></tr> 
+              <tr><td>Hades</td><td>0</td><td>0</td><td>0</td></tr> 
+              <tr><td>Hera</td><td>0</td><td>1</td><td>0</td></tr> 
+              <tr><td>Artemis</td><td>1</td><td>0</td><td>1</td></tr> 
+              <tr><td>Apollo</td><td>1</td><td>1</td><td>1</td></tr> 
+          </table>
+          <figcaption style="font-size: small; text-align: center;">Original population</figcaption>  
+          
+          </p>
+          <p>
+            For each treated individual, we match him with one random untreated individual with the same values of \(X\). As an example, we choose \(L\) to be the matching factor. 
+            Here, we can match Kronos with any of the untreated that are in non-critical condition \(L=0\). A matched population can be
+            <table style="width: 50%;">
+              <tr>
+                <th style="font-weight: bold;">Treated</th>                
+                <th style="font-weight: bold;">Untreated</th> 
+                <th style="font-weight: bold;">\(L\)</th>
+                <th style="font-weight: bold;">\(Y^{a=1}\)</th>
+                <th style="font-weight: bold;">\(Y^{a=0}\)</th>
+              </tr>  
+              <tr><td>Kronos</td><td>Rheia</td><td>0</td><td>1</td><td>0</td></tr>
+              <tr><td>Kronos</td><td>Demeter</td><td>0</td><td>1</td><td>0</td></tr>
+              <tr><td>Hera</td><td>Hades</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>Hera</td><td>Rheia</td><td>0</td><td>0</td><td>0</td></tr> 
+              <tr><td>Apollo</td><td>Artemis</td><td>1</td><td>1</td><td>1</td></tr> 
+           
+          </table>
+          <figcaption style="font-size: small; text-align: center;">Matched population</figcaption>    
+          </p>
+          <p>
+            Match pairs in each subset can be viewed as one single individual with both potential outcomes observed, 
+            thus allowing for unconditional exchangeability and calculating stratum-specific marginal causal effects. 
+          </p>
+          <p>
+            However, these effects are different from those calculated by stratification. 
+            The base group defines the subpopulation for which the causal effect is being computed. We normally choose the group with fewer members as base and use the other to match. 
+            In the setting above, what’s generally calculated is <strong>the effect in the treated</strong>. In the setting with lower proportion of the untreated, we would calculate <strong>the effect in the untreated</strong>. 
+          </p>
+          <p>
+            The more variables in \(X\) considered, the more complicated matching becomes. In practice, perfect matching is almost impossible. We thus then resort to approximate matching, and the choice of methods depends on applications. 
+            Matching can further be generalized from \(X\) to any functions of \(f(X)\), which has implications for multi-dimensional vector \(X\). Additionally, as the number of covariates increases, we have to deal with lack of overlapping - a violation of positivity assumption, which occurs when a group only contains only treated or untreated.    
+          </p>
+          <p>
+            Matching can be viewed as a complex form of stratification that goes beyond discreet and single-variable segmentation. 
+            When some or all of \(X\) are continuous, it even requires machine learning methods such as decision trees or nearest neighbors to automate stratification.
+            One widely adopted method is <strong>propensity score matching</strong>. It’s extremely useful for dimensionality reduction, as multi-dimensional \(X\) is now collapsed into one scalar value. Propensity score is the probability of receiving the treatment given \(X\) or \(f(X)\), and the matched instance is one with the same propensity score. 
+            Propensity scores must be estimated using algorithms such as logistic regression.   
+          </p>
+          <p>
+            A comprehensive blog on matching and stratification can be found <a href="https://mixtape.scunning.com/matching-and-subclassification.html?panelset2=python-code3#propensity-score-methods">here</a>. The authors even provide concrete codes and examples, which explains this in much more detail. 
+            You are also encouraged to watch <a href="https://www.youtube.com/watch?v=oZoizsX3bts&list=PLoazKTcS0RzZ1SUgeOgc6SWt51gfT80N0&index=7&t=1851s">this talk by Susan Athey</a>. She develops the famous algorithm <strong>Bayesian Additive Regression Trees</strong> (BART) for estimating heterogeneous treatment effects. 
+          </p>
+          <h3>Interaction</h3>
+          <p>
+            Under effect modification, we look at how the causal effects should be adjusted to account for heterogeneity in mutually exclusive segments of the population. 
+            Even so, we have only examined the effects of one treatment \(A\) on the outcome while mentioned nothing about the causal effect of \(L\) or \(V\) on \(Y\). In real-word applications, we tend to experiment with multiple treatments i.e., A/B/C or A/B/D/E testing etc. 
+            In this section, we will look at joint intervention under multiple treatments. 
+          </p>
+          <p>
+            Suppose the patients were also either assigned to receive a vitamin treatment \(E=1\) or not \(E=0\), before given \(A\). Each individual now has 4 potential outcomes: \(Y^{a=e=0}\), \(Y^{a=e=1}\), \(Y^{a=1,e=0}\) and \(Y^{a=0,e=1}\).
+            Using causal risk difference, we define there is an interactive effect between \(A\) and \(E\) <i>on the additive scale</i> if 
+            $$\mathrm{P}(Y^{a=1,e=1}=1) - \mathrm{P}(Y^{a=0,e=1}=1) \ne \mathrm{P}(Y^{a=1,e=0}=1) - \mathrm{P}(Y^{a=0,e=0}=1) $$
+            $$\Leftrightarrow \mathrm{P}(Y^{a=1,e=1}=1) - \mathrm{P}(Y^{a=1,e=0}=1) \ne \mathrm{P}(Y^{a=0,e=1}=1) - \mathrm{P}(Y^{a=0,e=0}=1) $$
+          </p>
+          <p>
+            The equivalence of the two statements indicates that \(A\) and \(E\) has an equal role in the interaction. 
+            <ul>
+              <li>The above statement compares the average effect of \(A\) under the presence of treatment \(E\) with the average effect of \(A\) under the absence of \(E\).</li>
+              <li>The below statement compares the average effect of \(E\) under the presence of treatment \(A\) with the average effect of \(E\) under the absence of \(A\).</li>
+            </ul>
+          </p>
+          <p>
+            Using causal risk ratio, we define the joint effect as
+            $$\frac{\mathrm{P}(Y^{a=1,e=1}=1)}{\mathrm{P}(Y^{a=0,e=1}=1)} \ne \frac{\mathrm{P}(Y^{a=1,e=0}=1)}{\mathrm{P}(Y^{a=0,e=0}=1)} $$
+            We must stilll ensure treatment \(A\) is exchangeable, but how to identify the joint effects hinges on the assumptions imposed on \(E\)
+          </p>
+          <ol>
+          <li>If \(E\) is randomly assigned to individuals, the treated \(E=0\) and \(E=1\) are expected to be unconditionally exchangeable as well, leading to
+            $$\mathrm{P}(Y^{a=1,e=1}=1) = \mathrm{P}(Y^{a=1}=1|E=1)$$
+            This coincides the effect modification of \(A\) by \(E\), and we can easily compute the causal effects in the same way as when \(E\) is an effect modifier.
+          </li>
+          <br><li>When the role of \(E\) is to ensure conditional exchangeability in \(A\), \(E\) is now purely treated as an effect modifier. In other words, there is no interaction with \(A\). Though the computation is the same, they correspond to different causal mechanisms.
+            In this case, \(E\) is called a <i>surrogate effect modifier</i>, which is correlated with an unobserved variable that interacts with \(A\). There can still be effect modification without interaction.
+          </li>
+          <br><li>When we are not sure about exchangeability in \(E\), we can still calculate the joint effect by treating each combination of \(A\) and \(E\) as single treatment e.g., \(AE\). 
+            Thus, we now have 4 levels of treatment \(11, 01, 10, 00\), and should be able to apply Standardization or IPW to calculate marginal risks with the assumption of unconditional exchangeability hold in \(AE\).
+            $$\mathrm{P}(Y^{ae=11}=1) = \mathrm{P}(Y=1|AE=11), \quad \mathrm{P}(Y^{ae=01}=1) = \mathrm{P}(Y=1|AE=01) \quad etc. $$
+          </li>
+          </ol>
+          <p>
+            The segregation in fact motivates us to examine the members of each treatment level more in-depth along with their counterfactual response types.
+          </p>
+          <h4>Counterfactual Response Types</h4>
+          <p>
+            With respect to each level of treatment, there are 4 counterfactual outcomes (of course 1 of them is the actual treatment for an individual).
+            We therefore have 16 different response types as follow
+            <table style="width: 50%;">
+              <tr>
+                <th></th>
+                <th colspan="5"><i>\(Y^{a,e}\)</i></th>
+              </tr> 
+              <tr>
+                <th style="font-weight: bold;">Type</th>
+                <th style="font-weight: bold;">1, 1</th> 
+                <th style="font-weight: bold;">0, 1</th>
+                <th style="font-weight: bold;">1, 0</th>
+                <th style="font-weight: bold;">0, 0</th>  
+              </tr>
+              
+              <tr><td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>  
+              <tr><td>2</td> <td>1</td> <td>1</td> <td>1</td> <td>0</td> </tr> 
+              <tr><td>3</td> <td>1</td> <td>1</td> <td>0</td> <td>1</td> </tr> 
+              <tr><td>4</td> <td>1</td> <td>1</td> <td>0</td> <td>0</td> </tr>
+              <tr><td>5</td> <td>1</td> <td>0</td> <td>1</td> <td>1</td> </tr> 
+              <tr><td>6</td> <td>1</td> <td>0</td> <td>1</td> <td>0</td> </tr> 
+              <tr><td>7</td> <td>1</td> <td>0</td> <td>0</td> <td>1</td> </tr> 
+              <tr><td>8</td> <td>1</td> <td>0</td> <td>0</td> <td>0</td> </tr> 
+              <tr><td>9</td> <td>0</td> <td>1</td> <td>1</td> <td>1</td> </tr> 
+              <tr><td>10</td> <td>0</td> <td>1</td> <td>1</td> <td>0</td> </tr> 
+              <tr><td>11</td> <td>0</td> <td>1</td> <td>0</td> <td>1</td> </tr> 
+              <tr><td>12</td> <td>0</td> <td>1</td> <td>0</td> <td>0</td> </tr> 
+              <tr><td>13</td> <td>0</td> <td>0</td> <td>1</td> <td>1</td> </tr> 
+              <tr><td>14</td> <td>0</td> <td>0</td> <td>1</td> <td>0</td> </tr> 
+              <tr><td>15</td> <td>0</td> <td>0</td> <td>0</td> <td>1</td> </tr> 
+              <tr><td>16</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> </tr>   
+          </table>
+          <figcaption style="font-size: small; text-align: center;">Extracted from Table 5.2</figcaption>  
+          </p>
+          <p>
+            These 16 reponse types can be grouped into 4 classes with distinct characteristics:
+            <ol>
+              <li>Types \(1,4,6,11,13,16\): among these individuals, the causal effect of \(A\) on \(Y\) regardless of \(E\). 
+                If everyone have these reponse types, there will be no interactive effect since the causal effect of \(A\) is the same whether \(E\) is present or absent.</li>
+              <li>Types \(8,12,14,15\): those who would develop the outcome (die) under only one of the four treatments</li>
+              <li>Types \(7,10\): those who would develop outcome under two combinations of treatments which have an opposite effect</li>
+              <li>Types \(2,3,5,9\): those who would develop outcome under any three combinations of treatments.</li>
+            </ol>
+            That \(A\) does not interact with \(E\) means that no individuals belong to Class 2, 3 or 4. 
+            The implication is that by calculating the effect from join interaction, we can empircally check whether certain types of individuals exist in the population.
+            Within the scope of Interaction, you can flip the problem by asking "What are the events that cause an individual to develop the outcome?".
+            Focusing on this area, the authors introduce <strong>Sufficient cause interaction</strong> framework that breaks the interaction between \(A\) ans \(E\) down into 9 possible ways, termed as <i>sufficient causes</i> to have the outcome develop.
+          </p>
+          <p>
+            Basically, a group of events is considered a sufficient cause of a certain outcome \(Y\) when all individuals, having the characteristics determined by that group of events, develop the outcome.
+            Not all settings have exhibit all 9 sufficient causes. This requires dissecting the population, plus the causal effects calculated to determine the propet set of events/factors that can be sufficient causes. 
+          </p>
+          <p>  
+            One possible sufficient cause is the presence of both \(A\) and \(E\). If there exists one individual with counterfactual outcomes \(Y^{a=1,e=1}=1\) and \(Y^{a=0,e=1}=Y^{a=1,e=0}=1\) (die when given both treatments, but not when given either), 
+            we say both \(A\) and \(E\) co-occur in an sufficient cause, or there is a sufficient cause interaction between them.
+          </p>
+          <p>
+            This framework is particularly useful for interpretation and comprehension of the underlying joint effects. This has qualitative implications while the potential outcome framework is practical quantitatively.
+            You can read more about sufficient cause interaction from section 5.4 downwards. 
+          </p>
+
+
+
         </div>
     </article>
         </div>
