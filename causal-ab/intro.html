@@ -82,29 +82,32 @@
         </p>
         <h3>Roadmap</h3>
         <p>
-          We will start with a perfect scenario in which a randomized experiment is feasible and well-designed. I will then introduce how and to what extent you can determine whether a treatment takes effect. 
-          Then, we will examine real-world scenarios which complicate the measures of causal effect. After that, I will provide some guidance on how you can properly design an A/B test that supports the analysis of post-experimental data.
+          We will start with a perfect scenario in which a randomized experiment is feasible and well-designed, in which I will introduce how and to what extent you can determine whether a treatment takes effect. 
+          Then, we will examine real-world scenarios which complicate the measures of causal effect. After that, I will provide some guidance on how you can properly design a causally-informed A/B test, which also supports the analysis of post-experimental data.
         </p>
         <p>
-          But experiments are not always viable while observational data is massive and prevalent. The secret is that if we assume there is an underlying causal structure in the observational data, there are formal techniques to derive causal quantities from statistical ones. This however requires a causal (often graphical) model. We will see what a causal model is about, how to construct one, under what assumptions we are able to estimate causal relations and how. 
+          But experiments are not always viable while observational data is massive and prevalent. The secret is that if we assume there is an underlying causal structure in the observational data, there are formal techniques to derive causal quantities from statistical ones. This however requires a causal (often graphical) model. 
+          We will see what a causal model is about, how to construct one, under what assumptions we are able to estimate causal relations and how. 
+          Finally, I hope to wrap this up with case studies from how tech firms such as LinkedIn, Microsoft, Netflix and Uber apply Causal Inference (spoilers, they have a dedicated team of data scientists for this), and walk you through some tools to automate the computation.  
         </p>
         <p>
-          Until this point, we will have tackled the issues of <strong>Identification</strong> and <strong>Estimation</strong>. 
-          However, there is another bottleneck: identifying a causal graph, or in general discovering causal structure is an extremely daunting task. This is a challenge of <strong>Causal Discovery</strong> and <strong>Structure Learning</strong>, which has not yet been completely solved. We will take a peek at what researchers have done so far. 
+          Until that point, we will have tackled the issues of <strong>Identification</strong> and <strong>Estimation</strong>. 
+          However, there is another bottleneck: identifying a causal graph, or in general discovering causal structure is an extremely daunting task. This is a challenge of <strong>Causal Discovery</strong> and <strong>Structure Learning</strong>, which has not yet been completely solved. 
+          We will take a peek at what researchers have done so far. 
         </p>
         <p>
           Causal Inference in a <strong>D.I.E</strong> flowchart, but let’s do it backwards ! 
           $$Discovery \rightarrow Identification \rightarrow Estimation$$
-          Finally, I hope to wrap this up with case studies from how tech firms such as LinkedIn, Microsoft, Netflix and Uber apply Causal Inference (spoilers, they have a dedicated team of data scientists for this), and walk you through some tools to automate the computation.  
         </p>
         <p>
           The roadmap is as follow
           <ul><a href="causal-effect-1.html">1. A Perfect Scenario</a></ul>
           <ul><a href="causal-effect-2.html">2. A Not-so-Perfect Scenario</a></ul>
-          <ul style="color:darkgrey">3. Causal Inference with Observational Data: Identification & Estimation</ul>
-          <ul style="color:darkgrey">4. Causal Discovery: Learning Causal Structures</ul>
-          <ul style="color:darkgrey">5. Causal A/B Testing Design: Cautions & Tips</a></ul>
+          <ul style="color:darkgrey">3. Causal Inference with Observational Data: Identification</ul>
+          <ul style="color:darkgrey">4. Causal Inference with Observational Data: Estimation</ul>
+          <ul style="color:darkgrey">5. A/B Testing Done Right</a></ul>
           <ul><a href="cs-tools.html">6. Case Studies & Tools</a></ul>
+          <ul style="color:darkgrey">7. Causal Discovery and Other Advanced Topics (Optional)</ul>
 
         </p>
         <h3>Preliminaries</h3>
