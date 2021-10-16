@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+    
+    <meta name="description" content="Vy Vo">
+    <meta property="og:description" content="Intro to Causal Thinking"/>
+    <title>Vy Vo</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="../main.css">
+</head>
+
+<body>
+
+    <div class="wrapper-masthead">
+        <div class="container">
+          <header class="masthead clearfix">
+            <a href="https://isvy08.github.io/" class="site-avatar"><img src="../icon/vv.png" /></a>
+  
+            <div class="site-info">
+              <h1 class="site-name"><a href="https://isvy08.github.io/">Vy Vo</a></h1>
+              <p class="site-description">What's life without whimsy</p>
+            </div>
+  
+            <nav>
+                <a href="../blog.html">Blog</a>
+              <a href="../projects.html">Projects</a>
+              <a href="https://github.com/isVy08">GitHub Repo</a>
+            </nav>
+          </header>
+        </div>
+      </div>
+
+
+    <div id="main" role="main" class="container">
+        <div class="posts"> 
+
+    <article class="post" style="text-align: justify;">
+        <div>
+            <h1>Causal Discovery and Other Advanced Topics</h1>
+            <span><a href="intro.html" target="_blank">Intro to Causal A/B Testing</a></span><br>
+            <span><a href="causal-effect-1.html" target="_blank">A Perfect Scenario</a></span><br>
+            <span><a href="causal-effect-2.html" target="_blank">A Not-so-Perfect Scenario</a></span><br>
+            <span><a href="cs-tools.html" target="_blank">Case Studies & Tools</a></span>
+            <p>
+              Given a causal model, not only are we able to determine the causal relationships among variables of interest, but also to estimate the effects quantitatively from observational data. 
+              Even when the model is partially identified, there are robust strategies to deal with unobserved biases. The construction of causal models often relies heavily on human expertise, which obviously fails to account for all possible scenarios. This article focuses on research progress in discovering causal structures from data. 
+              Additionally, I attempt to introduce some advanced topics related to causal inference for spatio-temporal data.          
+            </p>
+            <h3>Causal Discovery from Observational Data</h3>
+            <p>
+              Causal learning algorithms from observational data can be broadly categorized into <strong>Constraint-based (CB)</strong> and <strong>Score-based (SB)</strong> approaches. The task, again, is to find the causal graph that aligns with the true data-generating process. 
+              CB methods uncover a set of causal graphs up to the Markov equivalence class, through a series of conditional independence tests. The tests are often implemented independently with binary decisions of either accepting or rejecting the null hypothesis. 
+              SB is a more efficient method that aims to evaluate the quality of a candidate causal graph according to a score function i.e., graphs with higher scores are better fits. Thus, the function must satisfy certain properties to be considered an appropriate goodness-of-fit test.
+            </p>
+            <p>
+              This discussion is not intended to be a survey of causal discovery algorithms, rather I will only delve into these particular works
+              <ol>
+                <li><strong>Peter-Clark Algorithm:</strong> the foundational CB method, ready to use in <a href="https://rdrr.io/cran/pcalg/">pcalg</a></li>
+                <li><a href="generalized-sb.html" target="_blank">Generalized Score Functions:</a> a unified SB method</li>
+                <li><strong>Greedy Equivalence Search :</strong> a widely used search algorithm, ready to use in <a href="https://rdrr.io/cran/pcalg/">pcalg</a></li>
+                <li><strong>DAGs with NO TEARS:</strong> a optimization-based SB approach, ready to use in <a href="https://causalnex.readthedocs.io/en/latest/">CausalNex</a></li>
+
+              </ol>
+            </p>
+            <p>
+              You are highly recommended to go through the following surveys to grasp a big picture of the progress in this area. 
+              The authors provide a straightforward and comprehensive summary of the existing works, the challenges involved, and how each work is built upon others.
+              <ul>
+                <li><a href="https://arxiv.org/pdf/1809.09337.pdf" target="_blank">A Survey of Learning Causality with Data: Problems and Methods</a></li>
+                <li><a href="https://applied-informatics-j.springeropen.com/articles/10.1186/s40535-016-0018-x" target="_blank">Causal Discovery and Inference: Concepts and Recent Methodological Advances</a></li>
+                <li><a href="https://www.frontiersin.org/articles/10.3389/fgene.2019.00524/full" target="_blank">Review of Causal Discovery Methods Based on Graphical Models</a></li>
+              </ul>
+            </p>
+            <h3>Causal Discovery from Interventional Data</h3>
+            <ul>
+              <li><a href="https://arxiv.org/pdf/1705.10220.pdf" target="_blank">Permutation-based Causal Inference Algorithms with Interventions</a></li>
+              <li><a href="https://arxiv.org/pdf/1802.06310.pdf" target="_blank">Characterizing and Learning Equivalence Classes of Causal DAGs under Interventions</a></li>
+              <li><a href="https://www.jmlr.org/papers/volume21/17-123/17-123.pdf" target="_blank">Joint Causal Inference from Multiple Contexts</a></li>
+            </ul>
+            <h3>Causal Inference for Spatio-Temporal Data</h3>
+            <ul>
+              <li><a href="https://cdn1.sph.harvard.edu/wp-content/uploads/sites/1268/2019/10/ci_hernanrobins_1oct19.pdf">Causal Inference: What If</a> (Chapter 19 - 22)</li>
+              <li><a href="https://arxiv.org/pdf/2005.08639" target="_blank">Towards Causal Inference for Spatio-Temporal Data: Conflict and Forest Loss in Colombia</a></li>
+            </ul>
+            
+            
+        </div>
+    </article>
+        </div>
+    </div>
+    <div class="wrapper-footer">
+        <div class="container">
+        <footer class="footer">
+
+
+        <a href="https://www.facebook.com/isVy08"><i class="svg-icon facebook"></i></a>        
+        <a href="https://twitter.com/isVy08"><i class="svg-icon twitter"></i></a>
+        <a href="https://www.linkedin.com/in/isvy08/"><i class="svg-icon linkedin"></i></a>
+        <br><p style="font-size: 10px;">&copy; 2021 Vy Vo. Powered by Jekyll and Jekyll Now Theme</p>   
+
+        </footer>
+        </div>
+    </div> 
+</body>
+</html>
