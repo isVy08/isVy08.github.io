@@ -54,10 +54,14 @@
             <p>
               Causal learning algorithms from observational data can be broadly categorized into <strong>Constraint-based (CB)</strong> and <strong>Score-based (SB)</strong> approaches. The task, again, is to find the causal graph that aligns with the true data-generating process. 
               CB methods uncover a set of causal graphs up to the Markov equivalence class, through a series of conditional independence tests. The tests are often implemented independently with binary decisions of either accepting or rejecting the null hypothesis. 
-              SB is a more efficient method that aims to evaluate the quality of a candidate causal graph according to a score function i.e., graphs with higher scores are better fits. Thus, the function must satisfy certain properties to be considered an appropriate goodness-of-fit test.
+              SB is a more efficient method that aims to evaluate the quality of a candidate causal graph according to a score function i.e., graphs with higher scores are better fits. Thus, the function must satisfy certain properties to be considered an appropriate goodness-of-fit test.    
             </p>
             <p>
-              This discussion is not intended to be a survey of causal discovery algorithms, rather I will only delve into these particular works
+              Both approaches generally assume <strong>Markov property</strong> (local at least), <strong>sufficiency</strong> (no unobserved confounders) and <strong>acyclicity</strong> (compatible with DAGs). 
+              While CB family strictly enforces the <strong>Faithfulness</strong> assumption, it is relaxed in SB. 
+            </p>
+            <p>
+              This discussion is not intended to be a survey of causal discovery algorithms, rather I will only delve into these particular works due to their merits
               <ol>
                 <li><strong>Peter-Clark Algorithm:</strong> the foundational CB method, ready to use in <a href="https://rdrr.io/cran/pcalg/">pcalg</a></li>
                 <li><a href="generalized-sb.html" target="_blank">Generalized Score Functions:</a> a unified SB method</li>
@@ -67,12 +71,13 @@
               </ol>
             </p>
             <p>
-              You are highly recommended to go through the following surveys to grasp a big picture of the progress in this area. 
-              The authors provide a straightforward and comprehensive summary of the existing works, the challenges involved, and how each work is built upon others.
+              You are highly recommended to go through the following surveys to grasp the basics along with a big picture of the progress in this area. 
+              The authors provide comprehensive summaries of the existing works, the challenges involved, and how each work is built upon others.
               <ul>
                 <li><a href="https://arxiv.org/pdf/1809.09337.pdf" target="_blank">A Survey of Learning Causality with Data: Problems and Methods</a></li>
                 <li><a href="https://applied-informatics-j.springeropen.com/articles/10.1186/s40535-016-0018-x" target="_blank">Causal Discovery and Inference: Concepts and Recent Methodological Advances</a></li>
                 <li><a href="https://www.frontiersin.org/articles/10.3389/fgene.2019.00524/full" target="_blank">Review of Causal Discovery Methods Based on Graphical Models</a></li>
+                <li><a href="https://www.youtube.com/playlist?list=PLoazKTcS0Rzb6bb9L508cyJ1z-U9iWkA0">Brady Neal's Causal Inference Course </a>(Week 10)</li>
               </ul>
             </p>
             <h3>Causal Discovery from Interventional Data</h3>
@@ -86,7 +91,6 @@
               <li><a href="https://cdn1.sph.harvard.edu/wp-content/uploads/sites/1268/2019/10/ci_hernanrobins_1oct19.pdf">Causal Inference: What If</a> (Chapter 19 - 22)</li>
               <li><a href="https://arxiv.org/pdf/2005.08639" target="_blank">Towards Causal Inference for Spatio-Temporal Data: Conflict and Forest Loss in Colombia</a></li>
             </ul>
-            
             
         </div>
     </article>

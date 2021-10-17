@@ -41,9 +41,81 @@
     <article class="post" style="text-align: justify;">
         <div>
             <h1>Generalized Score Functions for Causal Discovery</h1>
-            <i>Biwei Huang, Kun Zhang, Yizhu Lin, Bernhard Scholkopf, Clark Glymour. Generalized Score Functions for Causal Discovery. KDD, 2018.</i>
-            
-        </div>
+            <span style="font-style: italic;">Huang, B., Zhang, K., Lin, Y., Schölkopf, B., & Glymour, C. (2018, July). Generalized score functions for causal discovery. In Proceedings of the 24th ACM SIGKDD International Conference on Knowledge Discovery & Data Mining (pp. 1551-1560).</span>
+            <hr>
+            <p>
+              A score-based algorithm requires two components: the score function and the search procedure. In addition to Markov assumptions, an ideal score function should meet the basic criteria as following
+              <ul>
+                <li>characterization of conditional dependency</li>
+                <li>local consistency and score equivalence</li>
+                <li>robustness to multiple, if not all, data types and distributions, including</li>
+                <ul>
+                  <li>non-linear relations</li>
+                  <li>non-Gaussian distributions</li>
+                  <li>(infinite) multi-dimensionality</li>
+                  <li>heterogeneity (i.e., continuous/discreet, stationary/time-series data)</li>
+                </ul>
+                <li>tractability and computational efficiency</li>
+              </ul> 
+            </p>
+            <p>
+              Since the previous algorithms are limited in assuming a certain model class or distribution to begin with, 
+              Generalized Score Functions (GSF) is a novel effort to unify score-based approaches into a generalized framework that can work on a wide class of data types and distributions. 
+              <table style="width: 90%;">
+                <tr>
+                  <th style="font-weight: bold;">Methods <a href="#ref">[refs]</a></th>
+                  <th style="font-weight: bold;">Non linearity</th> 
+                  <th style="font-weight: bold;">Non Gaussian</th>
+                  <th style="font-weight: bold;">Multi dimensionality</th>
+                  <th style="font-weight: bold;">Heterogeneous data</th>  
+                </tr>
+                
+                <tr><td>BIC, MDL<br>BGe, BDeu, BDe</td> <td>No</td> <td>No</td> <td>No</td> <td>No</td> </tr>  
+                <tr><td>Mixed BIC</td> <td>No</td> <td>No</td> <td>No</td> <td>Stationary only</td> </tr> 
+                <tr><td>LiNGAM<br>ICA-LiNGAM<br>Direct-LiNGAM</td> <td>No</td> <td>Yes</td> <td>No</td> <td>Yes</td> </tr> 
+                <tr><td>ANM<br>CAM<br>PNL</td> <td>Yes</td> <td>Yes</td> <td>No</td> <td>Yes</td> </tr> 
+                <tr><td>GSF</td> <td>Yes</td> <td>Yes</td> <td>Yes</td> <td>Stationary only</td> </tr> 
+            </table>
+            <figcaption style="font-size: small; text-align: center;">Comparison of score-based methods</figcaption>  
+            </p>
+            <h2>Formulation</h2>
+            <p>
+              Let \(X\) be an infinitely dimensional random variable, with domain \(\mathcal{X}\).<br>
+              \(\mathcal{H}_{X}\) is defined as a <a href="https://www.stat.cmu.edu/~ryantibs/statml/lectures/RKHSnotes.pdf">Reproducing Kernel Hilbert Space (RKHS)</a> on \(\mathcal{X}\), in which
+              <ol>
+                <li>\(\phi_X: \mathcal{X}  \longmapsto \mathcal{H}_{X} \) is a continuous feature map projecting a point \(x \in \mathcal{X}\) onto \(\mathcal{H}_{X}\)  </li><br>
+                <li>\(k_{X}: \mathcal{X} \times \mathcal{X} \longmapsto\ \mathbb{R}\) is a positive definite kernel function such that \(k_{X}(x, x')= \langle\phi_X(x),\phi_X(x')\rangle \)</li><br>
+                <li>probabilty law of \(X\) is \(P_X\) and \(\mathcal{H}_{X} \subset L^2(P_X)\) - the space of square integrable functions</li>
+                <ul style="font-style: italic;">\(\rightarrow\) This is a property of completeness, basically saying that with the probability of existence \(P_X\), \(\mathcal{H}_X\) contain functions that are square integrable. In \(\mathcal{H}_X\), \(L^2\) norm is defined.</ul><br>
+                <li>for any point \(x\) in a sample of \(n\) observations, 
+                  <ul>
+                    <li>with \(c_i\) being the weight, the reproducing property gives the following linear combination
+                      $$\phi(x) = \langle\phi, k_X\rangle = \sum^{n}_{i=1}k_X(x,x_i)c_i$$
+                    </li>
+                    <li>
+                      \(K_X\) represents the \(n \times n\) kernel matrix with each element \(K_{ij} = k_X(x_i, x_j)\)
+                    </li>
+                  </ul>
+                </li>
+              </ol>
+              Similar notations are applied to other variables \(Y\) and \(Z\)
+             </p>
+             <h3>1. Characterization of Conditional Independence</h3>
+             <p>The score function must act as a proxy for conditional independence test, which, in the general case, is characterized by <strong></strong>conditional covariance operators.  
+            </p>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          <h4 id="ref">References</h4>
+        
+        
+          </div>
     </article>
         </div>
     </div>
