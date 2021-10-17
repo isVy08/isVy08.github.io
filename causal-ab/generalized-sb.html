@@ -95,13 +95,63 @@
                     <li>
                       \(K_X\) represents the \(n \times n\) kernel matrix with each element \(K_{ij} = k_X(x_i, x_j)\)
                     </li>
+                    <li>\(\widetilde{K_X}=HK_XH\) is the centralized kernel matrix where \(H=I-\frac{1}{n}\mathbb{1}\mathbb{1}^T\) with \(n \times n\) idenity matrix \(I\) and vector of 1's \(\mathbb{1}\)   </li>
+
                   </ul>
                 </li>
               </ol>
               Similar notations are applied to other variables \(Y\) and \(Z\)
              </p>
              <h3>1. Characterization of Conditional Independence</h3>
-             <p>The score function must act as a proxy for conditional independence test, which, in the general case, is characterized by <strong></strong>conditional covariance operators.  
+             <p>The score function must act as a proxy for conditional independence test, which, in the general case, is characterized by <strong>conditional covariance operators.</strong>
+             The kernel-based conditional independence test is described as follow 
+             <figure style="text-align: center;">
+              <img src='gsf_lemma1.png' alt='kernel-conditional-independence-test'/>
+              <figcaption style="font-size: small;"><br><strong>Lemma 1</strong> (extracted from the paper)</figcaption>
+             </figure>
+            <br>where \(\Sigma_{XX|Z} = \Sigma_{XX} - \Sigma_{XZ}\Sigma^{-1}_{ZZ}\Sigma_{ZX}\).
+            </p>
+            <p>
+              For all functions \(g \in \mathcal{H_X}\) and \(f \in \mathcal{H_Z}\), the cross-covariance operator \(\Sigma_{ZX}: \mathcal{H_X} \longmapsto \mathcal{H_Z}\) of a random vector (\(X, Z\)) on \(\mathcal{X} \times \mathcal{Z}\) is defined by
+              $$\langle f, \Sigma_{ZX}g \rangle_{\mathcal{H_Z}} = E_{XZ}[g(X)f(Z)] - E_X[g(X)]E_Z[f(Z)]$$
+            </p>
+            <p>
+              Additionally, the operator \(\Sigma_{XX|Z}\) captures conditional variance of a random variable \(X\) through
+              $$\langle g, \Sigma_{XX|Z}g \rangle_{\mathcal{H_X}} = E_{Z}[Var_{X|Z}[g(X)|Z]]$$ 
+            </p>
+            <p>
+              Let \(\ddot{Z} := [Y, Z]\). Similarly, we have
+              $$\langle g, \Sigma_{XX|\ddot{Z}}g \rangle_{\mathcal{H_X}} = E_{\ddot{Z}}[Var_{X|\ddot{Z}}[g(X)|\ddot{Z}]]$$ 
+            </p>
+            <h3>2. Regression in RKHS</h3>
+            <p>
+              Given random variables \(X, Z\) over spaces \(\mathcal{X}, \mathcal{Z}\), the authors exploit regression framework in RKHS to project \(Z\) onto finite-dimensional \(\mathcal{H_X}\),
+              and encode the dependency by regressing \(\phi_X(X)\) on \(Z\)
+              $$\phi_X(X) = F(Z) + U, \quad F: \mathcal{Z} \longmapsto \mathcal{H}_X $$
+              Consider the two regression models in RKHS 
+              $$\phi_X(X) = F_1(Z) + U_1$$
+              $$\phi_X(X) = F_2(\ddot{Z}) + U_2$$
+
+              From <strong>Lemma 1</strong>, we can derive the equality between the conditional variance operators as 
+              <figure style="text-align: center;">
+                <img src='gsf_eq4.png' alt='eq4'/>
+                <figcaption style="font-size: small;"><br><strong>Equation 4</strong> (extracted from the paper)</figcaption>
+               </figure>
+
+            </p>
+            <p>
+              \(\phi_X(X)\) is a vector in infinite-dimensional space, and can be written as \( \phi_X(X) = [\phi_1(X), ..., \phi_i(X), ...]^T \). 
+              Since \(\phi_X(X)\) is a feature map in \(\mathcal{H}_X\), there exists a function \(g \in \mathcal{H}_X\) such that \(g = \phi_i(X)\). 
+              Thus, <strong>Equation 4</strong> holds for any \(\phi_i(X)\).
+            </p>
+            <p>
+              In RKHS, each component \(\phi_i(X)\) and \(\phi_j(X)\) is orthogonal, so \(Cov(\phi_i(X), \phi_j(X))=0\).
+              We can see that the conditional covariance matrix of \(\phi_X(X)\) given \(Z\) is a diagonal matrix 
+              where each element on the diagonal corresponds to the conditional variance \(E_{Z}[Var_{X|Z}[\phi_i(X)|Z]]\). Thus, we have
+              <figure style="text-align: center;">
+                <img src='gsf_eq3.png' alt='eq4'/>
+                <figcaption style="font-size: small;"><br><strong>Equation 3</strong> (extracted from the paper)</figcaption>
+               </figure>
             </p>
         
         
