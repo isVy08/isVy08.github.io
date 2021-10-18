@@ -70,7 +70,7 @@
                   <th style="font-weight: bold;">Heterogeneous data</th>  
                 </tr>
                 
-                <tr><td>BIC, MDL<br>BGe, BDeu, BDe</td> <td>No</td> <td>No</td> <td>No</td> <td>No</td> </tr>  
+                <tr><td>BIC, MDL<br>BGe, BDeu<br>BDe, BCCD</td> <td>No</td> <td>No</td> <td>No</td> <td>No</td> </tr>  
                 <tr><td>Mixed BIC</td> <td>No</td> <td>No</td> <td>No</td> <td>Stationary only</td> </tr> 
                 <tr><td>LiNGAM<br>ICA-LiNGAM<br>Direct-LiNGAM</td> <td>No</td> <td>Yes</td> <td>No</td> <td>Yes</td> </tr> 
                 <tr><td>ANM<br>CAM<br>PNL</td> <td>Yes</td> <td>Yes</td> <td>No</td> <td>Yes</td> </tr> 
@@ -109,13 +109,14 @@
              <p>The score function must act as a proxy for conditional independence test, which, in the general case, is characterized by <strong>conditional covariance operators.</strong>
              The kernel-based conditional independence test is described as follow 
              <figure style="text-align: center;">
-              <img src='gsf_lemma1.png' alt='kernel-conditional-independence-test'/>
+              <img src='gsf/gsf_lemma1.png' alt='kernel-conditional-independence-test'/>
               <figcaption style="font-size: small;"><br><strong>Lemma 1</strong> (extracted from the paper)</figcaption>
              </figure>
             <br>where \(\Sigma_{XX|Z} = \Sigma_{XX} - \Sigma_{XZ}\Sigma^{-1}_{ZZ}\Sigma_{ZX}\).
             </p>
             <p>
-              For all functions \(g \in \mathcal{H_X}\) and \(f \in \mathcal{H_Z}\), the cross-covariance operator \(\Sigma_{ZX}: \mathcal{H_X} \longmapsto \mathcal{H_Z}\) of a random vector (\(X, Z\)) on \(\mathcal{X} \times \mathcal{Z}\) is defined by (ref here)
+              For all functions \(g \in \mathcal{H_X}\) and \(f \in \mathcal{H_Z}\), the cross-covariance operator \(\Sigma_{ZX}: \mathcal{H_X} \longmapsto \mathcal{H_Z}\) of a random vector (\(X, Z\)) on \(\mathcal{X} \times \mathcal{Z}\) defined in 
+              <a href="https://www.jmlr.org/papers/volume5/fukumizu04a/fukumizu04a.pdf">Fukumizu, Bach & Jordan (2004)</a> is
               $$\langle f, \Sigma_{ZX}g \rangle_{\mathcal{H_Z}} = E_{XZ}[g(X)f(Z)] - E_X[g(X)]E_Z[f(Z)]$$
             </p>
             <p>
@@ -123,7 +124,7 @@
               $$\langle g, \Sigma_{XX|Z}g \rangle_{\mathcal{H_X}} = E_{Z}[Var_{X|Z}[g(X)|Z]]$$ 
             </p>
             <p>
-              Let \(\ddot{Z} := [Y, Z]\). Similarly, we have (ref here)
+              Let \(\ddot{Z} := [Y, Z]\). Similarly, we have
               $$\langle g, \Sigma_{XX|\ddot{Z}}g \rangle_{\mathcal{H_X}} = E_{\ddot{Z}}[Var_{X|\ddot{Z}}[g(X)|\ddot{Z}]]$$ 
             </p>
             <h3>2. Regression in RKHS</h3>
@@ -136,7 +137,7 @@
 
               From <strong>Lemma 1</strong>, we can derive the equality between the conditional variance operators as 
               <figure style="text-align: center;">
-                <img src='gsf_eq4.png' alt='eq4'/>
+                <img src='gsf/gsf_eq4.png' alt='eq4'/>
                 <figcaption style="font-size: small;"><strong>Equation 4</strong> (extracted from the paper)</figcaption>
                </figure>
 
@@ -153,7 +154,7 @@
               Thus, we can derive
             
               <figure style="text-align: center;">
-                <img src='gsf_eq3.png' alt='eq4'/>
+                <img src='gsf/gsf_eq3.png' alt='eq3'/>
                 <figcaption style="font-size: small;"><strong>Equation 3</strong> (extracted from the paper)</figcaption>
                </figure>
             </p>
@@ -171,7 +172,7 @@
             </p>
             <p>
               According the reproducing property, \(k_x\) has the same vector structure as \(\phi_X(X)\) wherein each element is equivalent to a function \(f_i(x)\) given by the linear combination.  
-              This means that regressing \(k_X\) on \(Z\) does not cause loss of information, that is the log-likelihood score still reflects model compatibility while remain tractable.  
+              This means that regressing \(k_X\) on \(Z\) does not cause loss of information, that is the log-likelihood score reflects model compatibility while remains tractable.  
             </p>
             <p>
               We now turn our attention to the reformulated problem
@@ -179,7 +180,7 @@
               Assuming Gaussian errors, we fit a kernel ridge regression on finite sample size (regression with \(L2\) regularization) to estimate
               $$\tilde{\hat{F}}_Z(z)  \approx \sum^{n}_{i=1} k_Z(z_i, z)c_i$$ 
               where the coefficient matrix \(c \in R^n\) can be found by solving
-              $$\text{min} \frac{1}{n}||Y-cK_Z||^{2}_{R^n} + \lambda c^T K_Z c \quad \lambda: \text{regularization parameter}$$
+              $$\min \frac{1}{n}||Y-cK_Z||^{2}_{R^n} + \lambda c^T K_Z c \quad \lambda: \text{regularization parameter}$$
               This gives 
               $$\hat{c} = Y(K_Z + \lambda n I)^{-1}$$
               The fitted function is 
@@ -191,7 +192,7 @@
             <p>
               The maximal value of log-likelihood is represented as 
               <figure style="text-align: center;">
-                <img src='gsf_LL.png' alt='eq4'/>
+                <img src='gsf/gsf_LL.png' alt='LL'/>
                 <figcaption style="font-size: small;"><strong>Maximum Value of Log-Likehood</strong> (extracted from the paper)</figcaption>
               </figure>
               From line 2 to line 3, 
@@ -214,14 +215,14 @@
               \(X_i\) is the target variable and \(PA^{\mathcal{G^h}}_{i}\) is the set of predictors in the regression function in <strong>Equation 5</strong>.
               The individual likelihood function is represented with kernel matrices as follow
               <figure style="text-align: center;">
-                <img src='gsf_cv.png' alt='eq4'/>
+                <img src='gsf/gsf_cv.png' alt='cv'/>
                 <figcaption style="font-size: small;"><strong>CV Log-Likehood</strong> (extracted from the paper)</figcaption>
               </figure>
             </p>
             <p>
               The formula can be derived using matrix manipulation. Notice that line 2 approximates \(\hat{\Sigma}^{(q)}\) by adding \(\lambda\) to give rise to kernel functions.
               The paper also proposes removing the fitted values and using only \(\widetilde{K_Z}\) to reduce overfitting. This is equivalent to regressing \(k_X\) on the empty set. 
-              More details can be found in the proof.
+              Please refer to the paper for more details.
             </p>
             <h4>4.2. Marginal Likelihood</h4>
             <p>
@@ -229,21 +230,74 @@
               $$S_M(\mathcal{G^h};D) = \sum^{m}_{i=1} S_M(X_i, PA^{\mathcal{G^h}}_i)$$
               with \(S_M(X_i, PA^{\mathcal{G^h}}_i) = \mathsf{log} \ p(X_i|PA^{\mathcal{G^h}}_i, \hat{\sigma_i})\), and the noise variance \(\hat{\sigma_i}\) is learned by maximizing marginal likelihood with gradient methods.
               <figure style="text-align: center;">
-                <img src='gsf_mg.png' alt='eq4'/>
+                <img src='gsf/gsf_mg.png' alt='mg'/>
                 <figcaption style="font-size: small;"><strong>Marginal Log-Likehood</strong> (extracted from the paper)</figcaption>
               </figure>
             </p>
-
-
+            <h3>Reliability</h3>
+            <p>
+              A score function must also satisfy <strong>Local Consistency</strong> and <strong>Score Equivalence</strong>.
+              <h4>Local Consistency</h4>
+              <figure style="text-align: center;">
+                <img src='gsf/gsf_def1.png' alt='def1'/>
+                <figcaption style="font-size: small;"><strong>Definition of Local Consistency</strong> (extracted from the paper)</figcaption>
+              </figure>
+              <br>              
+              The score function is expected to give lower scores to models assigning with incorrect indendency constraints.  
+              It has been shown that under mild conditions, CV likelihood score is locally consistent according to <strong>Lemma 2</strong>. 
+              <figure style="text-align: center;">
+                <img src='gsf/gsf_lemma2.png' alt='def1'/>
+                <figcaption style="font-size: small;"><strong>Lemma 2</strong> (extracted from the paper)</figcaption>
+              </figure>
+              <br> 
+              The model selected by CV likelihood has the same performance with the model selected by the optimal benchmark that is fitted on the entire sample. 
+              That is, CV likelihood score supports learning causal relations that hold in the true data generating distribution. 
+              This conclusion at the same time supports \(K\)-fold cross validation with reasonably large \(K\). 
+            </p>
+            <p>
+              Marginal likelihood score is also proven to yield local consistency according to <strong>Lemma 3</strong>. 
+              <figure style="text-align: center;">
+                <img src='gsf/gsf_lemma3.png' alt='lemma3'/>
+                <figcaption style="font-size: small;"><strong>Lemma 3</strong> (extracted from the paper)</figcaption>
+              </figure>
+              <br> 
+              The score can then be expressed in terms of Bayesian information criterion (BIC), plus a constant, in which BIC is locally consistent.
+            </p>
+            <h4>Score Equivalence</h4>
+            <p>
+              
+              <figure style="text-align: center;">
+                <img src='gsf/gsf_def2.png' alt='def2'/>
+                <figcaption style="font-size: small;"><strong>Definition of Score Equivalence</strong> (extracted from the paper)</figcaption>
+              </figure>
+              <br>On the other hand, the previous studies provide evidence that non-linear regression gives different scores to models in an equivalence class. 
+              Thus, neither CV or Marginal likelihood meet Score Equivalence. 
+            </p>
+            <p>
+              However, the authors show that we can exploit local consistency and local score change to compare the reliability of any two DAGs. 
+              It is observed that the learned DAG with the same structure and orientation as the data generative distribution gives the highest scores. 
+              However, since there have not been any theoretical proof for this yet, we resort to the problem of searching the optimal Markov equivalence class.
+            </p> 
+            <p>
+              In general, if conditions in <strong>Lemma 2</strong> and <strong>Lemma 3</strong> hold, the CV likelihood and Marginal likelihood, under RKHS regression framework, 
+              are guaranteed to find the Markov equivalence class that is closely consistent with the data generating distribution by using Greedy Equivalence Search algorithm (GES).
+              Details can be found in <strong>Proposition 1</strong> and <strong>Proposition 2</strong>.
+            </p>
         
-        
-        
-        
-        
-        
-        
-        
-          <h5 id="ref">References</h5>
+          <h5 id="ref">Previous score-based methods</h5>
+          <ul>
+            <li>BIC, MDL  : <a href="https://projecteuclid.org/journals/annals-of-statistics/volume-6/issue-2/Estimating-the-Dimension-of-a-Model/10.1214/aos/1176344136.full">Estimating the Dimension of a Model</a> </li>
+            <li>BGe : <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.298.5928&rep=rep1&type=pdf">Learning Gaussian Networks</a></li>
+            <li>BDeu, BDe : <a href="http://www.cs.technion.ac.il/~dang/journal_papers/heckerman1995learning.pdf"> Learning Bayesian networks: The combination of knowledge and statistical data.</a> </li>
+            <li>BCCD  : <a href="https://arxiv.org/pdf/1210.4866.pdf">A Bayesian Approach to Constraint Based Causal Inference</a> </li>
+            <li>Mixed BIC : <a href="https://link.springer.com/chapter/10.1007%2F978-3-319-11433-0_29">Causal discovery from databases with discrete and continuous variables.</a> </li>
+            <li>LiNGAM  : <a href="https://link.springer.com/article/10.2333%2Fbhmk.41.65"> LiNGAM: non-Gaussian methods for estimating causal structure</a> </li>
+            <li>ICA-LiNGAM  : <a href="https://jmlr.org/papers/volume7/shimizu06a/shimizu06a.pdf">A linear non-Gaussian acyclic model for causal discovery</a> </li>
+            <li>Direct-LiNGAM : <a href="https://jmlr.org/papers/volume12/shimizu11a/shimizu11a.pdf">DirectLiNGAM: A direct method for learning a linear non-Gaussian structural equation model</a> </li>
+            <li>ANM : <a href="http://papers.neurips.cc/paper/3548-nonlinear-causal-discovery-with-additive-noise-models.pdf"> Nonlinear causal discovery with additive noise models</a> </li>
+            <li>CAM : <a href="https://arxiv.org/pdf/1310.1533.pdf">CAM: Causal Additive Models, highdimensional order search and penalized regression</a> </li>
+            <li>PNL : <a href="https://arxiv.org/pdf/1205.2599.pdf"> On the identifiability of the post-nonlinear causal model</a> </li>
+          </ul>
         
         
           </div>
