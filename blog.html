@@ -8,7 +8,6 @@
     <meta name="description" content="Vy Vo">
     <meta property="og:description" content="Vy Vo's Blog"/>
     <title>Vy Vo</title>
-
     <link rel="stylesheet" href="main.css">
 </head>
 
@@ -36,68 +35,93 @@
     <!--Second div is for the main contain-->
     <div id="main" role="main" class="container">
         <div class="posts"> 
-        <div style="font-size: 20px;">
-            <!--First Article-->
-            <div>
-              <span class="caption">October 2021 </span><br>
-              <a href="causal-ab/intro.html" target="_blank">Causal A/B Testing Tutorial</a>
-              <br><span class="caption">A series of 6 articles exploring A/B testing under the lens of Causality.</span>
+          <!--Filter-->
+
+          <div id="myBtnContainer">
+              <button class="btn active" onclick="filterSelection('all')">ALL</button>
+              <button class="btn" onclick="filterSelection('causality')">CAUSALITY</button>
+              <button class="btn" onclick="filterSelection('intuit-ai')">INTUITIVE AI</button>
+              <button class="btn" onclick="filterSelection('fuzzy-ai')">FUZZY AI</button>
+              <button class="btn" onclick="filterSelection('misc')">RANDOM</button>
           </div>
           <br>
-          <div>
-              <span class="caption">September 2021 </span><br>
-              <a href="blog/causal-ip.html" target="_blank">Causal Invariant Predictors</a>
-              <br><span class="caption">A summary of works on Causal Invariant Predictors.</span>
+
+          <div style="font-size: 20px;">  
+
+              <!--Article-->
+              <div class="topic causality">
+                <div class="content">
+                  <span class="caption">October 2021 </span><br>
+                  <a href="causal-ab/intro.html" target="_blank">Causal A/B Testing Tutorial</a>
+                  <br><span class="caption">A series of 6 articles exploring A/B testing under the lens of Causality.</span>
+                </div>
+              </div>
+
+              <div class="topic causality">
+                <div class="content">
+                  <span class="caption">September 2021 </span><br>
+                  <a href="blog/causal-ip.html" target="_blank">Causal Invariant Predictors</a>
+                  <br><span class="caption">A summary of works on Causal Invariant Predictors.</span>
+                </div>  
+              </div>
+
+              <div class="topic causality">
+                <div class="content">
+                  <span class="caption">September 2021 </span><br>
+                  <a href="blog/anticausal.html">On Causal and Anticausal Learning</a>
+                  <br><span class="caption">Where Causal Machine Learning begins.</span>
+                </div>  
+              </div>
+
+              <div class="topic causality">
+                <div class="content">
+                  <span class="caption">June 2021 </span><br>
+                  <a href="blog/causality-2.html" target="_blank">Intro to Causal Thinking (Part 2)</a>
+                  <br><span class="caption"> Correlations is not Causation. But we have to start with it.</span>
+                </div>
+              </div>
+      
+              <div class="topic causality">
+                <div class="content">
+                  <span class="caption">June 2021</span><br>
+                  <a href="blog/causality-1.html" target="_blank">Intro to Causal Thinking (Part 1)</a>
+                  <br><span class="caption"> A preliminary step towards Causal AI.</span>
+                </div>
+              </div>
+
+              <div class="topic intuit-ai">
+                <div class="content">
+                  <span class="caption">May 2021</span><br>
+                  <a href="blog/teachml.html" target="_blank">How Machines Are Taught</a>
+                  <br><span class="caption"> How well a student learns depends on how good the teacher is.  
+                      I take a step back to think about whether it makes sense in the way we teach machines.  
+                  </span>
+                </div>
+              </div>
+
+              <div class="topic fuzzy-ai">
+                <div class="content">
+                  <span class="caption">April 2021</span><br>
+                  <a href="blog/glm.html" target="_blank">Assumptions of Linear Models</a>
+                  <br><span class="caption"> On my first touch with machine learning,  
+                      it puzzled me why a model always has assumptions. 
+                      For my own curiosity, I uncover this mystery behind the classic linear regression.
+                  </span>
+                </div>  
+              </div>
+
+              <div class="topic misc">
+                <div class="content">
+                  <span class="caption">March 2021</span><br>
+                  <a href="blog/myletter.html" target="_blank">If This Was My Last Day</a>
+                  <br><span class="caption">What would I say if I had one last day on Earth?</span>
+                </div>
+              </div>
+          
           </div>
-          <br>
-            <div>
-              <span class="caption">September 2021 </span><br>
-              <a href="blog/anticausal.html">On Causal and Anticausal Learning</a>
-              <br><span class="caption">Where Causal Machine Learning begins.</span>
-          </div>
-          <br>
-            <div>
-                <span class="caption">June 2021 </span><br>
-                <a href="blog/causality-2.html" target="_blank">Intro to Causal Thinking (Part 2)</a>
-                <br><span class="caption"> Correlations is not Causation. But we have to start with it.</span>
-            </div>
-            <br>
-    
-            <div>
-                <span class="caption">June 2021</span><br>
-                <a href="blog/causality-1.html" target="_blank">Intro to Causal Thinking (Part 1)</a>
-                <br><span class="caption"> A preliminary step towards Causal AI.</span>
-            </div>
-            <br>
-
-            <div>
-                <span class="caption">May 2021</span><br>
-                <a href="blog/teachml.html" target="_blank">How Machines Are Taught</a>
-                <br><span class="caption"> How well a student learns depends on how good the teacher is.  
-                    I take a step back to think about whether it makes sense in the way we teach machines.  
-                </span>
-            </div>
-            <br>
-
-            <div>
-                <span class="caption">April 2021</span><br>
-                <a href="blog/glm.html" target="_blank">Assumptions of Linear Models</a>
-                <br><span class="caption"> On my first touch with machine learning,  
-                    it puzzled me why a model always has assumptions. 
-                    For my own curiosity, I uncover this mystery behind the classic linear regression.
-                </span>
-            </div>
-            <br>
-
-            <div>
-                <span class="caption">March 2021</span><br>
-                <a href="blog/myletter.html" target="_blank">If This Was My Last Day</a>
-                <br><span class="caption">What would I say if I had one last day on Earth?</span>
-            </div>
-            <br>
+          <script src="main.js"></script>
+        </div>
         
-        </div>
-        </div>
     </div>   
     <div class="wrapper-footer">
         <div class="container">
