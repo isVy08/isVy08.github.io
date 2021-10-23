@@ -751,6 +751,7 @@ tr:nth-child(even) {
   background-color: white;
   cursor: pointer;
   font-weight: bold;
+  font-size: 14px;
 }
 
 .btn:hover {
@@ -758,6 +759,6 @@ tr:nth-child(even) {
 }
 
 .btn.active {
-  background-color:black;
+  background-color: black;
   color: white;
 }
