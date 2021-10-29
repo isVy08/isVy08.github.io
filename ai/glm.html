@@ -44,7 +44,7 @@
             <!--
             <p id="test"></p>
             -->
-            <h1>LINEAR ASSUMPTIONS</h1>
+            <h1>Linear Assumptions</h1>
             <p>Every machine learning journey starts with a simple linear model. I choose to explain the assumptions underlying Linear Regression, an old-school machine learning model but widely used today. 
                 Though the original idea is very simple, it forms the bedrock of modern machine learning techniques to which the same thinking applies.
             </p>
@@ -53,7 +53,7 @@
             <p>Given examples of the target variable \(y\) and \(d\)-dimensional input vectors \(x\), we assume \(y\) arises from a deterministic function \(g(x, W)\) plus Gaussian noice \(\epsilon\) </p>
             $$y = g(X, W) + \epsilon \quad (*)$$
             <p id="gaussian"></p>
-            <h3>ASSUMPTIONS</h3>
+            <h2>Assumptions</h2>
             <p>The key assumption of Linear Regression model are</p>
             <p>1. \(g\) is a linear on \(W\) and any basis forms of \(X\).</p>
             $${g(X, W) = W^T\varphi(X)}$$
@@ -67,7 +67,7 @@
             <p>Assumption 3 is applied to nearly all problems that involve maximizing likelihood function. In this case, we can do optimization for all observations at once by multiplying each individual likelihood functions, or summing the log-likehood's, which is even easier to calculate derivatives. It's again mathematical convenient while not very difficult to achieve in practice. </p>
             <p>Assumption 4 is more tricky. It's practically a particular design choice for a linear model. To understand why, we first look into the loss function for regression.</p>
 
-            <h3>1. ERROR FUNCTION</h3>
+            <h3>1. Error Function</h3>
             <p>Equation \((*)\) implies that without the noise, the actual value \(y\) would equal the output of \(g(x, W)\). Therefore, we incur a loss when choosing a specific estimate \(g(x, W)\) for \(y\), that is \(\quad L\left(y, g(x,W)\right)\). </p>
             <p>A common choice of loss function in regression problems is the sum-of-squared error function. The average or expected loss is given by</p>
             $${E[L] = \iint L\left(y, g(x,W)\right)p(x, y) \ \mathrm{dxdy} = \iint \{y - g(x, W)\}^2p(x,y) \ \mathrm{dxdy}}$$
@@ -77,7 +77,7 @@
             $${g(x,W) = \frac{\int yp(x, y)\ \mathrm{dy}}{p(x)} = \int yp(y|x)dy = \mathrm{E}_{y}[y|x]}$$
             The optimal estimate for \(y\) is the expected value of \(y\) conditioned on \(x\).
 
-            <h3>Why should \(\epsilon\) be an Gaussian?</h3>
+            <h3>2. Why should \(\epsilon\) be an Gaussian?</h3>
             <p>Taking expectation over \((*)\), the result  \(g(x,W)=E_{y}[y|x]\).</p>
             <p>If \(\epsilon\) is an Gaussian random variable, this implies \(y\) also follows a \(\textsf{Normal}\) distribution conditioned on \(x\). This has multiple benefits</p>
             <p>1. For regression problems, the output variable  \(y\) is continuous, so \(\mathsf{Gaussian}\) is an intuitively natural choice.</p>
@@ -85,7 +85,7 @@
             <p>3. Because the assumption of \(\mathsf{Gaussian}\) gives rise to the use of squared loss function, the conditional mean is simply \(E_y[y|x] = g(x,W) = W^TX\), and minimizing this loss function results in a closed-form solution. </p>
             <p>In section 4, we will look into an extension of simple linear models in which more complicated transformations of \(E_y[y|x]\) are required for the linearity assumption to hold, and in some cases we don't have such a nice analytical solution.</p>
             
-            <h3>3. BIAS-VARIANCE DECOMPOSITION</h3>
+            <h3>3. Bias-Variance Decomposition</h3>
             <p>\(\textbf{Bias}\) refers to the accuracy of the model predictions. \(\textbf{Bias error}\)  measures the difference between the expected or average prediction of our model and the true value. The prediction itself is a random variable as it tends to change when the model learns from a different dataset. This indicates how much the predictions of multiple models in general deviate from the true value.</p>
             <p>\(\textbf{Variance}\)  indicates how consistent the predictions are for a given data point. It measures the degree to which the predictions vary from one another over different training sets.</p>
             <p>We want our model to have low \(\textbf{Bias}\) and low \(\textbf{Variance}\), but there's a trade-off. </p>
@@ -112,11 +112,11 @@
             $${\textbf{Generalization Error} = \textbf{Bias}^2 + \textbf{Variance}}$$
             <p>This means that regression models optimized on the sum-of-squaredd loss function under \(\textsf{Gaussian}\) distribution are subject to the trade-off between \(\textbf{Bias}^2\) and  \(\textbf{Variance}\). These quantities control the model complexity and tell us a lot about fitting capacity of the model for the problem at hand.</p>
             
-            <h3>4. GENERALISED LINEAR MODEL</h3>
+            <h3>4. Generalized Linear Model</h3>
             <p>Let \(y_1, y_2, ..., y_n\) denote \(n\) independent observations of the target variable \(Y\) conditioned on input  \(X\).</p>
             <p>A generalised linear model (GLM) generalises linear regression in 2 ways:</p>
             
-            <h4>1. Exponential Family</h4>
+            <h4>4.1. Exponential Family</h4>
             <p>\(Y|X\sim\) exponential family distribution with probability density function and parameters \(\theta, \phi\)</p>
             $${f(Y = y|\theta,\phi) = \exp\left( \frac{y\theta-b(\theta)}{a(\phi)} + c(y,\phi)\right) \quad (\ast\ast)}$$
             <p>Here \(a(\phi), b(\theta)\) and \(c(y,\phi)\) are known functions. The distribution of \(Y\) has mean and variance</p>
@@ -124,13 +124,13 @@
             $${\mathrm{Var}(Y|X) = \sigma^2 = b''(\theta)a(\phi)}$$
             where \(b'(\theta)\) and \(b'(\theta)\) respectively are the first and second derivative of \(b(\theta)\).
 
-            <h4>2. Link Function</h4>
+            <h4>4.2. Link Function</h4>
             <p>There exists a link function \(g\) such that</p>
             $${g(\mu) = W^T X}$$
             Recall that if the squared loss function is used, the optimal prediction of linear regression models for a new value \(x\) is the conditional mean of \(Y\), that is \(\mathrm{E}(Y|X)\) or \(\mu\). GLM allows for non-linearity by introducing a transformation on the expected value so that it is linear on \(W\) and \(X\), or more generally on the basis \(\varphi(X)\).
             <p>Common examples in exponential family include \(\textsf{Normal}, \textsf{Bernoulli}, \text{or }  \textsf{Poisson}\) distributions. The function \(g\) can be an \(\textsf{Identity}, \textsf{Log}, \textsf{Logit}, \text{or } \textsf{Reciprocal}\) function. </p>
 
-            <h3>4.1 AN ALTERNATIVE VIEW OF LINEAR REGRESSION</h3>
+            <h3>5. An Alternative View of Linear Regression</h3>
             <p>We will now see how these properties give rise to the normal distribution assumption of linear regression models, which assumes \(Y\) follows a \(\textsf{Normal}\) distribution, and uses an \(\textsf{Identity}\) link function. </p>
             <p>With \(\textsf{Identity}\) function \(g\),</p>
             $${g(\mu) = \mu = W^TX}$$
@@ -141,7 +141,7 @@
             <p>We also have \(a(\phi) = \sigma^2\) and the second term in the exponent is noe form of \(c(y_n, \phi)\).</p>
             <p>One important observation is maximizing the density function above is equivalent to minimizing \((y_n - \mu_n)^2 = (y_n - \mathrm{E}(Y|X))^2\), which is the sum-of-squaredd.</p>
             
-            <h3>4.2 AN ALTERNATIVE VIEW OF LOGISTIC REGRESSION</h3>
+            <h3>6. An Alternative View of Logistic Regression</h3>
             <p>In this section, you are assumed to be familiar with Logistic Regression. In the case of binary classification, let \(p\) be the probability of an observation belongs to the positive class.</p>
             <p>The model assumes the \(\textsf{log odds} \ \log\left(\frac{p}{1-p}\right)\) is linear on \(W\).</p>
             <p>If the \(\textsf{log odds} \ge 0\), the observation is more likely to be in the positive clas, and otherwise for \(\textsf{log odds} < 0\).</p>
@@ -158,7 +158,7 @@
             <p>and this give rise to a natural choice of the \(\textsf{logit}\) link function \(g\)</p>
             $${g(p) = \log \frac{p}{1-p} = W^TX}$$
 
-            <h3>4.3 MAXIMUM LIKELIHOOD</h3>
+            <h3>7. Maximum Likelihood</h3>
             <p>An important observation in the above cases is that \(g\) links the conditional mean \(\mu\) back to the parameter \(\theta\). Such choices of \(g\), e.g., \(\textsf{Identity}\) or \(\textsf{Logit}\) functions are called Canonical Links.</p>
             <p>In most widely used models such as linear or logistic regression, the function \(a(\phi)\) has a form </p>
             $${a(\phi) = \frac{\phi}{k}}$$
@@ -177,14 +177,14 @@
             <p>If \(g\) is canonical and \(\phi > 0\), the function \(b(.)\) is strictly convex. This then makes \(\mathcal{L(W)}\) strictly concave</p>
             <p>This means that the maximum likelihood estimator \(W\) is a unique solution. If any of the assumptions do not hold, \(\mathcal{L(W)}\) may no longer be concave, resulting in multiple local maxima.</p>
 
-            <h3>CONCLUSION</h3>
-            <p>Assuming \(\textsf{Gaussian}\) noise \(\epsilon\) leads to \(Y|X \sim \mathcal{N}(\mu, \sigma)\), which gives rise to the sum-of-squared loss function and \(\textsf{Identity}\) link function. 
+            <h2>Conclusion</h2>
+            <p>Assuming Gaussian noise \(\epsilon\) leads to \(Y|X \sim \mathcal{N}(\mu, \sigma)\), which gives rise to the sum-of-squared loss function and \(\textsf{Identity}\) link function. 
               These ensure the loss function is stricly concave, thereby having a unique solution. All of these assumptions are called Gauss-Markov Assumptions. The technique of minimising the loss function by setting the derive equal to zero and solving it is 
             called read Ordinary Least Squares (OLS). Under these assumptions, we can guarantee the anylytical estimates of \(W\) is unbiased OLS. You can read more about the proof in Chapter 3 of the book Introductory Econometrics (Wooldrige 2012).</p>
             <p>Among the assumptions, the assumption of constant variance  \(\sigma^2\) plays no role in the unbiasedness and consistency of the estimators. However, you can see that if \(\sigma^2\) is not constant, the model has another parameter and the optimization problem becomes more complicated. The problem is referred to as Heteroskedasticity, and it affects the robustness of confidence intervals and \(t\) test statistics. The consequence of Heteroskedasticity is more severe for time series analysis. In many machine learning applications, the variance is safely assumed fixed and known.</p>
             <h4>References</h4>
             <ul style="font-style: italic;">
-                <li>Pattern Recognition And Machine Learning -Bishop (2006)</li>
+                <li>Pattern Recognition And Machine Learning - Bishop (2006)</li>
                 <li>Introductory Econometrics: A Modern Approach - Wooldridge (2012)</li>
                 <li>Statistic For Application - MIT 18.650</li>
             </ul>

@@ -40,20 +40,20 @@
 
     <article class="post"; style="text-align: justify;">
         <div>
-            <h1>HOW MACHINES ARE TAUGHT</h1>
+            <h1>How Machines are Taught</h1>
             <p>A couple of years back, I was attracted to AI research. Unlike most researchers, the path was not obvious for me to be honest.</p>
             <p>Since then I have been wowed and whelmed, both by how much progress has been made within only a decade, and how incredibly talented people in the field are. Despite criticisms, machines are in fact becoming remarkably smarter, and the power of deep learning is undeniable. One thing is often overlooked about artificial intelligence is that it itself is artificial. The word artificial means man-made. Loosely speaking, AI revolves around implanting human intelligence into a computing machine. Leaving those mathematical fuzzy flakes aside, I am urged to take one step away from the mainstream and rethink how machines learn.</p>
             <p>How machine learning (ML) works is a much broader topic. In this note, I only focus on one fundamental aspect - how machines are taught. I avoid showering you with the boring technical stuff and briefly provide an intuitive understanding of what machine learning algorithms involve, how surprisingly (or not) the process is similar to the way we humans have been taught and learnt since a kid.</p>
             <p>This writing is strongly based on the definition by Mitchell (1997) on machine learning.</p>
             <q style="font-style: italic;">"A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E."</q>
-            <h3>THE TASK</h3>
+            <h3>The Task</h3>
             <p>Learning begins with a task and an objective. ML systems are designed to tackle problems that go beyond humans’ capability and cannot be solved with rigid rule-based methods. Basically, machines are shown examples of an input and a corresponding correct output. Machines are then repeatedly trained to produce the outputs as close to the answers as possible. Similarly, the teachers at schools demonstrate how to solve a problem in various examples. We students are then expected to play around with these methods to work out the exercises.</p>
             <p>There are usually more than one algorithm to perform a task, and each algorithm comes with a predefined setup. For example, the setup for a linear regression</span> is an n-order linear function with or without a bias term. K-nearest neighbors classification</span> labels an example based on the K closest examples to it. This is to say that the model does not learn from scratch; it needs a framework to begin with. 
               A key take-away for the students from the lessons taught in class is that there is at least one approach to tackle a problem. Sometimes, the solution can be derived with ease by directly applying the same strategy, but there can also be tasks requiring the students to combine it with other methods, which they must figure out by themselves.</p>
             <p>This also implies that it is impossible to learn anything until you are clear about what you want to learn. Obvious as it may sound, this demands an ability to bravely identify the gaps in your knowledge and to ask the right questions. Otherwise, it would be like sailing in the dark without a lighthouse.</p>
             <i>Keywords : regression, classification, denoising, density estimation, natural language generation, computer vision.</i>
             
-            <h3>THE PERFORMANCE MEASURE</h3>
+            <h3>The Performance Measure</h3>
             <p>In this regard, learning is an iterative trial-and-error process. On the first few attempts, machines are prone to error by generating outputs that significantly deviate from the actual values. A quantitative measure is developed to evaluate the performance of ML algorithms. It serves as a loss objective, which essentially aggregates all the errors of the calculated examples. It is equivalent to how much the machine should be penalized whenever it makes a mistake. After several penalties, they gradually “ learn ” and start to make fewer erroneous predictions, and their results become closer and closer to the ground truth. If the model is a right fit to the data, this behavior is expected and is referred to as “ convergence ”. The goal of ML algorithms is to minimize a loss function, and machines are trained until converging to the minimum loss value.</p>
             <p>We progress through life by learning from past mistakes. Mark Manson said and I quote,</p>
             <q style="font-style: italic;">"Learning is not the process of going from wrong to right; it is the process of evolving from very wrong to less wrong."</q>
@@ -65,14 +65,14 @@
             <p>Generally, we all want to minimize loss and maximize reward. If whatever you pursue is making your life miserable, it’s high time to think back about the objective.</p>
             <i>Keywords : loss objective, reward, error, iterative training, convergence.</i>
             
-            <h3>THE EXPERIENCE</h3>
+            <h3>The Experience</h3>
             <p>ML algorithms mainly fall into two categories : supervised and unsupervised. As the field develops, people come up with various other types of learning such as reinforcement learning or adversarial training. Let’s focus on the basics for today.</p>
             <p>Supervised learning refers to the kind of experience we have been discussing so far. Machines experience a dataset of examples and their target outputs, which we normally call labels. A label can be a discrete class of items, or a continuous value. It’s like having an instructor to the side showing you which way to go. When we are young, most of our learning is supervised.</p>
             <p>On the other hand, unsupervised learning resembles the environment we experience in adulthood where we are not told beforehand what is the right answer. We must make use of all the available information in hand, plus knowledge and experience - those we accumulate from previous learning to make the decision.</p>
             <p>The datasets for unsupervised ML algorithms do not contain labeled data. This is very common in practice as labeled data is rare and expensive to collect, but at the same time it is more challenging to select a good training approach, and evaluation method is not straightforward. Unsupervised learning is particularly useful to learn the structure and representation of the data. Some manage to get around the problem of missing labeled outputs by utilizing the input examples as outputs, or even attempting to synthesize their own labels. These self-taught systems have actually proven remarkable performance, shifting the attention of AI research more towards unsupervised training.</p>
             <i>Keywords : supervised, unsupervised, semi-supervised, self-supervised, reinforcement, adversarial, label, representation.</i>
             
-            <h3>FINALLY</h3>
+            <h3>Finally</h3>
             <p>Another noteworthy bit in Mitchell’s definition is that learning goes hand in hand with improving. To learn means to open up opportunities for ourselves to become better, to achieve something greater.</p>
             <p>It’s interesting to see the way machines are taught is very much similar to how humans develop our cognitive abilities, and the important role of learning during that process. What AI researchers do in a nutshell is to explore a wide range of methods to better train machines and improve their learning capacity, largely with respect to a particular task and objective. A mere summary of what AI people have accomplished so far is still beyond my current capacity, though at some point I will attempt to do that.</p>
             <p>As I am writing this, I am learning something, as much as when you are reading it. I don’t think anyone can exist without learning anything because just like machines, we live striving to optimize a certain objective.</p>
