@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+    
+    <meta name="description" content="Vy Vo">
+    <meta property="og:description" content="Intro to Causal A/B Testing"/>
+    <title>Causal Inference In A Nutshell</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="../main.css">
+</head>
+
+<body>
+
+    <div class="wrapper-masthead">
+        <div class="container">
+          <header class="masthead clearfix">
+            <a href="https://isvy08.github.io/" class="site-avatar"><img src="../icon/vv.png" /></a>
+  
+            <div class="site-info">
+              <h1 class="site-name"><a href="https://isvy08.github.io/">Vy Vo</a></h1>
+              <p class="site-description">What's life without whimsy</p>
+            </div>
+            <nav>
+              <a href="../blog.html">Blog</a>
+              <a href="../projects.html">Projects</a>
+              <a href="../stories.html">Stories</a>
+              <a href="https://github.com/isVy08">GitHub</a>
+            </nav>
+          </header>
+        </div>
+      </div>
+
+
+    <div id="main" role="main" class="container">
+    <div class="posts"> 
+
+    <article class="post" style="text-align: justify;">
+        
+      <h1>Causal Inference In A Nutshell</h1>
+      <div>
+        <h2>5. Identification of Causal Effects</h2>
+        <p>
+          Assume we are given an observational dataset of \(V\) <span style="text-decoration: underline;">observed</span> variables and causal graph \(G\). The set \(V\) includes a treatment variable \(X\) and a outcome variable \(Y\) of interest, 
+          and we wish to determine the effect on \(Y\) under the intervention \(do(X=x)\) – that is, to estimate the interventional distribution \(P(y|do(x)\)).
+        <p>
+        <p>
+         Recall that \(X\) and \(Y\) are not neccessarily single variables, rather each of them can be a subset of \(n\) variables in \(V\) and mathematically represented as an \(n\)-dimensional vector. 
+         Identification methods can be broadly categorized as <strong>Non-parametric</strong> or <strong>Parametric</strong>. 
+        </p>
+        <p>
+          Non-parametric methods includes
+          <ul>
+            <li><a href="#5.1">Back-Door Criterion</a></li>
+            <li><a href="#5.2">Front-Door Criterion</a></li>
+            <li>Do-Calculus</li>
+          </ul>
+          For parametric methods, I will cover
+          <ul>
+            <li>Instrumental Variables</li>
+            <li>Mediation Analysis</li>
+          </ul> 
+        
+        Under certain conditions, these methods allow us to estimate \(P(y|do(x))\) (i.e., a <strong>causal estimand</strong>) from statistical quantities to be computed directly from the data.
+        The idea is to pass the causal estimand through a series of transformations that output an equivalent combination of statistical estimands, 
+        which must be derived from plausible probability rules based on the assumptions and properties we have discussed so far.   
+        </p>
+
+
+        <h3 id="#5.1">5.1. Back-Door Criterion</h3>
+        <div class="blocktext">
+          <strong>Back-Door Criterion Definition (Pearl, 2009):</strong><br>
+          A set of variables \(Z\) in \(V\) satisfies the back-door criterion relative to \(X\) and \(Y\) in a DAG \(G\) if
+          <ul>
+            <li>no node in \(Z\) is a descendent of \(X\)</li>
+            <li>\(Z\) blocks every path between \(X\) and \(Y\) that contains an arrow in \(X\)</li>
+          </ul>
+        </div>
+        <p>This definition is followed by</p>
+        <div class="blocktext">
+          <strong>Back-Door Adjustment Theorem (Pearl, 2009):</strong><br>
+          If \(Z\) satisfies the back-door criterion relative to (\(X,Y\)), the causal effect of \(X\) on \(Y\) is identified as
+          $$P(y|do(x)) = \sum_{z}P(y|x,z)P(z)$$
+        </div>
+        <p>
+          The theorem aligns with our intuition above: If \(Z\) blocks all back-door paths between \(X\) and \(Y\), there will be no confounding biases, 
+          thus rendering any associational effects be the true causal effect. Figure XX is a simple example where \(Z\) is a back-door criterion.
+          And when doing intervention, we estimated the effect based on the interventional graph, in which the incoming edge into \(X\) from \(Z\) is removed. 
+          I provide a step-by-step proof to solidify the intuition.  
+        </p>
+        <p>
+          <ol type="i">
+            <li>By probability rules, 
+              $$P(y|do(x)) = \frac{P(y,do(x))}{P(do(x))} = \frac{\sum_{z}P(y,do(x),z)}{P(do(x))} = \frac{\sum_{z}P(y|do(x),z)P(do(x),z)}{P(do(x))}$$ 
+              $$= \frac{\sum_{z}P(y|do(x),z)P(z|do(x))P(do(x))}{P(do(x))} = \sum_{z}P(y|do(x),z)P(z|do(x))) $$
+            </li>
+            <li> 
+              By <strong>Modularity assumption</strong>, \(Y\) is not the intervention node so \(P(y|pa_y)\) under the intervention remains unchanged. 
+              This yields \(P(y|do(x),z) = P(y|x, z)\). This equality holds even when \(Z\) is not the parent of \(Y\) but still satisfies the back-door criterion.
+            </li><br>
+            <li>
+              Assume there are no other back-door paths \(X-Z\), \(Z\) does not depend on \(X\), so \(P(z|do(x))=P(z)\). 
+              This is justified by observing that \(Z\) is independent of \(do(x)\) in the interventional graph, but <strong>not</strong> independent of \(X\).
+              Notice that you could also have directly derived \(P(do(x),z) = P(do(x))P(z)\) due to this independency.
+            </li>
+          </ol>
+          Steps (1), (2) and (3) together yield the theorem. We can also see that \(P(y|do(x)) \ne P(y|X=x)\) since \(P(x,z) \ne P(x)P(z)\). 
+          Here is a more complicated example borrowed from the Book of Why (Pearl & Mackenzie, 2018, pp.162)
+        </p>  
+          <figure style="text-align: center;">
+            <img src='1-Fig5.png' alt='backdoor-criterion' width="300" />
+            <figcaption style="font-size: small;">Figure 5</figcaption>
+          </figure>
+        <p>
+          There are two paths with arrows pointing into \(X\): \(X \leftarrow A \rightarrow B \leftarrow C \rightarrow Y\) and \(X \leftarrow B \leftarrow C \rightarrow Y\).
+          If we condition on \(B\) to block the second path, it opens up the first backdoor path since \(B\) is a collider. We therefore must further control for \(A,C\).
+          However, we can also only control for \(C\) to block the second path while the leaving the first path already been blocked by \(B\). 
+          Thus, the backdoor criterion is either \(C\) or the set {\(A,B,C\)}.   
+        </p>
+        <h3 id="#5.2">5.2. Front-Door Criterion</h3>
+        <p>
+          Assume we have a graph \(G\) as follow, where the confounder \(U\) is unobserved. We also have \(M\) - a mediator such that all causal paths from \(X\) to \(Y\) must go through \(M\). 
+          <figure style="text-align: center;">
+            <img src='1-Fig5.png' alt='backdoor-criterion' width="300" />
+            <figcaption style="font-size: small;">Figure 5</figcaption>
+          </figure>
+        </p>
+        <div class="blocktext">
+          <strong>Front-Door Criterion Definition (Pearl, 2009):</strong><br>
+          A set of variables \(M\) satisfies the front-door criterion relative to \(X, Y\) and \(Y\) if
+          <ul>
+            <li>\(M\) mediates all directed paths from \(X\) to \(Y\) </li>
+            <li>there is no unblocked back-door path from \(X\) to \(M\)</li>
+            <li>all back-door paths from \(M\) to \(Y\) are blocked by \(X\)</li>
+          </ul>
+        </div>
+        <p>This definition is followed by</p>        
+        
+        <div class="blocktext">
+          <strong>Front-Door Adjustment Theorem (Pearl, 2009):</strong><br>
+          If \(M\) satisfies the front-door criterion relative to (\(X,Y\)) and \(P(x, m) > 0\), the causal effect of \(X\) on \(Y\) is identified as
+          $$P(y|do(x)) = \sum_{m}P(m|x)\sum_{x'}P(y|x',z)P(x')$$
+        </div>
+        <p>
+
+
+        </p>
+
+
+
+
+        </div>
+        
+        
+          
+      
+        
+   
+    
+    </article>
+    </div>
+    </div>
+    </div>
+    <div class="wrapper-footer">
+        <div class="container">
+        <footer class="footer">
+
+
+        <a href="https://www.facebook.com/isVy08"><i class="svg-icon facebook"></i></a>        
+        <a href="https://twitter.com/isVy08"><i class="svg-icon twitter"></i></a>
+        <a href="https://www.linkedin.com/in/isvy08/"><i class="svg-icon linkedin"></i></a>
+        <br><p style="font-size: 10px;">&copy; 2021 Vy Vo. Powered by Jekyll and Jekyll Now Theme</p>   
+
+        </footer>
+        </div>
+    </div> 
+</body>
+</html>

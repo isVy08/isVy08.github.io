@@ -859,3 +859,8 @@ tr:nth-child(even) {
   background-color: black;
   color: white;
 }
+
+.blocktext {
+  padding: 10px 0px 3px 10px;
+  background-color: rgb(222, 236, 243);
+}
