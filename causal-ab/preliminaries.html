@@ -56,7 +56,7 @@
           <ul>
             <li><a href="#5.1">Back-Door Criterion</a></li>
             <li><a href="#5.2">Front-Door Criterion</a></li>
-            <li>Do-Calculus</li>
+            <li><a href="#5.3">Do-Calculus</a></li>
           </ul>
           For parametric methods, I will cover
           <ul>
@@ -70,25 +70,25 @@
         </p>
 
 
-        <h3 id="#5.1">5.1. Back-Door Criterion</h3>
+        <h3 id="5.1">5.1. Back-Door Criterion</h3>
         <div class="blocktext">
-          <strong>Back-Door Criterion Definition (Pearl, 2009):</strong><br>
+          <h5>Back-Door Criterion Definition (Pearl 2009):</h5>
           A set of variables \(Z\) in \(V\) satisfies the back-door criterion relative to \(X\) and \(Y\) in a DAG \(G\) if
           <ul>
             <li>no node in \(Z\) is a descendent of \(X\)</li>
-            <li>\(Z\) blocks every path between \(X\) and \(Y\) that contains an arrow in \(X\)</li>
+            <li>\(Z\) blocks every path between \(X\) and \(Y\) that contains an arrow into \(X\)</li>
           </ul>
         </div>
         <p>This definition is followed by</p>
         <div class="blocktext">
-          <strong>Back-Door Adjustment Theorem (Pearl, 2009):</strong><br>
+          <h5>Back-Door Adjustment Theorem (Pearl 2009):</h5>
           If \(Z\) satisfies the back-door criterion relative to (\(X,Y\)), the causal effect of \(X\) on \(Y\) is identified as
           $$P(y|do(x)) = \sum_{z}P(y|x,z)P(z)$$
         </div>
         <p>
           The theorem aligns with our intuition above: If \(Z\) blocks all back-door paths between \(X\) and \(Y\), there will be no confounding biases, 
           thus rendering any associational effects be the true causal effect. Figure XX is a simple example where \(Z\) is a back-door criterion.
-          And when doing intervention, we estimated the effect based on the interventional graph, in which the incoming edge into \(X\) from \(Z\) is removed. 
+          And when doing intervention, we estimated the effect based on the manipulated graph, in which the incoming edge into \(X\) from \(Z\) is removed. 
           I provide a step-by-step proof to solidify the intuition.  
         </p>
         <p>
@@ -103,12 +103,12 @@
             </li><br>
             <li>
               Assume there are no other back-door paths \(X-Z\), \(Z\) does not depend on \(X\), so \(P(z|do(x))=P(z)\). 
-              This is justified by observing that \(Z\) is independent of \(do(x)\) in the interventional graph, but <strong>not</strong> independent of \(X\).
-              Notice that you could also have directly derived \(P(do(x),z) = P(do(x))P(z)\) due to this independency.
+              This is justified by observing that \(Z\) is independent of \(do(x)\) in the manipulated graph, but <strong>not</strong> independent of \(X\).
+              Notice that you could also have directly derived \(P(do(x),z) = P(do(x))P(z)\) due to this non-dependency.
             </li>
           </ol>
           Steps (1), (2) and (3) together yield the theorem. We can also see that \(P(y|do(x)) \ne P(y|X=x)\) since \(P(x,z) \ne P(x)P(z)\). 
-          Here is a more complicated example borrowed from the Book of Why (Pearl & Mackenzie, 2018, pp.162)
+          Here is a more complicated example borrowed from the <i>Book of Why</i> (Pearl & Mackenzie, 2018, pp.162)
         </p>  
           <figure style="text-align: center;">
             <img src='1-Fig5.png' alt='backdoor-criterion' width="300" />
@@ -116,20 +116,21 @@
           </figure>
         <p>
           There are two paths with arrows pointing into \(X\): \(X \leftarrow A \rightarrow B \leftarrow C \rightarrow Y\) and \(X \leftarrow B \leftarrow C \rightarrow Y\).
-          If we condition on \(B\) to block the second path, it opens up the first backdoor path since \(B\) is a collider. We therefore must further control for \(A,C\).
+          If we condition on \(B\) to block the second path, it opens up the first back-door path since \(B\) is a collider. We therefore must further control for \(A,C\).
           However, we can also only control for \(C\) to block the second path while the leaving the first path already been blocked by \(B\). 
-          Thus, the backdoor criterion is either \(C\) or the set {\(A,B,C\)}.   
+          Thus, the back-door criterion is either \(C\) or the set {\(A,B,C\)}.   
         </p>
-        <h3 id="#5.2">5.2. Front-Door Criterion</h3>
+        <h3 id="5.2">5.2. Front-Door Criterion</h3>
         <p>
-          Assume we have a graph \(G\) as follow, where the confounder \(U\) is unobserved. We also have \(M\) - a mediator such that all causal paths from \(X\) to \(Y\) must go through \(M\). 
+          Assume we have a graph \(G\) as follow, where the confounder \(Z\) is unobserved. Thus, blocking the back-door is impossible.  
+          Fortunately, we can take advantage of such a variable as \(M\) - a mediator such that all causal paths from \(X\) to \(Y\) must go through \(M\). 
           <figure style="text-align: center;">
-            <img src='1-Fig5.png' alt='backdoor-criterion' width="300" />
-            <figcaption style="font-size: small;">Figure 5</figcaption>
+            <img src='1-Fig6.png' alt='backdoor-criterion' width="300" />
+            <figcaption style="font-size: small;">Figure 6</figcaption>
           </figure>
         </p>
         <div class="blocktext">
-          <strong>Front-Door Criterion Definition (Pearl, 2009):</strong><br>
+          <h5>Front-Door Criterion Definition (Pearl 2009):</h5>
           A set of variables \(M\) satisfies the front-door criterion relative to \(X, Y\) and \(Y\) if
           <ul>
             <li>\(M\) mediates all directed paths from \(X\) to \(Y\) </li>
@@ -140,14 +141,90 @@
         <p>This definition is followed by</p>        
         
         <div class="blocktext">
-          <strong>Front-Door Adjustment Theorem (Pearl, 2009):</strong><br>
+          <h5>Front-Door Adjustment Theorem (Pearl 2009):</h5>
           If \(M\) satisfies the front-door criterion relative to (\(X,Y\)) and \(P(x, m) > 0\), the causal effect of \(X\) on \(Y\) is identified as
           $$P(y|do(x)) = \sum_{m}P(m|x)\sum_{x'}P(y|x',z)P(x')$$
         </div>
         <p>
+          With \(M\) being a front-door criterion, the causal effect can be determined through the following steps (Pearl 2009; Neal 2020) 
+        </p>
+        <h5>Step 1: Identify the causal effect of \(X\) on \(M\)</h5>
+        <p>
+          Notice that \(Y\) is a collider blocking the back-door path \(X \leftarrow Z \rightarrow Y \leftarrow M\). \(X \rightarrow M\) is the direct causal path.
+          $$P(m|do(x) = P(m|t))$$
+        </p>
+        <h5>Step 2: Identify the causal effect of \(M\) on \(Y\)</h5>
+        <p>
+          The back-door path \(M \leftarrow X \leftarrow Z \rightarrow Y\) can be blocked by conditioning on \(X\). In other words, we can use Back-door Adjustment on \(X\).
+          $$P(y|do(m) = \sum_{x'}P(y|m, x')P(x'))$$
+          We use \(x'\) to distinguish this random value with the interventional value \(X=x\)
+        </p>
+        <h5>Step 3: Combine the two effects to identify the causal effect of \(X\) on \(Y\)</h5>
+        <p>
+          By first setting \(X=x\), we observe the value \(M=m\). We then set \(M\) to this value \(m\) and evaluate \(Y\).
+          If \(M=m\) every time we set \(X\) to \(x\), the combined effect would be exactly \(P(y|do(m)\). 
+          In fact, \(M\) returns multiple values \(m\) corresponding to \(X=x\) with probability \(P(m|do(x))\). 
+          Thus, the combined effect is generally calculated by summing the effects on \(Y\) observed when \(M=m\) weighted by the probablity that value \(m\) occurs. 
+          $$P(y|do(x)) = \sum_{m}P(m|do(x)P(y|do(m))$$
+          Substituting the results from step (1) and (2) yield the theorem, in which all quantities can be estimated. 
+        </p>
 
+        <h3 id="5.3">5.3. \(Do\) Calculus</h3>
+        <p>
+          \(Do\) calculus is a set of general inference rules that are proved to be sufficient to identify all causal estimands given that they are identifiable. 
+          These rules not only generalize the <strong>Back-door criterion</strong> and <strong>Front-door criterion</strong>, but is also valid when neither criteria is satisfied.  
+          Detailed explanation can be best found in Section 3.4 of <i>Causality</i> book (Pearl 2009) or less formal in Section 6.2 of the <i>Introduction to Causal Inference</i> book (Neal 2020).
+          I here only introduce the rules and convey a slightly different intuition to aid your understanding.
+        </p>
+        <p>
+          Given a causal DAG \(G\), we denote \(G_{\bar{X}}\) the graph obtained by deleting from \(G\) all incoming paths to nodes in \(X\).
+          We denote \(G_{\underline{X}}\) the graph obtained by deleting from \(G\) all outgoing paths from nodes in \(X\). 
+          The question is still to establish the causal path from \(X\) to \(Y\).   
+          For any <span style="text-decoration: underline;">disjoint</span> subsets of variables \(X,Y,Z,W\), we have the following rules
+        </p>
+        <div class="blocktext">
+          <h5>\(Do\) Calculus Theorem (Pearl 2009)</h5>
+          <p>
+            <h6>Rule 1: Insertion/deletion of observations</h6>
+            $$P(y|do(x),z,w) = P(y|do(x),w) \quad if \quad (Y⊥⊥Z)|X,W \quad w.r.t \quad G_{\bar{X}}$$
+          </p>    
+        </div>
+        <p>
+          \(G_{\bar{X}}\) is equivalent to the manipulated graph induced by the intervention \(do(X)=x\). 
+          \(Y\) is independent of \(Z\) given {\(X,W\)}, so \(z\) gives no additional information. 
+          This means adjusting {\(X,W\)} blocks all possible back-door paths \(Y-Z\), which may be confused with the true causal path.
+          \(Z\) thus then becomes irrelevant and can be removed or included freely. Rule 1 also confirms \(d\)-separation.
+        </p>
+        <div class="blocktext">
+          <h5>\(Do\) Calculus Theorem (Pearl 2009)</h5>
+          <p>
+            <h6>Rule 2: Action/observation change</h6>
+            $$P(y|do(x),do(z),w) = P(y|do(x),z,w) \quad if \quad (Y⊥⊥Z)|X,W \quad w.r.t \quad G_{\bar{X}\underline{Z}}$$
+          </p>    
+        </div>
+        <p>
+          Recall that we are still working on the manipulated graph \(G_{\bar{X}}\). The extra condition of \(G_{\underline{Z}}\) ensures \(Z\) has no children, 
+          thus if found independent with \(Y\) conditioning on \(X,W\), that means there is no direct path from \(Z\) to \(Y\) nor any unblocked back-door paths.  
+          Thus, any changes caused by \(Z\) can be estimated statistically.  
+        </p>
+        <div class="blocktext">
+          <h5>\(Do\) Calculus Theorem (Pearl 2009)</h5>
+          <p>
+            <h6>Rule 3: Insertion/Deletion of actions</h6>
+            $$P(y|do(x),do(z),w) = P(y|do(x),w) \quad if \quad (Y⊥⊥Z)|X,W \quad w.r.t \quad G_{\bar{X}\overline{Z(W)}}$$
+            where \(Z(W)\) is the set of \(Z\)-nodes that are not ancestors of any \(W\)-node in \(G_{\bar{X}}\)    
+          </p>
+        </div>
+        <p>
 
         </p>
+        
+
+
+
+
+
+
 
 
 
