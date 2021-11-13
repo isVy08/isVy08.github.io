@@ -65,7 +65,7 @@
            The key take-away is not to apply Bayes rule blindly, rather to understand the properties of different causal structures and make assumptions where appropriate.  
            <br><br>
            <figure style="text-align: center;">
-                <img src='causal-ml.png' alt='simplescm' />
+                <img src='figures/2-Fig1.png' alt='simplescm' />
                 <figcaption style="font-style: italic; font-size: small;">Figure taken from the paper</figcaption>
             </figure>
             <p>
@@ -78,12 +78,12 @@
             The scenarios mainly differ in terms of what additional information is given, altering the nature of the problem. Here I attempt to summarize the key properties of each scenario, and readers are encouraged to delve further into the paper for the suggested solutions.   
             
             <h4>Causal Learning: Predicting Effect from Cause</h4>
-            <img src='causal-dir.png' alt='causal-learning' />
+            <img src='figures/2-Fig2.png' alt='causal-learning' />
             <p>
             <h4>AntiCausal Learning: Predicting Cause from Effect</h4>
             In this case, \(\mathsf{P}(Y|X)\) is sensitive to change in \(P(Y)\). It would better to model \(\mathsf{P}(X|Y)\) first and construct \(\mathsf{P}(Y|X)\) using Bayes’ rule. 
             </p>
-            <img src='anticausal-dir.png' alt='anticausal-learning'/>
+            <img src='figures/2-Fig3.png' alt='anticausal-learning'/>
             <p>
             Based on this, you can see there are two lines of works. Works that assume shift in joint distribution \(\mathsf{P}(Y,X)\) is due to covariate shift follow causal direction. 
             I classify these papers as <strong>Causal Invariant Predictors</strong>.
