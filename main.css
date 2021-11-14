@@ -896,22 +896,22 @@ tr:nth-child(even) {
   letter-spacing: 1px;
   text-decoration: none;
   font-size: 17px;
-  border-bottom: 3px solid;
-  border-radius: 8px;
+  border-top: 3px solid;
+  border-radius: 10px;
 }
 
 /* Change the color of links on hover */
 .topnav a:hover {
   background-color: lightgrey;
   color: white;
-  border-bottom: 3px solid;
+  border-top: 3px solid;
 }
 
 /* Add a color to the active/current link */
 .topnav a.active {
   background-color: black;
   color: white;
-  border-bottom: 3px solid;
+  border-top: 3px solid;
 }
 .navbutton {
   background-color: rgb(184, 222, 241);

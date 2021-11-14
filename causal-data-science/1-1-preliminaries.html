@@ -48,7 +48,7 @@
       </p>
       <p>
         This topic covers building blocks of Causal Inference from the graphical perspective, leaving the discussion on Potential Outcome framework later in the tutorial. 
-        The knowledge is gratefully inherited from the books <a href="http://bayes.cs.ucla.edu/BOOK-2K/">Causality</a> (Pearl 2009) and <a href="https://www.bradyneal.com/Introduction_to_Causal_Inference-Dec17_2020-Neal.pdf">Introduction to Causal Inference</a> (Neal 2020).
+        The knowledge is gratefully inherited from these two books <a href="http://bayes.cs.ucla.edu/BOOK-2K/">Causality</a> (Pearl 2009) and <a href="https://www.bradyneal.com/Introduction_to_Causal_Inference-Dec17_2020-Neal.pdf">Introduction to Causal Inference</a> (Neal 2020).
       </p>
 
       <div class="toc">
@@ -115,9 +115,9 @@
       </p>
       <p>ADD FIGURE 1.2 A SIMPLE EXAMPLE OF COUNFDER</p>
       <p>
-        The action of setting a third variable \(Z\) to a fixed value and observe how it impacts the relationship between two other variables is also knowns as <i>adjusting for</i> or <i>controlling for</i> or <i>conditioning on</i> \(Z\). 
+        The action of setting a third variable \(Z\) to a fixed value and observe how it impacts the relationship between two other variables is also knowns as <i>adjusting for</i> or <i>controlling for</i> or <i>conditioned on</i> \(Z\). 
         Please note that my conclusion that \(Y\) remains unchanged is based on a critical assumption that \(X\) only connects with \(Y\) through \(Z\). 
-        And without data on \(Z\), we would never know. To make it worse, it is also very difficult to tell exactly whether there are any other tricky paths that give a wrong signal. This is where research comes to rescue. 
+        But without data on \(Z\), we would never know. To make it worse, it is also very difficult to tell exactly whether there are any other tricky paths that give a wrong signal.
       </p>
       <p>
         We are now ready to define everything more rigorously. We quantify causal effects between two random variables using the language of probability. 
@@ -126,21 +126,23 @@
       </p>
       <h3 id="1.3">1.3. Bayesian Networks</h3>
       <p>
-        A quick review of statistics:
+        Let's first review essential statistical rules:
         <ul>
-          <li>We model the uncertainty of a random variable \(X\) through a <strong>probability distribution</strong> \(P(X=x)\), measuring the probability of \(X\) taking the value \(x\). 
-            It is termed as <strong>marginal probability</strong>
+          <li>We model the uncertainty of a random variable \(X\) through a <strong>probability distribution</strong> \(P(X=x),\) measuring the probability of \(X\) taking the value \(x\). 
+            It is termed as <strong>marginal probability</strong>. A random variable can be discreet, continuous, or a set of multiple variables (multi-dimensional).
           </li><br>
           <li>
-            Two random variables \(X\) and \(Y\) are said to be independent, denoted as \(X ⊥⊥ Y\), if the occurence of \(X\) does not affect the probability of \(Y\) occuring. Mathematically,
-            $$X ⊥⊥ Y \Leftrightarrow P(X,Y) = P(X)P(Y)$$ where \(P(X,Y\) is the <strong>joint distribution</strong>. \(P(X=x,Y=y)\) is the probability of observing \(X=x\) and \(Y=y\) at the same time.
+            Two random variables \(X\) and \(Y\) are said to be independent, denoted as \(X \perp Y\), if the occurence of \(X\) does not affect the probability of \(Y\) occuring. Mathematically,
+            $$X \perp Y \Leftrightarrow P(X,Y) = P(X)P(Y)$$ where \(P(X,Y)\) is the <strong>joint distribution</strong>. \(P(X=x,Y=y)\) is the probability of observing \(X=x\) and \(Y=y\) at the same time.
           </li><br>
           <li>
             \(P(X|Y)\) or specifically \(P(X=x|Y=y)\) measures the probabilty \(X=x\) if we observe \(Y=y.\) This is termed as <strong>conditional probability</strong>. It basically says how much the knowledge about \(X\) to be updated given additional information about \(Y\).
             If \(X\) and \(Y\) are independent, \(P(X|Y)=Y\). Knowing \(Y\) gives no information about \(X\).  
           </li><br>
           <li>
-            A random variable \(X\) can be discreet, continuous, or a set of multiple variables (multi-dimensional). 
+             By <strong>Sum and Product rule</strong>,
+            $$P(A) = \sum_bP(A,B) \quad \text{where } b \text{ are all realizations of } B$$
+            $$P(A|B) = \frac{P(A,B)}{P(B)} = \frac{P(B|A)P(B)}{\sum_aP(B,A)} = \frac{P(B|A)P(A)}{\sum_aP(B|A)P(A)} \quad \text{:Bayes' Rule} $$
           </li>
         </ul>
       </p>
@@ -156,16 +158,73 @@
       <div class="assumption">
         <h5>Minimality Assumption:</h5>
         <ol>
-          <li>A node \(X\) is independent of all its non-descendants conditioning on its parents in a DAG <br><strong>(Local Markov Assumption)</strong></li>
+          <li>A node \(X\) is independent of all its non-descendants conditioned on its parents in a DAG <br><strong>(Local Markov Assumption)</strong></li>
           <li>Adjacent nodes in the DAG are dependent.</li>
         </ol>
       </div>
       <p>
-        The joint distribtuion in Figure 2 can be factorized into
+        The joint distribtuion in Figure 1.2 can be factorized into
         $$P(X,Y,Z) = P(X|Z)P(Y|Z)P(Z)$$
         Again, this is done by multiplying independent terms together.
       </p>
       <h3 id="1.4">1.4. Graph Building Blocks</h3>
+      <p>
+        A path between two nodes \(X\) and \(Y\) is <strong>blocked</strong> by a node \(Z\) if \(X \perp Y | Z\). 
+        conditioned on \(Z\) stops information from flowing between them, eliminating the association. 
+        Interestingly, causal DAGs offer a quick test of independence among nodes, powered by <strong>\(d-\)Separation criterion</strong>.
+        <div class="theorem">
+          <h5>Definition of \(d-\)Separation (Pearl 2019):</h5>
+          <p>
+            A path \(p\) between two nodes \(i,j\) is said to be \(d-\)separated by a set of nodes in \(Z\) if and only if 
+            <ul>
+              <li>\(p\) contains a <strong>chain</strong> \(i \rightarrow m \rightarrow j\) or a <strong>fork</strong> \(i \leftarrow m \rightarrow j\) such that \(m\) in \(Z\)</li>
+              <li>\(p\) contains a <strong>collider</strong> \(i \rightarrow m \leftarrow j\) such that \(m\) not in \(Z\) and no descendants of \(m\) is in \(Z\)</li>
+            </ul>
+            Given 3 disjoint sets of variables \(X,Y,Z\), \(Z\) is said to \(d-\)separate \(X\) from \(Y\) if and only if \(Z\) blocks every path from a node in \(X\) to a node in \(Y\).
+          </p>
+        </div>
+        <p>The condition that translates conditional independence into \(d-\)separation is <strong>Markov Compatibility</strong>. </p>
+        <div class="theorem">
+          <h5>Markov Compatibility (Pearl 2019):</h5>
+          <p>If a (joint) probability function \(P\) admits the factorization given in the chain rule of Bayes Network relative to a DAG \(G\), 
+            we say that \(G\) represents \(P\), that \(G\) and \(P\) are compatible or \(P\) is Markov relative to \(G\).
+          </p>
+        </div>
+        <p>
+          Figure 1.2 is an example of a chain. Here is a proof why \(d-\)separation is valid. 
+          We need to prove given such a DAG, \(X\) is independent of \(Y\) given \(Z\), or \(X \perp Y|Z\)
+          $$P(X,Y,Z) = P(X|Z)P(Y|Z)P(Z) \Leftrightarrow \frac{P(X,Y,Z)}{P(Z)} = P(X|Z)P(Y|Z)$$ 
+          $$\Leftrightarrow P(X,Y|Z) = P(X|Z)P(Y|Z)$$
+        </p>
+        <p>
+          Proving \(d-\)separation for a fork is also trivial. I leave it as a small exercise for you. 
+          We will quickly prove the case where \(Z\) is collider. Consider the path \(X \rightarrow Z \leftarrow Y\), the idea is conditioned the collider opens the association flow between \(X\) and \(Y\). 
+          Therefore, we need to prove \(P(X,Y|Z) \ne P(X|Z)P(Y|Z)\)
+          $$P(X,Y,Z) = P(Z|X)P(Z|Y)P(X)P(Y) \Leftrightarrow P(X,Y|Z) = \frac{P(Z,X)P(Z,Y)}{P(Z)} $$
+          $$\Leftrightarrow P(X,Y|Z) = P(X|Z)P(Y|Z)P(Z)$$ 
+        </p>
+        <p>To yield \(\Leftrightarrow P(X,Y|Z) = P(X|Z)P(Y|Z)\), \(P(Z)\) must equal \(1\). 
+          This would mean the event \(Z\) always occuring, making the directions into \(Z\) meaningless and contradicting to our definition of cause and effect.
+          If there is no direct path from \(X\) to \(Y\) as in the third graph in Figure 3.1. You can also prove that \(P(X,Y)=P(X)P(Y)\) or \(X\) and \(Y\) are naturally independent (try it!).
+        </p>
+        <p>ADD FIGURE 3.1 EXAMPLES OF 3 CONNECTIONS</p>
+        <p>What we have discussed so far is summarized into <strong>Global Markov Assumption</strong>.</p>
+        <div class="assumption">
+          <h5>Global Markov Assumption:</h5>
+          <p>
+            Given that \(P\) and \(G\) are compatible, if \(X\) and \(Y\) are \(d-\)separated in \(G\) conditioned on \(Z\),
+            \(X\) and \(Y\) are independent conditioned on \(Z\). Mathematically,
+            $$X \perp_G Y|Z \Rightarrow X \perp_P Y|Z$$
+          </p>
+        </div>
+        <p>Note that the other direction may not be true.</p>
+
+
+
+
+        
+
+      </p>
       
 
     </article>
