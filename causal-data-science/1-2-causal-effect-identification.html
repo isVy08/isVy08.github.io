@@ -6,8 +6,8 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
     
     <meta name="description" content="Vy Vo">
-    <meta property="og:description" content="Intro to Causal A/B Testing"/>
-    <title>Causal Inference In A Nutshell</title>
+    <meta property="og:description" content="Causal Data Science: A Beginner Guide"/>
+    <title>Identification of Causal Effects</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="../main.css">
@@ -21,28 +21,27 @@
             <a href="https://isvy08.github.io/" class="site-avatar"><img src="../icon/vv.png" /></a>
   
             <div class="site-info">
-              <h1 class="site-name"><a href="https://isvy08.github.io/">Vy Vo</a></h1>
-              <p class="site-description">What's life without whimsy</p>
+              <h1 class="site-name"><a href="https://isvy08.github.io/causal-data-science">Causal Data Science: A Beginner Guide</a></h1>
+              <p class="site-description">A Quick Tutorial to Causal Inference in Practice </p>
             </div>
-            <nav>
-              <a href="../blog.html">Blog</a>
-              <a href="../projects.html">Projects</a>
-              <a href="../stories.html">Stories</a>
-              <a href="https://github.com/isVy08">GitHub</a>
-            </nav>
+
           </header>
+          <br>
+          <div class="topnav">
+            <a href="#">About</a>
+            <a class="active" href="#">Fundamentals</a>
+            <a href="#">Experimentation</a>
+            <a href="#">Tools</a>
+            <a href="#">Applications</a>
+          </div>
         </div>
       </div>
 
 
     <div id="main" role="main" class="container">
-    <div class="posts"> 
-
-    <article class="post" style="text-align: justify;">
-        
-      <h1>Causal Inference In A Nutshell</h1>
-      <div>
-        <h2>5. Identification of Causal Effects</h2>
+      
+      <article class="post" style="text-align: justify;">
+        <h2 id="2">2. Identification of Causal Effects</h2>
         <p>
           Assume we are given an observational dataset of \(V\) <span style="text-decoration: underline;">observed</span> variables and causal graph \(G\). The set \(V\) includes a treatment variable \(X\) and a outcome variable \(Y\) of interest, 
           and we wish to determine the effect on \(Y\) under the intervention \(do(X=x)\) – that is, to estimate the interventional distribution \(P(y|do(x)\)).
@@ -51,27 +50,28 @@
          Recall that \(X\) and \(Y\) are not neccessarily single variables, rather each of them can be a subset of \(n\) variables in \(V\) and mathematically represented as an \(n\)-dimensional vector. 
          Identification methods can be broadly categorized as <strong>Non-parametric</strong> or <strong>Parametric</strong>. 
         </p>
-        <p>
-          Non-parametric methods includes
+        <div class="toc">
+          <h5 style="text-decoration: underline" >Table of Contents</h5>
+          <h6>Non-parametric methods</h6>
           <ul>
-            <li><a href="#5.1">Back-Door Criterion</a></li>
-            <li><a href="#5.2">Front-Door Criterion</a></li>
-            <li><a href="#5.3">Do-Calculus</a></li>
+            <a href="#2.1"><li>2.1. Back-Door Criterion</li></a>
+            <a href="#2.2"><li>2.2. Front-Door Criterion</li></a>
+            <a href="#2.3"><li>2.3. Do-Calculus</li></a>
           </ul>
-          For parametric methods, I will cover
+          <h6>Non-parametric methods</h6>
           <ul>
-            <li>Instrumental Variables</li>
-            <li>Mediation Analysis</li>
-          </ul> 
-        
+            <a href="#2.4"><li>2.4. Instrumental Variables</li></a>
+            <a href="#2.5"><li>2.5. Mediation Analysis</li></a>
+          </ul>
+        </div>
+        <p>        
         Under certain conditions, these methods allow us to estimate \(P(y|do(x))\) (i.e., a <strong>causal estimand</strong>) from statistical quantities to be computed directly from the data.
         The idea is to pass the causal estimand through a series of transformations that output an equivalent combination of statistical estimands, 
         which must be derived from plausible probability rules based on the assumptions and properties we have discussed so far.   
         </p>
 
-
-        <h3 id="5.1">5.1. Back-Door Criterion</h3>
-        <div class="blocktext">
+        <h3 id="2.1">2.1. Back-Door Criterion</h3>
+        <div class="theorem">
           <h5>Back-Door Criterion Definition (Pearl 2009):</h5>
           A set of variables \(Z\) in \(V\) satisfies the back-door criterion relative to \(X\) and \(Y\) in a DAG \(G\) if
           <ul>
@@ -80,7 +80,7 @@
           </ul>
         </div>
         <p>This definition is followed by</p>
-        <div class="blocktext">
+        <div class="theorem">
           <h5>Back-Door Adjustment Theorem (Pearl 2009):</h5>
           If \(Z\) satisfies the back-door criterion relative to (\(X,Y\)), the causal effect of \(X\) on \(Y\) is identified as
           $$P(y|do(x)) = \sum_{z}P(y|x,z)P(z)$$
@@ -111,7 +111,7 @@
           Here is a more complicated example borrowed from the <i>Book of Why</i> (Pearl & Mackenzie, 2018, pp.162)
         </p>  
           <figure style="text-align: center;">
-            <img src='1-Fig5.png' alt='backdoor-criterion' width="300" />
+            <img src='figures/1-5-Fig1.png' alt='backdoor-criterion' width="300" />
             <figcaption style="font-size: small;">Figure 5</figcaption>
           </figure>
         <p>
@@ -120,16 +120,16 @@
           However, we can also only control for \(C\) to block the second path while the leaving the first path already been blocked by \(B\). 
           Thus, the back-door criterion is either \(C\) or the set {\(A,B,C\)}.   
         </p>
-        <h3 id="5.2">5.2. Front-Door Criterion</h3>
+        <h3 id="2.2">2.2. Front-Door Criterion</h3>
         <p>
           Assume we have a graph \(G\) as follow, where the confounder \(Z\) is unobserved. Thus, blocking the back-door is impossible.  
           Fortunately, we can take advantage of such a variable as \(M\) - a mediator such that all causal paths from \(X\) to \(Y\) must go through \(M\). 
           <figure style="text-align: center;">
-            <img src='1-Fig6.png' alt='backdoor-criterion' width="300" />
+            <img src='figures/1-5-Fig2.png' alt='backdoor-criterion' width="300" />
             <figcaption style="font-size: small;">Figure 6</figcaption>
           </figure>
         </p>
-        <div class="blocktext">
+        <div class="theorem">
           <h5>Front-Door Criterion Definition (Pearl 2009):</h5>
           A set of variables \(M\) satisfies the front-door criterion relative to \(X, Y\) and \(Y\) if
           <ul>
@@ -140,7 +140,7 @@
         </div>
         <p>This definition is followed by</p>        
         
-        <div class="blocktext">
+        <div class="theorem">
           <h5>Front-Door Adjustment Theorem (Pearl 2009):</h5>
           If \(M\) satisfies the front-door criterion relative to (\(X,Y\)) and \(P(x, m) > 0\), the causal effect of \(X\) on \(Y\) is identified as
           $$P(y|do(x)) = \sum_{m}P(m|x)\sum_{x'}P(y|x',z)P(x')$$
@@ -169,7 +169,7 @@
           Substituting the results from step (1) and (2) yield the theorem, in which all quantities can be estimated. 
         </p>
 
-        <h3 id="5.3">5.3. \(Do\) Calculus</h3>
+        <h3 id="2.3">2.3. \(Do\) Calculus</h3>
         <p>
           \(Do\) calculus is a set of general inference rules that are proved to be sufficient to identify all causal estimands given that they are identifiable. 
           These rules not only generalize the <strong>Back-door criterion</strong> and <strong>Front-door criterion</strong>, but is also valid when neither criteria is satisfied.  
@@ -179,69 +179,62 @@
         <p>
           Given a causal DAG \(G\), we denote \(G_{\bar{X}}\) the graph obtained by deleting from \(G\) all incoming paths to nodes in \(X\).
           We denote \(G_{\underline{X}}\) the graph obtained by deleting from \(G\) all outgoing paths from nodes in \(X\). 
-          The question is still to establish the causal path from \(X\) to \(Y\).   
+          The question is still to establish the causal path from \(X\) to \(Y\), so we start with graph \(G_{\bar{X}}\) which is equivalent to the manipulated graph induced by the intervention \(do(X)=x\).  
           For any <span style="text-decoration: underline;">disjoint</span> subsets of variables \(X,Y,Z,W\), we have the following rules
         </p>
-        <div class="blocktext">
+        <div class="theorem">
           <h5>\(Do\) Calculus Theorem (Pearl 2009)</h5>
           <p>
-            <h6>Rule 1: Insertion/deletion of observations</h6>
+            <h6>Rule 1: Insertion/Deletion of observations</h6>
             $$P(y|do(x),z,w) = P(y|do(x),w) \quad if \quad (Y⊥⊥Z)|X,W \quad w.r.t \quad G_{\bar{X}}$$
           </p>    
         </div>
         <p>
-          \(G_{\bar{X}}\) is equivalent to the manipulated graph induced by the intervention \(do(X)=x\). 
+          One easy way to look at this is to ignore the term \(do(X)\), roughly since we must add \(X\) to the condition set since we are fixated on \(G_{\bar{X}}\). 
           \(Y\) is independent of \(Z\) given {\(X,W\)}, so \(z\) gives no additional information. 
           This means adjusting {\(X,W\)} blocks all possible back-door paths \(Y-Z\), which may be confused with the true causal path.
           \(Z\) thus then becomes irrelevant and can be removed or included freely. Rule 1 also confirms \(d\)-separation.
         </p>
-        <div class="blocktext">
+        <div class="theorem">
           <h5>\(Do\) Calculus Theorem (Pearl 2009)</h5>
           <p>
-            <h6>Rule 2: Action/observation change</h6>
+            <h6>Rule 2: Action/Observation change</h6>
             $$P(y|do(x),do(z),w) = P(y|do(x),z,w) \quad if \quad (Y⊥⊥Z)|X,W \quad w.r.t \quad G_{\bar{X}\underline{Z}}$$
           </p>    
         </div>
         <p>
           Recall that we are still working on the manipulated graph \(G_{\bar{X}}\). The extra condition of \(G_{\underline{Z}}\) ensures \(Z\) has no children, 
-          thus if found independent with \(Y\) conditioning on \(X,W\), that means there is no direct path from \(Z\) to \(Y\) nor any unblocked back-door paths.  
-          Thus, any changes caused by \(Z\) can be estimated statistically.  
+          so there cannot be any direct path from \(Z\) to \(Y\). \(Z\) is by no means a cause \(Y\) in \(G_{\bar{X}\underline{Z}}\). 
+          Thus, any changes in \(Z\) resulting in changes in \(Y\) are merely statistical correlations. 
         </p>
-        <div class="blocktext">
+        <div class="theorem">
           <h5>\(Do\) Calculus Theorem (Pearl 2009)</h5>
           <p>
             <h6>Rule 3: Insertion/Deletion of actions</h6>
-            $$P(y|do(x),do(z),w) = P(y|do(x),w) \quad if \quad (Y⊥⊥Z)|X,W \quad w.r.t \quad G_{\bar{X}\overline{Z(W)}}$$
+            $$P(y|do(x),do(z),w) = P(y|do(x),w) \quad if \quad (Y⊥⊥Z)|X,W \quad w.r.t \quad G_{\overline{XZ(W)}}$$
             where \(Z(W)\) is the set of \(Z\)-nodes that are not ancestors of any \(W\)-node in \(G_{\bar{X}}\)    
           </p>
         </div>
         <p>
-          Let's only consider \(G_{}\) 
-
+          Let \(\widetilde{Z(W)}\) denote the set of \(Z\)-nodes that can be ancestors of \(W\). Because \(Z(W)\) can neither have parents nor be an ancestor of \(W\), 
+          without passing through \(\widetilde{Z(W)}\), \(Z(W)\) can only connect with \(W\) and indirectly with \(Y\) through a collider, which automatically blocks the path.  
+          Safely ignoring \(do(X)\), the fact that \(Y\) and \(Z\) becomes independent given \(W\) means that either (1) \(Y,Z\) are independent to begin with, 
+          or (2) there must be no path between \(Y\) and \(\widetilde{Z(W)}\) not going through \(W\), and \(W\) is either a chain or a fork by \(d\)-separation. 
+          For a causal effect to take place, one such path must contain arrows pointing from \(\widetilde{Z(W)}\) towards \(Y\), and the path is blocked by \(W\) in this case. 
+          Thus, intervening on \(Z\) does not affect \(Y\) at all.
         </p>
+        <h3 id="2.4">2.4. Instrumental Variables (Coming Soon)</h3>
+        <h3 id="2.5">2.5. Mediation Analysis (Coming Soon)</h3>
         
-
-
-
-
-
-
-
-
-
-
-        </div>
-        
-        
-          
-      
-        
-   
     
     </article>
+
     </div>
     </div>
     </div>
+    <div style="text-align: center; padding-top: 20px;">
+      <a href="1-1-preliminaries.html" class="navbutton">◀︎ Preliminaries</a>
+      <a href="1-1-preliminaries.html" class="navbutton">Causal Mechanism ▶︎</a>
     <div class="wrapper-footer">
         <div class="container">
         <footer class="footer">

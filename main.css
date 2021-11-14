@@ -860,8 +860,60 @@ tr:nth-child(even) {
   color: white;
 }
 
-.blocktext {
+.theorem {
   padding: 3px 0px 3px 10px;
   background-color: rgb(222, 236, 243);
   border-radius: 10px;
+}
+
+.assumption {
+  padding: 3px 0px 3px 10px;
+  background-color: rgb(226, 231, 203);
+  border-radius: 10px;
+}
+
+.toc {
+  width: 500px;
+  padding: 3px 0px 3px 10px;
+  border: 1px solid lightblue;
+  border-radius: 10px;
+}
+
+/* TOP NAVIGATION */
+/* Add a black background color to the top navigation */
+.topnav {
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 15px 25px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: lightgrey;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: black;
+  color: white;
+}
+.navbutton {
+  background-color: rgb(184, 222, 241);
+  color: black;
+  font-weight: 300;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 8px 16px;
+  width: 300px;
 }
