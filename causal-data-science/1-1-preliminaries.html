@@ -108,12 +108,12 @@
         This is the fundamental idea behind the adage <strong>Correlation is not Causation</strong>. 
       </p>
       <p>
-        Let's say we have a DAG as in Figure 2.1. There is no direct path between \(X\) and \(Y\), but \(X\) and \(Y\) are correlated because of \(Z\). 
+        Let's say we have a DAG as in Figure 1.2. There is no direct path between \(X\) and \(Y\), but \(X\) and \(Y\) are correlated because of \(Z\). 
         \(Z\) in such a graph structure is the common cause of \(X\) and \(Y\), which is called a <strong>confounder</strong> or said to impose a <strong>confounding bias</strong>.
         If we only have data on \(X,Y\), we will see that \(X\) varies by different values of \(Y\). This variation stems from the corresponding variation in \(Z\) to begin with.
         If we happened to have data on \(Z\), by fixing \(Z\) to a value, it would be observed that no matter how much we change \(X\), \(Y\) would remain unchanged (constant \(Z\) \(\rightarrow\) constant \(Y\)).
       </p>
-      <p>ADD FIGURE 2.1 A SIMPLE EXAMPLE OF COUNFDER</p>
+      <p>ADD FIGURE 1.2 A SIMPLE EXAMPLE OF COUNFDER</p>
       <p>
         The action of setting a third variable \(Z\) to a fixed value and observe how it impacts the relationship between two other variables is also knowns as <i>adjusting for</i> or <i>controlling for</i> or <i>conditioning on</i> \(Z\). 
         Please note that my conclusion that \(Y\) remains unchanged is based on a critical assumption that \(X\) only connects with \(Y\) through \(Z\). 
