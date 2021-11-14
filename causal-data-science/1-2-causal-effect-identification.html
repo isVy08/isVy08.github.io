@@ -39,9 +39,9 @@
 
 
     <div id="main" role="main" class="container">
-      
+      <h2 id="2">2. Identification of Causal Effects</h2>
       <article class="post" style="text-align: justify;">
-        <h2 id="2">2. Identification of Causal Effects</h2>
+        
         <p>
           Assume we are given an observational dataset of \(V\) <span style="text-decoration: underline;">observed</span> variables and causal graph \(G\). The set \(V\) includes a treatment variable \(X\) and a outcome variable \(Y\) of interest, 
           and we wish to determine the effect on \(Y\) under the intervention \(do(X=x)\) – that is, to estimate the interventional distribution \(P(y|do(x)\)).
@@ -219,9 +219,9 @@
           Let \(\widetilde{Z(W)}\) denote the set of \(Z\)-nodes that can be ancestors of \(W\). Because \(Z(W)\) can neither have parents nor be an ancestor of \(W\), 
           without passing through \(\widetilde{Z(W)}\), \(Z(W)\) can only connect with \(W\) and indirectly with \(Y\) through a collider, which automatically blocks the path.  
           Safely ignoring \(do(X)\), the fact that \(Y\) and \(Z\) becomes independent given \(W\) means that either (1) \(Y,Z\) are independent to begin with, 
-          or (2) there must be no path between \(Y\) and \(\widetilde{Z(W)}\) not going through \(W\), and \(W\) is either a chain or a fork by \(d\)-separation. 
+          or (2) all paths between \(Y\) and \(\widetilde{Z(W)}\) must go through \(W\) where \(W\) is a chain or a fork by \(d\)-separation. 
           For a causal effect to take place, one such path must contain arrows pointing from \(\widetilde{Z(W)}\) towards \(Y\), and the path is blocked by \(W\) in this case. 
-          Thus, intervening on \(Z\) does not affect \(Y\) at all.
+          Thus in all cases, intervening on \(Z\) does not affect \(Y\) at all.
         </p>
         <h3 id="2.4">2.4. Instrumental Variables (Coming Soon)</h3>
         <h3 id="2.5">2.5. Mediation Analysis (Coming Soon)</h3>
@@ -234,7 +234,7 @@
     </div>
     <div style="text-align: center; padding-top: 20px;">
       <a href="1-1-preliminaries.html" class="navbutton">◀︎ Preliminaries</a>
-      <a href="1-1-preliminaries.html" class="navbutton">Causal Mechanism ▶︎</a>
+      <a href="1-1-preliminaries.html" class="navbutton">The Big Picture ▶︎</a>
     <div class="wrapper-footer">
         <div class="container">
         <footer class="footer">

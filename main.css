@@ -157,6 +157,7 @@ body {
   max-width: 740px;
   padding: 0 10px;
   width: 100%;
+  text-align: justify;
 }
 
 h1,
@@ -868,7 +869,7 @@ tr:nth-child(even) {
 
 .assumption {
   padding: 3px 0px 3px 10px;
-  background-color: rgb(226, 231, 203);
+  background-color: rgb(247, 232, 179);
   border-radius: 10px;
 }
 
@@ -890,7 +891,7 @@ tr:nth-child(even) {
   float: left;
   color: black;
   text-align: center;
-  padding: 15px 25px;
+  padding: 15px 20px;
   font-weight: 300;
   letter-spacing: 1px;
   text-decoration: none;

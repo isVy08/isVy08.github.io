@@ -28,10 +28,10 @@
           </header>
           <br>
           <div class="topnav">
-            <a href="#">About</a>
-            <a class="active" href="#">Fundamentals</a>
-            <a href="#">Experimentation</a>
-            <a href="#">Tools</a>
+            <a href="intro.html">About</a>
+            <a class="active">Fundamentals</a>
+            <a href="causal-effect-1.html">Experimentation</a>
+            <a href="cs-tools.html">Tools</a>
             <a href="#">Applications</a>
           </div>
         </div>
@@ -39,9 +39,135 @@
 
 
     <div id="main" role="main" class="container">
+    <h2>1. Preliminaries</h2>
+    <p>  
+      There are mainly two lines of works in Causal Inference: one framework known as the <strong>Potential Outcome</strong> pioneered by Donald Rubin, 
+      and the other approach using <strong>Probabilistic Graphical Models</strong> popularized by Judea Pearl.  
+      Both are complementary with their own merits. Rubin's is more applicable with respect to estimation and experimentation, 
+      while Pearl's philosophies shed light on the nature of Cause and Effect and provide particularly powerful methods for identifying causal relations from non-experimental data. 
+      </p>
+      <p>
+        This topic covers building blocks of Causal Inference from the graphical perspective, leaving the discussion on Potential Outcome framework later in the tutorial. 
+        The knowledge is gratefully inherited from the books <a href="http://bayes.cs.ucla.edu/BOOK-2K/">Causality</a> (Pearl 2009) and <a href="https://www.bradyneal.com/Introduction_to_Causal_Inference-Dec17_2020-Neal.pdf">Introduction to Causal Inference</a> (Neal 2020).
+      </p>
+
+      <div class="toc">
+        <h5 style="text-decoration: underline" >Table of Contents</h5>
+        <ul>
+          <a href="#1.1"><li>1.1. Causal Graph</li></a>
+          <a href="#1.2"><li>1.2. Correlation is (not) Causation? </li></a>
+          <a href="#1.3"><li>1.3. Bayesian Networks</li></a>
+          <a href="#1.4"><li>1.4. Graph Building Blocks</li></a>
+          <a href="#1.5"><li>1.5. Pearl's Causal Reasoning Hierarchy</li></a>
+          
+        </ul>
+      </div>
       
-      <article class="post" style="text-align: justify;">
-        <h2>1. Preliminaries</h2>
+    <article class="post">
+      <h3 id="#1.1">1.1. Causal Graph</h3>
+      <p>
+        A graph consists of a set of nodes and a set of edges that connect two nodes. Nodes in a graph represent a random variables and edges denote relationships among them. 
+        Every two nodes are connected by an edge are called adjacent nodes. Adjacent nodes are statistically dependent.
+        If every edge in a graph is an arrow pointing from one arbitrary node \(X\) to another node \(Y\), the graph is a <strong>directed graph</strong>.
+        In such a directed edge, \(X\) is called a <strong>parent</strong> of \(Y\) and \(Y\) is said to be a <strong>child</strong> of \(Y\). 
+        
+        Figure 1 exemplifies some types of graphs. 
+      </p>
+      <p>ADD FIGURE 1.1 HERE AND EXPLAIN ONE PATH</p>
+
+      <p>
+        A path in a graph is any sequence of consecutive edges in which the starting node is the ending node of the preceding edge, regardless of their directions.  
+        Paths cannot be broken nor intersectting, and if there exists a path between two nodes, they are said to be connected.
+        A directed path is a path that consists of directed edges <strong>in the same direction.</strong>
+        In a directed path that starts at node \(X\) and ends at node \(Y\), \(X\) is an ancestor of \(Y\), and \(Y\) is a descendant of \(X\).
+        A graph may contain directed cycles that encode feedback connections. One with no directed cycles is an <i>acyclic</i> graph. 
+        We mostly focus on <strong>directed acyclic graphs</strong> (DAGs). 
+      </p>
+      <p>
+        A <strong>causal graph</strong> (sometimes called causal diagram) is a graph that models the causal relationships between variables (nodes). 
+        Graphical models encode causal relations through 
+      </p>
+      <div class="assumption">
+        <h5>Strict Causal Edges Assumption:</h5>
+        <p>In a directed graph, every parent is a direct cause of all its children.</p>
+      </div>
+      <p>
+        You may question about the "indirect" cause. Indirect effect is usually discussed in the context of mediation - that is, there exists a path like \(X \rightarrow M \rightarrow Y\) where \(M\) is called a mediator.
+        In such relationship, \(X\) influences \(Y\) by influencing \(M\), or we can say that \(X\) indirectly affects \(Y\). This gives rise to several concepts such as <i>Total Effect, Controlled Effect, Natural Direct Effect, Natural Indirect Effect</i> and so on.
+        We will discuss Mediation Analysis in <a href="1-2-causal-effect-identification.html#2.5">Section 2.5</a>.
+      </p>
+      <p>
+        Generally, when talking about the causal effect of \(X\) on \(Y\), we often mean the direct effect. We then wish to determine whether \(X\) is a parent of \(Y\) (graphically) and how much \(Y\) changes correponding to changes in \(X\) (quantitatively).
+      </p>
+      <h3 id="1.2">1.2. Correlation is (not) Causation?</h3>
+      <p>
+        The following sections discuss how to identify and quantify the <strong>true causal effect</strong> between \(X\) and \(Y\) out of a DAG \(G\). 
+        This of course goes beyond measuring statistical correlations or associations, though for a causal effect to occur, \(X\) must first be correlated with \(Y\).
+        In other words, if \(X\) causes \(Y\), they are associated, but the fact that they are correlated does not mean there is a causal effect. 
+        Let me highlight the word <strong>true</strong> here and emphasize that the effect can be null, meaning \(X\) may not actually be a cause of \(Y\).
+        This is the fundamental idea behind the adage <strong>Correlation is not Causation</strong>. 
+      </p>
+      <p>
+        Let's say we have a DAG as in Figure 2.1. There is no direct path between \(X\) and \(Y\), but \(X\) and \(Y\) are correlated because of \(Z\). 
+        \(Z\) in such a graph structure is the common cause of \(X\) and \(Y\), which is called a <strong>confounder</strong> or said to impose a <strong>confounding bias</strong>.
+        If we only have data on \(X,Y\), we will see that \(X\) varies by different values of \(Y\). This variation stems from the corresponding variation in \(Z\) to begin with.
+        If we happened to have data on \(Z\), by fixing \(Z\) to a value, it would be observed that no matter how much we change \(X\), \(Y\) would remain unchanged (constant \(Z\) \(\rightarrow\) constant \(Y\)).
+      </p>
+      <p>ADD FIGURE 2.1 A SIMPLE EXAMPLE OF COUNFDER</p>
+      <p>
+        The action of setting a third variable \(Z\) to a fixed value and observe how it impacts the relationship between two other variables is also knowns as <i>adjusting for</i> or <i>controlling for</i> or <i>conditioning on</i> \(Z\). 
+        Please note that my conclusion that \(Y\) remains unchanged is based on a critical assumption that \(X\) only connects with \(Y\) through \(Z\). 
+        And without data on \(Z\), we would never know. To make it worse, it is also very difficult to tell exactly whether there are any other tricky paths that give a wrong signal. This is where research comes to rescue. 
+      </p>
+      <p>
+        We are now ready to define everything more rigorously. We quantify causal effects between two random variables using the language of probability. 
+        More concretely, researchers leverage methods of probabilistic graphical models to develop theories for Causal Inference. 
+        We now take a deeper look into this connection.
+      </p>
+      <h3 id="1.3">1.3. Bayesian Networks</h3>
+      <p>
+        A quick review of statistics:
+        <ul>
+          <li>We model the uncertainty of a random variable \(X\) through a <strong>probability distribution</strong> \(P(X=x)\), measuring the probability of \(X\) taking the value \(x\). 
+            It is termed as <strong>marginal probability</strong>
+          </li><br>
+          <li>
+            Two random variables \(X\) and \(Y\) are said to be independent, denoted as \(X ⊥⊥ Y\), if the occurence of \(X\) does not affect the probability of \(Y\) occuring. Mathematically,
+            $$X ⊥⊥ Y \Leftrightarrow P(X,Y) = P(X)P(Y)$$ where \(P(X,Y\) is the <strong>joint distribution</strong>. \(P(X=x,Y=y)\) is the probability of observing \(X=x\) and \(Y=y\) at the same time.
+          </li><br>
+          <li>
+            \(P(X|Y)\) or specifically \(P(X=x|Y=y)\) measures the probabilty \(X=x\) if we observe \(Y=y.\) This is termed as <strong>conditional probability</strong>. It basically says how much the knowledge about \(X\) to be updated given additional information about \(Y\).
+            If \(X\) and \(Y\) are independent, \(P(X|Y)=Y\). Knowing \(Y\) gives no information about \(X\).  
+          </li><br>
+          <li>
+            A random variable \(X\) can be discreet, continuous, or a set of multiple variables (multi-dimensional). 
+          </li>
+        </ul>
+      </p>
+      <div class="theorem">
+        <h5>Chain rule of Bayes network:</h5>
+        <p>
+          Given a probability distribution \(P\) and a DAG \(G\), the joint distribution of \(n\) nodes in \(G\) is given as
+          $$P(X_1, X_2, ..., X_n) = \prod_i P(X_i|PA_i)$$
+          with \(PA_i\) being all parents of node \(X_i\).
+        </p>
+      </div>
+      <p>Expressed in words,</p>
+      <div class="assumption">
+        <h5>Minimality Assumption:</h5>
+        <ol>
+          <li>A node \(X\) is independent of all its non-descendants conditioning on its parents in a DAG <br><strong>(Local Markov Assumption)</strong></li>
+          <li>Adjacent nodes in the DAG are dependent.</li>
+        </ol>
+      </div>
+      <p>
+        The joint distribtuion in Figure 2 can be factorized into
+        $$P(X,Y,Z) = P(X|Z)P(Y|Z)P(Z)$$
+        Again, this is done by multiplying independent terms together.
+      </p>
+      <h3 id="1.4">1.4. Graph Building Blocks</h3>
+      
+
     </article>
 
     </div>
