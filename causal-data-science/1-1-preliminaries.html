@@ -126,10 +126,10 @@
       </p>
       <h3 id="1.3">1.3. Bayesian Networks</h3>
       <p>
-        Let's first review essential statistical rules:
+        Let's review some basic statistical rules:
         <ul>
-          <li>We model the uncertainty of a random variable \(X\) through a <strong>probability distribution</strong> \(P(X=x),\) measuring the probability of \(X\) taking the value \(x\). 
-            It is termed as <strong>marginal probability</strong>. A random variable can be discreet, continuous, or a set of multiple variables (multi-dimensional).
+          <li>We model the uncertainty of a random variable \(X\) through a <strong>probability distribution</strong> \(P(X=x),\) measuring the probability of \(X\) taking the value \(x\) (\(0 \le P(X) \le 1\)). 
+            It is termed as <strong>marginal probability</strong>, and \(x\) is called a realization of \(X\). \(X\) can be discreet, continuous, or multi-dimensional.
           </li><br>
           <li>
             Two random variables \(X\) and \(Y\) are said to be independent, denoted as \(X \perp Y\), if the occurence of \(X\) does not affect the probability of \(Y\) occuring. Mathematically,
@@ -141,8 +141,9 @@
           </li><br>
           <li>
              By <strong>Sum and Product rule</strong>,
+            $$\sum_aP(A) = 1 \quad \text{where } a \text{ are all realizations of } A$$
             $$P(A) = \sum_bP(A,B) \quad \text{where } b \text{ are all realizations of } B$$
-            $$P(A|B) = \frac{P(A,B)}{P(B)} = \frac{P(B|A)P(B)}{\sum_aP(B,A)} = \frac{P(B|A)P(A)}{\sum_aP(B|A)P(A)} \quad \text{:Bayes' Rule} $$
+            $$P(A|B) = \frac{P(A,B)}{P(B)} $$
           </li>
         </ul>
       </p>
@@ -198,16 +199,24 @@
         </p>
         <p>
           Proving \(d-\)separation for a fork is also trivial. I leave it as a small exercise for you. 
-          We will quickly prove the case where \(Z\) is collider. Consider the path \(X \rightarrow Z \leftarrow Y\), the idea is conditioned the collider opens the association flow between \(X\) and \(Y\). 
-          Therefore, we need to prove \(P(X,Y|Z) \ne P(X|Z)P(Y|Z)\)
-          $$P(X,Y,Z) = P(Z|X)P(Z|Y)P(X)P(Y) \Leftrightarrow P(X,Y|Z) = \frac{P(Z,X)P(Z,Y)}{P(Z)} $$
-          $$\Leftrightarrow P(X,Y|Z) = P(X|Z)P(Y|Z)P(Z)$$ 
+          We will quickly prove the case where \(Z\) is collider. Consider Figure 1.3, 
+          ADD FIGURE 1.3 OF COLLIDER
         </p>
-        <p>To yield \(\Leftrightarrow P(X,Y|Z) = P(X|Z)P(Y|Z)\), \(P(Z)\) must equal \(1\). 
-          This would mean the event \(Z\) always occuring, making the directions into \(Z\) meaningless and contradicting to our definition of cause and effect.
-          If there is no direct path from \(X\) to \(Y\) as in the third graph in Figure 3.1. You can also prove that \(P(X,Y)=P(X)P(Y)\) or \(X\) and \(Y\) are naturally independent (try it!).
+        <p>
+          We can easily prove the \(X\) and \(Y\) are marginally independent in such a graph.
+          $$P(X,Y)=\sum_zP(X,Y,Z)=\sum_zP(X)P(Y)P(Z|X,Y)=P(X)P(Y)\sum_zP(Z|X,Y)$$
+          By summing all realizations of \(Z\), we have \(\sum_zP(Z|X,Y)=1\), yielding \(P(X,Y)=P(X)P(Y)\).
         </p>
-        <p>ADD FIGURE 3.1 EXAMPLES OF 3 CONNECTIONS</p>
+        <p>
+          The idea is that if \(X,Y\) are marginally independent, conditioning \(X,Y\) on the collider opens the association flow between \(X\) and \(Y\). 
+          If you are familiar with Bayes rule, you should realize that due to <strong>Markov Compatibility</strong>, you <span style="color:red">cannot</span> factorize \(P(X,Z)=P(X|Z)P(Z)\) since \(Z\) is the child of \(X\) and the graph is acyclic. 
+          An easier way to verify this is by proving \(P(X|Y,Z) \ne P(X|Z)\), specifically \(P(X=x|Y=y,Z=z) \ne P(X=x|Z=z)\).
+        </p>
+        <p>
+          We can quickly argue that for the probability \(P(X|Y,Z)\) to exist, \(Y\) must be a parent of \(X\). However, this is not what we specify in our graph, thus violating <strong>Markov Compatibility</strong> and \(d-\)separation may no longer hold.  
+          Another perspective is that an arbitrary combination of \(X=x, Y=y\) results in one realization \(Z=z'\). Given \(Z=z\), our confidence in \(X=x\) is \(P(X=x|Z=z)\). 
+          Because there only exists certain combinations \(x,y\) leading to \(Z\), additional knowledge of the value of \(Y\) will update our confidence about \(X=x\) (making them become dependent).
+        </p>
         <p>What we have discussed so far is summarized into <strong>Global Markov Assumption</strong>.</p>
         <div class="assumption">
           <h5>Global Markov Assumption:</h5>
