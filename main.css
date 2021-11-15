@@ -920,5 +920,5 @@ tr:nth-child(even) {
   letter-spacing: 1px;
   display: inline-block;
   padding: 8px 16px;
-  width: 355px;
+  /* width: 355px; */
 }
