@@ -58,10 +58,11 @@
             <a href="#2.2"><li>2.2. Front-Door Criterion</li></a>
             <a href="#2.3"><li>2.3. Do-Calculus</li></a>
           </ul>
-          <h6>Non-parametric methods</h6>
+          <h6>Parametric methods</h6>
           <ul>
-            <a href="#2.4"><li>2.4. Instrumental Variables</li></a>
-            <a href="#2.5"><li>2.5. Mediation Analysis</li></a>
+            <a href="#2.4"><li>2.4. Structural Causal Models</li></a>
+            <a href="#2.5"><li>2.5. Instrumental Variables</li></a>
+            <a href="#2.6"><li>2.6. Mediation Analysis</li></a>
           </ul>
         </div>
         <p>        
@@ -91,7 +92,10 @@
           And when doing intervention, we estimated the effect based on the manipulated graph, in which the incoming edge into \(X\) from \(Z\) is removed. 
           I provide a step-by-step proof to solidify the intuition.  
         </p>
-        <p>ADD FIGURE 1.2 HERE</p>
+        <figure style="text-align: center;">
+          <img src='figures/1-1-Fig2.png' alt='graphs' width="300" />
+          <figcaption style="font-size: small;">Figure 1.2: Confounder</figcaption>
+        </figure>
         <p>
           <ol type="i">
             <li>By probability rules, 
@@ -224,8 +228,9 @@
           For a causal effect to take place, one such path must contain arrows pointing from \(\widetilde{Z(W)}\) towards \(Y\), and the path is blocked by \(W\) in this case. 
           Thus in all cases, intervening on \(Z\) does not affect \(Y\) at all.
         </p>
-        <h3 id="2.4">2.4. Instrumental Variables (Coming Soon)</h3>
-        <h3 id="2.5">2.5. Mediation Analysis (Coming Soon)</h3>
+        <h3 id="2.4">2.4. Structural Causal Models (Coming Soon)</h3>
+        <h3 id="2.4">2.5. Instrumental Variables (Coming Soon)</h3>
+        <h3 id="2.5">2.6. Mediation Analysis (Coming Soon)</h3>
         
     
     </article>

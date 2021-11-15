@@ -68,19 +68,25 @@
       <h3 id="#1.1">1.1. Causal Graph</h3>
       <p>
         A graph consists of a set of nodes and a set of edges that connect two nodes. Nodes in a graph represent a random variables and edges denote relationships among them. 
-        Every two nodes are connected by an edge are called adjacent nodes. If every edge in a graph is an arrow pointing from one arbitrary node \(X\) to another node \(Y\), the graph is a <strong>directed graph</strong>.
+        Every two nodes are connected by an edge are called adjacent nodes. If every edge in a graph is an arrow pointing from one node to another node, the graph is a <strong>directed graph</strong>.
         In such a directed edge, \(X\) is called a <strong>parent</strong> of \(Y\) and \(Y\) is said to be a <strong>child</strong> of \(X\). 
         
         Figure 1 exemplifies some types of graphs. 
       </p>
-      <p>ADD FIGURE 1.1 HERE AND EXPLAIN ONE PATH</p>
+      <figure style="text-align: center;">
+        <img src='figures/1-1-Fig1.png' alt='graphs' width="1000" />
+        <figcaption style="font-size: small;">Figure 1.1</figcaption>
+      </figure>
 
       <p>
         A path in a graph is any sequence of consecutive edges in which the starting node is the ending node of the preceding edge, regardless of their directions.  
         Paths cannot be broken nor intersectting, and if there exists a path between two nodes, they are said to be connected.
         A directed path is a path that consists of directed edges <strong>in the same direction.</strong>
         In a directed path that starts at node \(X\) and ends at node \(Y\), \(X\) is an ancestor of \(Y\), and \(Y\) is a descendant of \(X\).
-        A graph may contain directed cycles that encode feedback connections. One with no directed cycles is an <i>acyclic</i> graph. 
+        In the middle graph, \(A \rightarrow X \rightarrow Y \rightarrow C \rightarrow B\) is a direct path while \(A \rightarrow X \rightarrow Y \rightarrow C \rightarrow B \leftarrow A\) is not.
+      </p>
+      <p>  
+        A directed path may form a cycle that returns to the starting node. One with no directed cycles is an <i>acyclic</i> graph. 
         We mostly focus on <strong>directed acyclic graphs</strong> (DAGs). 
       </p>
       <p>
@@ -112,7 +118,10 @@
         If we only have data on \(X,Y\), we will see that \(X\) varies by different values of \(Y\). This correlation stems from the corresponding variation in \(Z\) to begin with.
         If we happened to have data on \(Z\), by fixing \(Z\) to a value, it would be observed that no matter how much we change \(X\), \(Y\) would remain unchanged (constant \(Z\) \(\rightarrow\) constant \(Y\)).
       </p>
-      <p>ADD FIGURE 1.2 A SIMPLE EXAMPLE OF COUNFDER</p>
+      <figure style="text-align: center;">
+        <img src='figures/1-1-Fig2.png' alt='confounder' width="300" />
+        <figcaption style="font-size: small;">Figure 1.2: Confounder</figcaption>
+      </figure>
       <p>
         The action of setting a third variable \(Z\) to a fixed value and observe how it impacts the relationship between two other variables is also knowns as <i>adjusting for</i> or <i>controlling for</i> or <i>conditioned on</i> \(Z\). 
         Please note that my conclusion that \(Y\) remains unchanged is based on a critical assumption that \(X\) only connects with \(Y\) through \(Z\). 
@@ -199,7 +208,10 @@
         <p>
           Proving \(d-\)separation for a chain is also trivial. I leave it as a small exercise for you. 
           We will quickly prove the case where \(Z\) is collider. Consider Figure 1.3, 
-          ADD FIGURE 1.3 OF COLLIDER
+          <figure style="text-align: center;">
+            <img src='figures/1-1-Fig3.png' alt='collider' width="300" />
+            <figcaption style="font-size: small;">Figure 1.3: Collider</figcaption>
+          </figure>
         </p>
         <p>
           We can easily prove that \(X\) and \(Y\) are marginally independent in such a graph.
@@ -252,7 +264,10 @@
           A mathematical equivalence of this concept will be provided in Chapter 3. 
         </p>
 
-        <p>ADD FIGURE 1.4 MANIPULATED GRAPH</p>
+        <figure style="text-align: center;">
+          <img src='figures/1-1-Fig4.png' alt='manipulated-graphs' width="1000" />
+          <figcaption style="font-size: small;">Figure 1.4</figcaption>
+        </figure>
         <p>
           All directed paths pointing into a node \(X_i\) in a DAG \(G\) form the <strong>causal mechanism</strong> or <strong>causal generative process</strong> of \(X_i\) with respect to \(G\), modelled as \(P(X_i|PA_i)\).
           Unless we have data on all possible parents of \(X_i\) in reality, the true data generating process for \(X_i\) always remains unknown. 
@@ -308,7 +323,7 @@
         <div class="theorem">
           <h5>Causal Effect Identifiability (Pearl 2009)</h5>
           <p>
-            A causal effect \(q=P(Y_1,...,Y_k|do(X_1),...do(X_s)\) is identifiable in a model characterized by a graph \(G\) if there exists a sequence of finite transformations, each conforming to one of the inference rules in \(Do-\)Calculus,
+            A causal effect \(q=P(Y_1,...,Y_k|do(X_1),...do(X_s))\) is identifiable in a model characterized by a graph \(G\) if there exists a sequence of finite transformations, each conforming to one of the inference rules in \(Do-\)Calculus,
             that reduces \(q\) into a standard probability expression involved observed quantities.
           </p>
         </div>
