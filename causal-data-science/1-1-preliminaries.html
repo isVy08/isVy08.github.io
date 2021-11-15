@@ -30,24 +30,24 @@
           <div class="topnav">
             <a href="intro.html">About</a>
             <a class="active">Fundamentals</a>
-            <a href="causal-effect-1.html">Experimentation</a>
-            <a href="cs-tools.html">Tools</a>
-            <a href="#">Applications</a>
+            <a href="#">Experimentation &#128274 </a>
+            <a href="#">Tools &#128274</a>
+            <a href="#">Applications &#128274</a>
           </div>
         </div>
       </div>
 
 
     <div id="main" role="main" class="container">
-    <h2>1. Preliminaries</h2>
+    <h2>Chapter 1. Preliminaries</h2>
     <p>  
-      There are mainly two lines of works in Causal Inference: one framework known as the <strong>Potential Outcome</strong> pioneered by Donald Rubin, 
-      and the other approach using <strong>Probabilistic Graphical Models</strong> popularized by Judea Pearl.  
+      There are mainly two lines of works in Causal Inference: one known as the <strong>Potential Outcome</strong> pioneered by Donald Rubin, 
+      and the other using <strong>Probabilistic Graphical Models</strong> popularized by Judea Pearl.  
       Both are complementary with their own merits. Rubin's is more applicable with respect to estimation and experimentation, 
       while Pearl's philosophies shed light on the nature of Cause and Effect and provide particularly powerful methods for identifying causal relations from non-experimental data. 
       </p>
       <p>
-        This topic covers building blocks of Causal Inference from the graphical perspective, leaving the discussion on Potential Outcome framework later in the tutorial. 
+        This chapter covers building blocks of Causal Inference from the graphical perspective, leaving the discussion on Potential Outcome framework later in the tutorial. 
         The knowledge is gratefully inherited from these two books <a href="http://bayes.cs.ucla.edu/BOOK-2K/">Causality</a> (Pearl 2009) and <a href="https://www.bradyneal.com/Introduction_to_Causal_Inference-Dec17_2020-Neal.pdf">Introduction to Causal Inference</a> (Neal 2020).
       </p>
 
@@ -55,10 +55,11 @@
         <h5 style="text-decoration: underline" >Table of Contents</h5>
         <ul>
           <a href="#1.1"><li>1.1. Causal Graph</li></a>
-          <a href="#1.2"><li>1.2. Correlation is (not) Causation? </li></a>
+          <a href="#1.2"><li>1.2. Correlation is not Causation </li></a>
           <a href="#1.3"><li>1.3. Bayesian Networks</li></a>
           <a href="#1.4"><li>1.4. Graph Building Blocks</li></a>
-          <a href="#1.5"><li>1.5. Pearl's Causal Reasoning Hierarchy</li></a>
+          <a href="#1.5"><li>1.5. Assocation vs. Intervention</li></a>
+          <a href="#1.5"><li>1.6. Identifiability</li></a>
           
         </ul>
       </div>
@@ -67,9 +68,8 @@
       <h3 id="#1.1">1.1. Causal Graph</h3>
       <p>
         A graph consists of a set of nodes and a set of edges that connect two nodes. Nodes in a graph represent a random variables and edges denote relationships among them. 
-        Every two nodes are connected by an edge are called adjacent nodes. Adjacent nodes are statistically dependent.
-        If every edge in a graph is an arrow pointing from one arbitrary node \(X\) to another node \(Y\), the graph is a <strong>directed graph</strong>.
-        In such a directed edge, \(X\) is called a <strong>parent</strong> of \(Y\) and \(Y\) is said to be a <strong>child</strong> of \(Y\). 
+        Every two nodes are connected by an edge are called adjacent nodes. If every edge in a graph is an arrow pointing from one arbitrary node \(X\) to another node \(Y\), the graph is a <strong>directed graph</strong>.
+        In such a directed edge, \(X\) is called a <strong>parent</strong> of \(Y\) and \(Y\) is said to be a <strong>child</strong> of \(X\). 
         
         Figure 1 exemplifies some types of graphs. 
       </p>
@@ -93,31 +93,30 @@
       </div>
       <p>
         You may question about the "indirect" cause. Indirect effect is usually discussed in the context of mediation - that is, there exists a path like \(X \rightarrow M \rightarrow Y\) where \(M\) is called a mediator.
-        In such relationship, \(X\) influences \(Y\) by influencing \(M\), or we can say that \(X\) indirectly affects \(Y\). This gives rise to several concepts such as <i>Total Effect, Controlled Effect, Natural Direct Effect, Natural Indirect Effect</i> and so on.
+        In such a relationship, \(X\) influences \(Y\) by influencing \(M\), or we can say that \(X\) indirectly affects \(Y\). This gives rise to several concepts such as <i>Total Effect, Controlled Effect, Natural Direct Effect, Natural Indirect Effect</i> and so on.
         We will discuss Mediation Analysis in <a href="1-2-causal-effect-identification.html#2.5">Section 2.5</a>.
       </p>
       <p>
-        Generally, when talking about the causal effect of \(X\) on \(Y\), we often mean the direct effect. We then wish to determine whether \(X\) is a parent of \(Y\) (graphically) and how much \(Y\) changes correponding to changes in \(X\) (quantitatively).
+        Generally, when talking about the causal effect of \(X\) on \(Y\), we often mean the direct effect. 
+        We then wish to determine whether \(X\) is a parent of \(Y\) (graphically) and how much \(Y\) changes induced by changes in \(X\) (quantitatively).
       </p>
-      <h3 id="1.2">1.2. Correlation is (not) Causation?</h3>
+      <h3 id="1.2">1.2. Correlation is not Causation</h3>
       <p>
-        The following sections discuss how to identify and quantify the <strong>true causal effect</strong> between \(X\) and \(Y\) out of a DAG \(G\). 
-        This of course goes beyond measuring statistical correlations or associations, though for a causal effect to occur, \(X\) must first be correlated with \(Y\).
-        In other words, if \(X\) causes \(Y\), they are associated, but the fact that they are correlated does not mean there is a causal effect. 
-        Let me highlight the word <strong>true</strong> here and emphasize that the effect can be null, meaning \(X\) may not actually be a cause of \(Y\).
+        For a causal effect to occur, \(X\) must first be statistically correlated with \(Y\).
+        In other words, if \(X\) causes \(Y\), they are associated, but the fact that they are correlated does not mean there is a true causal effect. 
         This is the fundamental idea behind the adage <strong>Correlation is not Causation</strong>. 
       </p>
       <p>
         Let's say we have a DAG as in Figure 1.2. There is no direct path between \(X\) and \(Y\), but \(X\) and \(Y\) are correlated because of \(Z\). 
         \(Z\) in such a graph structure is the common cause of \(X\) and \(Y\), which is called a <strong>confounder</strong> or said to impose a <strong>confounding bias</strong>.
-        If we only have data on \(X,Y\), we will see that \(X\) varies by different values of \(Y\). This variation stems from the corresponding variation in \(Z\) to begin with.
+        If we only have data on \(X,Y\), we will see that \(X\) varies by different values of \(Y\). This correlation stems from the corresponding variation in \(Z\) to begin with.
         If we happened to have data on \(Z\), by fixing \(Z\) to a value, it would be observed that no matter how much we change \(X\), \(Y\) would remain unchanged (constant \(Z\) \(\rightarrow\) constant \(Y\)).
       </p>
       <p>ADD FIGURE 1.2 A SIMPLE EXAMPLE OF COUNFDER</p>
       <p>
         The action of setting a third variable \(Z\) to a fixed value and observe how it impacts the relationship between two other variables is also knowns as <i>adjusting for</i> or <i>controlling for</i> or <i>conditioned on</i> \(Z\). 
         Please note that my conclusion that \(Y\) remains unchanged is based on a critical assumption that \(X\) only connects with \(Y\) through \(Z\). 
-        But without data on \(Z\), we would never know. To make it worse, it is also very difficult to tell exactly whether there are any other tricky paths that give a wrong signal.
+        But without data on \(Z\), we would never know. To make it worse, it is also very difficult to tell exactly whether there are any other tricky paths that send a wrong signal.
       </p>
       <p>
         We are now ready to define everything more rigorously. We quantify causal effects between two random variables using the language of probability. 
@@ -171,7 +170,7 @@
       <h3 id="1.4">1.4. Graph Building Blocks</h3>
       <p>
         A path between two nodes \(X\) and \(Y\) is <strong>blocked</strong> by a node \(Z\) if \(X \perp Y | Z\). 
-        conditioned on \(Z\) stops information from flowing between them, eliminating the association. 
+        Controlling for \(Z\) stops information from flowing between them, thereby eliminating the association. 
         Interestingly, causal DAGs offer a quick test of independence among nodes, powered by <strong>\(d-\)Separation criterion</strong>.
         <div class="theorem">
           <h5>Definition of \(d-\)Separation (Pearl 2019):</h5>
@@ -181,7 +180,7 @@
               <li>\(p\) contains a <strong>chain</strong> \(i \rightarrow m \rightarrow j\) or a <strong>fork</strong> \(i \leftarrow m \rightarrow j\) such that \(m\) in \(Z\)</li>
               <li>\(p\) contains a <strong>collider</strong> \(i \rightarrow m \leftarrow j\) such that \(m\) not in \(Z\) and no descendants of \(m\) is in \(Z\)</li>
             </ul>
-            Given 3 disjoint sets of variables \(X,Y,Z\), \(Z\) is said to \(d-\)separate \(X\) from \(Y\) if and only if \(Z\) blocks every path from a node in \(X\) to a node in \(Y\).
+            Given 3 disjoint sets of variables \(X,Y,Z\): \(Z\) is said to \(d-\)separate \(X\) from \(Y\) if and only if \(Z\) blocks every path from a node in \(X\) to a node in \(Y\).
           </p>
         </div>
         <p>The condition that translates conditional independence into \(d-\)separation is <strong>Markov Compatibility</strong>. </p>
@@ -192,18 +191,18 @@
           </p>
         </div>
         <p>
-          Figure 1.2 is an example of a chain. Here is a proof why \(d-\)separation is valid. 
+          Figure 1.2 is an example of a fork. Here is a proof why \(d-\)separation is valid. 
           We need to prove given such a DAG, \(X\) is independent of \(Y\) given \(Z\), or \(X \perp Y|Z\)
           $$P(X,Y,Z) = P(X|Z)P(Y|Z)P(Z) \Leftrightarrow \frac{P(X,Y,Z)}{P(Z)} = P(X|Z)P(Y|Z)$$ 
           $$\Leftrightarrow P(X,Y|Z) = P(X|Z)P(Y|Z)$$
         </p>
         <p>
-          Proving \(d-\)separation for a fork is also trivial. I leave it as a small exercise for you. 
+          Proving \(d-\)separation for a chain is also trivial. I leave it as a small exercise for you. 
           We will quickly prove the case where \(Z\) is collider. Consider Figure 1.3, 
           ADD FIGURE 1.3 OF COLLIDER
         </p>
         <p>
-          We can easily prove the \(X\) and \(Y\) are marginally independent in such a graph.
+          We can easily prove that \(X\) and \(Y\) are marginally independent in such a graph.
           $$P(X,Y)=\sum_zP(X,Y,Z)=\sum_zP(X)P(Y)P(Z|X,Y)=P(X)P(Y)\sum_zP(Z|X,Y)$$
           By summing all realizations of \(Z\), we have \(\sum_zP(Z|X,Y)=1\), yielding \(P(X,Y)=P(X)P(Y)\).
         </p>
@@ -213,9 +212,9 @@
           An easier way to verify this is by proving \(P(X|Y,Z) \ne P(X|Z)\), specifically \(P(X=x|Y=y,Z=z) \ne P(X=x|Z=z)\).
         </p>
         <p>
-          We can quickly argue that for the probability \(P(X|Y,Z)\) to exist, \(Y\) must be a parent of \(X\). However, this is not what we specify in our graph, thus violating <strong>Markov Compatibility</strong> and \(d-\)separation may no longer hold.  
-          Another perspective is that an arbitrary combination of \(X=x, Y=y\) results in one realization \(Z=z'\). Given \(Z=z\), our confidence in \(X=x\) is \(P(X=x|Z=z)\). 
-          Because there only exists certain combinations \(x,y\) leading to \(Z\), additional knowledge of the value of \(Y\) will update our confidence about \(X=x\) (making them become dependent).
+          We can quickly argue that for the distribution \(P(X|Y,Z)\) to exist, \(Y\) must be a parent of \(X\). However, this is not what we specify in our graph, thus violating <strong>Markov Compatibility</strong> and \(d-\)separation may no longer hold.  
+          Another perspective is that an arbitrary combination of \(X=x, Y=y\) results in one realization \(Z=z'\). Given \(Z=z\), our confidence in \(X=x\) is measured by \(P(X=x|Z=z)\). 
+          Because there only exists certain combinations \(x,y\) leading to \(Z=x\), additional knowledge of the value of \(Y\) will update our confidence about \(X=x\), thus making \(X,Y\) become dependent.
         </p>
         <p>What we have discussed so far is summarized into <strong>Global Markov Assumption</strong>.</p>
         <div class="assumption">
@@ -227,13 +226,95 @@
           </p>
         </div>
         <p>Note that the other direction may not be true.</p>
+        <h3 id="1.5">1.5. Assocation vs. Intervention</h3>
+        <p>
+        Pearl clarifies the discrepancy between Correlation and Causation through the concepts of <strong>Interventional distribution</strong>, denoted as \(P(Y|do(X))\). 
+        This is fundamentally different from <strong>Observational distribution</strong> \(P(Y|X)\) in our discussion so far. Take a population of interest, 
+        <ul>
+          <li>\(P(Y|X=x)\) gives information about \(Y\) within the subset of population with value \(X=x\).</li><br>
+          <li>\(P(Y|do(X=x))\) tells us what happens to \(Y\) when we <strong>force all</strong> observations in the population to have \(X=x\).</li>
+        </ul>
+        </p>
+        <p>
+          The term <strong>Intervention </strong> is used in an active sense that refers to imposing a certain action on variable \(X\). We often examine <strong>hard intervention</strong> 
+          in which \(X\) is set to a constant value \(x\), that is \(do(X=x)\). Notice the difference: \(X\) is random variable that can take a realization \(x\), 
+          \(do(X=x)\) is a distribution that is fixed to value \(x\).
+        </p>
+        <p>
+          Intervention is critical to establishing causal relations. By intervening on \(X\), we eliminate all confounding biases that may intercept the relationship between \(X\) and \(Y\).
+          After the intervention, any effects on \(Y\) related to \(X\) are considered the causal effects of \(X\) on \(Y\).
+          We will see how and why this is the case more practically when discussing Potential Outcome in Part II: Experimentation. 
+        </p>
+        <p>
+          It turns out that graphical models can be used to model Interventional distribution.
+          A causal graph for interventional distribution is constructed by <strong>deleting all the edges to the intervened nodes</strong> in the graph for observational distribution. 
+          Because \(X\) is now fixed, it no longer depends on any its original parents. In other words, intervened nodes have no causal parents. We call this the <strong>manipulated graph</strong>. 
+          A mathematical equivalence of this concept will be provided in Chapter 3. 
+        </p>
 
+        <p>ADD FIGURE 1.4 MANIPULATED GRAPH</p>
+        <p>
+          All directed paths pointing into a node \(X_i\) in a DAG \(G\) form the <strong>causal mechanism</strong> or <strong>causal generative process</strong> of \(X_i\) with respect to \(G\), modelled as \(P(X_i|PA_i)\).
+          Unless we have data on all possible parents of \(X_i\) in reality, the true data generating process for \(X_i\) always remains unknown. 
+        </p>
+        <p>One important property is that intervening on a node \(X_i\) does not alter the causal mechanisms of other nodes. 
+          The conditional distribution of each variable given its causes (i.e., its mechanism) does not inform or influence the other conditional distributions.
+          Interventions are thus <strong>localized</strong>, and causal mechanisms are <strong>autonomous, modular or invariant</strong>. This is <strong>Reichenbach's Principles of Independent Mechanisms</strong>. 
+          We have the following assumption:
+        </p>
+        <div class="theorem">
+          <h5>Modularity Assumption ~ Causal Bayesian Network (Pearl 2009):</h5>
+          <p>
+            If we perform hard intervention on a subset of nodes \(S\) in a set of \(n\) nodes \(X\) by setting them to constant \(x\), \(\forall i\)
+            <ol>
+              <li>If node \(X_i \notin S\), \(P(X_i|PA_i)\) remains unchanged </li>
+              <li>If node \(X_i \in S\), \(P(X_i|PA_i)=1\) if \(X_i\) is set to \(x\) or \(do(X_i=x)\); otherwise \(P(X_i|PA_i)=0\)</li> 
+            </ol>
+          </p>
+        </div>
+        <p></p>
+        <p>
+          We can now compute the interventional distribution by using <strong>Truncated Factorization</strong>.
+        </p>
+        <div class="theorem">
+          <h5>Truncated Factorization (Pearl 2009):</h5>
+          <p>
+            Given \(P\) and compatible DAG \(G\), let's denote the interventional distribution of \(n\) nodes in \(G\) 
+            when intervening on a set of nodes \(S\) to by fixing them on a constant \(x\), \(P(X_1, ..., X_n|do(S=x))\). 
+          </p>
+          <p>
+            If every node in \(S\) is truly set to \(x\), or \(x\) is consistent with the intervention
+            $$P(X_1, ..., X_n|do(S=x)) = \prod_{i \notin S}P(X_i|PA_i)$$
+          </p>
+          <p>If every node in \(S\) is truly set to any other value \(x' \ne x\), or \(x\) is inconsistent with the intervention
+          $$P(X_1, ..., X_n|do(S=x))=0$$
+          </p>
 
-
-
-        
-
-      </p>
+        </div>
+        <h3 id="1.6">1.6. Identifiability</h3>
+        <p>
+          In summary, \(P(Y|do(X))\) is a <strong>causal estimand</strong> that estimates the causal effect of \(X\) on \(Y\) while \(P(Y|X)\) is a <strong>statistical estimand</strong> that simply tells us how much \(Y\) varies by different values of \(X\), without making any causal claims.
+          Interventions by our definition are unrealistic and in practice equivalent to conducting experiments. The question is, based on all the tools we have, can we identify the causal effects between \(X\) and \(Y\)?
+        </p>
+        <p>     
+        The answer is, given \(P, G\) along with all constraints above satisfied, <strong>under certain conditions</strong>,
+         we <span style="color: blue">can</span> transform causal estimands into statistical estimands that can be computed directly from observational data without doing experiments 
+         (the term <i>non-experimental data</i> is often used interchangeably). 
+        </p>
+        <p>
+        If we can reduce an expression with the \(do\) operator in it to one without do, then the causal effect is said to be <strong>identifiable</strong>. <strong>\(Do-\)Calculus</strong> is a general framework to identify causal effects. 
+        We define it formally here
+        </p>
+        <div class="theorem">
+          <h5>Causal Effect Identifiability (Pearl 2009)</h5>
+          <p>
+            A causal effect \(q=P(Y_1,...,Y_k|do(X_1),...do(X_s)\) is identifiable in a model characterized by a graph \(G\) if there exists a sequence of finite transformations, each conforming to one of the inference rules in \(Do-\)Calculus,
+            that reduces \(q\) into a standard probability expression involved observed quantities.
+          </p>
+        </div>
+        <p>
+          The next chapter details what is \(Do-\)Calculus and how to determine causal effects. 
+        </p>
       
 
     </article>
@@ -242,8 +323,8 @@
     </div>
     </div>
     <div style="text-align: center; padding-top: 20px;">
-      <a href="1-1-preliminaries.html" class="navbutton">◀︎ About</a>
-      <a href="1-2-causal-effect-identification.html" class="navbutton">Identifying Causal Effects ▶︎</a>
+      <a href="1-1-preliminaries.html" class="navbutton">&#9664 About</a>
+      <a href="1-2-causal-effect-identification.html" class="navbutton">Chapter 2. Identifying Causal Effects &#9654</a>
     <div class="wrapper-footer">
         <div class="container">
         <footer class="footer">

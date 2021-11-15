@@ -862,13 +862,13 @@ tr:nth-child(even) {
 }
 
 .theorem {
-  padding: 3px 0px 3px 10px;
+  padding: 3px 10px 3px 10px;
   background-color: rgb(222, 236, 243);
   border-radius: 10px;
 }
 
 .assumption {
-  padding: 3px 0px 3px 10px;
+  padding: 3px 10px 3px 10px;
   background-color: rgb(247, 232, 179);
   border-radius: 10px;
 }
@@ -891,7 +891,7 @@ tr:nth-child(even) {
   float: left;
   color: black;
   text-align: center;
-  padding: 10px 20px;
+  padding: 10px 15px;
   font-weight: 300;
   letter-spacing: 1px;
   text-decoration: none;
@@ -920,5 +920,5 @@ tr:nth-child(even) {
   letter-spacing: 1px;
   display: inline-block;
   padding: 8px 16px;
-  width: 300px;
+  width: 355px;
 }
