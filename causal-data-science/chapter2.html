@@ -229,7 +229,61 @@
           For a causal effect to take place, one such path must contain arrows pointing from \(\widetilde{Z(W)}\) towards \(Y\), and the path is blocked by \(W\) in this case. 
           Thus in all cases, intervening on \(Z\) does not affect \(Y\) at all.
         </p>
-        <h3 id="2.4">2.4. Structural Causal Models (Coming Soon)</h3>
+        <h3 id="2.4">2.4. Structural Causal Models</h3>
+        <p>
+          <strong>Instrumental variables</strong> and <strong>Mediation analysis</strong> are called parametric methods because they require parametric modelling of causal mechanisms - in a simpler sense, 
+          a mathematical function encoding causal relationships. Indeed, so far we have only discussed, through graphical models, how to disconnect spurious associational path in order to unveil genuine causal effects, 
+          but yet to explain exactly how to quantify the magnitude. <strong>Structural equations</strong> provide mathematical tools to do this. 
+        </p>
+        <h4>2.4.1. Redefine Causal Mechanism</h4>
+        <p>
+          We can represent the statement \(X\) is a <strong>cause</strong> of \(Y\) mathematically through some function \(f\) that maps \(X\) to \(Y\). 
+          More generally, a structural equation representing a variable is a functional form of all its parent variables. In practice, we hardly know all possible direct causes of a variable, 
+          so we factor in this stochastic nature by adding some unobserved <strong>noise random variable \(U\).</strong>
+          $$Y := f_Y(X, U)$$
+        </p>
+        <p>
+          Notice that \(:=\) is used instead of the equal sign \(=\), which says \(f_Y\) is the causal generative distribution of \(Y\). 
+          The purpose is again, to distinguish statistical modelling of \(Y\) from \(X\) (e.g.,a regression model) that uses the equal sign.  
+          This leads to more concrete definitions of <strong>a cause</strong> and <strong>a causal mechanism.</strong>    
+        </p>
+        <div class="theorem">
+          <h5>Definition of Cause and Causal Mechanism:</h5>
+          <p>
+            A causal mechanism that generates a variable \(V\) is the structural equation that corresponds to that variable. 
+            Other variables that appear on the right-hand side of that structural equation are direct causes of \(V\).  
+          </p>
+        </div>
+        <p style="color: darkblue">
+          We model the causal mechanism of a system (1) graphically via a <strong>causal graph</strong> and (2) mathematically through a <strong>structural causal model (SCM).</strong> 
+        </p>
+        <div class="theorem">
+          <h5>Definition of Structural Causal Model (Neal 2020):</h5>
+          <p>
+            A structural causal model is a tuple of the following sets:
+            <ol>
+              <li>A set of endogenous variables \(V\)</li>
+              <li>A set of exogenous variables \(U\)</li>
+              <li>A set of functions \(f\), one to generate each endogenous variable as a function of other variables.</li>
+            </ol>
+          </p>
+        </div>
+        <p>ADD FIGURE 2.3 OF 2.1 FOR SCM</p>
+        <p>
+          <strong>Exogenous</strong> variables without any parents in the causal graph and <strong>endogenous</strong> are those with ones and those we model. 
+          The SCM for the causal graph in Figure 2.3 is written as 
+          $$X:=f_X(A,B,U_X)$$
+          $$B:=f_B(A,C,U_B)$$
+          $$Y:=f_Y(X,C,U_Y)$$
+          where {\(X,B,Y\)} are endogenous and {\(A,C,U_X,U_B,U_Y\)} are exogenous.
+        </p>
+        <h4>2.4.2. Intervention in SCM</h4>
+        <p>
+
+        </p>
+
+
+
         <h3 id="2.4">2.5. Instrumental Variables (Coming Soon)</h3>
         <h3 id="2.5">2.6. Mediation Analysis (Coming Soon)</h3>
         
@@ -237,7 +291,7 @@
     </article>
     </div>
     <div style="text-align: center; padding-top: 20px;">
-      <a href="1-1-preliminaries.html" class="navbutton">&#9664 Chapter 1. Preliminaries</a>
+      <a href="chapter1.html" class="navbutton">&#9664 Chapter 1. Preliminaries</a>
        <a href="#" class="navbutton">&#128274 Chapter 3. A Bigger Picture </a> <!-- &#9654 -->
        
     </div>
