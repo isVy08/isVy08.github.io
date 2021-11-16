@@ -268,9 +268,13 @@
             </ol>
           </p>
         </div>
-        <p>ADD FIGURE 2.3 OF 2.1 FOR SCM</p>
+        <br>
+        <figure style="text-align: center;">
+          <img src='figures/1-2-Fig3.png' alt='graphs' width="400" />
+          <figcaption style="font-size: small;">Figure 2.3</figcaption>
+        </figure>
         <p>
-          <strong>Exogenous</strong> variables without any parents in the causal graph and <strong>endogenous</strong> are those with ones and those we model. 
+          <strong>Exogenous</strong> variables are ones without any parents in the causal graph, external to the system. <strong>Endogenous</strong> variables have parents and are those we model. 
           The SCM for the causal graph in Figure 2.3 is written as 
           $$X:=f_X(A,B,U_X)$$
           $$B:=f_B(A,C,U_B)$$
@@ -279,13 +283,90 @@
         </p>
         <h4>2.4.2. Intervention in SCM</h4>
         <p>
+          If regarded as a causal model, then SCM must also be used to model interventional distribution. 
+          Intervention \(do(X)=x\) is equivalent to setting the structual equation of \(X\) to \(x\).
+          Let's review the manipulated graphs in Figure 1.4
+        </p>
+        <figure style="text-align: center;">
+          <img src='figures/1-1-Fig4.png' alt='graphs' width="1000" />
+          <figcaption style="font-size: small;">Figure 1.4</figcaption>
+        </figure>
+        <p>
+          The <strong>interventional SCM</strong> upon intervention on \(X\), with respect to the third graph is 
+          $$X:=x$$
+          $$B:=f_B(A,C,U_B)$$
+          $$Y:=f_Y(X,C,U_Y)$$
+        </p>
+        <p>
+          This strongly aligns with our definition of interventional distribution in <a>Chapter 1</a>. 
+          Fixing \(X\) to a constant distribution completely eliminates the dependence between \(X\) and its parents, which is equivalent to deleting any arrows pointing into \(X\) in the graph.
+          In addition, setting \(X\) to a constant \(x\) is called <i>hard</i> intervention. Under SCM, you can see that we can be more flexible by assigning \(X\) to a new distribution i.e., new causal mechanism to \(X\).
+          Such action is referred to as <i>soft</i> intervention. 
+        </p>
+        <h3 id="2.5">2.5. Instrumental Variables</h3>
+        <p>
+          The method of Instrumental variables allows for identification in settings where \(Do-\)calculus fails, due to unobserved confounding or absence of mediator. 
+          It demands the presence of an instrumental variable.
+        </p>
+        <div class="theorem">
+          <h5>Definition of Instrumental variable</h5>
+          \(Z\) is considered an instrument if satisfying the following assumptions
+          <ol>
+            <li>\(Z\) has a causal effect on \(X\).</li>
+            <li>\(X\) is a mediator on the causal path from \(Z\) to \(Y\).</li>
+            <li>There are no backdoor paths from \(Z\) to \(Y\).</li>
+          </ol>
 
+        </div>  
+        <p>
+          Figure 2.4 illustrates a causal graph where \(Z\) is an <span style="text-decoration: underline;">observed</span> instrumental variable 
+          while the confounder \(U\) is <span style="text-decoration: underline;">not observed.</span> 
+        </p>  
+        <figure style="text-align: center;">
+          <img src='figures/1-2-Fig4.png' alt='graphs' width="300" />
+          <figcaption style="font-size: small;">Figure 2.4</figcaption>
+        </figure>
+        <p>
+          We assume the SCM takes a linear form defined as 
+          $$Y := \delta X + \alpha_uU$$
+          where \(\delta\) measures how much \(Y\) varies caused by \(1\) unit change in \(X\). 
+          Based on the specified model, \(\delta\) measures the causal effect between \(X\) and \(Y\) – the causal quantity to be estimated.
+        </p>
+        <p>
+          <strong>A quick review of expected value:</strong>
+          <br>The expected value of a random variable \(X\), denoted as \(E[X]\), is the generalization of weighted average given as 
+          $$E[X] = \int xP(x) dx$$ 
+          If \(X\) is a discreet variable with finite outcomes \(x_1, x_2, ..., x_n\) occuring with probabilities \(P_1, P_2, ..., P_n\), 
+          $$E[X] = \sum_{i=1}^{n} x_i P_i$$
+          Linearity of Expectation: 
+          $$E[X+Y] = E[X]+E[Y]$$
+          If \(X\) and \(Y\) are <strong>independent,</strong>
+          $$E[XY] = E[X]E[Y]$$
+        </p>
+        <p>
+          We can derive \(\delta\) following the steps below. This derivation is applied for general scenrios where \(T,Z\) are continuous.
+          We begin with the (observational) covariance between \(Y\) and \(Z\) – \(\text{Cov}(Y,Z)\). Its formula is given in the first line.
+          $$\text{Cov}(Y,Z) = E[YZ] - E[Y]E[Z]$$
+          &#8811 <i>Injecting structural equation for \(Y\):</i>
+          $$\text{Cov}(Y,Z) = E[(\delta X + \alpha_uU)Z] - E[Y]E[Z]$$
+          &#8811 <i>Rearranging using properties of expectation:</i>
+          $$\text{Cov}(Y,Z) = \delta (E[XZ]-E[X]E[Z]) + \alpha_u (E[UZ]-E[U]E[Z]) = \delta \text{Cov}(X,Z) + \alpha_u \text{Cov}(U,Z) $$
+        </p>
+        <p>
+          \(\text{Cov}(U,Z) = 0\) because there is no back-door path between \(Z\) and \(U\) and the graph says \(Z \perp U\) due to the collider \(X\), 
+          We thus settle with the causal effect identified as 
+          $$\delta = \frac{\text{Cov}(Y,Z)}{\text{Cov}(X,Z)}$$
+        </p>
+        <p>
+          Instrumental variables are not restricted to linear equations. We can apply the same idea on any functional forms compatible with the causal mechanism.
+          The first important step is to detect an instrumental candidate and use non-parametric methods to block the back-door paths from that variable to outcome variable \(Y\).
+          Once all the conditions met, we can develop a series of manipulations to convert <strong>causal coefficients \(\delta\)</strong> to combinations of measurable quantities.
+          With the properly constructed causal graph and SCM, estimation is no longer challenging due to the capacity of neural networks to well enough approximate any relationships in the data. 
         </p>
 
 
-
-        <h3 id="2.4">2.5. Instrumental Variables (Coming Soon)</h3>
-        <h3 id="2.5">2.6. Mediation Analysis (Coming Soon)</h3>
+        <h3 id="2.6">2.6. Mediation Analysis</h3>
+        <p>(Coming Soon)</p>
         
     
     </article>
