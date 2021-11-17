@@ -329,7 +329,7 @@
         <p>
           We assume the SCM takes a linear form defined as 
           $$Y := \delta X + \alpha_uU$$
-          where \(\delta\) measures how much \(Y\) varies caused by \(1\) unit change in \(X\). 
+          where \(\delta\), <strong>structural coefficients</strong>, measures how much \(Y\) varies caused by \(1\) unit change in \(X\). 
           Based on the specified model, \(\delta\) measures the causal effect between \(X\) and \(Y\) – the causal quantity to be estimated.
         </p>
         <p>
@@ -360,7 +360,7 @@
         <p>
           Instrumental variables are not restricted to linear equations. We can apply the same idea on any functional forms compatible with the causal mechanism.
           The first important step is to detect an instrumental candidate and use non-parametric methods to block the back-door paths from that variable to outcome variable \(Y\).
-          Once all the conditions met, we can develop a series of manipulations to convert <strong>causal coefficients \(\delta\)</strong> to combinations of measurable quantities.
+          Once all the conditions met, we can develop a series of manipulations to convert \(\delta\)</strong> to combinations of measurable quantities.
           With the properly constructed causal graph and SCM, estimation is no longer challenging due to the capacity of neural networks to well enough approximate any relationships in the data. 
         </p>
 
