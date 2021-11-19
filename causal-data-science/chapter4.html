@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+    
+    <meta name="description" content="Vy Vo">
+    <meta property="og:description" content="A Handbook on Applying Causal Inference in Business"/>
+    <meta property="og:image" content="https://isvy08.github.io/icon/vv.png"/>
+    <title>Counterfactuals</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="../main.css">
+</head>
+
+<body>
+
+    <div class="wrapper-masthead">
+        <div class="container">
+          <header class="masthead clearfix">
+            <a href="https://isvy08.github.io/" class="site-avatar"><img src="../icon/vv.png" /></a>
+  
+            <div class="site-info">
+              <h1 class="site-name"><a href="https://isvy08.github.io/causal-data-science/">Causal Data Science: A Beginner Guide</a></h1>
+              <p class="site-description">A Handbook on Causal Inference in Business</p>
+            </div>
+
+          </header>
+          <br>
+          <div class="topnav">
+            <a href="https://isvy08.github.io/causal-data-science/">About</a>
+            <a class="active">Fundamentals</a>
+            <a href="#">&#128274  Experimentation </a>
+            <a href="#">&#128274  Applications</a>
+            <a href="#">&#128274  Tools</a>
+          </div>
+        </div>
+      </div>
+
+
+    <div id="main" role="main" class="container">
+      <h2 id="2">Chapter 4. Counterfactuals</h2>
+      <article class="post" style="text-align: justify;">
+        
+        <div class="toc">
+          <h5 style="text-decoration: underline" >Table of Contents</h5>
+          <ul>
+            <a href="#4.1"><li>4.1. Pearl's Causal Ladder</li></a>
+            <a href="#4.2"><li>4.2. Counterfactuals</li></a>
+            <a href="#4.3"><li>4.3. Mediation Analysis</li></a>
+            <a href="#4.4"><li>4.4. Case Study: Simpson's Paradox in COVID 19 </li></a>
+          </ul>
+        </div>
+        <h3 id="4.3">Mediation Analysis</h3>
+        <p>
+          In section <a href="chapter1.html#1">1.1</a>, we briefly mentioned variable \(M\) as a mediator in the causal path from \(X\) to \(Y\). 
+          Until this point, we have seen two cases where mediators are present. A mediator can be used as a <a href="#2.2">front-door criterion</a>, 
+          or the effect of the mediator on the outcome variable can be identified from instrumental variables. \(M\) transmits the causal effect of \(X\) to \(Y\), and we will have specific definitions for such direct and indirect effects.     
+        </p>
+        <p>
+          Let me again clarify the meaning behind the notations. 
+          <ul>
+            <li>\(P(Y|do(X))\) conveys possible values \(Y\) can take when \(X\) is intervened on, along with their probabilities of ocurrence i.e., its distribution.</li><br>
+            <li>Structural coefficient \(\delta\) quantify how much \(Y\) changes as \(X\) changes by \(1\) unit. </li><br>
+            <li>When referring to <i>changes</i>, we mean changes due to <strong>intervention</strong>. </li>
+          </ul>
+        The intuition is if \(Y\) remained unchanged or varied insignificantly, with respect to different levels of \(X\), then we conclude that \(X\) has no causal effect on \(Y\). 
+         Suppose \(X\) changes from \(x_1\) to \(x_2\), we say there is a causal effect of \(X\) on \(Y\) if 
+         $$E[Y|do(X=x_1)] - E[Y|do(X=x_2)] \ne 0$$
+        </p>
+        <p>
+          Similar to expected value in observational distribution, \(E[Y|do(X)]\) is the expected outcome for interventional distribution. And as we are dealing with population level, we choose to measure the average value.
+          Bear this notion in mind because we will revisit it in the context of Potential Outcome.   
+        </p>
+        <p>
+          The causal graph for mediation is given in Figure 2.5, where unobserved factors may influence one another.
+
+        </p>
+        <figure style="text-align: center;">
+          <img src='figures/1-2-Fig5.png' alt='graphs' width="500" />
+          <figcaption style="font-size: small;">Figure 2.5</figcaption>
+        </figure>   
+        <p>
+          The SCM for such a graph is
+          $$M = f_M(X, U_M)$$
+          $$X = f_X(U_X)$$
+          $$Y = f_Y(X, M, U_Y)$$
+        </p>
+        <p>
+          The effect of \(X\) on \(Y\) is broken into:
+          <ol>
+            <li>
+              <h5>Total Effect:</h5> 
+              $$TE = E[f_Y(x_2, f_M(x_2, U_M), U_Y)] - E[f_Y(x_1, f_M(x_1, U_M), U_Y)]$$
+              $$TE = E[Y|do(X=x_2)] - E[Y|do(X=x_1)]$$ 
+              <p>
+              \(TE\) measures the expected change in the outcome \(Y\) when \(X\) changes from \(X=x_1\) to \(X=x_2\).
+              The total effect already incorporates changes in \(M\) induced by intervention on \(X\).
+              </p>
+            </li>
+            <li>
+              <h5>Controlled Direct Effect:</h5>
+              $$CDE(m) = E[f_Y(x_2, f_M(m, U_M), U_Y)] - E[f_Y(x_1, f_M(m, U_M), U_Y)]$$
+              $$CDE(m) = E[Y|do(X=x_2, M=m)] - E[Y|do(X=x_1, M=m)]$$ 
+              <p>
+                \(CDE\) measures the expected change in the outcome \(Y\) when \(X\) changes \(X=x_1\) to \(X=x_2\), and
+                <strong>\(M\) is set to a pre-specified level \(M=m\) over the entire population.</strong> 
+                It is called controlled direct effect because we control for the effect of the mediator, by interventioning on \(M\) (\(M\) in the \(do\) operator). 
+                We do not simply statistically condition on \(M\) because it may open up some back-door path where \(M\) is a collider. 
+              </p>
+            </li>
+            <li>
+              <h5>Natural Direct Effect:</h5>
+              $$NDE = E[f_Y(x_2, f_M(x_1, U_M), U_Y)] - E[f_Y(x_1, f_M(x_1, U_M), U_Y)]$$
+              $$NDE = E[Y_{x_2, M_{x_1}}] - E[Y_{x_1, M_{x_1}}]$$
+              <p>
+                \(NDE\) measures the expected change in the outcome \(Y\) when \(X\) changes \(X=x_1\) to \(X=x_2\), while 
+                <strong>\(M\) is set to the value it <span style="color:darkblue">would have obtained</span> before \(X\) changes, i.e., under \(X=x_1\).</strong>
+              </p>
+            </li>
+            <li>
+              <h5>Natural Indirect Effect:</h5>
+              $$NIE = E[f_Y(x_1, f_M(x_2, U_M), U_Y)] - E[f_Y(x_1, f_M(x_1, U_M), U_Y)] $$
+              $$NIE = E[Y_{x_1, M_{x_2}}] - E[Y_{x_1, M_{x_1}}]$$
+            </li>
+            <p>
+              \(NIE\) measures the expected change in the outcome \(Y\) 
+              <strong>when \(X\) is held constant at \(X=x_1\), and \(M\) is set to the value it <span style="color:darkblue">would have obtained</span> in case \(X\) changes from \(x_1\) to \(x_2\).</strong>         
+            </p>
+          </ul>
+        </p>
+        <h4>Sneak Peek at Counterfactual</h4>
+        <p>
+          &#8811 \(CDE\) would take different values corresponding the level of \(M\) is set to. \(CDE\) answers the question "How would \(X\) affect \(Y\) when \(M\) was held fixed at \(m\)?". 
+        </p>
+        <p>
+          &#8811 \(NDE\) addresses the concern "Suppose \(M\) did not respond to changes in \(X\), how would the effect be?" 
+          You can think of this case as one where \(m\) is chosen to be the value it takes before the change.      
+        </p>
+        <p>
+          &#8811 \(NIE\) examines a scenario where in reality we do not intervene on \(X\), but magically know the values \(M\) would take had the change to \(X\) been occurred.
+        </p>
+        <p>
+          &#8811 \(TE-NDE\) quantifies the portion of effect <i>owned to</i> \(M\), while \(NIE\) quantifies the portion of effect <i>explained by</i> \(M\).
+        </p>
+        <p>
+          I further introduce the <strong>Reverse Natural Indirect Effect \(NIE_r\)</strong>, constructing by exchanging \(x_1\) with \(x_2\)
+          $$NIE_r = E[f_Y(x_2, f_M(x_1, U_M), U_Y)] - E[f_Y(x_2, f_M(x_2, U_M), U_Y)] $$
+          $$NIE_r = E[Y_{x_2, M_{x_1}}] - E[Y_{x_2, M_{x_2}}]$$
+        </p>
+
+        <p>
+          The natural effects are more tricky because they force us to <strong>imagine</strong> (and also be able to quantify) what would happen if something did not happen in real world had happened in the past.
+          Doing this means we are engaged in a <strong>counterfactual</strong> world, 
+          and the quantities of natural effects do not have the \(do\) operator because they are not interventional distributions. They are called <strong>counterfactual</strong> distribution. 
+          And natural effects are not always identifiable. 
+        </p>
+        <p>        
+          Suppose you have a headache, you are made to take a pill and observe that the headache goes away. A counterfactual question is where your headache would still disappear if you had not taken the pill. 
+          Such a question can never be answered simply through observational data nor even by conducting controlled experiments – you cannot redo the experiment. It is called counterfactual because it does not happen in reality! 
+        </p>
+        <p>
+          You may notice that counterfactual terms occur when the input \(X\) value to compute \(M\) is different from the value \(X\) is set to. 
+          When they are equal, it means if allowing the effect to naturally pass through to \(M\), we end up with the interventional distribution. So, 
+          $$E[Y_{x_2, M_{x_2}}] = E[Y|do(X=x_2)], E[Y_{x_1, M_{x_1}}] = E[Y|do(X=x_1)]$$
+
+          A careful observation gives us (try proving this yourself)
+          $$TE = NDE - NIE_r$$
+        </p>
+        <p>
+          One thing makes Causal Inference incredibly powerful is that in some situations, we can determine counterfactual distribution from SCM. 
+          However, in order to dive into counterfactuals require you first to master frameworks related to intervention. 
+          In the next chapter, I will briefly illustrate how to derive counterfactuals from SCM, but details about the paradigm are beyond the scope of this tutorial. 
+          You can read more about mediation in this paper <a href="https://ftp.cs.ucla.edu/pub/stat_ser/r389.pdf">Interpretation and Identification of Causal Mediation</a> (Pearl 2014).
+        </p>
+
+
+
+        
+    
+    </article>
+    </div>
+    <div style="text-align: center; padding-top: 20px;">
+      <a href="chapter1.html" class="navbutton">&#9664 Chapter 1. Preliminaries</a>
+       <a href="#" class="navbutton">&#128274 Chapter 5. Randomized Experiments</a> <!-- &#9654 -->
+       
+    </div>
+    <div class="wrapper-footer">
+        <div class="container">
+        <footer class="footer">
+
+
+        <a href="https://www.facebook.com/isVy08"><i class="svg-icon facebook"></i></a>        
+        <a href="https://twitter.com/isVy08"><i class="svg-icon twitter"></i></a>
+        <a href="https://www.linkedin.com/in/isvy08/"><i class="svg-icon linkedin"></i></a>
+        <br><p style="font-size: 10px;">&copy; 2021 Vy Vo. Powered by Jekyll and Jekyll Now Theme</p>   
+
+        </footer>
+        </div>
+    </div> 
+</body>
+</html>

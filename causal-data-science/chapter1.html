@@ -6,7 +6,7 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
     
     <meta name="description" content="Vy Vo">
-    <meta property="og:description" content="Causal Data Science: A Beginner Guide"/>
+    <meta property="og:description" content="A Handbook on Applying Causal Inference in Business"/>
     <meta property="og:image" content="https://isvy08.github.io/icon/vv.png"/>
     <title>Preliminaries</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -23,7 +23,7 @@
 
         <div class="site-info">
           <h1 class="site-name"><a href="https://isvy08.github.io/causal-data-science/">Causal Data Science: A Beginner Guide</a></h1>
-          <p class="site-description">A Quick Tutorial to Causal Inference in Practice </p>
+          <p class="site-description">A Handbook on Applying Causal Inference in Business</p>
         </div>
 
       </header>
@@ -32,8 +32,9 @@
         <a href="https://isvy08.github.io/causal-data-science/">About</a>
         <a class="active">Fundamentals</a>
         <a href="#">&#128274  Experimentation </a>
-        <a href="#">&#128274  Tools</a>
         <a href="#">&#128274  Applications</a>
+        <a href="#">&#128274  Tools</a>
+
       </div>
     </div>
   </div>
@@ -48,7 +49,7 @@
       while Pearl's philosophies shed light on the nature of Cause and Effect and provide particularly powerful methods for identifying causal relations from non-experimental data. 
       </p>
       <p>
-        This chapter covers building blocks of Causal Inference from the graphical perspective, leaving the discussion on Potential Outcome framework later in the tutorial. 
+        This chapter covers building blocks of Causal Inference from the graphical perspective, leaving the discussion on Potential Outcome framework later in the book. 
         The knowledge is gratefully inherited from these two books <a href="http://bayes.cs.ucla.edu/BOOK-2K/">Causality</a> (Pearl 2009) and <a href="https://www.bradyneal.com/Introduction_to_Causal_Inference-Dec17_2020-Neal.pdf">Introduction to Causal Inference</a> (Neal 2020).
       </p>
 
@@ -100,8 +101,8 @@
       </div>
       <p>
         You may question about the "indirect" cause. Indirect effect is usually discussed in the context of mediation - that is, there exists a path like \(X \rightarrow M \rightarrow Y\) where \(M\) is called a mediator.
-        In such a relationship, \(X\) influences \(Y\) by influencing \(M\), or we can say that \(X\) indirectly affects \(Y\). This gives rise to several concepts such as <i>Total Effect, Controlled Effect, Natural Direct Effect, Natural Indirect Effect</i> and so on.
-        We will discuss Mediation Analysis in <a href="chapter2.html#2.5">Section 2.5</a>.
+        In such a relationship, \(M\) transmits the causal effect from \(X\) to \(Y\), or we can say that \(X\) indirectly affects \(Y\) through \(M\). This gives rise to several concepts such as <i>Total Effect, Controlled Effect, Natural Direct Effect and Natural Indirect Effect</i>.
+        We will discuss Mediation Analysis in Chapter 4. 
       </p>
       <p>
         Generally, when talking about the causal effect of \(X\) on \(Y\), we often mean the direct effect. 
@@ -220,16 +221,16 @@
           By summing all realizations of \(Z\), we have \(\sum_zP(Z|X,Y)=1\), yielding \(P(X,Y)=P(X)P(Y)\).
         </p>
         <p>
-          The idea is that if \(X,Y\) are marginally independent, conditioning \(X,Y\) on the collider opens the association flow between \(X\) and \(Y\). 
-          If you are familiar with Bayes rule, you should realize that due to <strong>Markov Compatibility</strong>, you <span style="color:darkred">cannot</span> factorize \(P(X,Z)=P(X|Z)P(Z)\) since \(Z\) is the child of \(X\) and the graph is acyclic. 
-          An easier way to verify this is by proving \(P(X|Y,Z) \ne P(X|Z)\), specifically \(P(X=x|Y=y,Z=z) \ne P(X=x|Z=z)\).
+          If \(X,Y\) are marginally independent, conditioning \(X,Y\) on the collider opens the association flow between \(X\) and \(Y\). 
+          We need to prove \(X|Z\) and \(Y|Z\) are dependent.
         </p>
         <p>
-          We can quickly argue that for the distribution \(P(X|Y,Z)\) to exist, \(Y\) must be a parent of \(X\). However, this is not what we specify in our graph, thus violating <strong>Markov Compatibility</strong> and \(d-\)separation may no longer hold.  
-          Another perspective is that an arbitrary combination of \(X=x, Y=y\) results in one realization \(Z=z'\). Given \(Z=z\), our confidence in \(X=x\) is measured by \(P(X=x|Z=z)\). 
-          Because there only exists certain combinations \(x,y\) leading to \(Z=x\), additional knowledge of the value of \(Y\) will update our confidence about \(X=x\), thus making \(X,Y\) become dependent.
+          \(X,Y\) are common causes of \(Z\). \(P(X|Z)\) and \(P(Y|Z)\) are concerned when we wish to <i>infer</i> the cause from effect. 
+          The intuition is that the information on whether a cause occurs influences the belief in the occurence of the other cause. 
+          Let's say you have a headache, and suppose it is either because you have a brain tumor or due to lack of sleep. 
+          Finding yourself suffering poor sleep for the past days increases the chance of sleep deprivation being the cause, thus reducing the probability of having brain tumor. 
         </p>
-        <p>What we have discussed so far is summarized into <strong>Global Markov Assumption</strong>.</p>
+        <p>What we have discussed so far is summarized into <strong>Global Markov Assumption.</strong></p>
         <div class="assumption">
           <h5>Global Markov Assumption:</h5>
           <p>
@@ -278,7 +279,7 @@
           Interventions are thus <strong>localized</strong>, and causal mechanisms are <strong>autonomous, modular or invariant</strong>. This is <strong>Reichenbach's Principles of Independent Mechanisms</strong>. 
           We have the following assumption:
         </p>
-        <div class="theorem">
+        <div class="assumption">
           <h5>Modularity Assumption ~ Causal Bayesian Network (Pearl 2009):</h5>
           <p>
             If we perform hard intervention on a subset of nodes \(S\) in a set of \(n\) nodes \(X\) by setting them to constant \(x\), \(\forall i\)
