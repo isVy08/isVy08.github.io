@@ -62,7 +62,7 @@
           <h6>Parametric methods</h6>
           <ul>
             <a href="#2.4"><li>2.4. Structural Causal Models</li></a>
-            <a href="#2.5"><li>2.5. Average Treatment Effect</li></a>
+            <a href="#2.5"><li>2.5. Average Causal Effect</li></a>
             <a href="#2.6"><li>2.6. Instrumental Variables</li></a>
           </ul>
         </div>
@@ -303,10 +303,34 @@
           In addition, setting \(X\) to a constant \(x\) is called <i>hard</i> intervention. Under SCM, you can see that we can be more flexible by assigning \(X\) to a new distribution i.e., new causal mechanism to \(X\).
           Such action is referred to as <i>soft</i> intervention. 
         </p>
-        <h3 id="2.5">2.5. Instrumental Variables</h3>
+        <h3 id="2.5">2.5. Average Causal Effect</h3>
         <p>
-          The method of Instrumental variables allows for identification in settings where \(Do-\)calculus fails, due to unobserved confounding or absence of mediator. 
-          It demands the presence of an instrumental variable.
+            <strong>A quick review of expected value:</strong>
+            <br>The expected value of a random variable \(X\), denoted as \(E[X]\), is the generalization of weighted average given as 
+            $$E[X] = \int xP(x) dx$$ 
+            If \(X\) is a discreet variable with finite outcomes \(x_1, x_2, ..., x_n\) occuring with probabilities \(P_1, P_2, ..., P_n\), 
+            $$E[X] = \sum_{i=1}^{n} x_i P_i$$
+            Linearity of Expectation: 
+            $$E[X+Y] = E[X]+E[Y]$$
+            If \(X\) and \(Y\) are <strong>independent,</strong>
+            $$E[XY] = E[X]E[Y]$$
+        </p>
+        <p>
+          Until this point, we have only discussed \(P(Y|do(X))\) as the interventional distribution of \(Y\) - 
+          that is, possible values \(Y\) can attain, along with the probabilities of occurence when \(X\) is forced to take a certain value. 
+        </p>
+        <p>
+          Now there comes an official definition of causal effects. When \(X\) changes from \(x_1\) to \(x_2\), 
+          for an individual \(i\) in the population, the <strong>individual causal effect</strong> on \(Y\) is defined as
+          $$Y_i|do(X=x_2) - Y_i|do(X=x_1)$$
+          As we wish to estimate causal effect on the population level, we choose to measure the <strong>average causal effect</strong>, given as 
+          $$E[Y|do(X=x_2)] - E[Y|do(X=x_1)] $$
+          If the above quantity is zero, we say such a change in \(X\) has no causal effect on \(Y\).
+        </p>
+
+        <h3 id="2.6">2.6. Instrumental Variables</h3>
+        <p>
+          The method of Instrumental variables allows for identification where there is unobserved confounding or absence of mediator. 
         </p>
         <div class="theorem">
           <h5>Definition of Instrumental variable</h5>
@@ -328,32 +352,42 @@
         </figure>
         <p>
           We assume the SCM takes a linear form defined as 
+          $$X:= \alpha_z Z$$
           $$Y := \delta X + \alpha_uU$$
           where \(\delta\), <strong>structural coefficients</strong>, measures how much \(Y\) varies caused by \(1\) unit change in \(X\). 
           Based on the specified model, \(\delta\) measures the causal effect between \(X\) and \(Y\) – the causal quantity to be estimated.
+          The following section shows how to derive \(\delta\) from statistical quantities.
+        </p>
+        <strong>When \(X,Z\) is binary:</strong>
+        <p>
+          $$E[Y|Z=1] - E[Y|Z=0] = E[\delta X + \alpha_u U|Z=1] - E[\delta X + \alpha_u U|Z=0]$$
+          &#8811 <i>Rearranging using properties of expectation:</i>
+          $$E[Y|Z=1] - E[Y|Z=0]  = \delta (E[X|Z=1] - E[X|Z=0]) + \alpha_U (E[U|Z=1] - E[U|Z=0])$$
         </p>
         <p>
-          <strong>A quick review of expected value:</strong>
-          <br>The expected value of a random variable \(X\), denoted as \(E[X]\), is the generalization of weighted average given as 
-          $$E[X] = \int xP(x) dx$$ 
-          If \(X\) is a discreet variable with finite outcomes \(x_1, x_2, ..., x_n\) occuring with probabilities \(P_1, P_2, ..., P_n\), 
-          $$E[X] = \sum_{i=1}^{n} x_i P_i$$
-          Linearity of Expectation: 
-          $$E[X+Y] = E[X]+E[Y]$$
-          If \(X\) and \(Y\) are <strong>independent,</strong>
-          $$E[XY] = E[X]E[Y]$$
+          Because there is no back-door path between \(Z\) and \(U\) and the graph says \(Z \perp U\) due to the collider \(X\),
+          the second term in the right-hand side is zero. We therefore have
+          $$\delta = \frac{E[Y|Z=1] - E[Y|Z=0]}{E[X|Z=1] - E[X|Z=0]} $$
         </p>
         <p>
-          We can derive \(\delta\) following the steps below. This derivation is applied for general scenrios where \(T,Z\) are continuous.
-          We begin with the (observational) covariance between \(Y\) and \(Z\) – \(\text{Cov}(Y,Z)\). Its formula is given in the first line.
+          Here \(Z\) is assumed to have causal effect on \(X\), so regardless of any back-door paths or any potential mediators between them, 
+          \(\alpha_z\) measures the causal effect between \(Z\) and \(X\), and 
+          $$\alpha_z = E[X|Z=1] - E[X|Z=0]$$
+          So, in linear settings, the total effect of \(Z\) on \(Y\) is 
+          $$E[Y|Z=1] - E[Y|Z=0] = \alpha_U \delta$$
+        </p>
+        <strong>When \(X,Z\) is continuous:</strong>
+        <p>
+          Similarly, we begin with the observational covariance between \(Y\) and \(Z\) – \(\text{Cov}(Y,Z)\). Its formula is given in the first line.
           $$\text{Cov}(Y,Z) = E[YZ] - E[Y]E[Z]$$
           &#8811 <i>Injecting structural equation for \(Y\):</i>
           $$\text{Cov}(Y,Z) = E[(\delta X + \alpha_uU)Z] - E[Y]E[Z]$$
           &#8811 <i>Rearranging using properties of expectation:</i>
           $$\text{Cov}(Y,Z) = \delta (E[XZ]-E[X]E[Z]) + \alpha_u (E[UZ]-E[U]E[Z]) = \delta \text{Cov}(X,Z) + \alpha_u \text{Cov}(U,Z) $$
         </p>
+
         <p>
-          \(\text{Cov}(U,Z) = 0\) because there is no back-door path between \(Z\) and \(U\) and the graph says \(Z \perp U\) due to the collider \(X\), 
+          \(\text{Cov}(U,Z) = 0\) because \(Z \perp U\). 
           We thus settle with the causal effect identified as 
           $$\delta = \frac{\text{Cov}(Y,Z)}{\text{Cov}(X,Z)}$$
         </p>
