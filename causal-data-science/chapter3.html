@@ -59,7 +59,10 @@
           A system of \(Y\) and all its parents form a <strong>causal mechanism</strong> for \(Y\). 
           In such a mechanism, the value of \(Y\) is determined by the value of its parents through a stochastic function \(f\).
         </p>
-        <p>FIGURE 3.1 BUILDING BLOCKS OF CI: SCM, GRAPHS & PROB</p>
+        <figure style="text-align: center;">
+          <img src='figures/1-3-Fig1.png' alt='graphs' width="500" />
+          <figcaption style="font-size: small;">Figure 3.1: Building Blocks of Causal Inference</figcaption>
+        </figure>
         <p>
         </p>
 
@@ -89,17 +92,61 @@
           Intervention on SCM is done by replacing the right-hand side of the structural equation with the value or distribution imposed by the intervention.
         </p>
         <h3 id="3.1">3.2. \(D.I.E\) Flowchart</h3>
+        <h4>3.2.1. Identification</h4>
         <p>
           Unfortunately, experimentation is not always feasible while observational data is massive. This is when Causal Inference wields its power.
-          <a href="chapter2.html">Chapter 2</a> presents fundamental techniques to <strong>identify</strong> causal effects from observational data with respect to a given causal model.
-          The goal is to transform causal estimands involving the \(do\) operator into statistical quantities to be computed from the data. 
+          <a href="chapter2.html">Chapter 2</a> presents fundamental techniques to identify causal effects from observational data with respect to a given causal model.
+          The goal is to reduce causal estimands involving the \(do\) operator to statistical quantities to be computed from the data. 
         </p>
         <p> 
           Non-parametric methods are generally preferable since they do not rely on any particular functional forms.
-          <a href="chapter2.html#2.1">Back-door criterion</a> is the simplest solution to blocking confounding paths, which is however challenging in practice due to unobserved confounders. 
+          <a href="chapter2.html#2.1">Back-door criterion</a> is the simplest solution to blocking confounding paths, which is often impractical due to unobserved confounders. 
           <a href="chapter2.html#2.2">Front-door criterion</a> is proposed to address this limitation. \(Do-\)calculus is a set of inference rules to eliminate the \(do\) operator in a general setting.  
           With a specified structural equation, <a href="chapter2.html#2.6">Instrumental variable</a> can be exploited for identification if such a variable can be found. 
         </p>
+        <h4>3.2.2. Estimation</h4>
+        <p>
+          So far we have tackled <strong>Identification</strong> problems. Once settling with statistical estimands, the next task is <strong>estimation</strong>. 
+          Estimation can get challenging since it normally requires controlling for multiple variables. We may also come across heterogeneous treatment effects - effects varying by different groups of population.
+          Part II explores estimation in more detail and Part IV zooms in on popular computer-assisted methods. 
+        </p>
+        <h4>3.2.3. Discovery</h4>
+        <p>
+          Given a causal model, not only are we able to determine the causal relationships among variables of interest, but also to estimate the causal effects quantitatively from observational data. 
+          In several applications, especially high-dimensional settings, the causal graph remains unknown. Thus, we sometimes need to infer the causal graph from observational data.
+          This is the problem of <strong>Causal Discovery</strong> or <strong>Structural Learning.</strong>
+        </p>
+
+        <p>
+          Causal learning algorithms from observational data can be broadly categorized into <strong>Constraint-based</strong> and <strong>Score-based</strong> approaches. 
+          The task, again, is to find the causal graph that aligns with the true data-generating process. 
+          Constraint-based methods uncover a set of causal graphs up to Markov equivalence class (groups of DAGs satisfying the same set of \(d-\)separation).
+          They entail a series of conditional independence tests implemented independently with binary decisions of either accepting or rejecting the null hypothesis. 
+        </p>
+        <p>
+          Meanwhile, score-based approach is more efficient in that it aims to evaluate the quality of a candidate causal graph according to a score function i.e., graphs with higher scores are better fits. 
+          Thus, the function must satisfy certain properties to be considered an appropriate goodness-of-fit test.    
+        </p>
+        <p>
+          Both approaches generally assume <strong>Markov property</strong> (local at least), <strong>sufficiency</strong> (no unobserved confounders) and <strong>acyclicity</strong> (to be compatible with DAGs). 
+        </p>
+        <p>
+        Causal discovery is a non-trivial task that fortunately can be automated. Not only do these libraries support learning causal structures but they also allow for modifications based on expertise knowledge.
+        Curious readers are encouraged to go through the following materials
+        <ul>
+          <li><a href="https://www.frontiersin.org/articles/10.3389/fgene.2019.00524/full" target="_blank">Review of Causal Discovery Methods Based on Graphical Models</a> (Glymour et al. 2019)</li>
+          <li><a href="https://www.youtube.com/playlist?list=PLoazKTcS0Rzb6bb9L508cyJ1z-U9iWkA0">Chapter 11 & 12 - Introduction to Causal Inference</a> (Neal 2020)</li>
+        </ul>
+        </p>
+        <h4>In summary</h4>
+        <p>
+          It is impossible to identify causal relationships without the knowledge on the data generating process. We have seen that observational data do not tell a complete story, thus forcing us to make assumptions along the way to make the most use of it. 
+          This urges data practitioners to pay attention to the data collection process and product usage behavior. 
+        </p>
+        $$Discovery \longrightarrow Identification \longrightarrow Estimation$$
+
+
+
 
         
 
