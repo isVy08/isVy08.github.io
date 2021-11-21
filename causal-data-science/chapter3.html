@@ -144,7 +144,59 @@
           This urges data practitioners to pay attention to the data collection process and product usage behavior. 
         </p>
         $$Discovery \longrightarrow Identification \longrightarrow Estimation$$
+        <h3 id="#3.3">3.3. Case Study: Job Training Partnership Act</h3>
+        <p>
+          The National JTPA Study was an initiative by the Department of Labor in the United States that aimed to measure the impact of a job training program on participants’ post-experimental earnings for 18 months. 
+          The study not only conducted randomized experiments but also collected observational data including data on non-participants.
+        </p>
+        <p>
+          <a href="https://scholar.harvard.edu/files/aglynn/files/glynnkashin-frontdoor.pdf">Glynn and Kashin (2014)</a> took a causal approach to this case study. 
+          They first evaluated the difference in average earnings between the experimental treatment group and the experimental control group, segregated by gender. 
+          The treatment group consisted of the individuals applying to the program and allowed to receive JTPA training services. 
+          On the other hand, the control group consists of randomly chosen individuals prevented from accessing the services. 
+        </p>
+        <p>
+          The experimental results were set as benchmarks, against which to evaluate the results of observational causal analysis. 
+          Observational data was obtained by having program participants as well as non-participants satisfying certain eligibility criteria fill out a survey inquiring about participation type and other background information.  
+          Glynn and Kashin compared the efficacy of back-door and front-door estimates, and empirically proved that the front-door criterion is a reliable alternative to randomized experiments in the face of unobserved confounders.
+        </p>
+        <p>
+          What is interesting thing about the study is there were participants that signed up but did not show up in the treament group, i.e., non-compliers.
+          Non-compliance is usually a nightmare in experimentation, but for such a causal analysis, it serves as a useful front-door criterion. 
+        </p>
+        <p>
+          Figure 3.2 illustrates the causal graph for JTPA case study, which is gratefully borrowed from <a href="http://bayes.cs.ucla.edu/WHY/">page 230, the Book of Why</a> (Pearl & Mackenzie 2018).
+        </p>
+        <figure style="text-align: center;">
+          <img src='figures/1-3-Fig2.png' alt='graphs' width="400" />
+          <figcaption style="font-size: small;">Figure 3.2: Causal Graph for the National JTPA Study</figcaption>
+        </figure>
 
+        <p>
+          The variables are summarized as follow
+          <ul>
+            <li>\(Y:\) mean earnings in 18 months</li>
+            <li>\(T:\) receving training (treatment) or not</li>
+            <li>\(M:\) show up in training sessions (complier) or not </li>
+            <li>\(X:\) other covariates such as demographics, social program participation, training and education histories</li>
+            <li>\(U:\) unobserved or immeasurable confounding variables such as \(Motivation\)</li>
+          </ul>
+
+        </p>
+        <p>
+          Treating \(M\) as a front-door criterion requires that there are no unblocked backdoor paths between \(T\) and \(M\). 
+          This is not likely to hold in practice, and as shown in the figure, \(M\) may be a collider that would \(T\) to be dependent on \(U\) if being conditioned on. 
+          
+        </p>
+        <p>
+          However, Glynn and Kashin demonstrated that in case the bias caused by potential backdoor paths between \(T\) and \(U\) is sufficiently small or due to randomness 
+          (for example, bad weather made some participants less motivated to show up), the front-door estimators approximate the experimental benchmarks. 
+          Meanwhile, back-door criterion was employed by conditioning on \(X\) such as age or race. It turned out to be a poor estimate, and those covariates were shown not sufficient conditioning sets to block the back-door paths. 
+        </p>
+        <figure style="text-align: center;">
+          <img src='figures/1-3-Fig3.png' alt='graphs' width="850" />
+          <figcaption style="font-size: small;">Figure 3.3: Comparison results taken from the paper</figcaption>
+        </figure>
 
 
 
@@ -158,7 +210,7 @@
     </div>
     <div style="text-align: center; padding-top: 20px;">
       <a href="chapter2.html" class="navbutton">&#9664 Chapter 2. Identifying Causal Effects</a>
-      <a href="#" class="navbutton">&#128274 Chapter 5. Randomized Experiments</a> <!-- &#9654 -->       
+      <a href="#" class="navbutton">&#128274 Chapter 4. Randomized Experiments</a> <!-- &#9654 -->       
     </div>
     <div class="wrapper-footer">
         <div class="container">
