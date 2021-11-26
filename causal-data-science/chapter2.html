@@ -192,7 +192,7 @@
           <h5>\(Do\) Calculus Theorem (Pearl 2009)</h5>
           <p>
             <h6>Rule 1: Insertion/Deletion of observations</h6>
-            $$P(y|do(x),z,w) = P(y|do(x),w) \quad if \quad (Y \perp Z)|X,W \quad w.r.t \quad G_{\bar{X}}$$
+            $$P(y|do(x),z,w) = P(y|do(x),w) \quad if \quad (Y \perp\!\!\!\!\perp Z)|X,W \quad w.r.t \quad G_{\bar{X}}$$
           </p>    
         </div>
         <p>
@@ -205,7 +205,7 @@
           <h5>\(Do\) Calculus Theorem (Pearl 2009)</h5>
           <p>
             <h6>Rule 2: Action/Observation change</h6>
-            $$P(y|do(x),do(z),w) = P(y|do(x),z,w) \quad if \quad (Y \perp Z)|X,W \quad w.r.t \quad G_{\bar{X}\underline{Z}}$$
+            $$P(y|do(x),do(z),w) = P(y|do(x),z,w) \quad if \quad (Y \perp\!\!\!\!\perp Z)|X,W \quad w.r.t \quad G_{\bar{X}\underline{Z}}$$
           </p>    
         </div>
         <p>
@@ -217,7 +217,7 @@
           <h5>\(Do\) Calculus Theorem (Pearl 2009)</h5>
           <p>
             <h6>Rule 3: Insertion/Deletion of actions</h6>
-            $$P(y|do(x),do(z),w) = P(y|do(x),w) \quad if \quad (Y \perp Z)|X,W \quad w.r.t \quad G_{\overline{XZ(W)}}$$
+            $$P(y|do(x),do(z),w) = P(y|do(x),w) \quad if \quad (Y \perp\!\!\!\!\perp Z)|X,W \quad w.r.t \quad G_{\overline{XZ(W)}}$$
             where \(Z(W)\) is the set of \(Z\)-nodes that are not ancestors of any \(W\)-node in \(G_{\bar{X}}\)    
           </p>
         </div>
@@ -365,7 +365,7 @@
           $$E[Y|Z=1] - E[Y|Z=0]  = \delta (E[X|Z=1] - E[X|Z=0]) + \alpha_U (E[U|Z=1] - E[U|Z=0])$$
         </p>
         <p>
-          Because there is no back-door path between \(Z\) and \(U\) and the graph says \(Z \perp U\) due to the collider \(X\),
+          Because there is no back-door path between \(Z\) and \(U\) and the graph says \(Z \perp\!\!\!\!\perp U\) due to the collider \(X\),
           the second term in the right-hand side is zero. We therefore have
           $$\delta = \frac{E[Y|Z=1] - E[Y|Z=0]}{E[X|Z=1] - E[X|Z=0]} $$
         </p>
@@ -387,7 +387,7 @@
         </p>
 
         <p>
-          \(\text{Cov}(U,Z) = 0\) because \(Z \perp U\). 
+          \(\text{Cov}(U,Z) = 0\) because \(Z \perp\!\!\!\!\perp U\). 
           We thus settle with the causal effect identified as 
           $$\delta = \frac{\text{Cov}(Y,Z)}{\text{Cov}(X,Z)}$$
         </p>

@@ -142,8 +142,8 @@
             It is termed as <strong>marginal probability</strong>, and \(x\) is called a realization of \(X\). \(X\) can be discreet, continuous, or multi-dimensional.
           </li><br>
           <li>
-            Two random variables \(X\) and \(Y\) are said to be independent, denoted as \(X \perp Y\), if the occurence of \(X\) does not affect the probability of \(Y\) occuring. Mathematically,
-            $$X \perp Y \Leftrightarrow P(X,Y) = P(X)P(Y)$$ where \(P(X,Y)\) is the <strong>joint distribution</strong>. \(P(X=x,Y=y)\) is the probability of observing \(X=x\) and \(Y=y\) at the same time.
+            Two random variables \(X\) and \(Y\) are said to be independent, denoted as \(X \perp\!\!\!\!\perp Y\), if the occurence of \(X\) does not affect the probability of \(Y\) occuring. Mathematically,
+            $$X \perp\!\!\!\!\perp Y \Leftrightarrow P(X,Y) = P(X)P(Y)$$ where \(P(X,Y)\) is the <strong>joint distribution</strong>. \(P(X=x,Y=y)\) is the probability of observing \(X=x\) and \(Y=y\) at the same time.
           </li><br>
           <li>
             \(P(X|Y)\) or specifically \(P(X=x|Y=y)\) measures the probabilty \(X=x\) if we observe \(Y=y.\) This is termed as <strong>conditional probability</strong>. It basically says how much the knowledge about \(X\) to be updated given additional information about \(Y\).
@@ -180,7 +180,7 @@
       </p>
       <h3 id="1.4">1.4. Graph Building Blocks</h3>
       <p>
-        A path between two nodes \(X\) and \(Y\) is <strong>blocked</strong> by a node \(Z\) if \(X \perp Y | Z\). 
+        A path between two nodes \(X\) and \(Y\) is <strong>blocked</strong> by a node \(Z\) if \(X \perp\!\!\!\!\perp Y | Z\). 
         Controlling for \(Z\) stops information from flowing between them, thereby eliminating the association. 
         Interestingly, causal DAGs offer a quick test of independence among nodes, powered by <strong>\(d-\)Separation criterion</strong>.
         <div class="theorem">
@@ -203,7 +203,7 @@
         </div>
         <p>
           Figure 1.2 is an example of a fork. Here is a proof why \(d-\)separation is valid. 
-          We need to prove given such a DAG, \(X\) is independent of \(Y\) given \(Z\), or \(X \perp Y|Z\)
+          We need to prove given such a DAG, \(X\) is independent of \(Y\) given \(Z\), or \(X \perp\!\!\!\!\perp Y|Z\)
           $$P(X,Y,Z) = P(X|Z)P(Y|Z)P(Z) \Leftrightarrow \frac{P(X,Y,Z)}{P(Z)} = P(X|Z)P(Y|Z)$$ 
           $$\Leftrightarrow P(X,Y|Z) = P(X|Z)P(Y|Z)$$
         </p>
@@ -236,7 +236,7 @@
           <p>
             Given that \(P\) and \(G\) are compatible, if \(X\) and \(Y\) are \(d-\)separated in \(G\) conditioned on \(Z\),
             \(X\) and \(Y\) are independent conditioned on \(Z\). Mathematically,
-            $$X \perp_G Y|Z \Rightarrow X \perp_P Y|Z$$
+            $$X \perp\!\!\!\!\perp_G Y|Z \Rightarrow X \perp\!\!\!\!\perp_P Y|Z$$
           </p>
         </div>
         <p>Note that the other direction may not be true.</p>
