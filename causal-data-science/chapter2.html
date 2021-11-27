@@ -149,7 +149,7 @@
         <div class="theorem">
           <h5>Front-Door Adjustment Theorem (Pearl 2009):</h5>
           If \(M\) satisfies the front-door criterion relative to (\(X,Y\)) and \(P(x, m) > 0\), the causal effect of \(X\) on \(Y\) is identified as
-          $$P(y|do(x)) = \sum_{m}P(m|x)\sum_{x'}P(y|x',z)P(x')$$
+          $$P(y|do(x)) = \sum_{m}P(m|x)\sum_{x'}P(y|x',m)P(x')$$
         </div>
         <p>
           With \(M\) being a front-door criterion, the causal effect can be determined through the following steps (Pearl 2009; Neal 2020) 
@@ -157,7 +157,7 @@
         <h5>Step 1: Identify the causal effect of \(X\) on \(M\)</h5>
         <p>
           Notice that \(Y\) is a collider blocking the back-door path \(X \leftarrow Z \rightarrow Y \leftarrow M\). \(X \rightarrow M\) is the direct causal path.
-          $$P(m|do(x) = P(m|t))$$
+          $$P(m|do(x) = P(m|x))$$
         </p>
         <h5>Step 2: Identify the causal effect of \(M\) on \(Y\)</h5>
         <p>
