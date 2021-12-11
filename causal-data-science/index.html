@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-    
-    <meta name="description" content="Vy Vo">
-    <meta property="og:description" content="A Handbook on Applying Causal Inference in Business"/>
-    <meta property="og:image" content="https://isvy08.github.io/icon/vv.png"/>
-    <title>Causal Data Science</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <link rel="stylesheet" href="../main.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+  <meta name="description" content="Vy Vo">
+  <meta property="og:description" content="A Handbook on Applying Causal Inference in Business" />
+  <meta property="og:image" content="https://isvy08.github.io/icon/vv.png" />
+  <title>Causal Data Science</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <link rel="stylesheet" href="../main.css">
 </head>
 
 <body>
@@ -21,7 +22,8 @@
         <a href="https://isvy08.github.io/" class="site-avatar"><img src="../icon/vv.png" /></a>
 
         <div class="site-info">
-          <h1 class="site-name"><a href="https://isvy08.github.io/causal-data-science/">Causal Data Science: A Beginner Guide</a></h1>
+          <h1 class="site-name"><a href="https://isvy08.github.io/causal-data-science/">Causal Data Science: A Beginner
+              Guide</a></h1>
           <p class="site-description">A Handbook on Applying Causal Inference in Business</p>
         </div>
 
@@ -30,137 +32,172 @@
       <div class="topnav">
         <a class="active">About</a>
         <a href="chapter1.html">Fundamentals</a>
-        <a href="#">&#128274  Experimentation </a>
-        <a href="#">&#128274  Applications</a>
-        <a href="#">&#128274  Tools</a>
+        <a href="#">&#128274 Experimentation </a>
+        <a href="#">&#128274 Applications</a>
+        <a href="#">&#128274 Tools</a>
       </div>
     </div>
   </div>
 
 
 
-    <div id="main" role="main" class="container">
-      <h1>Introduction</h1>
+  <div id="main" role="main" class="container">
+    <h1>Introduction</h1>
 
     <article class="post" style="text-align: justify;">
       <p>
-        While Causal Inference has been a well-developed research field for over two decades, its applicability in the industry remains highly limited. 
-        A thorough explanation of cause and effect is fundamental to decision making particularly in today’s multi-faceted and increasingly complex environments. According to a <a href="https://www.causalscience.org/blog/causal-data-science-in-practice/">survey conducted by Maastricht University & Copenhagen Business School</a> in 2021, 
-        even though companies have already lived and breathed Big Data, causal methods are not yet widely adopted. One major roadblock is the lack of foundation on theoretical frameworks and practical skills to apply them effectively. 
-        Not only analysts and data scientists face this education gap, but even management has not realized the importance of using causal data science methods to improve their business. 
-        This calls for more efforts to bridge this gap and promote accessibility to knowledge of Causal Inference to a broader public.
+        While Causal Inference has been a well-developed research field for over two decades, its applicability in the
+        industry remains highly limited.
+        A thorough explanation of cause and effect is fundamental to decision making particularly in today’s
+        multi-faceted and increasingly complex environments. According to a <a
+          href="https://www.causalscience.org/blog/causal-data-science-in-practice/">survey conducted by Maastricht
+          University & Copenhagen Business School</a> in 2021,
+        even though companies have already lived and breathed Big Data, causal methods are not yet widely adopted. One
+        major roadblock is the lack of foundation on theoretical frameworks and practical skills to apply them
+        effectively.
+        Not only analysts and data scientists face this education gap, but even management has not realized the
+        importance of using causal data science methods to improve their business.
+        This calls for more efforts to bridge this gap and promote accessibility to knowledge of Causal Inference to a
+        broader public.
       </p>
       <h2>A Reason To Begin</h2>
       <p>
-        Causal Inference provides powerful techniques for evaluating the impact of strategic actions and investigating causal factors that influence various areas of the business. 
-        Data practitioners are long familiar with the adage Correlation is not Causation, but find it difficult to go beyond correlation to establish any causal conclusions about our analysis. 
-        We data scientists are seriously deprived of the tools and capability to dig deeper into the data goldmine, and must instead resort to statistical techniques that barely scratch the surface.   
+        Causal Inference provides powerful techniques for evaluating the impact of strategic actions and investigating
+        causal factors that influence various areas of the business.
+        Data practitioners are long familiar with the adage Correlation is not Causation, but find it difficult to go
+        beyond correlation to establish any causal conclusions about our analysis.
+        We data scientists are seriously deprived of the tools and capability to dig deeper into the data goldmine, and
+        must instead resort to statistical techniques that barely scratch the surface.
       </p>
       <h2>Why This Book</h2>
       <p>
-        This handbook is intended for analysts and data scientists with zero background in Causal Inference but wishing to learn to integrate causal methods into their data analysis pipelines. 
-        This beginner's guide aims to provide a general picture of how Causal Inference is applied in practice while equipping you with a minimally sufficient foundation to begin with it. 
-        Thus, it should only be treated as a pocket tutorial and by no means replace formal training. 
+        This handbook is intended for analysts and data scientists with zero background in Causal Inference but wishing
+        to learn to integrate causal methods into their data analysis pipelines.
+        This beginner's guide aims to provide a general picture of how Causal Inference is applied in practice while
+        equipping you with a minimally sufficient foundation to begin with it.
+        Thus, it should only be treated as a pocket tutorial and by no means replace formal training.
       </p>
       <p>
-        There are indeed plenty of good resources on Causal Inference, but very few of them are friendly to non-academics. I myself struggled to go through the materials in the beginning despite a strong background in statistics. 
-        In the book, Causal Inference is approached from a hands-on perspective. 
-        Every discussion of a certain topic is restricted to essential or strongly related concepts that aid your understanding. Fortunately, we nowadays have software tools and libraries developed to automate the implementation. 
-        I therefore focus on introducing the key ideas to build up intuition and highlighting the connections among frameworks, while leaving the technical details handled by computers.  
+        There are indeed plenty of good resources on Causal Inference, but very few of them are friendly to
+        non-academics. I myself struggled to go through the materials in the beginning despite a strong background in
+        statistics.
+        In the book, Causal Inference is approached from a hands-on perspective.
+        Every discussion of a certain topic is restricted to essential or strongly related concepts that aid your
+        understanding. Fortunately, we nowadays have software tools and libraries developed to automate the
+        implementation.
+        I therefore focus on introducing the key ideas to build up intuition and highlighting the connections among
+        frameworks, while leaving the technical details handled by computers.
       </p>
       <p>
-        Since you may find it incomprehensive, I also provide a handy list of materials to enrich your knowledge. 
+        Since you may find it incomprehensive, I also provide a handy list of materials to enrich your knowledge.
         You can always trace the references therein for alternative selection of reads.
       </p>
       <h2>Contents</h2>
       <p>
         The book contains 4 parts:
-        <ul>
-          <li>
-            <strong>Part I: Fundamentals </strong> covers funamental concepts of Causal Inference under the paradigm of probabilistic graphical models.
-            This part clarifies what we mean by cause and effect while offers various methods to make causal claims out of non-experimental data.
-            <ul>
-              <br>
-              <li><a href="chapter1.html">Chapter 1. Preliminaries</a></li>
-              <li><a href="chapter2.html">Chapter 2. Identifying Causal Effects</a></li>
-              <li><a href="chapter3.html">Chapter 3. A Bigger Picture</a></li>
-    
-            </ul>
-            </li><br>
-          <li>
-            <strong style="color:gray">Part II: Experimentation</strong> discusses the importance of experimentation in determining causal effects, along with several caveats in designing and conducting experiments that may affect the reliability of your causal results.
-            In this regard, Causal Inference is to be explored from the perspective of Potential Outcome. 
-          </li><br>
-          <li>
-            <strong style="color:gray">Part III: Applications</strong> provides case studies on how tech firms such as LinkedIn, Apple, Facebook, Uber adopt Causal Inference for forecasting and product development.
-            At the same time, it presents more complicated scenarios where causal methods are difficult to apply. 
-          </li><br>
-          <li>
-            <strong style="color:gray">Part IV: Tools</strong> introduces a number of tools and libraries that supports implementation of Causal Inference in practice. 
-            This includes coding tutorials and comprehensive comparison of these tools.
-          </li>
+      <ul>
+        <li>
+          <strong>Part I: Fundamentals </strong> covers funamental concepts of Causal Inference under the paradigm of
+          probabilistic graphical models.
+          This part clarifies what we mean by cause and effect while offers various methods to make causal claims out of
+          non-experimental data.
+          <ul>
+            <br>
+            <li><a href="chapter1.html">Chapter 1. Preliminaries</a></li>
+            <li><a href="chapter2.html">Chapter 2. Identifying Causal Effects</a></li>
+            <li><a href="chapter3.html">Chapter 3. A Bigger Picture</a></li>
 
-        </ul>
-        <span style="font-style: italic; font-size: smaller;">* Parts not highlighted are currently locked for review. </span>
+          </ul>
+        </li><br>
+        <li>
+          <strong style="color:gray">Part II: Experimentation</strong> discusses the importance of experimentation in
+          determining causal effects, along with several caveats in designing and conducting experiments that may affect
+          the reliability of your causal results.
+          In this regard, Causal Inference is to be explored from the perspective of Potential Outcome.
+        </li><br>
+        <li>
+          <strong style="color:gray">Part III: Applications</strong> provides case studies on how tech firms such as
+          LinkedIn, Apple, Facebook, Uber adopt Causal Inference for forecasting and product development.
+          At the same time, it presents more complicated scenarios where causal methods are difficult to apply.
+        </li><br>
+        <li>
+          <strong style="color:gray">Part IV: Tools</strong> introduces a number of tools and libraries that supports
+          implementation of Causal Inference in practice.
+          This includes coding tutorials and comprehensive comparison of these tools.
+        </li>
+
+      </ul>
+      <span style="font-style: italic; font-size: smaller;">* Parts not highlighted are currently locked for review.
+      </span>
       </p>
       <h2>Prerequisite</h2>
       <p>
-        Basic knowledge of Statistics, Probability and Python is highly recommended. It also requires a bit of patience on your first touch with Causal Inference.
-        If you struggle to understand, please remember that this is very natural when acquiring new knowledge. 
+        Basic knowledge of Statistics, Probability and Python is highly recommended. It also requires a bit of patience
+        on your first touch with Causal Inference.
+        If you struggle to understand, please remember that this is very natural when acquiring new knowledge.
         I am happy to provide private tutoring if you need a refresher on any of these topics.
-        Feel free to drop me an email at <strong>causalguide[at]gmail.com.</strong>    
+        Feel free to drop me an email at <strong>causalguide[at]gmail.com.</strong>
       </p>
       <h2>Resources</h2>
       <p>
-        The following books are particularly useful to me. 
-        These are formal readings to solidify your understanding. I rank them from the easiest to most difficult to beginners.  
+        The following books are particularly useful to me.
+        These are formal readings to solidify your understanding. I rank them from the easiest to most difficult to
+        beginners.
       </p>
       <ol>
-        <li><a href="https://www.bradyneal.com/Introduction_to_Causal_Inference-Dec17_2020-Neal.pdf">Introduction to Causal Inference </a>(Neal 2020)</li>
+        <li><a href="https://www.bradyneal.com/Introduction_to_Causal_Inference-Dec17_2020-Neal.pdf">Introduction to
+            Causal Inference </a>(Neal 2020)</li>
         <li><a href="http://bayes.cs.ucla.edu/WHY/">The Book of Why </a>(Pearl & Mackenzie 2018) </li>
-        <li><a href="https://cdn1.sph.harvard.edu/wp-content/uploads/sites/1268/2019/10/ci_hernanrobins_1oct19.pdf">Causal Inference: What If </a>(Robins & Hernan 2010)</li>
-        <li><a href="https://library.oapen.org/bitstream/id/056a11be-ce3a-44b9-8987-a6c68fce8d9b/11283.pdf">Elements of Causal Inference</a> (Peteres, Janzing, Scholkopf 2017)</li>
-        <li><a href="http://bayes.cs.ucla.edu/PRIMER/">Causal Inference in Statistics: A Primer</a> (Pearl, Glymour, Jewell 2016)</li>
+        <li><a
+            href="https://cdn1.sph.harvard.edu/wp-content/uploads/sites/1268/2019/10/ci_hernanrobins_1oct19.pdf">Causal
+            Inference: What If </a>(Robins & Hernan 2010)</li>
+        <li><a href="https://library.oapen.org/bitstream/id/056a11be-ce3a-44b9-8987-a6c68fce8d9b/11283.pdf">Elements of
+            Causal Inference</a> (Peteres, Janzing, Scholkopf 2017)</li>
+        <li><a href="http://bayes.cs.ucla.edu/PRIMER/">Causal Inference in Statistics: A Primer</a> (Pearl, Glymour,
+          Jewell 2016)</li>
         <li><a href="http://bayes.cs.ucla.edu/BOOK-2K/">Causality: Models, Reasoning and Inference</a> (Pearl 2009)</li>
 
       </ol>
       <h2>About the author</h2>
       <p>
-        <strong>Vy Vo</strong> gradudated from Monash Unversity with a Master in Data Science and is currently a research fellow at the university. 
+        <strong>Vy Vo</strong> gradudated from Monash Unversity with a Master in Data Science and is currently a
+        research assistant at the university.
         Her research interests relate to Causal Inference, Natural Language Processing and AI Reasoning.
-        Learn more about Vy Vo <a href="https://isvy08.github.io/">here</a>. 
+        Learn more about Vy Vo <a href="https://isvy08.github.io/">here</a>.
       </p>
 
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
     </article>
-    </div>
-    <div style="text-align: center; padding-top: 20px;">
-      <a href="chapter1.html" class="navbutton">Chapter 1. Preliminaries &#9654</a>
-    </div>
-    <div class="wrapper-footer">
-      <div class="container">
-        <footer class="footer">
+  </div>
+  <div style="text-align: center; padding-top: 20px;">
+    <a href="chapter1.html" class="navbutton">Chapter 1. Preliminaries &#9654</a>
+  </div>
+  <div class="wrapper-footer">
+    <div class="container">
+      <footer class="footer">
 
 
-        <a href="https://www.facebook.com/isVy08"><i class="svg-icon facebook"></i></a>        
+        <a href="https://www.facebook.com/isVy08"><i class="svg-icon facebook"></i></a>
         <a href="https://twitter.com/isVy08"><i class="svg-icon twitter"></i></a>
         <a href="https://www.linkedin.com/in/isvy08/"><i class="svg-icon linkedin"></i></a>
-        <br><p style="font-size: 10px;">&copy; 2021 Vy Vo. Powered by Jekyll and Jekyll Now Theme</p>   
+        <br>
+        <p style="font-size: 10px;">&copy; 2021 Vy Vo. Powered by Jekyll and Jekyll Now Theme</p>
 
-        </footer>
-        </div>
-    </div> 
+      </footer>
+    </div>
+  </div>
 </body>
+
 </html>
