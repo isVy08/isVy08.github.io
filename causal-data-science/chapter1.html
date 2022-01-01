@@ -56,8 +56,8 @@
     <p>
       This chapter covers building blocks of Causal Inference from the graphical perspective, leaving the discussion on
       Potential Outcome framework later in the book.
-      The knowledge is gratefully inherited from these two books <a
-        href="http://bayes.cs.ucla.edu/BOOK-2K/">Causality</a> and <a
+      The knowledge is gratefully inherited from these two books <a href="http://bayes.cs.ucla.edu/BOOK-2K/">Causality
+      </a>(Pearl 2009) and <a
         href="https://www.bradyneal.com/Introduction_to_Causal_Inference-Dec17_2020-Neal.pdf">Introduction to Causal
         Inference</a> (Neal 2020).
     </p>
@@ -90,7 +90,7 @@
     <article class="post">
       <h3 id="#1.1">1.1. Causal Graph</h3>
       <p>
-        A graph consists of a set of nodes and a set of edges that connect two nodes. Nodes in a graph represent a
+        A graph consists of a set of nodes and a set of edges that connect two nodes. Nodes in a graph represent
         random variables and edges denote relationships among them.
         Every two nodes are connected by an edge are called adjacent nodes. If every edge in a graph is an arrow
         pointing from one node to another node, the graph is a <strong>directed graph</strong>.
@@ -134,13 +134,13 @@
         that is, there exists a path like \(X \rightarrow M \rightarrow Y\) where \(M\) is called a mediator.
         In such a relationship, \(M\) transmits the causal effect from \(X\) to \(Y\), or we can say that \(X\)
         indirectly affects \(Y\) through \(M\). This gives rise to several concepts such as <i>Total Effect, Controlled
-          Effect, Natural Direct Effect and Natural Indirect Effect</i>.
-        We will discuss Mediation Analysis in Chapter 4.
+          Effect, Natural Direct Effect and Natural Indirect Effect</i>, which will be discussed in the upcoming
+        chapters.
       </p>
       <p>
         Generally, when talking about the causal effect of \(X\) on \(Y\), we often mean the direct effect.
-        We then wish to determine whether \(X\) is a parent of \(Y\) (graphically) and how much \(Y\) changes induced by
-        changes in \(X\) (quantitatively).
+        We then wish to determine whether \(X\) is a parent of \(Y\) and how much \(Y\) changes induced by
+        changes in \(X\).
       </p>
       <h3 id="1.2">1.2. Correlation is not Causation</h3>
       <p>

@@ -224,37 +224,37 @@
         estimands given that they are identifiable.
         These rules not only generalize the <strong>Back-door criterion</strong> and <strong>Front-door
           criterion</strong>, but is also valid when neither criteria is satisfied.
-        Detailed explanation can be best found in Section 3.4 of <i>Causality</i> book or less formal in Section 6.2 of
-        the <i>Introduction to Causal Inference</i> book (Neal 2020).
-        I here only introduce the rules and convey a slightly different intuition to aid your understanding.
+        I attempt to introduce the rules and convey the intuition to aid your understanding.
+        Rigorous explanation can be found in
+        <a href=http://bayes.cs.ucla.edu/R218-B.pdf>Causal diagrams for empirical research</a>
+        (Pearl 1995, p.687).
       </p>
       <p>
-        Given a causal DAG \(G\), we denote \(G_{\bar{X}}\) the graph obtained by deleting from \(G\) all incoming paths
+        Given a DAG \(G\), we denote \(G_{\bar{X}}\) the graph obtained by deleting from \(G\) all incoming edges
         to nodes in \(X\).
-        We denote \(G_{\underline{X}}\) the graph obtained by deleting from \(G\) all outgoing paths from nodes in
+        We denote \(G_{\underline{X}}\) the graph obtained by deleting from \(G\) all outgoing edges from nodes in
         \(X\).
-        The question is still to establish the causal path from \(X\) to \(Y\), so we start with graph \(G_{\bar{X}}\)
-        which is equivalent to the manipulated graph induced by the intervention \(do(X)=x\).
+        To make it general, we begin with the interventional distribution \(P(y|do(x))\), induced by the
+        intervention \(do(X) = x\) We therefore have the manipulated graph \(G_{\bar{X}}\) as the base graph.
+        You can safely ignore the term \(do(X)\) to better understand these expressions,
+
         For any <span style="text-decoration: underline;">disjoint</span> subsets of variables \(X,Y,Z,W\), we have the
         following rules
       </p>
       <div class="theorem">
-        <h5>\(Do\) Calculus Theorem : </h5>
+        <h5>\(Do\)-calculus Theorem </h5>
         <p>
         <h6>Rule 1: Insertion/Deletion of observations</h6>
         $$P(y|do(x),z,w) = P(y|do(x),w) \quad if \quad (Y \perp\!\!\!\!\perp Z)|X,W \quad w.r.t \quad G_{\bar{X}}$$
         </p>
       </div>
       <p>
-        One easy way to look at this is to ignore the term \(do(X)\), roughly since we must add \(X\) to the condition
-        set since we are fixated on \(G_{\bar{X}}\).
-        \(Y\) is independent of \(Z\) given {\(X,W\)}, so \(z\) gives no additional information.
-        This means adjusting {\(X,W\)} blocks all possible back-door paths \(Y-Z\), which may be confused with the true
-        causal path.
-        \(Z\) thus then becomes irrelevant and can be removed or included freely. Rule 1 also confirms \(d\)-separation.
+        Rule 1 confirms \(d\)-separation. The condition simply means adjusting {\(X,W\)} blocks all possible back-door
+        paths from \(Z\) to \(Y\).
+        When found independent with \(Y\), \(Z\) become irrelevant, thus can be removed or included freely.
       </p>
       <div class="theorem">
-        <h5>\(Do\) Calculus Theorem : </h5>
+        <h5>\(Do\)-calculus Theorem </h5>
         <p>
         <h6>Rule 2: Action/Observation change</h6>
         $$P(y|do(x),do(z),w) = P(y|do(x),z,w) \quad if \quad (Y \perp\!\!\!\!\perp Z)|X,W \quad w.r.t \quad
@@ -262,14 +262,17 @@
         </p>
       </div>
       <p>
-        Recall that we are still working on the manipulated graph \(G_{\bar{X}}\). The extra condition of
-        \(G_{\underline{Z}}\) ensures \(Z\) has no children,
-        so there cannot be any direct path from \(Z\) to \(Y\). \(Z\) is by no means a cause \(Y\) in
-        \(G_{\bar{X}\underline{Z}}\).
-        Thus, any changes in \(Z\) resulting in changes in \(Y\) are merely statistical correlations.
+        Examining the effect of action \(do(Z) = z\) on \(Y\) means the original graph contains
+        a path with an arrow outgoing from \(Z\) pointing into \(Y\).
+        If we disconnect the causal path from \(Z\) to \(Y\), thereby ending up with \(G_{\underline{Z}}\))
+        and observe that all back-door paths are blocked by {\(X,W\)},
+        the association flow between \(Z\) and \(Y\) is the causal flow.
+        Setting \(Z=z\) or conditioning on \(Z=z\) yields the same effect.
+        In other words, correlation is now causation.
+
       </p>
       <div class="theorem">
-        <h5>\(Do\) Calculus Theorem :</h5>
+        <h5>\(Do\)-calculus Theorem </h5>
         <p>
         <h6>Rule 3: Insertion/Deletion of actions</h6>
         $$P(y|do(x),do(z),w) = P(y|do(x),w) \quad if \quad (Y \perp\!\!\!\!\perp Z)|X,W \quad w.r.t \quad
@@ -278,17 +281,29 @@
         </p>
       </div>
       <p>
-        Let \(\widetilde{Z(W)}\) denote the set of \(Z\)-nodes that can be ancestors of \(W\). Because \(Z(W)\) can
-        neither have parents nor be an ancestor of \(W\),
-        without passing through \(\widetilde{Z(W)}\), \(Z(W)\) can only connect with \(W\) and indirectly with \(Y\)
-        through a collider, which automatically blocks the path.
-        Safely ignoring \(do(X)\), the fact that \(Y\) and \(Z\) becomes independent given \(W\) means that either (1)
-        \(Y,Z\) are independent to begin with,
-        or (2) all paths between \(Y\) and \(\widetilde{Z(W)}\) must go through \(W\) where \(W\) is a chain or a fork
-        by \(d\)-separation.
-        For a causal effect to take place, one such path must contain arrows pointing from \(\widetilde{Z(W)}\) towards
-        \(Y\), and the path is blocked by \(W\) in this case.
-        Thus in all cases, intervening on \(Z\) does not affect \(Y\) at all.
+        Let \(\widetilde{Z(W)}\) denote the set of \(Z\)-nodes that are the ancestors of \(W\).
+        Because \(\widetilde{Z(W)}\) are ancestors of \(W\),
+        we end up with the (indirect) causal path from \(\widetilde{Z(W)}\) to \(W\) as above.
+        Meanwhile, no nodes in \(Z(W)\) are ancestors of \(W\), so at least one node in \(Z(W)\) is a descendent of
+        at least one node in \(\widetilde{Z(W)}\) (DAG cannot be disconnected). Furthermore, it is either that \(Z(W)\)
+        and \(W\) are not linked or nodes in \(Z(W)\) are descendents of \(W\).
+
+      <figure style="text-align: center;">
+        <img src='figures/1-2-Fig3.png' alt='graphs' width="600" />
+        <figcaption style="font-size: small;">Figure 2.3</figcaption>
+      </figure>
+      </p>
+      <p>
+        Recall that we are still working on the manipulated graph \(G_{\bar{X}}\).
+        Safely ignoring \(X\), for \(Y\) to be independent on \(Z\) given \(W\),
+        \(W\) must both block all paths between \(\widetilde{Z(W)}\) and \(Y\) <strong>and</strong>
+        all paths between \(Z(W)\) and \(Y\). Thus, the path from \(Z\) to \(Y\) must go through \(W\).
+
+        The graph \(G_{\overline{Z(W)}}\) is constructed by removing all incoming edges to \(Z(W)\).
+        The conditional independency ensures the only back-door path between \(Z\) and \(Y\) is one going through \(W\).
+        Other than that, there is no unblocked path. Returning to the original graph \(G_{\bar{X}}\),
+        \(d\)-separation tells us that conditionining on \(W\) prevents information flowing from \(Z\) to \(Y\).
+        As a result, any action taken on \(Z\) has no effect on \(Y\).
       </p>
       <h3 id="2.4">2.4. Structural Causal Models</h3>
       <p>
@@ -340,13 +355,13 @@
       </div>
       <br>
       <figure style="text-align: center;">
-        <img src='figures/1-2-Fig3.png' alt='graphs' width="400" />
-        <figcaption style="font-size: small;">Figure 2.3</figcaption>
+        <img src='figures/1-2-Fig4.png' alt='graphs' width="400" />
+        <figcaption style="font-size: small;">Figure 2.4</figcaption>
       </figure>
       <p>
         <strong>Exogenous</strong> variables are ones without any parents in the causal graph, external to the system.
         <strong>Endogenous</strong> variables have parents and are those we model.
-        The SCM for the causal graph in Figure 2.3 is written as
+        The SCM for the causal graph in Figure 2.4 is written as
         $$X:=f_X(A,U_X)$$
         $$B:=f_B(A,C,U_B)$$
         $$Y:=f_Y(X,C,U_Y)$$
@@ -422,13 +437,13 @@
 
       </div>
       <p>
-        Figure 2.4 illustrates a causal graph where \(Z\) is an <span
+        Figure 2.5 illustrates a causal graph where \(Z\) is an <span
           style="text-decoration: underline;">observed</span> instrumental variable
         while the confounder \(U\) is <span style="text-decoration: underline;">not observed.</span>
       </p>
       <figure style="text-align: center;">
-        <img src='figures/1-2-Fig4.png' alt='graphs' width="300" />
-        <figcaption style="font-size: small;">Figure 2.4</figcaption>
+        <img src='figures/1-2-Fig5.png' alt='graphs' width="300" />
+        <figcaption style="font-size: small;">Figure 2.5</figcaption>
       </figure>
       <p>
         We assume the SCM takes a linear form defined as
