@@ -896,7 +896,7 @@ tr:nth-child(even) {
   letter-spacing: 1px;
   text-decoration: none;
   font-size: 17px;
-  border-top: 3px solid;
+  /* border-top: 2px solid; */
   border-radius: 10px;
 }
 
