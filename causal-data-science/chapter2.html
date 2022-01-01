@@ -1,425 +1,517 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-    
-    <meta name="description" content="Vy Vo">
-    <meta property="og:description" content="A Handbook on Applying Causal Inference in Business"/>
-    <meta property="og:image" content="https://isvy08.github.io/icon/vv.png"/>
-    <title>Identification of Causal Effects</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="stylesheet" href="../main.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+  <meta name="description" content="Vy Vo">
+  <meta property="og:description" content="A Handbook on Applying Causal Inference in Business" />
+  <meta property="og:image" content="https://isvy08.github.io/icon/vv.png" />
+  <title>Identification of Causal Effects</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <link rel="stylesheet" href="../main.css">
 </head>
 
 <body>
 
-    <div class="wrapper-masthead">
-        <div class="container">
-          <header class="masthead clearfix">
-            <a href="https://isvy08.github.io/" class="site-avatar"><img src="../icon/vv.png" /></a>
-  
-            <div class="site-info">
-              <h1 class="site-name"><a href="https://isvy08.github.io/causal-data-science/">Causal Data Science: A Beginner Guide</a></h1>
-              <p class="site-description">A Handbook on Causal Inference in Business</p>
-            </div>
+  <div class="wrapper-masthead">
+    <div class="container">
+      <header class="masthead clearfix">
+        <a href="https://isvy08.github.io/" class="site-avatar"><img src="../icon/vv.png" /></a>
 
-          </header>
-          <br>
-          <div class="topnav">
-            <a href="https://isvy08.github.io/causal-data-science/">About</a>
-            <a class="active">Fundamentals</a>
-            <a href="#">&#128274  Experimentation </a>
-            <a href="#">&#128274  Applications</a>
-            <a href="#">&#128274  Tools</a>
-          </div>
+        <div class="site-info">
+          <h1 class="site-name"><a href="https://isvy08.github.io/causal-data-science/">Causal Data Science: A Beginner
+              Guide</a></h1>
+          <p class="site-description">A Handbook on Causal Inference in Business</p>
         </div>
+
+      </header>
+      <br>
+      <div class="topnav">
+        <a href="https://isvy08.github.io/causal-data-science/">About</a>
+        <a class="active">Fundamentals</a>
+        <a href="#">&#128274 Experimentation </a>
+        <a href="#">&#128274 Applications</a>
+        <a href="#">&#128274 Tools</a>
       </div>
+    </div>
+  </div>
 
 
-    <div id="main" role="main" class="container">
-      <h2 id="2">Chapter 2. Identification of Causal Effects</h2>
-      <article class="post" style="text-align: justify;">
-        
-        <p>
-          Assume we are given an observational dataset of \(V\) <span style="text-decoration: underline;">observed</span> variables and causal graph \(G\). The set \(V\) includes a treatment variable \(X\) and a outcome variable \(Y\) of interest, 
-          and we wish to determine the effect on \(Y\) under the intervention \(do(X=x)\) – that is, to estimate the interventional distribution \(P(y|do(x)\)).
-        <p>
-        <p>
-         Recall that \(X\) and \(Y\) are not neccessarily single variables, rather each of them can be a subset of \(n\) variables in \(V\) and mathematically represented as an \(n\)-dimensional vector. 
-         Identification methods can be broadly categorized as <strong>Non-parametric</strong> or <strong>Parametric</strong>. 
-        </p>
-        <div class="toc">
-          <h5 style="text-decoration: underline" >Table of Contents</h5>
-          <h6>Non-parametric methods</h6>
-          <ul>
-            <a href="#2.1"><li>2.1. Back-Door Criterion</li></a>
-            <a href="#2.2"><li>2.2. Front-Door Criterion</li></a>
-            <a href="#2.3"><li>2.3. \(Do-\)Calculus</li></a>
-          </ul>
-          <h6>Parametric methods</h6>
-          <ul>
-            <a href="#2.4"><li>2.4. Structural Causal Models</li></a>
-            <a href="#2.5"><li>2.5. Average Causal Effect</li></a>
-            <a href="#2.6"><li>2.6. Instrumental Variables</li></a>
-          </ul>
-        </div>
-        <p>        
-        Under certain conditions, these methods allow us to estimate \(P(y|do(x))\) (i.e., a <strong>causal estimand</strong>) from statistical quantities to be computed directly from the data.
-        The idea is to pass the causal estimand through a series of transformations that output an equivalent combination of statistical estimands, 
-        which must be derived from plausible probability rules based on the assumptions and properties we have discussed so far.   
-        </p>
+  <div id="main" role="main" class="container">
+    <h2 id="2">Chapter 2. Identification of Causal Effects</h2>
+    <article class="post" style="text-align: justify;">
 
-        <h3 id="2.1">2.1. Back-Door Criterion</h3>
-        <div class="theorem">
-          <h5>Back-Door Criterion Definition (Pearl 2009):</h5>
-          A set of variables \(Z\) in \(V\) satisfies the back-door criterion relative to \(X\) and \(Y\) in a DAG \(G\) if
-          <ul>
-            <li>no node in \(Z\) is a descendent of \(X\)</li>
-            <li>\(Z\) blocks every path between \(X\) and \(Y\) that contains an arrow into \(X\)</li>
-          </ul>
-        </div>
-        <p>This definition is followed by</p>
-        <div class="theorem">
-          <h5>Back-Door Adjustment Theorem (Pearl 2009):</h5>
-          If \(Z\) satisfies the back-door criterion relative to (\(X,Y\)), the causal effect of \(X\) on \(Y\) is identified as
-          $$P(y|do(x)) = \sum_{z}P(y|x,z)P(z)$$
-        </div>
-        <p>
-          The theorem aligns with our intuition above: If \(Z\) blocks all back-door paths between \(X\) and \(Y\), there will be no confounding biases, 
-          thus rendering any associational effects be the true causal effect. We will add a causal link \(X \rightarrow Y\) in Figure 1.2, which gives a simple example where \(Z\) is a back-door criterion (right).
-          And when doing intervention, we estimated the effect based on the manipulated graph (right), in which the incoming edge into \(X\) from \(Z\) is removed. 
-          I provide a step-by-step proof to solidify the intuition.  
-        </p>
-        <figure style="text-align: center;">
-          <img src='figures/1-2-Fig.png' alt='graphs' width="600" />
-          <figcaption style="font-size: small;">Figure 1.2*</figcaption>
-        </figure>
-        <p>
-          <ol type="i">
-            <li>By probability rules, 
-              $$P(y|do(x)) = \frac{P(y,do(x))}{P(do(x))} = \frac{\sum_{z}P(y,do(x),z)}{P(do(x))} = \frac{\sum_{z}P(y|do(x),z)P(do(x),z)}{P(do(x))}$$ 
-              $$= \frac{\sum_{z}P(y|do(x),z)P(z|do(x))P(do(x))}{P(do(x))} = \sum_{z}P(y|do(x),z)P(z|do(x))) $$
-            </li>
-            <li> 
-              By <strong>Modularity assumption</strong>, \(Y\) is not the intervention node so \(P(y|pa_y)\) under the intervention remains unchanged. 
-              This yields \(P(y|do(x),z) = P(y|x, z)\). This equality holds even when \(Z\) is not the parent of \(Y\) but still satisfies the back-door criterion.
-            </li><br>
-            <li>
-              Assume there are no other back-door paths \(X-Z\), \(Z\) does not depend on \(X\), so \(P(z|do(x))=P(z)\). 
-              This is justified by observing that \(Z\) is independent of \(do(x)\) in the manipulated graph, but <strong>not</strong> independent of \(X\).
-              Notice that you could also have directly derived \(P(do(x),z) = P(do(x))P(z)\) due to this non-dependency.
-            </li>
-          </ol>
-          Steps (1), (2) and (3) together yield the theorem. We can also see that \(P(y|do(x)) \ne P(y|X=x)\) since \(P(x,z) \ne P(x)P(z)\). 
-          Here is a more complicated example borrowed from the <i>Book of Why</i> (Pearl & Mackenzie, 2018, pp.162)
-        </p>  
-          <figure style="text-align: center;">
-            <img src='figures/1-2-Fig1.png' alt='backdoor-criterion' width="300" />
-            <figcaption style="font-size: small;">Figure 2.1</figcaption>
-          </figure>
-        <p>
-          There are two paths with arrows pointing into \(X\): \(X \leftarrow A \rightarrow B \leftarrow C \rightarrow Y\) and \(X \leftarrow B \leftarrow C \rightarrow Y\).
-          If we condition on \(B\) to block the second path, it opens up the first back-door path since \(B\) is a collider. We therefore must further control for \(A,C\).
-          However, we can also only control for \(C\) to block the second path while the leaving the first path already been blocked by \(B\). 
-          Thus, the back-door criterion is either \(C\) or the set {\(A,B,C\)}.   
-        </p>
-        <h3 id="2.2">2.2. Front-Door Criterion</h3>
-        <p>
-          Assume we have a graph \(G\) as follow, where the confounder \(Z\) is unobserved. Thus, blocking the back-door is impossible.  
-          Fortunately, we can take advantage of such a variable as \(M\) - a mediator such that all causal paths from \(X\) to \(Y\) must go through \(M\). 
-          <figure style="text-align: center;">
-            <img src='figures/1-2-Fig2.png' alt='frontdoor-criterion' width="300" />
-            <figcaption style="font-size: small;">Figure 2.2</figcaption>
-          </figure>
-        </p>
-        <div class="theorem">
-          <h5>Front-Door Criterion Definition (Pearl 2009):</h5>
-          A set of variables \(M\) satisfies the front-door criterion relative to \(X, Y\) and \(Y\) if
-          <ul>
-            <li>\(M\) mediates all directed paths from \(X\) to \(Y\) </li>
-            <li>there is no unblocked back-door path from \(X\) to \(M\)</li>
-            <li>all back-door paths from \(M\) to \(Y\) are blocked by \(X\)</li>
-          </ul>
-        </div>
-        <p>This definition is followed by</p>        
-        
-        <div class="theorem">
-          <h5>Front-Door Adjustment Theorem (Pearl 2009):</h5>
-          If \(M\) satisfies the front-door criterion relative to (\(X,Y\)) and \(P(x, m) > 0\), the causal effect of \(X\) on \(Y\) is identified as
-          $$P(y|do(x)) = \sum_{m}P(m|x)\sum_{x'}P(y|x',m)P(x')$$
-        </div>
-        <p>
-          With \(M\) being a front-door criterion, the causal effect can be determined through the following steps (Pearl 2009; Neal 2020) 
-        </p>
-        <h5>Step 1: Identify the causal effect of \(X\) on \(M\)</h5>
-        <p>
-          Notice that \(Y\) is a collider blocking the back-door path \(X \leftarrow Z \rightarrow Y \leftarrow M\). \(X \rightarrow M\) is the direct causal path.
-          $$P(m|do(x) = P(m|x))$$
-        </p>
-        <h5>Step 2: Identify the causal effect of \(M\) on \(Y\)</h5>
-        <p>
-          The back-door path \(M \leftarrow X \leftarrow Z \rightarrow Y\) can be blocked by conditioning on \(X\). In other words, we can use Back-door Adjustment on \(X\).
-          $$P(y|do(m) = \sum_{x'}P(y|m, x')P(x'))$$
-          We use \(x'\) to distinguish this random value with the interventional value \(X=x\)
-        </p>
-        <h5>Step 3: Combine the two effects to identify the causal effect of \(X\) on \(Y\)</h5>
-        <p>
-          By first setting \(X=x\), we observe the value \(M=m\). We then set \(M\) to this value \(m\) and evaluate \(Y\).
-          If \(M=m\) every time we set \(X\) to \(x\), the combined effect would be exactly \(P(y|do(m)\). 
-          In fact, \(M\) returns multiple values \(m\) corresponding to \(X=x\) with probability \(P(m|do(x))\). 
-          Thus, the combined effect is generally calculated by summing the effects on \(Y\) observed when \(M=m\) weighted by the probablity that value \(m\) occurs. 
-          $$P(y|do(x)) = \sum_{m}P(m|do(x)P(y|do(m))$$
-          Substituting the results from step (1) and (2) yield the theorem, in which all quantities can be estimated. 
-        </p>
+      <p>
+        Assume we are given an observational dataset of \(V\) <span style="text-decoration: underline;">observed</span>
+        variables and causal graph \(G\). The set \(V\) includes a treatment variable \(X\) and a outcome variable \(Y\)
+        of interest,
+        and we wish to determine the effect on \(Y\) under the intervention \(do(X=x)\) – that is, to estimate the
+        interventional distribution \(P(y|do(x)\)).
+      <p>
+      <p>
+        Recall that \(X\) and \(Y\) are not neccessarily single variables, rather each of them can be a subset of \(n\)
+        variables in \(V\) and mathematically represented as an \(n\)-dimensional vector.
+        Identification methods can be broadly categorized as <strong>Non-parametric</strong> or
+        <strong>Parametric</strong>.
+      </p>
+      <div class="toc">
+        <h5 style="text-decoration: underline">Table of Contents</h5>
+        <h6>Non-parametric methods</h6>
+        <ul>
+          <a href="#2.1">
+            <li>2.1. Back-Door Criterion</li>
+          </a>
+          <a href="#2.2">
+            <li>2.2. Front-Door Criterion</li>
+          </a>
+          <a href="#2.3">
+            <li>2.3. \(Do-\)Calculus</li>
+          </a>
+        </ul>
+        <h6>Parametric methods</h6>
+        <ul>
+          <a href="#2.4">
+            <li>2.4. Structural Causal Models</li>
+          </a>
+          <a href="#2.5">
+            <li>2.5. Average Causal Effect</li>
+          </a>
+          <a href="#2.6">
+            <li>2.6. Instrumental Variables</li>
+          </a>
+        </ul>
+      </div>
+      <p>
+        Under certain conditions, these methods allow us to estimate \(P(y|do(x))\) (i.e., a <strong>causal
+          estimand</strong>) from statistical quantities to be computed directly from the data.
+        The idea is to pass the causal estimand through a series of transformations that output an equivalent
+        combination of statistical estimands,
+        which must be derived from plausible probability rules based on the assumptions and properties we have discussed
+        so far.
+      </p>
 
-        <h3 id="2.3">2.3. \(Do\) Calculus</h3>
-        <p>
-          \(Do\) calculus is a set of general inference rules that are proved to be sufficient to identify all causal estimands given that they are identifiable. 
-          These rules not only generalize the <strong>Back-door criterion</strong> and <strong>Front-door criterion</strong>, but is also valid when neither criteria is satisfied.  
-          Detailed explanation can be best found in Section 3.4 of <i>Causality</i> book (Pearl 2009) or less formal in Section 6.2 of the <i>Introduction to Causal Inference</i> book (Neal 2020).
-          I here only introduce the rules and convey a slightly different intuition to aid your understanding.
-        </p>
-        <p>
-          Given a causal DAG \(G\), we denote \(G_{\bar{X}}\) the graph obtained by deleting from \(G\) all incoming paths to nodes in \(X\).
-          We denote \(G_{\underline{X}}\) the graph obtained by deleting from \(G\) all outgoing paths from nodes in \(X\). 
-          The question is still to establish the causal path from \(X\) to \(Y\), so we start with graph \(G_{\bar{X}}\) which is equivalent to the manipulated graph induced by the intervention \(do(X)=x\).  
-          For any <span style="text-decoration: underline;">disjoint</span> subsets of variables \(X,Y,Z,W\), we have the following rules
-        </p>
-        <div class="theorem">
-          <h5>\(Do\) Calculus Theorem (Pearl 2009)</h5>
-          <p>
-            <h6>Rule 1: Insertion/Deletion of observations</h6>
-            $$P(y|do(x),z,w) = P(y|do(x),w) \quad if \quad (Y \perp\!\!\!\!\perp Z)|X,W \quad w.r.t \quad G_{\bar{X}}$$
-          </p>    
-        </div>
-        <p>
-          One easy way to look at this is to ignore the term \(do(X)\), roughly since we must add \(X\) to the condition set since we are fixated on \(G_{\bar{X}}\). 
-          \(Y\) is independent of \(Z\) given {\(X,W\)}, so \(z\) gives no additional information. 
-          This means adjusting {\(X,W\)} blocks all possible back-door paths \(Y-Z\), which may be confused with the true causal path.
-          \(Z\) thus then becomes irrelevant and can be removed or included freely. Rule 1 also confirms \(d\)-separation.
-        </p>
-        <div class="theorem">
-          <h5>\(Do\) Calculus Theorem (Pearl 2009)</h5>
-          <p>
-            <h6>Rule 2: Action/Observation change</h6>
-            $$P(y|do(x),do(z),w) = P(y|do(x),z,w) \quad if \quad (Y \perp\!\!\!\!\perp Z)|X,W \quad w.r.t \quad G_{\bar{X}\underline{Z}}$$
-          </p>    
-        </div>
-        <p>
-          Recall that we are still working on the manipulated graph \(G_{\bar{X}}\). The extra condition of \(G_{\underline{Z}}\) ensures \(Z\) has no children, 
-          so there cannot be any direct path from \(Z\) to \(Y\). \(Z\) is by no means a cause \(Y\) in \(G_{\bar{X}\underline{Z}}\). 
-          Thus, any changes in \(Z\) resulting in changes in \(Y\) are merely statistical correlations. 
-        </p>
-        <div class="theorem">
-          <h5>\(Do\) Calculus Theorem (Pearl 2009)</h5>
-          <p>
-            <h6>Rule 3: Insertion/Deletion of actions</h6>
-            $$P(y|do(x),do(z),w) = P(y|do(x),w) \quad if \quad (Y \perp\!\!\!\!\perp Z)|X,W \quad w.r.t \quad G_{\overline{XZ(W)}}$$
-            where \(Z(W)\) is the set of \(Z\)-nodes that are not ancestors of any \(W\)-node in \(G_{\bar{X}}\)    
-          </p>
-        </div>
-        <p>
-          Let \(\widetilde{Z(W)}\) denote the set of \(Z\)-nodes that can be ancestors of \(W\). Because \(Z(W)\) can neither have parents nor be an ancestor of \(W\), 
-          without passing through \(\widetilde{Z(W)}\), \(Z(W)\) can only connect with \(W\) and indirectly with \(Y\) through a collider, which automatically blocks the path.  
-          Safely ignoring \(do(X)\), the fact that \(Y\) and \(Z\) becomes independent given \(W\) means that either (1) \(Y,Z\) are independent to begin with, 
-          or (2) all paths between \(Y\) and \(\widetilde{Z(W)}\) must go through \(W\) where \(W\) is a chain or a fork by \(d\)-separation. 
-          For a causal effect to take place, one such path must contain arrows pointing from \(\widetilde{Z(W)}\) towards \(Y\), and the path is blocked by \(W\) in this case. 
-          Thus in all cases, intervening on \(Z\) does not affect \(Y\) at all.
-        </p>
-        <h3 id="2.4">2.4. Structural Causal Models</h3>
-        <p>
-          <strong>Instrumental variables</strong> is called parametric methods because they require parametric modelling of causal mechanisms - in a simpler sense, 
-          a mathematical function encoding causal relationships. Indeed, so far we have only discussed, through graphical models, how to disconnect spurious associational path in order to unveil genuine causal effects, 
-          but yet to explain exactly how to quantify the magnitude. <strong>Structural equations</strong> provide mathematical tools to do this. 
-        </p>
-        <h4>2.4.1. Redefine Causal Mechanism</h4>
-        <p>
-          We can represent the statement \(X\) is a <strong>cause</strong> of \(Y\) mathematically through some function \(f\) that maps \(X\) to \(Y\). 
-          More generally, a structural equation representing a variable is a functional form of all its parent variables. In practice, we hardly know all possible direct causes of a variable, 
-          so we factor in this stochastic nature by adding some unobserved <strong>noise random variable \(U\).</strong>
-          $$Y := f_Y(X, U)$$
-        </p>
-        <p>
-          Notice that \(:=\) is used instead of the equal sign \(=\), which says \(f_Y\) is the causal generative distribution of \(Y\). 
-          The purpose is again, to distinguish statistical modelling of \(Y\) from \(X\) (e.g.,a regression model) that uses the equal sign.  
-          This leads to more concrete definitions of <strong>a cause</strong> and <strong>a causal mechanism.</strong>    
-        </p>
-        <div class="theorem">
-          <h5>Definition of Cause and Causal Mechanism:</h5>
-          <p>
-            A causal mechanism that generates a variable \(V\) is the structural equation that corresponds to that variable. 
-            Other variables that appear on the right-hand side of that structural equation are direct causes of \(V\).  
-          </p>
-        </div>
-        <p style="color: darkblue">
-          We model the causal mechanism of a system (1) graphically via a <strong>causal graph</strong> and (2) mathematically through a <strong>structural causal model (SCM).</strong> 
-        </p>
-        <div class="theorem">
-          <h5>Definition of Structural Causal Model (Neal 2020):</h5>
-          <p>
-            A structural causal model is a tuple of the following sets:
-            <ol>
-              <li>A set of endogenous variables \(V\)</li>
-              <li>A set of exogenous variables \(U\)</li>
-              <li>A set of functions \(f\), one to generate each endogenous variable as a function of other variables.</li>
-            </ol>
-          </p>
-        </div>
-        <br>
-        <figure style="text-align: center;">
-          <img src='figures/1-2-Fig3.png' alt='graphs' width="400" />
-          <figcaption style="font-size: small;">Figure 2.3</figcaption>
-        </figure>
-        <p>
-          <strong>Exogenous</strong> variables are ones without any parents in the causal graph, external to the system. <strong>Endogenous</strong> variables have parents and are those we model. 
-          The SCM for the causal graph in Figure 2.3 is written as 
-          $$X:=f_X(A,U_X)$$
-          $$B:=f_B(A,C,U_B)$$
-          $$Y:=f_Y(X,C,U_Y)$$
-          where {\(X,B,Y\)} are endogenous and {\(A,C,U_X,U_B,U_Y\)} are exogenous.
-        </p>
-        <h4>2.4.2. Intervention in SCM</h4>
-        <p>
-          If regarded as a causal model, then SCM must also be used to model interventional distribution. 
-          Intervention \(do(X)=x\) is equivalent to setting the structual equation of \(X\) to \(x\).
-          Let's review the manipulated graphs in Figure 1.4
-        </p>
-        <figure style="text-align: center;">
-          <img src='figures/1-1-Fig4.png' alt='graphs' width="1000" />
-          <figcaption style="font-size: small;">Figure 1.4</figcaption>
-        </figure>
-        <p>
-          The <strong>interventional SCM</strong> upon intervention on \(X\), with respect to the third graph is 
-          $$X:=x$$
-          $$B:=f_B(A,C,U_B)$$
-          $$Y:=f_Y(X=x,C,U_Y)$$
-        </p>
-        <p>
-          This strongly aligns with our definition of interventional distribution in <a href="chapter1.html">Chapter 1</a>. 
-          Fixing \(X\) to a constant distribution completely eliminates the dependence between \(X\) and its parents, which is equivalent to deleting any arrows pointing into \(X\) in the graph.
-          In addition, setting \(X\) to a constant \(x\) is called <i>hard</i> intervention. Under SCM, you can see that we can be more flexible by assigning \(X\) to a new distribution i.e., new causal mechanism to \(X\).
-          Such action is referred to as <i>soft</i> intervention. 
-        </p>
-        <h3 id="2.5">2.5. Average Causal Effect</h3>
-        <p>
-            <strong>A quick review of expected value:</strong>
-            <br>The expected value of a random variable \(X\), denoted as \(E[X]\), is the generalization of weighted average given as 
-            $$E[X] = \int xP(x) dx$$ 
-            If \(X\) is a discreet variable with finite outcomes \(x_1, x_2, ..., x_n\) occuring with probabilities \(P_1, P_2, ..., P_n\), 
-            $$E[X] = \sum_{i=1}^{n} x_i P_i$$
-            Linearity of Expectation: 
-            $$E[X+Y] = E[X]+E[Y]$$
-            If \(X\) and \(Y\) are <strong>independent,</strong>
-            $$E[XY] = E[X]E[Y]$$
-        </p>
-        <p>
-          Until this point, we have only discussed \(P(Y|do(X))\) as the interventional distribution of \(Y\) - 
-          that is, possible values \(Y\) can attain, along with the probabilities of occurence when \(X\) is forced to take a certain value. 
-        </p>
-        <p>
-          Now there comes an official definition of causal effects. When \(X\) changes from \(x_1\) to \(x_2\), 
-          for an individual \(i\) in the population, the <strong>individual causal effect</strong> on \(Y\) is defined as
-          $$Y_i|do(X=x_2) - Y_i|do(X=x_1)$$
-          As we wish to estimate causal effect on the population level, we choose to measure the <strong>average causal effect</strong>, given as 
-          $$E[Y|do(X=x_2)] - E[Y|do(X=x_1)] $$
-          If the above quantity is zero, we say such a change in \(X\) has no causal effect on \(Y\).
-        </p>
+      <h3 id="2.1">2.1. Back-Door Criterion</h3>
+      <div class="theorem">
+        <h5>Back-Door Criterion Definition :</h5>
+        A set of variables \(Z\) in \(V\) satisfies the back-door criterion relative to \(X\) and \(Y\) in a DAG \(G\)
+        if
+        <ul>
+          <li>no node in \(Z\) is a descendent of \(X\)</li>
+          <li>\(Z\) blocks every path between \(X\) and \(Y\) that contains an arrow into \(X\)</li>
+        </ul>
+      </div>
+      <p>This definition is followed by</p>
+      <div class="theorem">
+        <h5>Back-Door Adjustment Theorem :</h5>
+        If \(Z\) satisfies the back-door criterion relative to (\(X,Y\)), the causal effect of \(X\) on \(Y\) is
+        identified as
+        $$P(y|do(x)) = \sum_{z}P(y|x,z)P(z)$$
+      </div>
+      <p>
+        The theorem aligns with our intuition above: If \(Z\) blocks all back-door paths between \(X\) and \(Y\), there
+        will be no confounding biases,
+        thus rendering any associational effects be the true causal effect. We will add a causal link \(X \rightarrow
+        Y\) in Figure 1.2, which gives a simple example where \(Z\) is a back-door criterion (right).
+        And when doing intervention, we estimated the effect based on the manipulated graph (right), in which the
+        incoming edge into \(X\) from \(Z\) is removed.
+        I provide a step-by-step proof to solidify the intuition.
+      </p>
+      <figure style="text-align: center;">
+        <img src='figures/1-2-Fig.png' alt='graphs' width="600" />
+        <figcaption style="font-size: small;">Figure 1.2*</figcaption>
+      </figure>
+      <p>
+      <ol type="i">
+        <li>By probability rules,
+          $$P(y|do(x)) = \frac{P(y,do(x))}{P(do(x))} = \frac{\sum_{z}P(y,do(x),z)}{P(do(x))} =
+          \frac{\sum_{z}P(y|do(x),z)P(do(x),z)}{P(do(x))}$$
+          $$= \frac{\sum_{z}P(y|do(x),z)P(z|do(x))P(do(x))}{P(do(x))} = \sum_{z}P(y|do(x),z)P(z|do(x))) $$
+        </li>
+        <li>
+          By <strong>Modularity assumption</strong>, \(Y\) is not the intervention node so \(P(y|pa_y)\) under the
+          intervention remains unchanged.
+          This yields \(P(y|do(x),z) = P(y|x, z)\). This equality holds even when \(Z\) is not the parent of \(Y\) but
+          still satisfies the back-door criterion.
+        </li><br>
+        <li>
+          Assume there are no other back-door paths \(X-Z\), \(Z\) does not depend on \(X\), so \(P(z|do(x))=P(z)\).
+          This is justified by observing that \(Z\) is independent of \(do(x)\) in the manipulated graph, but
+          <strong>not</strong> independent of \(X\).
+          Notice that you could also have directly derived \(P(do(x),z) = P(do(x))P(z)\) due to this non-dependency.
+        </li>
+      </ol>
+      Steps (1), (2) and (3) together yield the theorem. We can also see that \(P(y|do(x)) \ne P(y|X=x)\) since \(P(x,z)
+      \ne P(x)P(z)\).
+      Here is a more complicated example borrowed from the <i>Book of Why</i> (Pearl & Mackenzie, 2018, pp.162)
+      </p>
+      <figure style="text-align: center;">
+        <img src='figures/1-2-Fig1.png' alt='backdoor-criterion' width="300" />
+        <figcaption style="font-size: small;">Figure 2.1</figcaption>
+      </figure>
+      <p>
+        There are two paths with arrows pointing into \(X\): \(X \leftarrow A \rightarrow B \leftarrow C \rightarrow Y\)
+        and \(X \leftarrow B \leftarrow C \rightarrow Y\).
+        If we condition on \(B\) to block the second path, it opens up the first back-door path since \(B\) is a
+        collider. We therefore must further control for \(A,C\).
+        However, we can also only control for \(C\) to block the second path while the leaving the first path already
+        been blocked by \(B\).
+        Thus, the back-door criterion is either \(C\) or the set {\(A,B,C\)}.
+      </p>
+      <h3 id="2.2">2.2. Front-Door Criterion</h3>
+      <p>
+        Assume we have a graph \(G\) as follow, where the confounder \(Z\) is unobserved. Thus, blocking the back-door
+        is impossible.
+        Fortunately, we can take advantage of such a variable as \(M\) - a mediator such that all causal paths from
+        \(X\) to \(Y\) must go through \(M\).
+      <figure style="text-align: center;">
+        <img src='figures/1-2-Fig2.png' alt='frontdoor-criterion' width="300" />
+        <figcaption style="font-size: small;">Figure 2.2</figcaption>
+      </figure>
+      </p>
+      <div class="theorem">
+        <h5>Front-Door Criterion Definition :</h5>
+        A set of variables \(M\) satisfies the front-door criterion relative to \(X, Y\) and \(Y\) if
+        <ul>
+          <li>\(M\) mediates all directed paths from \(X\) to \(Y\) </li>
+          <li>there is no unblocked back-door path from \(X\) to \(M\)</li>
+          <li>all back-door paths from \(M\) to \(Y\) are blocked by \(X\)</li>
+        </ul>
+      </div>
+      <p>This definition is followed by</p>
 
-        <h3 id="2.6">2.6. Instrumental Variables</h3>
-        <p>
-          The method of Instrumental variables allows for identification where there is unobserved confounding or absence of mediator. 
-        </p>
-        <div class="theorem">
-          <h5>Definition of Instrumental variable</h5>
-          \(Z\) is considered an instrument if satisfying the following assumptions
-          <ol>
-            <li>\(Z\) has a causal effect on \(X\).</li>
-            <li>\(X\) is a mediator on the causal path from \(Z\) to \(Y\).</li>
-            <li>There are no backdoor paths from \(Z\) to \(Y\).</li>
-          </ol>
+      <div class="theorem">
+        <h5>Front-Door Adjustment Theorem :</h5>
+        If \(M\) satisfies the front-door criterion relative to (\(X,Y\)) and \(P(x, m) > 0\), the causal effect of
+        \(X\) on \(Y\) is identified as
+        $$P(y|do(x)) = \sum_{m}P(m|x)\sum_{x'}P(y|x',m)P(x')$$
+      </div>
+      <p>
+        With \(M\) being a front-door criterion, the causal effect can be determined through the following steps (Pearl
+        2009; Neal 2020)
+      </p>
+      <h5>Step 1: Identify the causal effect of \(X\) on \(M\)</h5>
+      <p>
+        Notice that \(Y\) is a collider blocking the back-door path \(X \leftarrow Z \rightarrow Y \leftarrow M\). \(X
+        \rightarrow M\) is the direct causal path.
+        $$P(m|do(x) = P(m|x))$$
+      </p>
+      <h5>Step 2: Identify the causal effect of \(M\) on \(Y\)</h5>
+      <p>
+        The back-door path \(M \leftarrow X \leftarrow Z \rightarrow Y\) can be blocked by conditioning on \(X\). In
+        other words, we can use Back-door Adjustment on \(X\).
+        $$P(y|do(m) = \sum_{x'}P(y|m, x')P(x'))$$
+        We use \(x'\) to distinguish this random value with the interventional value \(X=x\)
+      </p>
+      <h5>Step 3: Combine the two effects to identify the causal effect of \(X\) on \(Y\)</h5>
+      <p>
+        By first setting \(X=x\), we observe the value \(M=m\). We then set \(M\) to this value \(m\) and evaluate
+        \(Y\).
+        If \(M=m\) every time we set \(X\) to \(x\), the combined effect would be exactly \(P(y|do(m)\).
+        In fact, \(M\) returns multiple values \(m\) corresponding to \(X=x\) with probability \(P(m|do(x))\).
+        Thus, the combined effect is generally calculated by summing the effects on \(Y\) observed when \(M=m\) weighted
+        by the probablity that value \(m\) occurs.
+        $$P(y|do(x)) = \sum_{m}P(m|do(x)P(y|do(m))$$
+        Substituting the results from step (1) and (2) yield the theorem, in which all quantities can be estimated.
+      </p>
 
-        </div>  
+      <h3 id="2.3">2.3. \(Do\) Calculus</h3>
+      <p>
+        \(Do\) calculus is a set of general inference rules that are proved to be sufficient to identify all causal
+        estimands given that they are identifiable.
+        These rules not only generalize the <strong>Back-door criterion</strong> and <strong>Front-door
+          criterion</strong>, but is also valid when neither criteria is satisfied.
+        Detailed explanation can be best found in Section 3.4 of <i>Causality</i> book or less formal in Section 6.2 of
+        the <i>Introduction to Causal Inference</i> book (Neal 2020).
+        I here only introduce the rules and convey a slightly different intuition to aid your understanding.
+      </p>
+      <p>
+        Given a causal DAG \(G\), we denote \(G_{\bar{X}}\) the graph obtained by deleting from \(G\) all incoming paths
+        to nodes in \(X\).
+        We denote \(G_{\underline{X}}\) the graph obtained by deleting from \(G\) all outgoing paths from nodes in
+        \(X\).
+        The question is still to establish the causal path from \(X\) to \(Y\), so we start with graph \(G_{\bar{X}}\)
+        which is equivalent to the manipulated graph induced by the intervention \(do(X)=x\).
+        For any <span style="text-decoration: underline;">disjoint</span> subsets of variables \(X,Y,Z,W\), we have the
+        following rules
+      </p>
+      <div class="theorem">
+        <h5>\(Do\) Calculus Theorem : </h5>
         <p>
-          Figure 2.4 illustrates a causal graph where \(Z\) is an <span style="text-decoration: underline;">observed</span> instrumental variable 
-          while the confounder \(U\) is <span style="text-decoration: underline;">not observed.</span> 
-        </p>  
-        <figure style="text-align: center;">
-          <img src='figures/1-2-Fig4.png' alt='graphs' width="300" />
-          <figcaption style="font-size: small;">Figure 2.4</figcaption>
-        </figure>
-        <p>
-          We assume the SCM takes a linear form defined as 
-          $$X:= \alpha_z Z$$
-          $$Y := \delta X + \alpha_uU$$
-          where \(\delta\), <strong>structural coefficients</strong>, measures how much \(Y\) varies caused by \(1\) unit change in \(X\). 
-          Based on the specified model, \(\delta\) measures the causal effect between \(X\) and \(Y\) – the causal quantity to be estimated.
-          The following section shows how to derive \(\delta\) from statistical quantities.
+        <h6>Rule 1: Insertion/Deletion of observations</h6>
+        $$P(y|do(x),z,w) = P(y|do(x),w) \quad if \quad (Y \perp\!\!\!\!\perp Z)|X,W \quad w.r.t \quad G_{\bar{X}}$$
         </p>
-        <strong>When \(X,Z\) is binary:</strong>
+      </div>
+      <p>
+        One easy way to look at this is to ignore the term \(do(X)\), roughly since we must add \(X\) to the condition
+        set since we are fixated on \(G_{\bar{X}}\).
+        \(Y\) is independent of \(Z\) given {\(X,W\)}, so \(z\) gives no additional information.
+        This means adjusting {\(X,W\)} blocks all possible back-door paths \(Y-Z\), which may be confused with the true
+        causal path.
+        \(Z\) thus then becomes irrelevant and can be removed or included freely. Rule 1 also confirms \(d\)-separation.
+      </p>
+      <div class="theorem">
+        <h5>\(Do\) Calculus Theorem : </h5>
         <p>
-          $$E[Y|Z=1] - E[Y|Z=0] = E[\delta X + \alpha_u U|Z=1] - E[\delta X + \alpha_u U|Z=0]$$
-          &#8811 <i>Rearranging using properties of expectation:</i>
-          $$E[Y|Z=1] - E[Y|Z=0]  = \delta (E[X|Z=1] - E[X|Z=0]) + \alpha_U (E[U|Z=1] - E[U|Z=0])$$
+        <h6>Rule 2: Action/Observation change</h6>
+        $$P(y|do(x),do(z),w) = P(y|do(x),z,w) \quad if \quad (Y \perp\!\!\!\!\perp Z)|X,W \quad w.r.t \quad
+        G_{\bar{X}\underline{Z}}$$
         </p>
+      </div>
+      <p>
+        Recall that we are still working on the manipulated graph \(G_{\bar{X}}\). The extra condition of
+        \(G_{\underline{Z}}\) ensures \(Z\) has no children,
+        so there cannot be any direct path from \(Z\) to \(Y\). \(Z\) is by no means a cause \(Y\) in
+        \(G_{\bar{X}\underline{Z}}\).
+        Thus, any changes in \(Z\) resulting in changes in \(Y\) are merely statistical correlations.
+      </p>
+      <div class="theorem">
+        <h5>\(Do\) Calculus Theorem :</h5>
         <p>
-          Because there is no back-door path between \(Z\) and \(U\) and the graph says \(Z \perp\!\!\!\!\perp U\) due to the collider \(X\),
-          the second term in the right-hand side is zero. We therefore have
-          $$\delta = \frac{E[Y|Z=1] - E[Y|Z=0]}{E[X|Z=1] - E[X|Z=0]} $$
+        <h6>Rule 3: Insertion/Deletion of actions</h6>
+        $$P(y|do(x),do(z),w) = P(y|do(x),w) \quad if \quad (Y \perp\!\!\!\!\perp Z)|X,W \quad w.r.t \quad
+        G_{\overline{XZ(W)}}$$
+        where \(Z(W)\) is the set of \(Z\)-nodes that are not ancestors of any \(W\)-node in \(G_{\bar{X}}\)
         </p>
+      </div>
+      <p>
+        Let \(\widetilde{Z(W)}\) denote the set of \(Z\)-nodes that can be ancestors of \(W\). Because \(Z(W)\) can
+        neither have parents nor be an ancestor of \(W\),
+        without passing through \(\widetilde{Z(W)}\), \(Z(W)\) can only connect with \(W\) and indirectly with \(Y\)
+        through a collider, which automatically blocks the path.
+        Safely ignoring \(do(X)\), the fact that \(Y\) and \(Z\) becomes independent given \(W\) means that either (1)
+        \(Y,Z\) are independent to begin with,
+        or (2) all paths between \(Y\) and \(\widetilde{Z(W)}\) must go through \(W\) where \(W\) is a chain or a fork
+        by \(d\)-separation.
+        For a causal effect to take place, one such path must contain arrows pointing from \(\widetilde{Z(W)}\) towards
+        \(Y\), and the path is blocked by \(W\) in this case.
+        Thus in all cases, intervening on \(Z\) does not affect \(Y\) at all.
+      </p>
+      <h3 id="2.4">2.4. Structural Causal Models</h3>
+      <p>
+        <strong>Instrumental variables</strong> is called parametric methods because they require parametric modelling
+        of causal mechanisms - in a simpler sense,
+        a mathematical function encoding causal relationships. Indeed, so far we have only discussed, through graphical
+        models, how to disconnect spurious associational path in order to unveil genuine causal effects,
+        but yet to explain exactly how to quantify the magnitude. <strong>Structural equations</strong> provide
+        mathematical tools to do this.
+      </p>
+      <h4>2.4.1. Redefine Causal Mechanism</h4>
+      <p>
+        We can represent the statement \(X\) is a <strong>cause</strong> of \(Y\) mathematically through some function
+        \(f\) that maps \(X\) to \(Y\).
+        More generally, a structural equation representing a variable is a functional form of all its parent variables.
+        In practice, we hardly know all possible direct causes of a variable,
+        so we factor in this stochastic nature by adding some unobserved <strong>noise random variable \(U\).</strong>
+        $$Y := f_Y(X, U)$$
+      </p>
+      <p>
+        Notice that \(:=\) is used instead of the equal sign \(=\), which says \(f_Y\) is the causal generative
+        distribution of \(Y\).
+        The purpose is again, to distinguish statistical modelling of \(Y\) from \(X\) (e.g.,a regression model) that
+        uses the equal sign.
+        This leads to more concrete definitions of <strong>a cause</strong> and <strong>a causal mechanism.</strong>
+      </p>
+      <div class="theorem">
+        <h5>Definition of Cause and Causal Mechanism :</h5>
         <p>
-          Here \(Z\) is assumed to have causal effect on \(X\), so regardless of any back-door paths or any potential mediators between them, 
-          \(\alpha_z\) measures the causal effect between \(Z\) and \(X\), and 
-          $$\alpha_z = E[X|Z=1] - E[X|Z=0]$$
-          So, in linear settings, the total effect of \(Z\) on \(Y\) is 
-          $$E[Y|Z=1] - E[Y|Z=0] = \alpha_U \delta$$
+          A causal mechanism that generates a variable \(V\) is the structural equation that corresponds to that
+          variable.
+          Other variables that appear on the right-hand side of that structural equation are direct causes of \(V\).
         </p>
-        <strong>When \(X,Z\) is continuous:</strong>
+      </div>
+      <p style="color: darkblue">
+        We model the causal mechanism of a system (1) graphically via a <strong>causal graph</strong> and (2)
+        mathematically through a <strong>structural causal model (SCM).</strong>
+      </p>
+      <div class="theorem">
+        <h5>Definition of Structural Causal Model :</h5>
         <p>
-          Similarly, we begin with the observational covariance between \(Y\) and \(Z\) – \(\text{Cov}(Y,Z)\). Its formula is given in the first line.
-          $$\text{Cov}(Y,Z) = E[YZ] - E[Y]E[Z]$$
-          &#8811 <i>Injecting structural equation for \(Y\):</i>
-          $$\text{Cov}(Y,Z) = E[(\delta X + \alpha_uU)Z] - E[Y]E[Z]$$
-          &#8811 <i>Rearranging using properties of expectation:</i>
-          $$\text{Cov}(Y,Z) = \delta (E[XZ]-E[X]E[Z]) + \alpha_u (E[UZ]-E[U]E[Z]) = \delta \text{Cov}(X,Z) + \alpha_u \text{Cov}(U,Z) $$
+          A structural causal model is a tuple of the following sets:
+        <ol>
+          <li>A set of endogenous variables \(V\)</li>
+          <li>A set of exogenous variables \(U\)</li>
+          <li>A set of functions \(f\), one to generate each endogenous variable as a function of other variables.</li>
+        </ol>
         </p>
+      </div>
+      <br>
+      <figure style="text-align: center;">
+        <img src='figures/1-2-Fig3.png' alt='graphs' width="400" />
+        <figcaption style="font-size: small;">Figure 2.3</figcaption>
+      </figure>
+      <p>
+        <strong>Exogenous</strong> variables are ones without any parents in the causal graph, external to the system.
+        <strong>Endogenous</strong> variables have parents and are those we model.
+        The SCM for the causal graph in Figure 2.3 is written as
+        $$X:=f_X(A,U_X)$$
+        $$B:=f_B(A,C,U_B)$$
+        $$Y:=f_Y(X,C,U_Y)$$
+        where {\(X,B,Y\)} are endogenous and {\(A,C,U_X,U_B,U_Y\)} are exogenous.
+      </p>
+      <h4>2.4.2. Intervention in SCM</h4>
+      <p>
+        If regarded as a causal model, then SCM must also be used to model interventional distribution.
+        Intervention \(do(X)=x\) is equivalent to setting the structual equation of \(X\) to \(x\).
+        Let's review the manipulated graphs in Figure 1.4
+      </p>
+      <figure style="text-align: center;">
+        <img src='figures/1-1-Fig4.png' alt='graphs' width="1000" />
+        <figcaption style="font-size: small;">Figure 1.4</figcaption>
+      </figure>
+      <p>
+        The <strong>interventional SCM</strong> upon intervention on \(X\), with respect to the third graph is
+        $$X:=x$$
+        $$B:=f_B(A,C,U_B)$$
+        $$Y:=f_Y(X=x,C,U_Y)$$
+      </p>
+      <p>
+        This strongly aligns with our definition of interventional distribution in <a href="chapter1.html">Chapter
+          1</a>.
+        Fixing \(X\) to a constant distribution completely eliminates the dependence between \(X\) and its parents,
+        which is equivalent to deleting any arrows pointing into \(X\) in the graph.
+        In addition, setting \(X\) to a constant \(x\) is called <i>hard</i> intervention. Under SCM, you can see that
+        we can be more flexible by assigning \(X\) to a new distribution i.e., new causal mechanism to \(X\).
+        Such action is referred to as <i>soft</i> intervention.
+      </p>
+      <h3 id="2.5">2.5. Average Causal Effect</h3>
+      <p>
+        <strong>A quick review of expected value:</strong>
+        <br>The expected value of a random variable \(X\), denoted as \(E[X]\), is the generalization of weighted
+        average given as
+        $$E[X] = \int xP(x) dx$$
+        If \(X\) is a discreet variable with finite outcomes \(x_1, x_2, ..., x_n\) occuring with probabilities \(P_1,
+        P_2, ..., P_n\),
+        $$E[X] = \sum_{i=1}^{n} x_i P_i$$
+        Linearity of Expectation:
+        $$E[X+Y] = E[X]+E[Y]$$
+        If \(X\) and \(Y\) are <strong>independent,</strong>
+        $$E[XY] = E[X]E[Y]$$
+      </p>
+      <p>
+        Until this point, we have only discussed \(P(Y|do(X))\) as the interventional distribution of \(Y\) -
+        that is, possible values \(Y\) can attain, along with the probabilities of occurence when \(X\) is forced to
+        take a certain value.
+      </p>
+      <p>
+        Now there comes an official definition of causal effects. When \(X\) changes from \(x_1\) to \(x_2\),
+        for an individual \(i\) in the population, the <strong>individual causal effect</strong> on \(Y\) is defined as
+        $$Y_i|do(X=x_2) - Y_i|do(X=x_1)$$
+        As we wish to estimate causal effect on the population level, we choose to measure the <strong>average causal
+          effect</strong>, given as
+        $$E[Y|do(X=x_2)] - E[Y|do(X=x_1)] $$
+        If the above quantity is zero, we say such a change in \(X\) has no causal effect on \(Y\).
+      </p>
 
-        <p>
-          \(\text{Cov}(U,Z) = 0\) because \(Z \perp\!\!\!\!\perp U\). 
-          We thus settle with the causal effect identified as 
-          $$\delta = \frac{\text{Cov}(Y,Z)}{\text{Cov}(X,Z)}$$
-        </p>
-        <p>
-          Instrumental variables are not restricted to linear equations. We can apply the same idea on any functional forms compatible with the causal mechanism.
-          The first important step is to detect an instrumental candidate and use non-parametric methods to block the back-door paths from that variable to outcome variable \(Y\).
-          Once all the conditions met, we can develop a series of manipulations to convert \(\delta\)</strong> to combinations of measurable quantities.
-          With the properly constructed causal graph and SCM, estimation is no longer challenging due to the capacity of neural networks to well enough approximate any relationships in the data. 
-        </p>
+      <h3 id="2.6">2.6. Instrumental Variables</h3>
+      <p>
+        The method of Instrumental variables allows for identification where there is unobserved confounding or absence
+        of mediator.
+      </p>
+      <div class="theorem">
+        <h5>Definition of Instrumental variable :</h5>
+        \(Z\) is considered an instrument if satisfying the following assumptions
+        <ol>
+          <li>\(Z\) has a causal effect on \(X\).</li>
+          <li>\(X\) is a mediator on the causal path from \(Z\) to \(Y\).</li>
+          <li>There are no backdoor paths from \(Z\) to \(Y\).</li>
+        </ol>
+
+      </div>
+      <p>
+        Figure 2.4 illustrates a causal graph where \(Z\) is an <span
+          style="text-decoration: underline;">observed</span> instrumental variable
+        while the confounder \(U\) is <span style="text-decoration: underline;">not observed.</span>
+      </p>
+      <figure style="text-align: center;">
+        <img src='figures/1-2-Fig4.png' alt='graphs' width="300" />
+        <figcaption style="font-size: small;">Figure 2.4</figcaption>
+      </figure>
+      <p>
+        We assume the SCM takes a linear form defined as
+        $$X:= \alpha_z Z$$
+        $$Y := \delta X + \alpha_uU$$
+        where \(\delta\), <strong>structural coefficients</strong>, measures how much \(Y\) varies caused by \(1\) unit
+        change in \(X\).
+        Based on the specified model, \(\delta\) measures the causal effect between \(X\) and \(Y\) – the causal
+        quantity to be estimated.
+        The following section shows how to derive \(\delta\) from statistical quantities.
+      </p>
+      <strong>When \(X,Z\) is binary:</strong>
+      <p>
+        $$E[Y|Z=1] - E[Y|Z=0] = E[\delta X + \alpha_u U|Z=1] - E[\delta X + \alpha_u U|Z=0]$$
+        &#8811 <i>Rearranging using properties of expectation:</i>
+        $$E[Y|Z=1] - E[Y|Z=0] = \delta (E[X|Z=1] - E[X|Z=0]) + \alpha_U (E[U|Z=1] - E[U|Z=0])$$
+      </p>
+      <p>
+        Because there is no back-door path between \(Z\) and \(U\) and the graph says \(Z \perp\!\!\!\!\perp U\) due to
+        the collider \(X\),
+        the second term in the right-hand side is zero. We therefore have
+        $$\delta = \frac{E[Y|Z=1] - E[Y|Z=0]}{E[X|Z=1] - E[X|Z=0]} $$
+      </p>
+      <p>
+        Here \(Z\) is assumed to have causal effect on \(X\), so regardless of any back-door paths or any potential
+        mediators between them,
+        \(\alpha_z\) measures the causal effect between \(Z\) and \(X\), and
+        $$\alpha_z = E[X|Z=1] - E[X|Z=0]$$
+        So, in linear settings, the total effect of \(Z\) on \(Y\) is
+        $$E[Y|Z=1] - E[Y|Z=0] = \alpha_U \delta$$
+      </p>
+      <strong>When \(X,Z\) is continuous:</strong>
+      <p>
+        Similarly, we begin with the observational covariance between \(Y\) and \(Z\) – \(\text{Cov}(Y,Z)\). Its formula
+        is given in the first line.
+        $$\text{Cov}(Y,Z) = E[YZ] - E[Y]E[Z]$$
+        &#8811 <i>Injecting structural equation for \(Y\):</i>
+        $$\text{Cov}(Y,Z) = E[(\delta X + \alpha_uU)Z] - E[Y]E[Z]$$
+        &#8811 <i>Rearranging using properties of expectation:</i>
+        $$\text{Cov}(Y,Z) = \delta (E[XZ]-E[X]E[Z]) + \alpha_u (E[UZ]-E[U]E[Z]) = \delta \text{Cov}(X,Z) + \alpha_u
+        \text{Cov}(U,Z) $$
+      </p>
+
+      <p>
+        \(\text{Cov}(U,Z) = 0\) because \(Z \perp\!\!\!\!\perp U\).
+        We thus settle with the causal effect identified as
+        $$\delta = \frac{\text{Cov}(Y,Z)}{\text{Cov}(X,Z)}$$
+      </p>
+      <p>
+        Instrumental variables are not restricted to linear equations. We can apply the same idea on any functional
+        forms compatible with the causal mechanism.
+        The first important step is to detect an instrumental candidate and use non-parametric methods to block the
+        back-door paths from that variable to outcome variable \(Y\).
+        Once all the conditions met, we can develop a series of manipulations to convert \(\delta\)</strong> to
+        combinations of measurable quantities.
+        With the properly constructed causal graph and SCM, estimation is no longer challenging due to the capacity of
+        neural networks to well enough approximate any relationships in the data.
+      </p>
 
 
-        
-    
+
+
     </article>
-    </div>
-    <div style="text-align: center; padding-top: 20px;">
-      <a href="chapter1.html" class="navbutton">&#9664 Chapter 1. Preliminaries</a>
-       <a href="chapter3.html" class="navbutton">Chapter 3. A Bigger Picture &#9654</a> 
-       
-    </div>
-    <div class="wrapper-footer">
-        <div class="container">
-        <footer class="footer">
+  </div>
+  <div style="text-align: center; padding-top: 20px;">
+    <a href="chapter1.html" class="navbutton">&#9664 Chapter 1. Preliminaries</a>
+    <a href="chapter3.html" class="navbutton">Chapter 3. A Bigger Picture &#9654</a>
+
+  </div>
+  <div class="wrapper-footer">
+    <div class="container">
+      <footer class="footer">
 
 
-        <a href="https://www.facebook.com/isVy08"><i class="svg-icon facebook"></i></a>        
+        <a href="https://www.facebook.com/isVy08"><i class="svg-icon facebook"></i></a>
         <a href="https://twitter.com/isVy08"><i class="svg-icon twitter"></i></a>
         <a href="https://www.linkedin.com/in/isvy08/"><i class="svg-icon linkedin"></i></a>
-        <br><p style="font-size: 10px;">&copy; 2021 Vy Vo. Powered by Jekyll and Jekyll Now Theme</p>   
+        <br>
+        <p style="font-size: 10px;">&copy; 2021 Vy Vo. Powered by Jekyll and Jekyll Now Theme</p>
 
-        </footer>
-        </div>
-    </div> 
+      </footer>
+    </div>
+  </div>
 </body>
+
 </html>
