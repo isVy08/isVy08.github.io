@@ -284,10 +284,10 @@
         An important note is the quantity \(P(y|do(T)=0, T_1)\) measures the effect on \(Y\)
         <strong>had the treated not been treated</strong>,
         which contradicts the reality in which all individuals in \(T_1\) were actually treated.
-        This means
-        $$P^{bd}(y|do(T)=1, T_1) = P(y|T_1) = P(y|T=1)$$
-        On the other hand, \(P(y|do(T)=0, T_1)\) is <strong>counterfactual</strong> and can be estimated as
+        \(P(y|do(T)=0, T_1)\) is thus said to be <strong>counterfactual</strong> and can be estimated as
         $$P^{bd}(y|do(T)=0, T_1) = \sum_x P(y|x,T=0)P(x|T=1)$$
+        And the "factual" interventional distribution from \(do(T)=1\) is
+        $$P^{bd}(y|do(T)=1, T_1) = P(y|T_1) = P(y|T=1)$$
       </p>
       <h5>Front-door Adjustment for the Treated</h5>
       <p>
@@ -307,14 +307,14 @@
       </p>
       <h3 id="3.4">3.4. Pearl's Causal Reasoning Hierarchy </h3>
       <p>
-        The JTPA case study exposes us to an new concept called <strong>Counterfactual</strong>.
+        The JTPA case study exposes us to the concept of <strong>Counterfactuals</strong>.
         We have also seen that although the counterfactual terms describe non-existent or imaginary events,
         it is sometimes possible to estimate them from observational data.
         The counterfactual framework is essential to Mediation Analysis, which will be discussed altogether in
-        <strong>Part II: Experimentation</strong>.
+        the next chapter.
       </p>
       <p>
-        Counterfactual fits in a bigger picture of <strong>Pearl's Causal Hierarchy</strong>,
+        Counterfactual fits in a bigger picture of <strong>Pearl's Causal Ladder</strong>,
         which nicely summarizes what Causality is in a nutshell.
         Basically, solving a causal problem requires us to engage in these three levels of reasoning
       </p>
@@ -329,7 +329,7 @@
   </div>
   <div style="text-align: center; padding-top: 20px;">
     <a href="chapter2.html" class="navbutton">&#9664 Chapter 2. Identifying Causal Effects</a>
-    <a href="#" class="navbutton">&#128274 Chapter 4. Randomized Experiments</a> <!-- &#9654 -->
+    <a href="chapter4.html" class="navbutton">&#128274 Chapter 4. Counterfactuals</a> <!-- &#9654 -->
   </div>
   <div class="wrapper-footer">
     <div class="container">
