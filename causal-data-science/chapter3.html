@@ -55,7 +55,13 @@
             <li>3.2. \(D.I.E\) Flowchart</li>
           </a>
           <a href="#3.3">
-            <li>3.3. Case Study: Job Training Partnership Act</li>
+            <li>3.3. Case Study: UC Berkeley Sex Discrimination</li>
+          </a>
+          <a href="#3.4">
+            <li>3.4. Case Study: Job Training Partnership Act</li>
+          </a>
+          <a href="#3.5">
+            <li>3.5. Pearl's Causal Reasoning Hierarchy</li>
           </a>
         </ul>
       </div>
@@ -116,7 +122,7 @@
         Intervention on SCM is done by replacing the right-hand side of the structural equation with the value or
         distribution imposed by the intervention.
       </p>
-      <h3 id="3.1">3.2. \(D.I.E\) Flowchart</h3>
+      <h3 id="3.2">3.2. \(D.I.E\) Flowchart</h3>
       <h4>3.2.1. Identification</h4>
       <p>
         Unfortunately, experimentation is not always feasible while observational data is massive. This is when Causal
@@ -188,8 +194,15 @@
         make the most use of it.
         This urges data practitioners to pay attention to the data collection process and product usage behavior.
       </p>
-      $$Discovery \longrightarrow Identification \longrightarrow Estimation$$
-      <h3 id="#3.3">3.3. Case Study: Job Training Partnership Act</h3>
+      <p>
+        $$Discovery \longrightarrow Identification \longrightarrow Estimation$$
+      </p>
+
+      <h3 id="3.3">3.3. Case Study: UC Berkeley Sex Discrimination</h3>
+      <p>
+        TO BE UPDATED
+      </p>
+      <h3 id="3.4">3.4. Case Study: Job Training Partnership Act</h3>
       <p>
         The National JTPA Study was an initiative by the Department of Labor in the United States that aimed to measure
         the impact of a job training program on participants’ post-experimental earnings for 18 months.
@@ -198,21 +211,20 @@
       </p>
       <p>
         <a href="https://scholar.harvard.edu/files/aglynn/files/glynnkashin-frontdoor.pdf">Glynn and Kashin (2014)</a>
-        took a causal approach to this case study.
-        They first evaluated the difference in average earnings between the experimental treatment group and the
+        first evaluated the difference in average earnings between the experimental treatment group and the
         experimental control group, segregated by gender.
-        The treatment group consisted of the individuals applying to the program and allowed to receive JTPA training
-        services.
-        On the other hand, the control group consists of randomly chosen individuals prevented from accessing the
-        services.
+        The treatment group consisted of the individuals applying to the program and
+        allowed to receive JTPA training services,
+        while control group consists of randomly chosen individuals prevented from accessing the services.
       </p>
       <p>
-        The experimental results were set as benchmarks, against which to evaluate the results of observational causal
-        analysis.
-        Observational data was obtained by having program participants as well as non-participants satisfying certain
-        eligibility criteria fill out a survey inquiring about participation type and other background information.
+        The results of observational causal analysis are benchmarked against the experimental results.
+        Observational data was obtained by selecting program participants as well as non-participants,
+        according to certain eligibility criteria, to fill out a survey inquiring about participation type and other
+        background information.
         Glynn and Kashin compared the efficacy of back-door and front-door estimates, and empirically proved that the
-        front-door criterion is a reliable alternative to randomized experiments in the face of unobserved confounders.
+        front-door criterion is a reliable alternative to randomized experiments in the presence of unobserved
+        confounders.
       </p>
       <p>
         What is interesting thing about the study is there were participants that signed up but did not show up in the
@@ -221,12 +233,12 @@
         front-door criterion.
       </p>
       <p>
-        Figure 3.2 illustrates the causal graph for JTPA case study, which is gratefully borrowed from <a
-          href="http://bayes.cs.ucla.edu/WHY/">page 230, the Book of Why</a> (Pearl & Mackenzie 2018).
+        Figure 3.2 illustrates the causal graph for JTPA case study
+
       </p>
       <figure style="text-align: center;">
-        <img src='figures/1-3-Fig2.png' alt='graphs' width="400" />
-        <figcaption style="font-size: small;">Figure 3.2: Causal Graph for the National JTPA Study</figcaption>
+        <img src='figures/1-3-Fig3.png' alt='graphs' width="400" />
+        <figcaption style="font-size: small;">Figure 3.3: Causal Graph for the National JTPA Study</figcaption>
       </figure>
 
       <p>
@@ -237,35 +249,86 @@
         <li>\(M:\) show up in training sessions (complier) or not </li>
         <li>\(X:\) other covariates such as demographics, social program participation, training and education histories
         </li>
-        <li>\(U:\) unobserved or immeasurable confounding variables such as \(Motivation\)</li>
+        <li>\(U:\) unobserved or immeasurable confounding variables such as motivation</li>
       </ul>
-
       </p>
       <p>
-        Treating \(M\) as a front-door criterion requires that there are no unblocked backdoor paths between \(T\) and
-        \(M\).
-        This is not likely to hold in practice, and as shown in the figure, \(M\) may be a collider that would \(T\) to
-        be dependent on \(U\) if being conditioned on.
-
+        Blocking the back-door path opened up by \(X\), the back-door estimate is
+        $$P^{bd}(y|do(T)=t) = \sum_x P(y|x,t)P(x) \quad (1)$$
       </p>
       <p>
-        However, Glynn and Kashin demonstrated that in case the bias caused by potential backdoor paths between \(T\)
-        and \(U\) is sufficiently small or due to randomness
-        (for example, bad weather made some participants less motivated to show up), the front-door estimators
-        approximate the experimental benchmarks.
-        Meanwhile, back-door criterion was employed by conditioning on \(X\) such as age or race. It turned out to be a
-        poor estimate, and those covariates were shown not sufficient conditioning sets to block the back-door paths.
+        On the other hand, we can also use \(M\) as a front-door criterion.
+        However, conditioning on \(M\) alone opens up the back-door path \(T \leftarrow X \rightarrow Y\).
+        We therefore must condition on \(X\) as well.
+        $$P^{fd}(y|do(T)=t) = \sum_x \sum_m P(m|t,x)\sum_{t'} P(y|t', m, x)P(t')P(x) \quad (2)$$
+      </p>
+
+      <p>
+        Both estimates are biased, since there exists an unblocked back-door path created by \(U\).
+        However, Glynn and Kashin demonstrated that, in case the effect of \(U\) on \(M\) is is sufficiently small
+        or due to randomness (for example, bad weather made some participants less motivated to show up),
+        the front-door estimate approximates the experimental benchmarks.
+        Meanwhile, back-door adjustment turned out to give a poor estimate, and such covariates were shown not
+        sufficient conditioning sets to mitigate the biases caused by unobserved confounders.
       </p>
       <figure style="text-align: center;">
-        <img src='figures/1-3-Fig3.png' alt='graphs' width="850" />
-        <figcaption style="font-size: small;">Figure 3.3: Comparison results taken from the paper</figcaption>
+        <img src='figures/1-3-Fig4.png' alt='graphs' width="850" />
+        <figcaption style="font-size: small;">Figure 3.3: Comparison of Back-door and Front-door estimate across various
+          conditioning sets. The experimental estimate is denoted as a dotted dark grey line,
+          with the shaded grey region representing the 95% confidence interval.</figcaption>
       </figure>
-
-
-
-
-
-
+      <h4>Causal Effect in the Treated</h4>
+      <p>
+        In the case study, the authors did not measure the standard causal effect as indicated in \((1)\) and \((2)\).
+        In many social applications, the <strong>causal effect in the treated</strong> is of interest.
+        The technique effectively assumes that treatment assignment has no effect if treatment is not received.
+        Thus, we only examine the participants who signed up for the training i.e., \(T=1\).
+        Denoting this group as \(T_1\), we extend \((1)\) and \((2)\) as follows
+      </p>
+      <h5>Back-door Adjustment for the Treated</h5>
+      <p>
+        $$P^{bd}(y|do(T)=t, T_1) = \sum_x P(y|x,t)P(x|T_1)$$
+        An important note is the quantity \(P(y|do(T)=0, T_1)\) measures the effect on \(Y\)
+        <strong>had the treated not been treated</strong>,
+        which contradicts the reality in which all individuals in \(T_1\) were actually treated.
+        This means
+        $$P^{bd}(y|do(T)=1, T_1) = P(y|T_1) = P(y|T=1)$$
+        On the other hand, \(P(y|do(T)=0, T_1)\) is <strong>counterfactual</strong> and can be estimated as
+        $$P^{bd}(y|do(T)=0, T_1) = \sum_x P(y|x,T=0)P(x|T=1)$$
+      </p>
+      <h5>Front-door Adjustment for the Treated</h5>
+      <p>
+        $$P^{fd}(y|do(T)=t, T_1) = \sum_x \sum_m P(m|t,x)\sum_{t'} P(y|t', m, x)P(t'|T_1)P(x|T_1)$$
+        Because \(P(t=1|T_1) = 1\) and \(P(t=1|T_1) = 0\), the expression becomes
+        $$P^{fd}(y|do(T)=t, T_1) = \sum_x \sum_m P(m|t,x) P(y|T_1, m, x)P(x|T_1)$$
+        Similarly, we have
+        $$P^{fd}(y|do(T)=1, T_1) = P(y|T_1) = P(y|T=1) $$
+      </p>
+      <p>
+        Note that \(P(M=0|T=0, x)=1\) and \(P(M=1|T=0, x)=0\) i.e., the non-treated never shows up.
+        The counterfactual distribution is
+        $$P^{fd}(y|do(T)=0, T_1) = \sum_x P(y|T_1, M=0, x)P(x|T_1) = \sum_x P(y|T=1, M=0, x)P(x|T=1) $$
+      </p>
+      <p>
+        Again, the quantities on the right-hand side of these equations can be easily derived out of observational data.
+      </p>
+      <h3 id="3.5">3.5. Pearl's Causal Reasoning Hierarchy </h3>
+      <p>
+        The JTPA case study exposes us to an new concept called <strong>Counterfactual</strong>.
+        We have also seen that although the counterfactual terms describe non-existent or imaginary events,
+        it is sometimes possible to estimate them from observational data.
+        The counterfactual framework is essential to Mediation Analysis, which will be discussed altogether in
+        <strong>Part II: Experimentation</strong>.
+      </p>
+      <p>
+        Counterfactual fits in a bigger picture of <strong>Pearl's Causal Hierarchy</strong>,
+        which nicely summarizes what Causality is in a nutshell.
+        Basically, solving a causal problem requires us to engage in these three levels of reasoning
+      </p>
+      <figure style="text-align: center;">
+        <img src='figures/1-3-Fig5.png' alt='graphs' width="850" />
+        <figcaption style="font-size: small;">Figure 3.5: Pearl's Causal Ladder (UCLA)</figcaption>
+      </figure>
 
 
 

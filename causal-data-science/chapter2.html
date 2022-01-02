@@ -58,6 +58,11 @@
         Identification methods can be broadly categorized as <strong>Non-parametric</strong> or
         <strong>Parametric</strong>.
       </p>
+      <p>
+        We will first go through the theoretical conpcepts in this chapter and
+        further investigate two case studies in the <a href="chapter3.html">Chapter 3</a>.
+      </p>
+
       <div class="toc">
         <h5 style="text-decoration: underline">Table of Contents</h5>
         <h6>Non-parametric methods</h6>
@@ -203,7 +208,7 @@
       <p>
         The back-door path \(M \leftarrow X \leftarrow Z \rightarrow Y\) can be blocked by conditioning on \(X\). In
         other words, we can use Back-door Adjustment on \(X\).
-        $$P(y|do(m) = \sum_{x'}P(y|m, x')P(x'))$$
+        $$P(y|do(m)) = \sum_{x'}P(y|m, x')P(x'))$$
         We use \(x'\) to distinguish this random value with the interventional value \(X=x\)
       </p>
       <h5>Step 3: Combine the two effects to identify the causal effect of \(X\) on \(Y\)</h5>
@@ -262,9 +267,9 @@
         </p>
       </div>
       <p>
-        Examining the effect of action \(do(Z) = z\) on \(Y\) means the original graph contains
+        Examining the effect of action \(do(Z) = z\) on \(Y\) implies the original graph contains
         a path with an arrow outgoing from \(Z\) pointing into \(Y\).
-        If we disconnect the causal path from \(Z\) to \(Y\), thereby ending up with \(G_{\underline{Z}}\))
+        If we disconnect the causal path from \(Z\) to \(Y\), thereby ending up with \(G_{\underline{Z}}\)
         and observe that all back-door paths are blocked by {\(X,W\)},
         the association flow between \(Z\) and \(Y\) is the causal flow.
         Setting \(Z=z\) or conditioning on \(Z=z\) yields the same effect.
@@ -282,10 +287,9 @@
       </div>
       <p>
         Let \(\widetilde{Z(W)}\) denote the set of \(Z\)-nodes that are the ancestors of \(W\).
-        Because \(\widetilde{Z(W)}\) are ancestors of \(W\),
-        we end up with the (indirect) causal path from \(\widetilde{Z(W)}\) to \(W\) as above.
-        Meanwhile, no nodes in \(Z(W)\) are ancestors of \(W\), so at least one node in \(Z(W)\) is a descendent of
-        at least one node in \(\widetilde{Z(W)}\) (DAG cannot be disconnected). Furthermore, it is either that \(Z(W)\)
+        Hence, we end up with the (indirect) causal path from \(\widetilde{Z(W)}\) to \(W\) as below, whereas
+        because no nodes in \(Z(W)\) are ancestors of \(W\), at least one node in \(Z(W)\) is a descendent of
+        nodes in \(\widetilde{Z(W)}\) (DAG cannot be disconnected). Furthermore, it is either that \(Z(W)\)
         and \(W\) are not linked or nodes in \(Z(W)\) are descendents of \(W\).
 
       <figure style="text-align: center;">
@@ -303,7 +307,7 @@
         The conditional independency ensures the only back-door path between \(Z\) and \(Y\) is one going through \(W\).
         Other than that, there is no unblocked path. Returning to the original graph \(G_{\bar{X}}\),
         \(d\)-separation tells us that conditionining on \(W\) prevents information flowing from \(Z\) to \(Y\).
-        As a result, any action taken on \(Z\) has no effect on \(Y\).
+        As a result, any action taken on \(Z\) would have no effect on \(Y\).
       </p>
       <h3 id="2.4">2.4. Structural Causal Models</h3>
       <p>
