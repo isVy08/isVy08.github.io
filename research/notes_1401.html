@@ -14641,9 +14641,9 @@ $$z_i = \sigma(\frac{\log \pi_i + G_i}{\tau})$$<p>Let's denote this distribution
 <p><strong>3. Objective function</strong></p>
 $$\mathsf{min}_{\pi, \theta} \ \mathbb{E} \ [Y - \mathbf{softmax}(WZ)]^2 \quad , \ WZ \in \mathbb{R}^{M \times N}$$<p><strong>4. Intuition</strong></p>
 <p>The selection network $S$ first outputs important features for a specific instance. Unlike <code>LTX</code>, $S$ allows each instance to flexibly have more or less than $k$ important features, if it's the optimal number for that instance. Furthermore, $WX$ does not only contain information on important scores for each feature but also how much a feature contributes to predicting a label $m$. The logit score for predicting label $m$ is the sum of importance scores of all selected features w.r.t that label.</p>
-<p><strong>5. Issue</strong></p>
+<p><strong>5. Discussion</strong></p>
 <ul>
-<li>$W$ is computationally expensive (?)</li>
+<li>How to design $g$ such that $W$ is efficiently computed?</li>
 </ul>
 
 </div>
