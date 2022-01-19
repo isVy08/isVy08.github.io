@@ -154,17 +154,17 @@
         </p>
         <h4 id="4.2.1">4.2.1. Intuition</h4>
         <p>
-          &#8811 \(CDE\) would take different values corresponding the level of \(M\) is set to. \(CDE\) answers the
+          \(&#8811 CDE\) would take different values corresponding the level of \(M\) is set to. \(CDE\) answers the
           question "How would \(X\) affect \(Y\) when \(M\) was held fixed at \(m\)?".
         </p>
         <p>
-          &#8811 \(NDE\) addresses the concern "Suppose \(M\) did not respond to changes in \(X\), how would the effect
+          \(&#8811 NDE\) addresses the concern "Suppose \(M\) did not respond to changes in \(X\), how would the effect
           be?" You can think of this case as \(CDE\) where \(m\) is chosen to be the value it takes before the change.
           However, it is called <i>natural</i> because \(NDE\) measures the effect transmitted to \(Y\) by preventing
           \(M\) from responding to changes in \(X\) i.e., disabling the indirect causal path.
         </p>
         <p>
-          &#8811 \(NIE\) examines a scenario where in reality we do not intervene on \(X\), but magically know the
+          \(&#8811 NIE\) examines a scenario where in reality we do not intervene on \(X\), but magically know the
           values \(M\) would take had the change to \(X\) been in place. \(NIE\) quantifies the portion
           of effect <i>explained by</i> \(M\) by disabling the direct causal effect.
         </p>
@@ -189,7 +189,10 @@
         <h4 id="4.2.2">4.2.2. Identifying Natural Effects</h4>
         <p>
           This section presents sufficient conditions for identifying the natural direct effects and the natural
-          indirect effects. The notion of identifiability is similar to what is applied to causal (interventional)
+          indirect effects. The knowledge is gratefully extracted from the paper
+          <a href="https://ftp.cs.ucla.edu/pub/stat_ser/r389.pdf">Interpretation and Identification of Causal
+            Mediation</a> (Pearl 2014).
+          The notion of identifiability is similar to what is applied to causal (interventional)
           quantities: we seek to reduce the counterfactual probabilities to observational or interventional ones to be
           estimated with techniques provided in <a href="chapter2.html">Chapter 2</a>.
         </p>
@@ -224,6 +227,87 @@
           The set \(W = \{X, U_M\}\) or \(W = \{X, U_Y\}\) would do the work, however,
           only if either \(U_M\) or \(U_Y\) is measurable.
         </p>
+        <p>
+          Recall that the setting for a causal mediation problem is described in Figure 4.1.
+          There are two main sets of conditions, \(A\) and \(B\), that are sufficient for identifying both natural
+          effects. Each set is accompanied by its own formula.
+
+        </p>
+        <h5>Assumption set \(A\):</h5>
+        <ol>
+          There exists a set of measure covariates \(W\) such that
+          <br><br>
+          <li>No member of \(W\) is a descendent of \(X\)</li><br>
+          <li>
+            \(W\) blocks all back-door paths from \(M\) to \(Y\) not going through \(X\).
+            Holding \(X\) constant, \(W\) deconfounds the \(M \rightarrow Y\) relationship
+          </li><br>
+          <li>\(P(m|do(t),w)\): the \(W\)-specific effect of \(X\) on \(M\) is identifiable</li><br>
+          <li>\(P(y|do(t,m),w)\): the \(W\)-specific joint effect of \(\{X,M\}\) on \(Y\) is identifiable</li>
+
+        </ol>
+        <h6>
+          When conditions \(A1\) and \(A2\) hold, the natural effects are identified as
+        </h6>
+        <p>
+          \(&#8811 (1a) \ NDE = \sum_m \sum_w [E(Y|do(X=x_2, M=m), W=w) - E(Y|do(X=x_1, M=m), W=w)] \)
+          $$ P(M=m|do(X=x_1),W=w)P(W=w) $$
+        </p>
+        <p>
+          \(&#8811 (1b) \ NIE = \sum_m \sum_w E(Y|do(X=x1, M=m), W=w) \)
+          $$[P(M=m|do(X=x_2), W=w) - P(M=m|do(X=x_1), W=w)]P(W=w)$$
+
+        </p>
+        <h6>
+          When conditions \(A1\) through \(A4\) hold, the \(do-\)expressions are reduced to observational quantities.
+          Equations \((1a), (1b)\) become
+        </h6>
+        <p>
+          \(&#8811 (2a) \ NDE = \sum_m \sum_w [E(Y|X=x_2, M=m, W=w) - E(Y|X=x_1, M=m), W=w)] \)
+          $$ P(M=m|X=x_1,W=w)P(W=w) $$
+        </p>
+        <p>
+          \(&#8811 (2b) \ NIE = \sum_m \sum_w E(Y|X=x1, M=m, W=w) \)
+          $$[P(M=m|X=x_2, W=w) - P(M=m|X=x_1, W=w)]P(W=w)$$
+        </p>
+        <p>
+          Without \(A3\) and \(A4\), we would have to conduct randomized experiments to substantiate the interventional
+          probabilities.
+        </p>
+
+        <p>
+        <h6>If \(A1\) and \(A2\) hold with an empty set \(W = \{\emptyset\}\) and
+          two other sets \(W_2, W_3\) exist such that</h6>
+        <ul>
+          <li>\(W_2\) deconfounds the \(X \rightarrow M\) relationship</li>
+          <li>\(W_3\) deconfounds the \(\{X,M\} \rightarrow Y\) relationship</li>
+        </ul><br>
+        Regardless any dependencies between \(W_2\) and \(W_3\), the natural effects are given as
+        <p>
+          \(&#8811 (3a) \ NDE = \sum_m \sum_{w_3} [E(Y|X=x_2, M=m, W_3=w_3) - E(Y|X=x_1, M=m), W_3=w_3)] \)
+          $$ P(W_3=w_3) \sum_{w_2} P(M=m|X=x_1,W_2=w_2)P(W_2=w_2) $$
+        </p>
+        <p>
+          \(&#8811 (3b) \ NIE = \sum_m \sum_{w_3} E(Y|X=x1, M=m, W_3=w_3)P(W_3=w_3) \)
+          $$\sum_{w_2}[P(M=m|X=x_2, W_2=w_2) - P(M=m|X=x_1, W_2=w_2)]P(W_2=w_2)$$
+        </p>
+        <h5>Assumption set \(B\):</h5>
+        <ol>
+          There exists a set of measure covariates \(W\) such that
+          <br><br>
+          <li>No member of \(W\) is a descendent of \(X\)</li><br>
+          <li>
+            \(W\) and \(X\) blocks all back-door paths from \(M\) to \(Y\).
+            Holding \(X\) constant, \(\{W,X\}\) deconfounds the \(M \rightarrow Y\) relationship
+          </li><br>
+          <li>\(W\) blocks all back-door paths from \(X\) to \(M\) or to \(Y\)</li>
+        </ol>
+        <p>
+          Under condition set \(B\), the natural effects are identified through equations \((2a)\) and \((2b)\).
+        </p>
+
+
+
 
         <h3 id="4.3">4.3. Case Study: Simpson's Paradox in COVID 19</h3>
         <p>Coming Soon</p>
