@@ -307,10 +307,80 @@
         </p>
 
 
-
-
         <h3 id="4.3">4.3. Case Study: Simpson's Paradox in COVID 19</h3>
-        <p>Coming Soon</p>
+        <p>
+
+          <a href="https://en.wikipedia.org/wiki/Simpson%27s_paradox">Simpson's Paradox</a>
+          was once a tough puzzle to statisticians until Causal Infernece came in explaining it nicely with a
+          simple causal graph. The paradox has recently made its appearance in <a
+            href="https://arxiv.org/pdf/2005.07180.pdf">an analysis of COVID-19 case
+            fatility rates (CFRs)</a> across different countries.
+          The dataset consists of \(756,004\) confirmed Covid-19 cases and \(68,508\) fatalities reported from
+          \(11\) different countries and segregated into age groups of \(10\)-year intervals.
+        </p>
+        <figure style="text-align: center;">
+          <img src='figures/1-4-Fig2.png' alt='graphs' width="900" />
+          <figcaption style="font-size: small;">
+            Figure 4.2 (taken from the paper): (left) Covid-19 case fatality rates (CFRs) in Italy and China by age
+            group and in aggregated form (“Total”). (right) Proportion of cases within each age group.
+          </figcaption>
+        </figure>
+        <p>
+          An classic paradoxical pattern is observed:
+          <strong>for all age groups, CFRs in Italy are lower than those in China, but the total CFR in Italy is higher
+            than that in China. </strong>
+
+        </p>
+        <p>
+          Considering the causal graph below, in which Age \(A\) is viewed as a mediator
+          on the causal path from country \(C\) to case fatility \(F\).
+        </p>
+        <figure style="text-align: center;">
+          <img src='figures/1-4-Fig3.png' alt='graphs' width="350" />
+          <figcaption style="font-size: small;">Figure 4.3</figcaption>
+        </figure>
+        <p>
+          Let's define our causal mechanism more rigorously
+        <ul>
+          <li>\(C\) : a categorical variable for the country for which CFRs are reported</li>
+          <li>\(A\) : an ordinal variable for \(10\)-year-interval age groups of positively tested patients</li>
+          <li>\(F\) : a binary variable for whether a patient has died \((F = 1)\) or not \((F = 0)\)</li>
+        </ul>
+        </p>
+        <p>
+        <ul>
+          <li>\(C \rightarrow A\) reflects difference in age demographics between countries</li>
+          <li>\(A \rightarrow F\) captures the fact that elderly people have higher risk of contracting the virus
+          </li>
+          <li>\(C \rightarrow F\) refers to country-specific effects on case fatility other than age, such as medical
+            infrastructure, air pollution levels, and other non-pharmaceutical interventions and policies.
+          </li>
+        </ul>
+        </p>
+        <p>
+          Figure 4.3 illustrates a familar setting for Mediation Analysis.
+          Separating the data by age groups is equivalent to conditioning on \(A\), which blocks the indirect causal
+          path \(C \rightarrow A \rightarrow F\). Thus, the age-specific CFRs only explains the direct effect of \(C\)
+          on \(F\). On the other hand, the total rate takes both effects into account,
+          and the effect of \(C\) on \(F\) is influenced by the effect from \(A\).
+          The authors hypothesizes that CFRs is higher in Italy in total because the population is Italy is older on
+          average than China, thus more likely to die from the disease.
+          In fact, Figure 4.2 shows that most of the confirmed cases in Itality were reported in
+          people aged \(60+\) while the range of China was between \(30\) and \(59\), for whom the virus is less
+          dangerous.
+        </p>
+        <p>
+          While the need for cross-country comparison remains, Mediation Analysis comes in handy to disentangle direct
+          and indirect effects. The causal difference between two countries is equivalent to the causal effects from
+          Here the authors assume no unobserved confounders and \(C\) sufficiently deconfounds
+          the \(A \rightarrow F\) relationship. All causal effects are thus identifable through conditional
+          probabilities, and equations \((2a)\) and \((2b)\) are applied to measure the natural effects.
+        </p>
+        <h4>Direct and Indirect Effects on Case Fatility</h4>
+        <h5>1. Total Effect</h5>
+        <i>What would be the effect on fatality of changing country from China to Italy?</i>
+
+
 
 
 
