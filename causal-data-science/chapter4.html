@@ -54,56 +54,55 @@
           <a href="#4.2">
             <li>4.2. Mediation Analysis</li>
           </a>
+          <ul>
+            <li><a href="#4.2.1">4.2.1. Intuition</a></li>
+            <li><a href="#4.2.2">4.2.2. Identifying Natural Effects</a></li>
+          </ul>
           <a href="#4.3">
             <li>4.3. Case Study: Simpson's Paradox in COVID 19 </li>
           </a>
         </ul>
       </div>
       <h3 id="4.1">4.1. Counterfactuals</h3>
-      <p>Coming Soon</p>
+      <p>
+        Suppose you have a headache, you are made to take a pill and observe that the headache goes away.
+        This is, again, an example of intervention and its outcome is the causal effect of the pill on your headache.
+        A counterfactual query is that given the fact that you are cured of the headache,
+        would it still disappear had you not taken the pill?
+        Doing this requires us to <strong>imagine</strong> what would happen if something did not happen in real world
+        had happened in the past, that is to engage in a <strong>counterfactual</strong> world.
+        Such a question can never be answered simply through observational data nor controlled experiments
+        (you cannot redo the experiment!).
+      </p>
       <h3 id="4.2">4.2. Mediation Analysis</h3>
       <p>
-        In section <a href="chapter1.html#1">1.1</a>, we briefly mentioned variable \(M\) as a mediator in the causal
-        path from \(X\) to \(Y\).
-        Until this point, we have seen two cases where mediators are present. A mediator can be used as a <a
-          href="#2.2">front-door criterion</a>,
-        or the effect of the mediator on the outcome variable can be identified from instrumental variables. \(M\)
-        transmits the causal effect of \(X\) to \(Y\), and we will have specific definitions for such direct and
-        indirect effects.
+        In section <a href="chapter1.html#1">1.1</a>, we briefly mentioned \(M\) as a mediator in the causal path from
+        \(X\) to \(Y\). Until this point, we have seen two cases of using mediators: a mediator can be used as a
+        <a href="chapter2.html#2.2">front-door criterion</a> to estimate causal effects in the presence of possible
+        unobserved confounders, or the effect of a mediator on the outcome variable can be identified from
+        <a href="chapter2.html#2.6">instrumental variables</a>.
       </p>
       <p>
-        Let me again clarify the meaning behind the notations.
-      <ul>
-        <li>\(P(Y|do(X))\) conveys possible values \(Y\) can take when \(X\) is intervened on, along with their
-          probabilities of ocurrence i.e., its distribution.</li><br>
-        <li>Structural coefficient \(\delta\) quantify how much \(Y\) changes as \(X\) changes by \(1\) unit. </li><br>
-        <li>When referring to <i>changes</i>, we mean changes due to <strong>intervention</strong>. </li>
-      </ul>
-      The intuition is if \(Y\) remained unchanged or varied insignificantly, with respect to different levels of \(X\),
-      then we conclude that \(X\) has no causal effect on \(Y\).
-      Suppose \(X\) changes from \(x_1\) to \(x_2\), we say there is a causal effect of \(X\) on \(Y\) if
-      $$E[Y|do(X=x_1)] - E[Y|do(X=x_2)] \ne 0$$
-      </p>
-      <p>
-        Similar to expected value in observational distribution, \(E[Y|do(X)]\) is the expected outcome for
-        interventional distribution. And as we are dealing with population level, we choose to measure the average
-        value.
-        Bear this notion in mind because we will revisit it in the context of Potential Outcome.
-      </p>
-      <p>
-        The causal graph for mediation is given in Figure 2.5, where unobserved factors may influence one another.
-
+        The setting of Mediation Analysis given in Figure 4.1, where the effect of \(X\) on \(Y\) goes through two
+        paths: the <strong>direct</strong> path \(X \rightarrow Y\) and the <strong>indirect</strong> path transmitted
+        through \(X \rightarrow M \rightarrow Y\).
       </p>
       <figure style="text-align: center;">
-        <img src='figures/1-2-Fig5.png' alt='graphs' width="500" />
-        <figcaption style="font-size: small;">Figure 2.5</figcaption>
+        <img src='figures/1-4-Fig1.png' alt='graphs' width="500" />
+        <figcaption style="font-size: small;">Figure 4.1</figcaption>
       </figure>
+
       <p>
         The SCM for such a graph is
         $$M = f_M(X, U_M)$$
         $$X = f_X(U_X)$$
         $$Y = f_Y(X, M, U_Y)$$
       </p>
+
+      Suppose \(X\) changes from \(x_1\) to \(x_2\), we say there is a causal effect of \(X\) on \(Y\) if
+      $$E[Y|do(X=x_1)] - E[Y|do(X=x_2)] \ne 0$$
+      </p>
+
       <p>
         The effect of \(X\) on \(Y\) is broken into:
       <ol>
@@ -137,6 +136,7 @@
             \(NDE\) measures the expected change in the outcome \(Y\) when \(X\) changes \(X=x_1\) to \(X=x_2\), while
             <strong>\(M\) is set to the value it <span style="color:darkblue">would have obtained</span> before \(X\)
               changes, i.e., under \(X=x_1\).</strong>
+            The second line simply introduces the notations assigned to the quantities in the first line for brevity.
           </p>
         </li>
         <li>
@@ -151,24 +151,23 @@
         </p>
         </ul>
         </p>
-        <h4>Sneak Peek at Counterfactual</h4>
+        <h4 id="4.2.1">4.2.1. Intuition</h4>
         <p>
           &#8811 \(CDE\) would take different values corresponding the level of \(M\) is set to. \(CDE\) answers the
           question "How would \(X\) affect \(Y\) when \(M\) was held fixed at \(m\)?".
         </p>
         <p>
           &#8811 \(NDE\) addresses the concern "Suppose \(M\) did not respond to changes in \(X\), how would the effect
-          be?"
-          You can think of this case as one where \(m\) is chosen to be the value it takes before the change.
+          be?" You can think of this case as \(CDE\) where \(m\) is chosen to be the value it takes before the change.
+          However, it is called <i>natural</i> because \(NDE\) measures the effect transmitted to \(Y\) by preventing
+          \(M\) from responding to changes in \(X\) i.e., disabling the indirect causal path.
         </p>
         <p>
           &#8811 \(NIE\) examines a scenario where in reality we do not intervene on \(X\), but magically know the
-          values \(M\) would take had the change to \(X\) been occurred.
+          values \(M\) would take had the change to \(X\) been in place. \(NIE\) quantifies the portion
+          of effect <i>explained by</i> \(M\) by disabling the direct causal effect.
         </p>
-        <p>
-          &#8811 \(TE-NDE\) quantifies the portion of effect <i>owned to</i> \(M\), while \(NIE\) quantifies the portion
-          of effect <i>explained by</i> \(M\).
-        </p>
+
         <p>
           I further introduce the <strong>Reverse Natural Indirect Effect \(NIE_r\)</strong>, constructing by exchanging
           \(x_1\) with \(x_2\)
@@ -176,41 +175,18 @@
           $$NIE_r = E[Y_{x_2, M_{x_1}}] - E[Y_{x_2, M_{x_2}}]$$
         </p>
 
+
         <p>
-          The natural effects are more tricky because they force us to <strong>imagine</strong> (and also be able to
-          quantify) what would happen if something did not happen in real world had happened in the past.
-          Doing this means we are engaged in a <strong>counterfactual</strong> world,
-          and the quantities of natural effects do not have the \(do\) operator because they are not interventional
-          distributions. They are called <strong>counterfactual</strong> distribution.
-          And natural effects are not always identifiable.
-        </p>
-        <p>
-          Suppose you have a headache, you are made to take a pill and observe that the headache goes away. A
-          counterfactual question is where your headache would still disappear if you had not taken the pill.
-          Such a question can never be answered simply through observational data nor even by conducting controlled
-          experiments – you cannot redo the experiment. It is called counterfactual because it does not happen in
-          reality!
-        </p>
-        <p>
-          You may notice that counterfactual terms occur when the input \(X\) value to compute \(M\) is different from
-          the value \(X\) is set to.
-          When they are equal, it means if allowing the effect to naturally pass through to \(M\), we end up with the
-          interventional distribution. So,
+          You should notice that the <span style="color:darkblue; font-weight: bold;">would have</span> notions of
+          natural effects give rise to the counterfactual terms where the input \(X\) value to compute \(M\) is
+          different from the value \(X\) is set to. When they are equal, which is equivalent to allowing the causal
+          effect to pass through to \(M\), we end up with the interventional distribution. Hence,
           $$E[Y_{x_2, M_{x_2}}] = E[Y|do(X=x_2)], E[Y_{x_1, M_{x_1}}] = E[Y|do(X=x_1)]$$
 
           A careful observation gives us (try proving this yourself)
           $$TE = NDE - NIE_r$$
         </p>
-        <p>
-          One thing makes Causal Inference incredibly powerful is that in some situations, we can determine
-          counterfactual distribution from SCM.
-          However, in order to dive into counterfactuals require you first to master frameworks related to intervention.
-          In the next chapter, I will briefly illustrate how to derive counterfactuals from SCM, but details about the
-          paradigm are beyond the scope of this tutorial.
-          You can read more about mediation in this paper <a
-            href="https://ftp.cs.ucla.edu/pub/stat_ser/r389.pdf">Interpretation and Identification of Causal
-            Mediation</a> (Pearl 2014).
-        </p>
+        <h4 id="4.2.2">4.2.2. Identifying natural effects</h4>
         <h3 id="4.3">4.3. Case Study: Simpson's Paradox in COVID 19</h3>
         <p>Coming Soon</p>
 
