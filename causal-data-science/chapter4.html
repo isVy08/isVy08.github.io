@@ -379,7 +379,47 @@
         <h4>Direct and Indirect Effects on Case Fatility</h4>
         <h5>1. Total Effect</h5>
         <i>What would be the effect on fatality of changing country from China to Italy?</i>
+        $$TE = E(F|do(C=Italy)) - E(F|do(C=China)) = E(F|C=Italy) - E(F|C=China) $$
 
+        <h5>2. Controlled Direct Effect</h5>
+        <i>What would be the effect on fatality if Chinese \(50-59\)-year-olds were to live in Italy?</i>
+        <p>Recall that \(CDE\) is measured at a specific level \(A=a\) of the mediator.</p>
+        $$CDE = E(F|do(C=Italy, A=a))-E(F|do(C=China, A=a))$$
+        $$= E(F|C=Italy, A=a)-E(F|C=China, A=a)$$
+
+        <h5>3. Natural Direct Effect</h5>
+        <i>What would be the effect on fatality of changing country from China to Italy but retaining the age
+          distribution of Chinese population?</i>
+        <p>An eaiser way is to eliminate all terms containing \(w\) in equation \((2a)\).</p>
+        $$NDE = \sum_a [ E(F|C=Italy, A=a) - E(F|C=China, A=a) ] P(A=a|C=China)$$
+
+        <h5>4. Natural Indirect Effect</h5>
+        <i>What would be the effect on fatality in China if the age demographics had instead been that of Italy,
+          holding everything else unchanged?
+        </i>
+        $$NIE = \sum_a E(Y|C=China, A=a)[ P(Age=a|C=Italy) - P(Age=a|C=China) ]$$
+        <h4>Intepreting Mediation Analysis</h4>
+        <p>
+          Figure 4.4 compares \(TE\), \(NDE\) and \(NIE\) over time.
+        </p>
+        <figure style="text-align: center;">
+          <img src='figures/1-4-Fig4.png' alt='graphs' width="750" />
+          <figcaption style="font-size: small;">Figure 4.4 (taken from the paper): : Evolution of the effects of
+            changing country from China to Italy on total CFRs.</figcaption>
+        </figure>
+        <p>
+          With the Chinese age demographics, it would be beneficial at first for Italy with negative \(NDE\) at the time
+          of reporting (9 March). It is the decrease in CFRs that leads to the Italian number being lower
+          than those of China in specific age groups. However, \(NIE\) remains high since COVID-19 would have more
+          severe impact on China if its population was older, resulting in the higher total aggregated CFRs.
+        </p>
+        <p>
+          The situation gets worse as both \(NDE\) and \(NIE\) goes up over time. This signifies other country-specific
+          factors have come into play, possibly overwhelmed heathcare system in Italy. In such a scenario, even the
+          younger population would also be susceptible to the disease. In reality, the country did collapse under the
+          pandemic during this time due to both old population and fragile medical infrastructure, as reflected in
+          \(TE\) with fatility rates continue to sky-rocket.
+        </p>
 
 
 
