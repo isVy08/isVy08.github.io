@@ -71,8 +71,9 @@
         would it still disappear had you not taken the pill?
         Doing this requires us to <strong>imagine</strong> what would happen if something did not happen in real world
         had happened in the past, that is to engage in a <strong>counterfactual</strong> world.
-        Such a question can never be answered simply through observational data nor controlled experiments
-        (you cannot redo the experiment!).
+        Answering such a question is not always feasible since you cannot redo the experiment.
+        Fortunately, under certain conditions, we can estimate counterfactual effects through observational and
+        interventional data.
       </p>
       <h3 id="4.2">4.2. Mediation Analysis</h3>
       <p>
@@ -85,7 +86,7 @@
       <p>
         The setting of Mediation Analysis given in Figure 4.1, where the effect of \(X\) on \(Y\) goes through two
         paths: the <strong>direct</strong> path \(X \rightarrow Y\) and the <strong>indirect</strong> path transmitted
-        through \(X \rightarrow M \rightarrow Y\).
+        through \(X \rightarrow M \rightarrow Y\). The unobserved factors may or may not be correlated with one another.
       </p>
       <figure style="text-align: center;">
         <img src='figures/1-4-Fig1.png' alt='graphs' width="500" />
@@ -175,7 +176,6 @@
           $$NIE_r = E[Y_{x_2, M_{x_1}}] - E[Y_{x_2, M_{x_2}}]$$
         </p>
 
-
         <p>
           You should notice that the <span style="color:darkblue; font-weight: bold;">would have</span> notions of
           natural effects give rise to the counterfactual terms where the input \(X\) value to compute \(M\) is
@@ -186,7 +186,45 @@
           A careful observation gives us (try proving this yourself)
           $$TE = NDE - NIE_r$$
         </p>
-        <h4 id="4.2.2">4.2.2. Identifying natural effects</h4>
+        <h4 id="4.2.2">4.2.2. Identifying Natural Effects</h4>
+        <p>
+          This section presents sufficient conditions for identifying the natural direct effects and the natural
+          indirect effects. The notion of identifiability is similar to what is applied to causal (interventional)
+          quantities: we seek to reduce the counterfactual probabilities to observational or interventional ones to be
+          estimated with techniques provided in <a href="chapter2.html">Chapter 2</a>.
+        </p>
+        <p>
+          The key condition that renders this practice possible is <strong
+            style="color: darkred;">unconfoundeness</strong>.
+        </p>
+        <div class="theorem">
+          <h5>Definition of Unconfoundeness and Deconfounder:</h5>
+          <p>
+            \(X\) and \(Y\) are said to be <strong>unconfounded</strong> if the variables influencing \(X\) are
+            independent of those influencing \(Y\) when \(X\) is held fixed.
+            A covariate or set of variates \(W\) is said to <strong>deconfound</strong> the relationship between
+            \(X\) and \(Y\) if conditioning \(W\) blocks all back-door paths between them.
+          </p>
+        </div>
+        <p>
+          Let's revisit Figure 1.2* where \(Z\) is a common cause of \(X\) and \(Y\) and it is called a
+          <strong>confounder</strong>. Note again that \(Z\) can be a set of common causes.
+
+        </p>
+        <figure style="text-align: center;">
+          <img src='figures/1-2-Fig.png' alt='graphs' width="500" />
+          <figcaption style="font-size: small;">Figure 1.2*</figcaption>
+        </figure>
+        <p>
+          In this example, \(Z\) is also called a <strong>deconfounder</strong> because conditioning on \(Z\) blocks the
+          <a href="chapter2.html#2.1">back-door</a> path that produces spurious correlations between \(X\) and \(Y\).
+          In Figure 4.1, the \(M \rightarrow Y\) relationship is confounded both through \(X\) and through latent
+          factors underlying the dashed path between \(U_M\) and \(U_Y\). \(X\) here is a confounder, but not a
+          deconfounder since conditioning on \(X\) is not sufficient to block all back-door paths.
+          The set \(W = \{X, U_M\}\) or \(W = \{X, U_Y\}\) would do the work, however,
+          only if either \(U_M\) or \(U_Y\) is measurable.
+        </p>
+
         <h3 id="4.3">4.3. Case Study: Simpson's Paradox in COVID 19</h3>
         <p>Coming Soon</p>
 
