@@ -75,6 +75,87 @@
         Fortunately, under certain conditions, we can estimate counterfactual effects through observational and
         interventional data.
       </p>
+      <p>
+        The following discusses steps to determine counterfactual quantities at the unit or individual level.
+        This requires a parametric form for our SCM. Let's examine this example.
+      </p>
+      <p>
+        Let \(Q\) be the quantity of products sold, \(P\) be price per unit of your company and \(C\) be price per unit
+        of your competitor. The SCM is given as
+        $$Q = 2C - P + U_Q$$
+        $$P = 0.8C+ U_P$$
+        \(U_Q, U_P\) are repsectively unobserved additive noise variables.
+      </p>
+      <p>
+        Last year, your product was priced at \(P = \$2\), the competitor's product was priced at \(C = \$3\)
+        and \(10\) units was sold.
+      </p>
+      <i>Question 1: How many units would your company have sold if the price had been reduced to \(\$1\),
+        <strong>holding everything else unchanged</strong>?
+      </i>
+
+      <ul>
+        <strong>Step 1 (Abduction):</strong>
+        Use the factual evidence to estimate the exogenous variables \(U_Q\) and \(U_P\).
+        $$ U_Q = Q - 2C + P = 10 - 2 \times 3 + 2 = 6$$
+        $$ U_P = P - 0.8C = 2 - 0.8 \times 3 = - 0.4$$
+      </ul>
+      <ul>
+        <strong>Step 2 (Action):</strong>
+        Use the \(do-\)operator to change the model to reflect the counterfactual assumption being made.
+        Conducting the intervention \(do(P) = 1\) results in the manipulated SCM
+        $$Q = 2C - 1 + U_Q$$
+        $$P = 1$$
+      </ul>
+      <ul>
+        <strong>Step 3 (Prediction):</strong>
+        Use the modified model and updated information about the unobserved factors to calculate the counterfactual
+        effects
+        $$Q_{P=2, Q=3}(P=1) = 2 \times 3 - 1 + 6 = 11$$
+        The notation \(Q_{P=2, Q=3}(P=1)\) indicates the counterfactual quantity is quantified given the known reality
+        of \(P=2, Q=3\). This quantity is fundamentally different from \(Q(P=1)\), which in this case measures the
+        causal effect of changing the price.
+      </ul>
+      <i>Question 2: How many units would your company have sold if your competitor had set their price at \(\$1\)?
+      </i>
+      <ul>
+        <strong>Step 1 (Abduction):</strong> Same as above
+      </ul>
+      <ul>
+        <strong>Step 2 (Action):</strong> The modified SCM with respect to the intervention \(do(Q) = 1\) is
+        $$Q = 2 \times 1 - P + U_Q$$
+        $$P = 0.8 \times 1 + U_P$$
+      </ul>
+      <ul>
+        <strong>Step 3 (Prediction):</strong> Because \(C\) influences \(P\), we must first factor in the resulting
+        change in \(P\) at the new level of \(C\)
+        $$P = 0.8 \times 1 - 0.4 = 0.4$$
+        The counterfactual effect is
+        $$Q_{P=2, Q=3}(Q=1) = 2 \times 1 - 0.4 + 6 = 7.6$$
+      </ul>
+      <p>
+        Your sales would have been reduced had the competitor lowered their price. In question 2, you allow your
+        product's price
+        to respond to the changes in the competitor's price. Alternatively, you may be interested in
+        what the effect would be had the competitor reduced the price while your priced remained fixed.
+        The intervention would now be \(\{do(Q) = 1, do(P) = 2\}\). The counterfactual effect becomes
+        $$Q_{P=2, Q=3}(Q=1, P=2) = 2 \times 1 - 2 + 6 = 6$$
+        This means you would have to lower your price accordingly to remain competitive.
+      </p>
+
+      <p>
+        Here we only examine the simplest case wherein our structural equations are deterministic.
+        A more complicated case is when the exogenous variables vary stochastically or even when
+        the functions \(Q, P\) is not invertible to compute \(U\) values.
+        Stochastic and population-level counterfactual inference are beyond the scope of this book.
+        Advanced readers are encouraged to visit
+        <a href="http://bayes.cs.ucla.edu/BOOK-2K/">Causality</a> (Pearl 2009) and
+        <a href="https://ftp.cs.ucla.edu/pub/stat_ser/r321-ijcai05.pdf">Identifiability of Path-Specific Effects</a>
+        (Avin et al. 2005).
+      </p>
+      <p>
+        We now move on to Mediation Analysis - one important application of Counterfactuals.
+      </p>
       <h3 id="4.2">4.2. Mediation Analysis</h3>
       <p>
         In section <a href="chapter1.html#1">1.1</a>, we briefly mentioned \(M\) as a mediator in the causal path from
