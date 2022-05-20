@@ -1,209 +1,302 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-    
-    <meta name="description" content="Vy Vo">
-    <meta property="og:description" content="Linear Regression Assumptions"/>
-    <title>Linear Assumptions</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="stylesheet" href="../main.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+  <meta name="description" content="Vy Vo">
+  <meta property="og:description" content="Linear Regression Assumptions" />
+  <title>Linear Assumptions</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <link rel="stylesheet" href="../main.css">
 </head>
 
 <body>
 
-    <div class="wrapper-masthead">
-        <div class="container">
-          <header class="masthead clearfix">
-            <a href="https://isvy08.github.io/" class="site-avatar"><img src="../icon/vv.png" /></a>
-  
-            <div class="site-info">
-              <h1 class="site-name"><a href="https://isvy08.github.io/">Vy Vo</a></h1>
-              <p class="site-description">What's life without whimsy</p>
-            </div>
-  
-            <nav>
-              <a href="../blog.html">Blog</a>
-              <a href="../projects.html">Projects</a>
-              <a href="../stories.html">Stories</a>
-              <a href="https://github.com/isVy08">GitHub</a>
-            </nav>
-          </header>
+  <div class="wrapper-masthead">
+    <div class="container">
+      <header class="masthead clearfix">
+        <a href="https://isvy08.github.io/" class="site-avatar"><img src="../icon/vv.png" /></a>
+
+        <div class="site-info">
+          <h1 class="site-name"><a href="https://isvy08.github.io/">Vy Vo</a></h1>
+          <p class="site-description">What's life without whimsy</p>
         </div>
-      </div>
+
+        <nav>
+          <a href="../blog.html">Blog</a>
+          <a href="../stories.html">Stories</a>
+          <a href="https://github.com/isVy08">GitHub</a>
+        </nav>
+      </header>
+    </div>
+  </div>
 
 
-    <div id="main" role="main" class="container">
-        <div class="posts"> 
+  <div id="main" role="main" class="container">
+    <div class="posts">
 
-    <article class="post" style="text-align: justify;">
+      <article class="post" style="text-align: justify;">
         <div>
-            <!--
+          <!--
             <p id="test"></p>
             -->
-            <h1>Linear Assumptions</h1>
-            <p>Every machine learning journey starts with a simple linear model. I choose to explain the assumptions underlying Linear Regression, an old-school machine learning model but widely used today. 
-                Though the original idea is very simple, it forms the bedrock of modern machine learning techniques to which the same thinking applies.
-            </p>
-            <p>Regression refers to the task of predicting values for a continuous random variable Y from an input variable X. To verify the assumptions of linear regression, we need to understand about Generalized Linear Model (GLM) which generalizes linear regression to allow for more flexibilty in modelling. Logistic Regression is another design choice of GLM for classification task, which will also be briefly discussed.</p>
-            <p>Let's now focus on Regression.</p>
-            <p>Given examples of the target variable \(y\) and \(d\)-dimensional input vectors \(x\), we assume \(y\) arises from a deterministic function \(g(x, W)\) plus Gaussian noice \(\epsilon\) </p>
-            $$y = g(X, W) + \epsilon \quad (*)$$
-            <p id="gaussian"></p>
-            <h2>Assumptions</h2>
-            <p>The key assumption of Linear Regression model are</p>
-            <p>1. \(g\) is a linear on \(W\) and any basis forms of \(X\).</p>
-            $${g(X, W) = W^T\varphi(X)}$$
-            where \(\varphi\) is a basis function applied on \(X\), usually non-linear to relax the contraints of linearity.
-            <p>2. None of the input variables is constant, and there are no exact linear relationships among them. </p>
-            <p>3. The observations \(\{(X_n, y_n): n = 1, 2, ..., N\}\) are randomly sampled and independent form each other.</p>
-            <p>4. Given any values of \(W\). The noise \(\epsilon\) is normally distributed with zero mean \(E[\epsilon|x] = 0\) and constant variance \(\sigma^2\).</p>
-            <p>The biggest motivation for any of the assumptions is mathematical convenience. Linear function is a basic and natural choice to begin with (Assumption 11), though the linearity itself restricts the model's capacity on more complex non-linear problems. In this linear relationship, the input variables cannot be perfectly correlated (Assumption 2) since 
-            \(W_d\) measures the additional change in \(x_d\), given all the other \(x's\) held constant, which would not hold if any two \(x_1\) and \(x_2\) were linearly correlated such as \(x_2 = kx_1\). So, feature selection is critical. However, it is acceptable to include polynominal terms, for instance \(x^2\)  since they are not exactly linear \(-x\) 
-            can vary for a fixed value of \(x^2\).   </p>
-            <p>Assumption 3 is applied to nearly all problems that involve maximizing likelihood function. In this case, we can do optimization for all observations at once by multiplying each individual likelihood functions, or summing the log-likehood's, which is even easier to calculate derivatives. It's again mathematical convenient while not very difficult to achieve in practice. </p>
-            <p>Assumption 4 is more tricky. It's practically a particular design choice for a linear model. To understand why, we first look into the loss function for regression.</p>
+          <h1>Linear Assumptions</h1>
+          <p>Every machine learning journey starts with a simple linear model. I choose to explain the assumptions
+            underlying Linear Regression, an old-school machine learning model but widely used today.
+            Though the original idea is very simple, it forms the bedrock of modern machine learning techniques to which
+            the same thinking applies.
+          </p>
+          <p>Regression refers to the task of predicting values for a continuous random variable Y from an input
+            variable X. To verify the assumptions of linear regression, we need to understand about Generalized Linear
+            Model (GLM) which generalizes linear regression to allow for more flexibilty in modelling. Logistic
+            Regression is another design choice of GLM for classification task, which will also be briefly discussed.
+          </p>
+          <p>Let's now focus on Regression.</p>
+          <p>Given examples of the target variable \(y\) and \(d\)-dimensional input vectors \(x\), we assume \(y\)
+            arises from a deterministic function \(g(x, W)\) plus Gaussian noice \(\epsilon\) </p>
+          $$y = g(X, W) + \epsilon \quad (*)$$
+          <p id="gaussian"></p>
+          <h2>Assumptions</h2>
+          <p>The key assumption of Linear Regression model are</p>
+          <p>1. \(g\) is a linear on \(W\) and any basis forms of \(X\).</p>
+          $${g(X, W) = W^T\varphi(X)}$$
+          where \(\varphi\) is a basis function applied on \(X\), usually non-linear to relax the contraints of
+          linearity.
+          <p>2. None of the input variables is constant, and there are no exact linear relationships among them. </p>
+          <p>3. The observations \(\{(X_n, y_n): n = 1, 2, ..., N\}\) are randomly sampled and independent form each
+            other.</p>
+          <p>4. Given any values of \(W\). The noise \(\epsilon\) is normally distributed with zero mean \(E[\epsilon|x]
+            = 0\) and constant variance \(\sigma^2\).</p>
+          <p>The biggest motivation for any of the assumptions is mathematical convenience. Linear function is a basic
+            and natural choice to begin with (Assumption 11), though the linearity itself restricts the model's capacity
+            on more complex non-linear problems. In this linear relationship, the input variables cannot be perfectly
+            correlated (Assumption 2) since
+            \(W_d\) measures the additional change in \(x_d\), given all the other \(x's\) held constant, which would
+            not hold if any two \(x_1\) and \(x_2\) were linearly correlated such as \(x_2 = kx_1\). So, feature
+            selection is critical. However, it is acceptable to include polynominal terms, for instance \(x^2\) since
+            they are not exactly linear \(-x\)
+            can vary for a fixed value of \(x^2\). </p>
+          <p>Assumption 3 is applied to nearly all problems that involve maximizing likelihood function. In this case,
+            we can do optimization for all observations at once by multiplying each individual likelihood functions, or
+            summing the log-likehood's, which is even easier to calculate derivatives. It's again mathematical
+            convenient while not very difficult to achieve in practice. </p>
+          <p>Assumption 4 is more tricky. It's practically a particular design choice for a linear model. To understand
+            why, we first look into the loss function for regression.</p>
 
-            <h3>1. Error Function</h3>
-            <p>Equation \((*)\) implies that without the noise, the actual value \(y\) would equal the output of \(g(x, W)\). Therefore, we incur a loss when choosing a specific estimate \(g(x, W)\) for \(y\), that is \(\quad L\left(y, g(x,W)\right)\). </p>
-            <p>A common choice of loss function in regression problems is the sum-of-squared error function. The average or expected loss is given by</p>
-            $${E[L] = \iint L\left(y, g(x,W)\right)p(x, y) \ \mathrm{dxdy} = \iint \{y - g(x, W)\}^2p(x,y) \ \mathrm{dxdy}}$$
-            The goal is to choose \(g(x, W)\) in order to minimise \(\mathrm{E}[L]\). Applying calculus of variation yields 
-            $${\frac{\delta E[L]}{\delta g(x, W)} = 2 \int\{y - g(x, W)\} p(x,y) \ \mathrm{dxdy} = 0}$$
-            Solving for \(g(x, W)\) using the sum and product rule of probability, we have
-            $${g(x,W) = \frac{\int yp(x, y)\ \mathrm{dy}}{p(x)} = \int yp(y|x)dy = \mathrm{E}_{y}[y|x]}$$
-            The optimal estimate for \(y\) is the expected value of \(y\) conditioned on \(x\).
+          <h3>1. Error Function</h3>
+          <p>Equation \((*)\) implies that without the noise, the actual value \(y\) would equal the output of \(g(x,
+            W)\). Therefore, we incur a loss when choosing a specific estimate \(g(x, W)\) for \(y\), that is \(\quad
+            L\left(y, g(x,W)\right)\). </p>
+          <p>A common choice of loss function in regression problems is the sum-of-squared error function. The average
+            or expected loss is given by</p>
+          $${E[L] = \iint L\left(y, g(x,W)\right)p(x, y) \ \mathrm{dxdy} = \iint \{y - g(x, W)\}^2p(x,y) \
+          \mathrm{dxdy}}$$
+          The goal is to choose \(g(x, W)\) in order to minimise \(\mathrm{E}[L]\). Applying calculus of variation
+          yields
+          $${\frac{\delta E[L]}{\delta g(x, W)} = 2 \int\{y - g(x, W)\} p(x,y) \ \mathrm{dxdy} = 0}$$
+          Solving for \(g(x, W)\) using the sum and product rule of probability, we have
+          $${g(x,W) = \frac{\int yp(x, y)\ \mathrm{dy}}{p(x)} = \int yp(y|x)dy = \mathrm{E}_{y}[y|x]}$$
+          The optimal estimate for \(y\) is the expected value of \(y\) conditioned on \(x\).
 
-            <h3>2. Why should \(\epsilon\) be an Gaussian?</h3>
-            <p>Taking expectation over \((*)\), the result  \(g(x,W)=E_{y}[y|x]\).</p>
-            <p>If \(\epsilon\) is an Gaussian random variable, this implies \(y\) also follows a \(\textsf{Normal}\) distribution conditioned on \(x\). This has multiple benefits</p>
-            <p>1. For regression problems, the output variable  \(y\) is continuous, so \(\mathsf{Gaussian}\) is an intuitively natural choice.</p>
-            <p>2. Optimizing the likelihood function given by \(\mathsf{Normal}\) probability density function motivates the choice of sum-of-squaredd loss function, which helps us understand the model complexity characterized by the concepts of \(\textbf{Bias}\) and \(\textbf{Variance}\). This will be explained in section 3.  </p>
-            <p>3. Because the assumption of \(\mathsf{Gaussian}\) gives rise to the use of squared loss function, the conditional mean is simply \(E_y[y|x] = g(x,W) = W^TX\), and minimizing this loss function results in a closed-form solution. </p>
-            <p>In section 4, we will look into an extension of simple linear models in which more complicated transformations of \(E_y[y|x]\) are required for the linearity assumption to hold, and in some cases we don't have such a nice analytical solution.</p>
-            
-            <h3>3. Bias-Variance Decomposition</h3>
-            <p>\(\textbf{Bias}\) refers to the accuracy of the model predictions. \(\textbf{Bias error}\)  measures the difference between the expected or average prediction of our model and the true value. The prediction itself is a random variable as it tends to change when the model learns from a different dataset. This indicates how much the predictions of multiple models in general deviate from the true value.</p>
-            <p>\(\textbf{Variance}\)  indicates how consistent the predictions are for a given data point. It measures the degree to which the predictions vary from one another over different training sets.</p>
-            <p>We want our model to have low \(\textbf{Bias}\) and low \(\textbf{Variance}\), but there's a trade-off. </p>
-            <p>For a given data point \(x_n\), with true value \(y_n\), we use \(\textbf{Boostrapping}\) technique to train our model on \(L\) \(\textbf{Boostrapping}\) samples and get the average prediction </p>
-            $${\bar g(x_n) = \frac{1}{L} \sum_{l=1}^{L} g_l(x_n)}$$
-            <p>\(\textbf{Bias}\) and \(\textbf{Variance}\) of the model is</p>
-            $${\textbf{Bias}^2 = \frac{1}{N} \sum_n^N\left(\bar g_n(x_n) - y_n\right)^2}$$
-            $${\textbf{Variance} = \frac{1}{L} \sum_{l=1}^{L} \left(g_l(x_n) - \bar g_n\right)^2}$$
-            The generalisation error is the expected error over different sets of inputs \(x\), given as 
-            $${\epsilon_{y,g}(y) = \int [g(x) - y(x)]^2 p(x) \ \mathrm{dx}}$$
-            <p>Training the model on \(L\) different training sets \(D\), the unbiased estimate for \(\epsilon\) is </p>
-            $${E_D \left( [g_{D}(x) - y(x)]^2\right)}$$
-            <p>Let me remind you that we are doing this for a single data point \(x_n\).  The subscript \(n\) is discarded for simplicity.</p>
-            $${E_D \left( [g_{D}(x) - y(x)]^2\right) =  E_D \left( [g_D(x) \ - E_D\left(g_D(x)\right) \ + E_D\left(g_D(x)\right) \ - y(x)]^2 \right)}$$
-            $${= E_D \left( [g_D(x) \ - E_D\left(g_D(x)\right)]^2 \ + [E_D\left(g_D(x)\right) \ - y(x)]^2 + 2[g_D(x) \ - E_D\left(g_D(x)\right)][E_D\left(g_D(x)\right) \ - y(x)]\right)}$$
-            Notice \(E_D\left(g_D(x)\right) = \bar g(x)\)
-            <ul>
-                <li>The first term becomes \(E \left(g_l(x) - \bar g(x)\right)^2 = \textbf{Variance}\) since \(l\) is equivalent to \(D\) </li>
-                <li>The second term becomes \(E [\left(\bar g(x) - y(x)\right)]^2 = \textbf{Bias}^2\) </li>
-                <li>The product in the third term is made up of \((1)\) the model standard deviation and \((2)\) the random noise \(\epsilon\). These two components are independent, so the expectation of the product is the product of each expectation. </li>
-            </ul>
-            <p>Previously, we assume \(E(\epsilon|x) = 0\) so the second expectation component is zero, ruling out the third term.</p>
-            <p>Hence, we have:</p>
-            $${\textbf{Generalization Error} = \textbf{Bias}^2 + \textbf{Variance}}$$
-            <p>This means that regression models optimized on the sum-of-squaredd loss function under \(\textsf{Gaussian}\) distribution are subject to the trade-off between \(\textbf{Bias}^2\) and  \(\textbf{Variance}\). These quantities control the model complexity and tell us a lot about fitting capacity of the model for the problem at hand.</p>
-            
-            <h3>4. Generalized Linear Model</h3>
-            <p>Let \(y_1, y_2, ..., y_n\) denote \(n\) independent observations of the target variable \(Y\) conditioned on input  \(X\).</p>
-            <p>A generalised linear model (GLM) generalises linear regression in 2 ways:</p>
-            
-            <h4>4.1. Exponential Family</h4>
-            <p>\(Y|X\sim\) exponential family distribution with probability density function and parameters \(\theta, \phi\)</p>
-            $${f(Y = y|\theta,\phi) = \exp\left( \frac{y\theta-b(\theta)}{a(\phi)} + c(y,\phi)\right) \quad (\ast\ast)}$$
-            <p>Here \(a(\phi), b(\theta)\) and \(c(y,\phi)\) are known functions. The distribution of \(Y\) has mean and variance</p>
-            $${\mathrm{E}(Y|X) = \mu = b'(\theta)}$$
-            $${\mathrm{Var}(Y|X) = \sigma^2 = b''(\theta)a(\phi)}$$
-            where \(b'(\theta)\) and \(b'(\theta)\) respectively are the first and second derivative of \(b(\theta)\).
+          <h3>2. Why should \(\epsilon\) be an Gaussian?</h3>
+          <p>Taking expectation over \((*)\), the result \(g(x,W)=E_{y}[y|x]\).</p>
+          <p>If \(\epsilon\) is an Gaussian random variable, this implies \(y\) also follows a \(\textsf{Normal}\)
+            distribution conditioned on \(x\). This has multiple benefits</p>
+          <p>1. For regression problems, the output variable \(y\) is continuous, so \(\mathsf{Gaussian}\) is an
+            intuitively natural choice.</p>
+          <p>2. Optimizing the likelihood function given by \(\mathsf{Normal}\) probability density function motivates
+            the choice of sum-of-squaredd loss function, which helps us understand the model complexity characterized by
+            the concepts of \(\textbf{Bias}\) and \(\textbf{Variance}\). This will be explained in section 3. </p>
+          <p>3. Because the assumption of \(\mathsf{Gaussian}\) gives rise to the use of squared loss function, the
+            conditional mean is simply \(E_y[y|x] = g(x,W) = W^TX\), and minimizing this loss function results in a
+            closed-form solution. </p>
+          <p>In section 4, we will look into an extension of simple linear models in which more complicated
+            transformations of \(E_y[y|x]\) are required for the linearity assumption to hold, and in some cases we
+            don't have such a nice analytical solution.</p>
 
-            <h4>4.2. Link Function</h4>
-            <p>There exists a link function \(g\) such that</p>
-            $${g(\mu) = W^T X}$$
-            Recall that if the squared loss function is used, the optimal prediction of linear regression models for a new value \(x\) is the conditional mean of \(Y\), that is \(\mathrm{E}(Y|X)\) or \(\mu\). GLM allows for non-linearity by introducing a transformation on the expected value so that it is linear on \(W\) and \(X\), or more generally on the basis \(\varphi(X)\).
-            <p>Common examples in exponential family include \(\textsf{Normal}, \textsf{Bernoulli}, \text{or }  \textsf{Poisson}\) distributions. The function \(g\) can be an \(\textsf{Identity}, \textsf{Log}, \textsf{Logit}, \text{or } \textsf{Reciprocal}\) function. </p>
+          <h3>3. Bias-Variance Decomposition</h3>
+          <p>\(\textbf{Bias}\) refers to the accuracy of the model predictions. \(\textbf{Bias error}\) measures the
+            difference between the expected or average prediction of our model and the true value. The prediction itself
+            is a random variable as it tends to change when the model learns from a different dataset. This indicates
+            how much the predictions of multiple models in general deviate from the true value.</p>
+          <p>\(\textbf{Variance}\) indicates how consistent the predictions are for a given data point. It measures the
+            degree to which the predictions vary from one another over different training sets.</p>
+          <p>We want our model to have low \(\textbf{Bias}\) and low \(\textbf{Variance}\), but there's a trade-off.
+          </p>
+          <p>For a given data point \(x_n\), with true value \(y_n\), we use \(\textbf{Boostrapping}\) technique to
+            train our model on \(L\) \(\textbf{Boostrapping}\) samples and get the average prediction </p>
+          $${\bar g(x_n) = \frac{1}{L} \sum_{l=1}^{L} g_l(x_n)}$$
+          <p>\(\textbf{Bias}\) and \(\textbf{Variance}\) of the model is</p>
+          $${\textbf{Bias}^2 = \frac{1}{N} \sum_n^N\left(\bar g_n(x_n) - y_n\right)^2}$$
+          $${\textbf{Variance} = \frac{1}{L} \sum_{l=1}^{L} \left(g_l(x_n) - \bar g_n\right)^2}$$
+          The generalisation error is the expected error over different sets of inputs \(x\), given as
+          $${\epsilon_{y,g}(y) = \int [g(x) - y(x)]^2 p(x) \ \mathrm{dx}}$$
+          <p>Training the model on \(L\) different training sets \(D\), the unbiased estimate for \(\epsilon\) is </p>
+          $${E_D \left( [g_{D}(x) - y(x)]^2\right)}$$
+          <p>Let me remind you that we are doing this for a single data point \(x_n\). The subscript \(n\) is discarded
+            for simplicity.</p>
+          $${E_D \left( [g_{D}(x) - y(x)]^2\right) = E_D \left( [g_D(x) \ - E_D\left(g_D(x)\right) \ +
+          E_D\left(g_D(x)\right) \ - y(x)]^2 \right)}$$
+          $${= E_D \left( [g_D(x) \ - E_D\left(g_D(x)\right)]^2 \ + [E_D\left(g_D(x)\right) \ - y(x)]^2 + 2[g_D(x) \ -
+          E_D\left(g_D(x)\right)][E_D\left(g_D(x)\right) \ - y(x)]\right)}$$
+          Notice \(E_D\left(g_D(x)\right) = \bar g(x)\)
+          <ul>
+            <li>The first term becomes \(E \left(g_l(x) - \bar g(x)\right)^2 = \textbf{Variance}\) since \(l\) is
+              equivalent to \(D\) </li>
+            <li>The second term becomes \(E [\left(\bar g(x) - y(x)\right)]^2 = \textbf{Bias}^2\) </li>
+            <li>The product in the third term is made up of \((1)\) the model standard deviation and \((2)\) the random
+              noise \(\epsilon\). These two components are independent, so the expectation of the product is the product
+              of each expectation. </li>
+          </ul>
+          <p>Previously, we assume \(E(\epsilon|x) = 0\) so the second expectation component is zero, ruling out the
+            third term.</p>
+          <p>Hence, we have:</p>
+          $${\textbf{Generalization Error} = \textbf{Bias}^2 + \textbf{Variance}}$$
+          <p>This means that regression models optimized on the sum-of-squaredd loss function under
+            \(\textsf{Gaussian}\) distribution are subject to the trade-off between \(\textbf{Bias}^2\) and
+            \(\textbf{Variance}\). These quantities control the model complexity and tell us a lot about fitting
+            capacity of the model for the problem at hand.</p>
 
-            <h3>5. An Alternative View of Linear Regression</h3>
-            <p>We will now see how these properties give rise to the normal distribution assumption of linear regression models, which assumes \(Y\) follows a \(\textsf{Normal}\) distribution, and uses an \(\textsf{Identity}\) link function. </p>
-            <p>With \(\textsf{Identity}\) function \(g\),</p>
-            $${g(\mu) = \mu = W^TX}$$
-            <p>We dig into the density function to derive the corresponding parameters \(\theta, \phi\) and the functions \(a, b, c\).</p>
-            <p>Let's say, a single observation \(y_n \sim \mathcal{N}\left(\mu_n, \sigma_n\right)\) with mean \(\mu_n\) and variance \(\sigma_n\). The density function is given as </p>
-            $${b(\theta) = 0.5\mu_n^2}$$
-            $${\mathrm{E}(Y|X) = b'(\theta) = \mu_n = \theta \quad \text{and} \quad \phi=\sigma^2}$$
-            <p>We also have \(a(\phi) = \sigma^2\) and the second term in the exponent is noe form of \(c(y_n, \phi)\).</p>
-            <p>One important observation is maximizing the density function above is equivalent to minimizing \((y_n - \mu_n)^2 = (y_n - \mathrm{E}(Y|X))^2\), which is the sum-of-squaredd.</p>
-            
-            <h3>6. An Alternative View of Logistic Regression</h3>
-            <p>In this section, you are assumed to be familiar with Logistic Regression. In the case of binary classification, let \(p\) be the probability of an observation belongs to the positive class.</p>
-            <p>The model assumes the \(\textsf{log odds} \ \log\left(\frac{p}{1-p}\right)\) is linear on \(W\).</p>
-            <p>If the \(\textsf{log odds} \ge 0\), the observation is more likely to be in the positive clas, and otherwise for \(\textsf{log odds} < 0\).</p>
-            <p>Logistic Regression is another application of GLM for classification problem. Here \(y_n\) follows a \(\textsf{Bernoulii}\) distribution with mean \(p\), variance \(p(1-p)\) and desity function </p>
-            $${f(y_n) = y_np + (1-y_n)(1-p) \quad y_n \in \{0,1\}}$$
-            <p>Thus, we have the \(\textsf{log-likelihood}\) function</p>
-            $${\mathcal{L_{y_n}} = y_n\log p + (1-y_n)\log (1-p)}$$
-            <p>This can be re-written in the exponential form as</p>
-            $${f(y_n) = \exp\left(y_n\log \frac{p}{1-p} - \log\frac{1}{1-p}\right)}$$
-            <p>Here \(\phi = 1\) ,\(c(y_n, \phi)=0\) and</p>
-            $${\theta = \log \frac{p}{1-p} \quad \text{and} \quad b(\theta) = \log\frac{1}{1-p} = \log (1+ e^\theta)}$$
-            <p>The conditional mean is thus given as</p>
-            $${\mathrm{E}(Y|X) = b'(\theta) = \frac{e^\theta}{1+e^\theta} = p}$$
-            <p>and this give rise to a natural choice of the \(\textsf{logit}\) link function \(g\)</p>
-            $${g(p) = \log \frac{p}{1-p} = W^TX}$$
+          <h3>4. Generalized Linear Model</h3>
+          <p>Let \(y_1, y_2, ..., y_n\) denote \(n\) independent observations of the target variable \(Y\) conditioned
+            on input \(X\).</p>
+          <p>A generalised linear model (GLM) generalises linear regression in 2 ways:</p>
 
-            <h3>7. Maximum Likelihood</h3>
-            <p>An important observation in the above cases is that \(g\) links the conditional mean \(\mu\) back to the parameter \(\theta\). Such choices of \(g\), e.g., \(\textsf{Identity}\) or \(\textsf{Logit}\) functions are called Canonical Links.</p>
-            <p>In most widely used models such as linear or logistic regression, the function \(a(\phi)\) has a form </p>
-            $${a(\phi) = \frac{\phi}{k}}$$
-            <p>where \(k\) is a known prior weight. When \(k=1\), it indicates Canonical exponential family, which includes the \(\textsf{Normal}\) and \(\textsf{Bernoulli}\) distributions we have seen. Others include  \(\textsf{Poisson}\), \(\textsf{Gamma}\) distribution.</p>
-            <p>Recall that</p>
-            $${\mathrm{E}(Y|X) = \mu = b'(\theta)}$$
-            $${\mathrm{Var}(Y|X) = \sigma^2 = b''(\theta)a(\phi)}$$
-            <p>You can see when \(\phi > 0\) and \(k>0\), \(b''(\theta) > 0\) as variance is postitive, so the function \(b(.)\) is strictly convex and \(b'(\theta) = \mu\) is strictly increasing. In other words, increasing \(\theta\) also increasing \(\mu\). The canonical link function is one that \(g(\mu) = \theta\).</p>
-            <p>Thus, \(g(\mu) = (b')^{-1} (\mu)\) and \(g\) is also strictly increasing. </p>
-            <p>To understand what this property means, we must go back to our optimisation problem.</p>
-            <p>With \(\theta, \phi \text{ and } W\) being the model parameters, we wish to find the values of the parameters that maximise the likelihood function \(f(Y | X)\).</p>
-            $${\mathcal{L} = \sum_{n}^{N} \left( \frac{y_n\theta-b(\theta)}{a(\phi)} + c(y,\phi)\right)}$$
-            <p>To make it easier, let's only focus on the canonical link function. For supervised learning, \(y_n\) is known, and by imposing on \(Y\) a known distribution, we can determine values of \(\theta\) and \(\phi\). Thus, we now only care about finding the optimal \(W\).</p>
-            <p>We know that \(g(\mu) = \theta = W^TX\). The log-likehood function with respect to \(W\) can be written as</p>
-            $${\mathcal{L(W)} = \sum_{n}^{N} \left( \frac{y_n W^TX-b(W^TX)}{a(\phi)} + c(y,\phi)\right)}$$
-            <p>If \(g\) is canonical and \(\phi > 0\), the function \(b(.)\) is strictly convex. This then makes \(\mathcal{L(W)}\) strictly concave</p>
-            <p>This means that the maximum likelihood estimator \(W\) is a unique solution. If any of the assumptions do not hold, \(\mathcal{L(W)}\) may no longer be concave, resulting in multiple local maxima.</p>
+          <h4>4.1. Exponential Family</h4>
+          <p>\(Y|X\sim\) exponential family distribution with probability density function and parameters \(\theta,
+            \phi\)</p>
+          $${f(Y = y|\theta,\phi) = \exp\left( \frac{y\theta-b(\theta)}{a(\phi)} + c(y,\phi)\right) \quad (\ast\ast)}$$
+          <p>Here \(a(\phi), b(\theta)\) and \(c(y,\phi)\) are known functions. The distribution of \(Y\) has mean and
+            variance</p>
+          $${\mathrm{E}(Y|X) = \mu = b'(\theta)}$$
+          $${\mathrm{Var}(Y|X) = \sigma^2 = b''(\theta)a(\phi)}$$
+          where \(b'(\theta)\) and \(b'(\theta)\) respectively are the first and second derivative of \(b(\theta)\).
 
-            <h2>Conclusion</h2>
-            <p>Assuming Gaussian noise \(\epsilon\) leads to \(Y|X \sim \mathcal{N}(\mu, \sigma)\), which gives rise to the sum-of-squared loss function and \(\textsf{Identity}\) link function. 
-              These ensure the loss function is stricly concave, thereby having a unique solution. All of these assumptions are called Gauss-Markov Assumptions. The technique of minimising the loss function by setting the derive equal to zero and solving it is 
-            called read Ordinary Least Squares (OLS). Under these assumptions, we can guarantee the anylytical estimates of \(W\) is unbiased OLS. You can read more about the proof in Chapter 3 of the book Introductory Econometrics (Wooldrige 2012).</p>
-            <p>Among the assumptions, the assumption of constant variance  \(\sigma^2\) plays no role in the unbiasedness and consistency of the estimators. However, you can see that if \(\sigma^2\) is not constant, the model has another parameter and the optimization problem becomes more complicated. The problem is referred to as Heteroskedasticity, and it affects the robustness of confidence intervals and \(t\) test statistics. The consequence of Heteroskedasticity is more severe for time series analysis. In many machine learning applications, the variance is safely assumed fixed and known.</p>
-            <h4>References</h4>
-            <ul style="font-style: italic;">
+          <h4>4.2. Link Function</h4>
+          <p>There exists a link function \(g\) such that</p>
+          $${g(\mu) = W^T X}$$
+          Recall that if the squared loss function is used, the optimal prediction of linear regression models for a new
+          value \(x\) is the conditional mean of \(Y\), that is \(\mathrm{E}(Y|X)\) or \(\mu\). GLM allows for
+          non-linearity by introducing a transformation on the expected value so that it is linear on \(W\) and \(X\),
+          or more generally on the basis \(\varphi(X)\).
+          <p>Common examples in exponential family include \(\textsf{Normal}, \textsf{Bernoulli}, \text{or }
+            \textsf{Poisson}\) distributions. The function \(g\) can be an \(\textsf{Identity}, \textsf{Log},
+            \textsf{Logit}, \text{or } \textsf{Reciprocal}\) function. </p>
+
+          <h3>5. An Alternative View of Linear Regression</h3>
+          <p>We will now see how these properties give rise to the normal distribution assumption of linear regression
+            models, which assumes \(Y\) follows a \(\textsf{Normal}\) distribution, and uses an \(\textsf{Identity}\)
+            link function. </p>
+          <p>With \(\textsf{Identity}\) function \(g\),</p>
+          $${g(\mu) = \mu = W^TX}$$
+          <p>We dig into the density function to derive the corresponding parameters \(\theta, \phi\) and the functions
+            \(a, b, c\).</p>
+          <p>Let's say, a single observation \(y_n \sim \mathcal{N}\left(\mu_n, \sigma_n\right)\) with mean \(\mu_n\)
+            and variance \(\sigma_n\). The density function is given as </p>
+          $${b(\theta) = 0.5\mu_n^2}$$
+          $${\mathrm{E}(Y|X) = b'(\theta) = \mu_n = \theta \quad \text{and} \quad \phi=\sigma^2}$$
+          <p>We also have \(a(\phi) = \sigma^2\) and the second term in the exponent is noe form of \(c(y_n, \phi)\).
+          </p>
+          <p>One important observation is maximizing the density function above is equivalent to minimizing \((y_n -
+            \mu_n)^2 = (y_n - \mathrm{E}(Y|X))^2\), which is the sum-of-squaredd.</p>
+
+          <h3>6. An Alternative View of Logistic Regression</h3>
+          <p>In this section, you are assumed to be familiar with Logistic Regression. In the case of binary
+            classification, let \(p\) be the probability of an observation belongs to the positive class.</p>
+          <p>The model assumes the \(\textsf{log odds} \ \log\left(\frac{p}{1-p}\right)\) is linear on \(W\).</p>
+          <p>If the \(\textsf{log odds} \ge 0\), the observation is more likely to be in the positive clas, and
+            otherwise for \(\textsf{log odds} < 0\).</p>
+              <p>Logistic Regression is another application of GLM for classification problem. Here \(y_n\) follows a
+                \(\textsf{Bernoulii}\) distribution with mean \(p\), variance \(p(1-p)\) and desity function </p>
+              $${f(y_n) = y_np + (1-y_n)(1-p) \quad y_n \in \{0,1\}}$$
+              <p>Thus, we have the \(\textsf{log-likelihood}\) function</p>
+              $${\mathcal{L_{y_n}} = y_n\log p + (1-y_n)\log (1-p)}$$
+              <p>This can be re-written in the exponential form as</p>
+              $${f(y_n) = \exp\left(y_n\log \frac{p}{1-p} - \log\frac{1}{1-p}\right)}$$
+              <p>Here \(\phi = 1\) ,\(c(y_n, \phi)=0\) and</p>
+              $${\theta = \log \frac{p}{1-p} \quad \text{and} \quad b(\theta) = \log\frac{1}{1-p} = \log (1+
+              e^\theta)}$$
+              <p>The conditional mean is thus given as</p>
+              $${\mathrm{E}(Y|X) = b'(\theta) = \frac{e^\theta}{1+e^\theta} = p}$$
+              <p>and this give rise to a natural choice of the \(\textsf{logit}\) link function \(g\)</p>
+              $${g(p) = \log \frac{p}{1-p} = W^TX}$$
+
+              <h3>7. Maximum Likelihood</h3>
+              <p>An important observation in the above cases is that \(g\) links the conditional mean \(\mu\) back to
+                the parameter \(\theta\). Such choices of \(g\), e.g., \(\textsf{Identity}\) or \(\textsf{Logit}\)
+                functions are called Canonical Links.</p>
+              <p>In most widely used models such as linear or logistic regression, the function \(a(\phi)\) has a form
+              </p>
+              $${a(\phi) = \frac{\phi}{k}}$$
+              <p>where \(k\) is a known prior weight. When \(k=1\), it indicates Canonical exponential family, which
+                includes the \(\textsf{Normal}\) and \(\textsf{Bernoulli}\) distributions we have seen. Others include
+                \(\textsf{Poisson}\), \(\textsf{Gamma}\) distribution.</p>
+              <p>Recall that</p>
+              $${\mathrm{E}(Y|X) = \mu = b'(\theta)}$$
+              $${\mathrm{Var}(Y|X) = \sigma^2 = b''(\theta)a(\phi)}$$
+              <p>You can see when \(\phi > 0\) and \(k>0\), \(b''(\theta) > 0\) as variance is postitive, so the
+                function \(b(.)\) is strictly convex and \(b'(\theta) = \mu\) is strictly increasing. In other words,
+                increasing \(\theta\) also increasing \(\mu\). The canonical link function is one that \(g(\mu) =
+                \theta\).</p>
+              <p>Thus, \(g(\mu) = (b')^{-1} (\mu)\) and \(g\) is also strictly increasing. </p>
+              <p>To understand what this property means, we must go back to our optimisation problem.</p>
+              <p>With \(\theta, \phi \text{ and } W\) being the model parameters, we wish to find the values of the
+                parameters that maximise the likelihood function \(f(Y | X)\).</p>
+              $${\mathcal{L} = \sum_{n}^{N} \left( \frac{y_n\theta-b(\theta)}{a(\phi)} + c(y,\phi)\right)}$$
+              <p>To make it easier, let's only focus on the canonical link function. For supervised learning, \(y_n\) is
+                known, and by imposing on \(Y\) a known distribution, we can determine values of \(\theta\) and
+                \(\phi\). Thus, we now only care about finding the optimal \(W\).</p>
+              <p>We know that \(g(\mu) = \theta = W^TX\). The log-likehood function with respect to \(W\) can be written
+                as</p>
+              $${\mathcal{L(W)} = \sum_{n}^{N} \left( \frac{y_n W^TX-b(W^TX)}{a(\phi)} + c(y,\phi)\right)}$$
+              <p>If \(g\) is canonical and \(\phi > 0\), the function \(b(.)\) is strictly convex. This then makes
+                \(\mathcal{L(W)}\) strictly concave</p>
+              <p>This means that the maximum likelihood estimator \(W\) is a unique solution. If any of the assumptions
+                do not hold, \(\mathcal{L(W)}\) may no longer be concave, resulting in multiple local maxima.</p>
+
+              <h2>Conclusion</h2>
+              <p>Assuming Gaussian noise \(\epsilon\) leads to \(Y|X \sim \mathcal{N}(\mu, \sigma)\), which gives rise
+                to the sum-of-squared loss function and \(\textsf{Identity}\) link function.
+                These ensure the loss function is stricly concave, thereby having a unique solution. All of these
+                assumptions are called Gauss-Markov Assumptions. The technique of minimising the loss function by
+                setting the derive equal to zero and solving it is
+                called read Ordinary Least Squares (OLS). Under these assumptions, we can guarantee the anylytical
+                estimates of \(W\) is unbiased OLS. You can read more about the proof in Chapter 3 of the book
+                Introductory Econometrics (Wooldrige 2012).</p>
+              <p>Among the assumptions, the assumption of constant variance \(\sigma^2\) plays no role in the
+                unbiasedness and consistency of the estimators. However, you can see that if \(\sigma^2\) is not
+                constant, the model has another parameter and the optimization problem becomes more complicated. The
+                problem is referred to as Heteroskedasticity, and it affects the robustness of confidence intervals and
+                \(t\) test statistics. The consequence of Heteroskedasticity is more severe for time series analysis. In
+                many machine learning applications, the variance is safely assumed fixed and known.</p>
+              <h4>References</h4>
+              <ul style="font-style: italic;">
                 <li>Pattern Recognition And Machine Learning - Bishop (2006)</li>
                 <li>Introductory Econometrics: A Modern Approach - Wooldridge (2012)</li>
                 <li>Statistic For Application - MIT 18.650</li>
-            </ul>
+              </ul>
         </div>
-    </article>
-        </div>
+      </article>
     </div>
-    <div class="wrapper-footer">
+  </div>
+  <div class="wrapper-footer">
     <div class="container">
-    <footer class="footer">
+      <footer class="footer">
 
 
-    <a href="https://www.facebook.com/isVy08"><i class="svg-icon facebook"></i></a>        
-    <a href="https://twitter.com/isVy08"><i class="svg-icon twitter"></i></a>
-    <a href="https://www.linkedin.com/in/isvy08/"><i class="svg-icon linkedin"></i></a>
-    <br><p style="font-size: 10px;">&copy; 2021 Vy Vo. Powered by Jekyll and Jekyll Now Theme</p>   
+        <a href="https://www.facebook.com/isVy08"><i class="svg-icon facebook"></i></a>
+        <a href="https://twitter.com/isVy08"><i class="svg-icon twitter"></i></a>
+        <a href="https://www.linkedin.com/in/isvy08/"><i class="svg-icon linkedin"></i></a>
+        <br>
+        <p style="font-size: 10px;">&copy; 2021 Vy Vo. Powered by Jekyll and Jekyll Now Theme</p>
 
-    </footer>
+      </footer>
     </div>
-    </div> 
+  </div>
 </body>
+
 </html>

@@ -1,117 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-    
-    <meta name="description" content="Vy Vo">
-    <title>Causal and AntiCausal Learning</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="stylesheet" href="../main.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+  <meta name="description" content="Vy Vo">
+  <title>Causal and AntiCausal Learning</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <link rel="stylesheet" href="../main.css">
 </head>
 
 <body>
 
-    <div class="wrapper-masthead">
-        <div class="container">
-          <header class="masthead clearfix">
-            <a href="https://isvy08.github.io/" class="site-avatar"><img src="../icon/vv.png" /></a>
-  
-            <div class="site-info">
-              <h1 class="site-name"><a href="https://isvy08.github.io/">Vy Vo</a></h1>
-              <p class="site-description">What's life without whimsy</p>
-            </div>
-  
-            <nav>
-              <a href="../blog.html">Blog</a>
-              <a href="../projects.html">Projects</a>
-              <a href="../stories.html">Stories</a>
-              <a href="https://github.com/isVy08">GitHub</a>
-            </nav>
-          </header>
+  <div class="wrapper-masthead">
+    <div class="container">
+      <header class="masthead clearfix">
+        <a href="https://isvy08.github.io/" class="site-avatar"><img src="../icon/vv.png" /></a>
+
+        <div class="site-info">
+          <h1 class="site-name"><a href="https://isvy08.github.io/">Vy Vo</a></h1>
+          <p class="site-description">What's life without whimsy</p>
         </div>
-      </div>
 
-
-    <div id="main" role="main" class="container">
-        <div class="posts"> 
-
-    <article class="post">
-        <div>
-            <h1>Causal and AntiCausal Learning</h1>
-            <p>
-              The application of Causality to solve Machine Learning (ML) problems roots from the idea that there exists a true causal data-generating structure underlying observational data, which if machines can learn it, will improve their robustness and generalization capacity. 
-              Thus, a large majority of the papers at the intersection of Causality and ML focus on tackling Out-of-Distribution (Domain) Generalization. However, I personally would love to see more efforts towards high-level causal reasoning i.e., teach machines to reason causally. 
-            </p>
-            <p>
-              Two fundamental concepts particularly useful for Domain Generalization (DG) are <strong>Invariance</strong> and <strong>Intervention</strong>. 
-              Intervention in this context refers to the changes in the joint distribution \(\mathsf{P}(Y,X)\), and according to the <strong>Principles of Independent Mechanisms</strong>, some parts of the causal generative model remain invariant under certain interventions. 
-              This means interventions on one variable only alter its conditional distribution given its causes, leaving the other mechanisms unchanged. This notion of invariance is expected to support transferability and robustness to distribution shift.   
-            </p>
-            <p>
-              For readers who are not familiar with causal concepts, I suggest you read up on works by such classic names as Judea Pearls, Bernhard Schölkopf, Jonas Peters, Elias Bareinboim. 
-              Though there are tons of good reads out there, my go-to is <a href="https://mitpress.mit.edu/books/elements-causal-inference/">Elements of Causal Inference</a> by Peters, Janzing and Schölkopf (2017). 
-            </p>
-            <p>
-              In this post, I summarize the paper <a href="https://icml.cc/2012/papers/625.pdf">On Causal and Anticausal Learning</a> by these authors (again), which I find to be a good starting point to navigate research in this area. 
-            </p>
-
-           <h2>Causal or not Causal?</h2> 
-           Given inputs \(X\) and target \(Y\), it can either be \(X\) causes \(Y\) \( (X \rightarrow Y)\) or \(Y\) causes \(X\) \((Y \rightarrow X)\). 
-           The former direction is <italic>causal</italic> and the latter is <italic>anticausal</italic>. Each gives rise to a variety of (symmetric) settings where the common goal is to learn the condition distribution \(\mathsf{P}(Y|X)\).
-           The key take-away is not to apply Bayes rule blindly, rather to understand the properties of different causal structures and make assumptions where appropriate.  
-           <br><br>
-           <figure style="text-align: center;">
-                <img src='figures/2-Fig1.png' alt='simplescm' />
-                <figcaption style="font-style: italic; font-size: small;">Figure taken from the paper</figcaption>
-            </figure>
-            <p>
-            A simple structural causal model is illustrated in the above figure. \(C\) is the cause variable and \(E\) is the effect variable. 
-            \(N_{C}\) is a noise variable influencing \(C\) and \(N_{E}\) influences \(E\) via 
-            $$E = \varphi(C, N_{E}) = \Phi(C) + N_{E} \quad (*)$$
-            where \(N_{C}\) and \(N_{E}\) are independent. \(P(N_{C})\) and \(P(N_{E})\) are normally assumed Gaussian. 
-            </p>
-            In the paper, the authors describe different problem setups for causal and anticausal learning tasks. In all cases, we are given training points sampled from \(\mathsf{P}(Y,X)\), and the goal is to estimate the conditional distribution \(\mathsf{P}(Y|X)\).   
-            The scenarios mainly differ in terms of what additional information is given, altering the nature of the problem. Here I attempt to summarize the key properties of each scenario, and readers are encouraged to delve further into the paper for the suggested solutions.   
-            
-            <h4>Causal Learning: Predicting Effect from Cause</h4>
-            <img src='figures/2-Fig2.png' alt='causal-learning' />
-            <p>
-            <h4>AntiCausal Learning: Predicting Cause from Effect</h4>
-            In this case, \(\mathsf{P}(Y|X)\) is sensitive to change in \(P(Y)\). It would better to model \(\mathsf{P}(X|Y)\) first and construct \(\mathsf{P}(Y|X)\) using Bayes’ rule. 
-            </p>
-            <img src='figures/2-Fig3.png' alt='anticausal-learning'/>
-            <p>
-            Based on this, you can see there are two lines of works. Works that assume shift in joint distribution \(\mathsf{P}(Y,X)\) is due to covariate shift follow causal direction. 
-            I classify these papers as <strong>Causal Invariant Predictors</strong>.
-            Meanwhile, some other papers assuming anticausal direction attempt to learn invariant representation \(\Phi(C)\) under label shift.
-            A quick summary of <strong>Causal Invariant Predictors</strong> papers can be found <a href="causal-ip.html">here</a>.
-            </p>
-            <p>
-            I want to emphasize that both directions are possible and applicable to different scenarios. 
-            On the other hand, there are also other lines of work that rely on loose causal assumptions e.g., <strong>Invariant Risk Minimization</strong> or focus on <strong>learning the underlying independent mechanisms</strong>. 
-            </p>
-            For interested readers, do check out the full paper list available at <a href="https://github.com/isVy08/causal-ai/">here</a>.
-            
-
-    
-    </article>
-        </div>
+        <nav>
+          <a href="../blog.html">Blog</a>
+          <a href="../stories.html">Stories</a>
+          <a href="https://github.com/isVy08">GitHub</a>
+        </nav>
+      </header>
     </div>
-    <div class="wrapper-footer">
-        <div class="container">
-        <footer class="footer">
+  </div>
 
 
-        <a href="https://www.facebook.com/isVy08"><i class="svg-icon facebook"></i></a>        
+  <div id="main" role="main" class="container">
+    <div class="posts">
+
+      <article class="post">
+        <div>
+          <h1>Causal and AntiCausal Learning</h1>
+          <p>
+            The application of Causality to solve Machine Learning (ML) problems roots from the idea that there exists a
+            true causal data-generating structure underlying observational data, which if machines can learn it, will
+            improve their robustness and generalization capacity.
+            Thus, a large majority of the papers at the intersection of Causality and ML focus on tackling
+            Out-of-Distribution (Domain) Generalization. However, I personally would love to see more efforts towards
+            high-level causal reasoning i.e., teach machines to reason causally.
+          </p>
+          <p>
+            Two fundamental concepts particularly useful for Domain Generalization (DG) are <strong>Invariance</strong>
+            and <strong>Intervention</strong>.
+            Intervention in this context refers to the changes in the joint distribution \(\mathsf{P}(Y,X)\), and
+            according to the <strong>Principles of Independent Mechanisms</strong>, some parts of the causal generative
+            model remain invariant under certain interventions.
+            This means interventions on one variable only alter its conditional distribution given its causes, leaving
+            the other mechanisms unchanged. This notion of invariance is expected to support transferability and
+            robustness to distribution shift.
+          </p>
+          <p>
+            For readers who are not familiar with causal concepts, I suggest you read up on works by such classic names
+            as Judea Pearls, Bernhard Schölkopf, Jonas Peters, Elias Bareinboim.
+            Though there are tons of good reads out there, my go-to is <a
+              href="https://mitpress.mit.edu/books/elements-causal-inference/">Elements of Causal Inference</a> by
+            Peters, Janzing and Schölkopf (2017).
+          </p>
+          <p>
+            In this post, I summarize the paper <a href="https://icml.cc/2012/papers/625.pdf">On Causal and Anticausal
+              Learning</a> by these authors (again), which I find to be a good starting point to navigate research in
+            this area.
+          </p>
+
+          <h2>Causal or not Causal?</h2>
+          Given inputs \(X\) and target \(Y\), it can either be \(X\) causes \(Y\) \( (X \rightarrow Y)\) or \(Y\)
+          causes \(X\) \((Y \rightarrow X)\).
+          The former direction is <italic>causal</italic> and the latter is <italic>anticausal</italic>. Each gives rise
+          to a variety of (symmetric) settings where the common goal is to learn the condition distribution
+          \(\mathsf{P}(Y|X)\).
+          The key take-away is not to apply Bayes rule blindly, rather to understand the properties of different causal
+          structures and make assumptions where appropriate.
+          <br><br>
+          <figure style="text-align: center;">
+            <img src='figures/2-Fig1.png' alt='simplescm' />
+            <figcaption style="font-style: italic; font-size: small;">Figure taken from the paper</figcaption>
+          </figure>
+          <p>
+            A simple structural causal model is illustrated in the above figure. \(C\) is the cause variable and \(E\)
+            is the effect variable.
+            \(N_{C}\) is a noise variable influencing \(C\) and \(N_{E}\) influences \(E\) via
+            $$E = \varphi(C, N_{E}) = \Phi(C) + N_{E} \quad (*)$$
+            where \(N_{C}\) and \(N_{E}\) are independent. \(P(N_{C})\) and \(P(N_{E})\) are normally assumed Gaussian.
+          </p>
+          In the paper, the authors describe different problem setups for causal and anticausal learning tasks. In all
+          cases, we are given training points sampled from \(\mathsf{P}(Y,X)\), and the goal is to estimate the
+          conditional distribution \(\mathsf{P}(Y|X)\).
+          The scenarios mainly differ in terms of what additional information is given, altering the nature of the
+          problem. Here I attempt to summarize the key properties of each scenario, and readers are encouraged to delve
+          further into the paper for the suggested solutions.
+
+          <h4>Causal Learning: Predicting Effect from Cause</h4>
+          <img src='figures/2-Fig2.png' alt='causal-learning' />
+          <p>
+          <h4>AntiCausal Learning: Predicting Cause from Effect</h4>
+          In this case, \(\mathsf{P}(Y|X)\) is sensitive to change in \(P(Y)\). It would better to model
+          \(\mathsf{P}(X|Y)\) first and construct \(\mathsf{P}(Y|X)\) using Bayes’ rule.
+          </p>
+          <img src='figures/2-Fig3.png' alt='anticausal-learning' />
+          <p>
+            Based on this, you can see there are two lines of works. Works that assume shift in joint distribution
+            \(\mathsf{P}(Y,X)\) is due to covariate shift follow causal direction.
+            I classify these papers as <strong>Causal Invariant Predictors</strong>.
+            Meanwhile, some other papers assuming anticausal direction attempt to learn invariant representation
+            \(\Phi(C)\) under label shift.
+            A quick summary of <strong>Causal Invariant Predictors</strong> papers can be found <a
+              href="causal-ip.html">here</a>.
+          </p>
+          <p>
+            I want to emphasize that both directions are possible and applicable to different scenarios.
+            On the other hand, there are also other lines of work that rely on loose causal assumptions e.g.,
+            <strong>Invariant Risk Minimization</strong> or focus on <strong>learning the underlying independent
+              mechanisms</strong>.
+          </p>
+          For interested readers, do check out the full paper list available at <a
+            href="https://github.com/isVy08/causal-ai/">here</a>.
+
+
+
+      </article>
+    </div>
+  </div>
+  <div class="wrapper-footer">
+    <div class="container">
+      <footer class="footer">
+
+
+        <a href="https://www.facebook.com/isVy08"><i class="svg-icon facebook"></i></a>
         <a href="https://twitter.com/isVy08"><i class="svg-icon twitter"></i></a>
         <a href="https://www.linkedin.com/in/isvy08/"><i class="svg-icon linkedin"></i></a>
-        <br><p style="font-size: 10px;">&copy; 2021 Vy Vo. Powered by Jekyll and Jekyll Now Theme</p>   
+        <br>
+        <p style="font-size: 10px;">&copy; 2021 Vy Vo. Powered by Jekyll and Jekyll Now Theme</p>
 
-        </footer>
-        </div>
-    </div> 
+      </footer>
+    </div>
+  </div>
 </body>
+
 </html>
