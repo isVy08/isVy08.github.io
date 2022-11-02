@@ -173,7 +173,9 @@ h6 {
   margin: 1em 0 15px;
   padding: 0;
 }
+
 @media screen and (max-width: 640px) {
+
   h1,
   h2,
   h3,
@@ -187,6 +189,7 @@ h6 {
 h1 {
   font-size: 30px;
 }
+
 h1 a {
   color: inherit;
 }
@@ -213,6 +216,7 @@ a {
   text-decoration: none;
   cursor: pointer;
 }
+
 a:hover,
 a:active {
   color: #4183c4;
@@ -298,6 +302,7 @@ img {
   padding: 20px 0;
   border-bottom: 1px solid #eee;
 }
+
 @media screen and (max-width: 640px) {
   .masthead {
     text-align: center;
@@ -310,6 +315,7 @@ img {
   height: 70px;
   margin-right: 15px;
 }
+
 @media screen and (max-width: 640px) {
   .site-avatar {
     float: none;
@@ -317,6 +323,7 @@ img {
     margin: 0 auto;
   }
 }
+
 .site-avatar img {
   border-radius: 5px;
 }
@@ -324,6 +331,7 @@ img {
 .site-info {
   float: left;
 }
+
 @media screen and (max-width: 640px) {
   .site-info {
     float: none;
@@ -347,6 +355,7 @@ img {
   color: #666;
   font-size: 16px;
 }
+
 @media screen and (max-width: 640px) {
   .site-description {
     margin: 3px 0;
@@ -359,6 +368,7 @@ nav {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 18px;
 }
+
 @media screen and (max-width: 640px) {
   nav {
     float: none;
@@ -367,6 +377,7 @@ nav {
     font-size: 16px;
   }
 }
+
 nav a {
   margin-left: 20px;
   color: #333;
@@ -374,6 +385,7 @@ nav a {
   font-weight: 300;
   letter-spacing: 1px;
 }
+
 @media screen and (max-width: 640px) {
   nav a {
     margin: 0 10px;
@@ -381,12 +393,12 @@ nav a {
   }
 }
 
-.posts > .post {
+.posts>.post {
   padding-bottom: 2em;
   border-bottom: 1px solid #eee;
 }
 
-.posts > .post:last-child {
+.posts>.post:last-child {
   padding-bottom: 1em;
   border-bottom: none;
 }
@@ -399,9 +411,11 @@ nav a {
   font-size: 22px;
   font-style: italic;
 }
+
 .post .comments {
   margin-top: 10px;
 }
+
 .post .read-more {
   text-transform: uppercase;
   font-size: 15px;
@@ -792,6 +806,7 @@ code {
 .svg-icon.email {
   background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDBweCIgaGVpZ2h0PSI0MHB4IiB2aWV3Qm94PSIwIDAgNjAgNjAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM6c2tldGNoPSJodHRwOi8vd3d3LmJvaGVtaWFuY29kaW5nLmNvbS9za2V0Y2gvbnMiPg0KICAgIDxwYXRoIGQ9Ik0wLjIyNDU4MDY4OCwzMCBDMC4yMjQ1ODA2ODgsMTMuNDMxNDU2NyAxMy40NTQ5NDEsMCAyOS43NzU0MTkzLDAgQzQ2LjA5NTg5NzYsMCA1OS4zMjYyNTc5LDEzLjQzMTQ1NjcgNTkuMzI2MjU3OSwzMCBDNTkuMzI2MjU3OSw0Ni41Njg1NDMzIDQ2LjA5NTg5NzYsNjAgMjkuNzc1NDE5Myw2MCBDMTMuNDU0OTQxLDYwIDAuMjI0NTgwNjg4LDQ2LjU2ODU0MzMgMC4yMjQ1ODA2ODgsMzAgWiBNMC4yMjQ1ODA2ODgsMzAiIGZpbGw9IiNGRkZGRkYiIHNrZXRjaDp0eXBlPSJNU1NoYXBlR3JvdXAiPjwvcGF0aD4NCiAgICA8cGF0aCBkPSJNMzUuMDM4NDMyNCwzMS42Mzg0MDA2IEw0Ny4yMTMxMTQ4LDQwLjU3NjQyNjQgTDQ3LjIxMzExNDgsMjAgTDM1LjAzODQzMjQsMzEuNjM4NDAwNiBaIE0xMy43NzA0OTE4LDIwIEwxMy43NzA0OTE4LDQwLjU3NjQyNjQgTDI1Ljk0NDkxMjksMzEuNjM3MTQ5MSBMMTMuNzcwNDkxOCwyMCBaIE0zMC40OTE4MDMzLDM1Ljk4NDQ4OTEgTDI3LjU4NTEwMzcsMzMuMjA2NTIxNyBMMTMuNzcwNDkxOCw0MiBMNDcuMjEzMTE0OCw0MiBMMzMuMzk4MTc2MiwzMy4yMDY1MjE3IEwzMC40OTE4MDMzLDM1Ljk4NDQ4OTEgWiBNNDYuMjA5ODM2MSwyMCBMMTQuNzczNzcwNSwyMCBMMzAuNDkxODAzMywzMi40NTQ5MzA0IEw0Ni4yMDk4MzYxLDIwIFogTTQ2LjIwOTgzNjEsMjAiIGlkPSJTaGFwZSIgZmlsbD0iIzMzMzMzMyIgc2tldGNoOnR5cGU9Ik1TU2hhcGVHcm91cCI+PC9wYXRoPg0KICAgIDxwYXRoIGQ9Ik01OS4zMjYyNTc5LDMwIEM1OS4zMjYyNTc5LDQ2LjU2ODU0MzMgNDYuMDk1ODk3Niw2MCAyOS43NzU0MTkzLDYwIEMyMy43MjI1NDA1LDYwIDE4LjA5NDcwNTEsNTguMTUyNTEzNCAxMy40MDkzMjQ0LDU0Ljk4Mjc3NTQgTDQ3LjI2OTU0NTgsNS44MTk0MTEwMyBDNTQuNTgxNDQzOCwxMS4yODA2NTAzIDU5LjMyNjI1NzksMjAuMDc3Nzk3MyA1OS4zMjYyNTc5LDMwIFogTTU5LjMyNjI1NzksMzAiIGlkPSJyZWZsZWMiIGZpbGwtb3BhY2l0eT0iMC4wOCIgZmlsbD0iIzAwMDAwMCIgc2tldGNoOnR5cGU9Ik1TU2hhcGVHcm91cCI+PC9wYXRoPg0KPC9zdmc+);
 }
+
 .svg-icon.facebook {
   background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDBweCIgaGVpZ2h0PSI0MHB4IiB2aWV3Qm94PSIwIDAgNjAgNjAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM6c2tldGNoPSJodHRwOi8vd3d3LmJvaGVtaWFuY29kaW5nLmNvbS9za2V0Y2gvbnMiPg0KICAgIDxwYXRoIGQ9Ik0wLjExMjI5MDM0NCwzMCBDMC4xMTIyOTAzNDQsMTMuNDMxNDU2NyAxMy4zNDI2NTA2LDAgMjkuNjYzMTI5LDAgQzQ1Ljk4MzYwNzMsMCA1OS4yMTM5Njc2LDEzLjQzMTQ1NjcgNTkuMjEzOTY3NiwzMCBDNTkuMjEzOTY3Niw0Ni41Njg1NDMzIDQ1Ljk4MzYwNzMsNjAgMjkuNjYzMTI5LDYwIEMxMy4zNDI2NTA2LDYwIDAuMTEyMjkwMzQ0LDQ2LjU2ODU0MzMgMC4xMTIyOTAzNDQsMzAgWiBNMC4xMTIyOTAzNDQsMzAiIGZpbGw9IiMzQjU5OTgiIHNrZXRjaDp0eXBlPSJNU1NoYXBlR3JvdXAiPjwvcGF0aD4NCgk8cGF0aCBkPSJNMzIuMTM0MTQ1Nyw0Ni4zMTk2NzI5IEwzMi4xMzQxNDU3LDI5Ljk5ODA4OTEgTDM2LjU2NTc1NjUsMjkuOTk4MDg5MSBMMzcuMTUzMDQwNiwyNC4zNzM1ODA5IEwzMi4xMzQxNDU3LDI0LjM3MzU4MDkgTDMyLjE0MTY3NSwyMS41NTg0NjA0IEMzMi4xNDE2NzUsMjAuMDkxNTAyIDMyLjI3ODc3MDcsMTkuMzA1NDcyMiAzNC4zNTEyMDYsMTkuMzA1NDcyMiBMMzcuMTIxNjY4NiwxOS4zMDU0NzIyIEwzNy4xMjE2Njg2LDEzLjY4MDMyNzEgTDMyLjY4OTQzMDQsMTMuNjgwMzI3MSBDMjcuMzY1NTk5NSwxMy42ODAzMjcxIDI1LjQ5MTc0OSwxNi40MDg4MTg3IDI1LjQ5MTc0OSwyMC45OTcyODM1IEwyNS40OTE3NDksMjQuMzc0MjE3OSBMMjIuMTczMjE3MywyNC4zNzQyMTc5IEwyMi4xNzMyMTczLDI5Ljk5ODcyNiBMMjUuNDkxNzQ5LDI5Ljk5ODcyNiBMMjUuNDkxNzQ5LDQ2LjMxOTY3MjkgTDMyLjEzNDE0NTcsNDYuMzE5NjcyOSBaIE0zMi4xMzQxNDU3LDQ2LjMxOTY3MjkiIGlkPSJQYXRoIiBmaWxsPSIjRkZGRkZGIiBza2V0Y2g6dHlwZT0iTVNTaGFwZUdyb3VwIj48L3BhdGg+DQoJPHBhdGggZD0iTTU5LjIxMzk2NzYsMzAgQzU5LjIxMzk2NzYsNDYuNTY4NTQzMyA0NS45ODM2MDczLDYwIDI5LjY2MzEyOSw2MCBDMjMuNjEwMjUwMiw2MCAxNy45ODI0MTQ3LDU4LjE1MjUxMzQgMTMuMjk3MDM0MSw1NC45ODI3NzU0IEw0Ny4xNTcyNTU0LDUuODE5NDExMDMgQzU0LjQ2OTE1MzQsMTEuMjgwNjUwMyA1OS4yMTM5Njc2LDIwLjA3Nzc5NzMgNTkuMjEzOTY3NiwzMCBaIE01OS4yMTM5Njc2LDMwIiBpZD0icmVmbGVjIiBmaWxsLW9wYWNpdHk9IjAuMDgiIGZpbGw9IiMwMDAwMDAiIHNrZXRjaDp0eXBlPSJNU1NoYXBlR3JvdXAiPjwvcGF0aD4NCjwvc3ZnPg==);
 }
@@ -807,6 +822,7 @@ code {
 .svg-icon.linkedin {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' aria-labelledby='title' aria-describedby='desc' role='img' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Ctitle%3ELinkedin%3C/title%3E%3Cdesc%3EA color styled icon from Orion Icon Library.%3C/desc%3E%3Cpath data-name='layer1' fill='%230077b7' d='M1.15 21.7h13V61h-13zm46.55-1.3c-5.7 0-9.1 2.1-12.7 6.7v-5.4H22V61h13.1V39.7c0-4.5 2.3-8.9 7.5-8.9s8.3 4.4 8.3 8.8V61H64V38.7c0-15.5-10.5-18.3-16.3-18.3zM7.7 2.6C3.4 2.6 0 5.7 0 9.5s3.4 6.9 7.7 6.9 7.7-3.1 7.7-6.9S12 2.6 7.7 2.6z'%3E%3C/path%3E%3C/svg%3E");
 }
+
 /* Table */
 table {
   border-collapse: collapse;
@@ -913,6 +929,7 @@ tr:nth-child(even) {
   color: white;
   border-top: 3px solid;
 }
+
 .navbutton {
   background-color: rgb(184, 222, 241);
   color: black;

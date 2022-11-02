@@ -26,7 +26,7 @@
                     <p class="site-description">What's life without whimsy</p>
                 </div>
                 <nav>
-                    <a href="../blog.html">Blog</a>
+                    <a href="../blog.html">Research</a>
                     <a href="../stories.html">Stories</a>
                     <a href="https://github.com/isVy08">GitHub</a>
                 </nav>
@@ -101,8 +101,8 @@
                         For a well-defined population, we measure average causal effect. Such an effect is present in
                         the population if</p>
                     <p></p>
-                    $$\mathsf{P} \ ( Y \ | \ do(X) = 1) ≠ \mathsf{P} \ ( Y \ | \ do(X) = 0)$$
-                    \( \mathsf{P} \ ( Y \ | \ do(X) = 1) \) and \( \mathsf{P} \ ( Y \ | \ do(X) = 0)\) are defined as
+                    $$\mathsf{P} \ ( Y \ | \ do(X) = 1) ≠ \mathsf{P} \ ( Y \ | \ do(X) = 0)$$
+                    \( \mathsf{P} \ ( Y \ | \ do(X) = 1) \) and \( \mathsf{P} \ ( Y \ | \ do(X) = 0)\) are defined as
                     the proportions of the population developing the outcome had all individuals received treatment \(X
                     = 0\) and \(X = 1\) respectively. In this case, I could have compared \(\mathsf{P} \ ( Y = 1 \ | \
                     do(X) = 1)\) with \(\mathsf{P} \ ( Y = 1 \ | \ do(X) = 0) \) — the proportion of users that actually
@@ -120,7 +120,8 @@
                         found my experiment, it would be due to my intervention in which I subjected the users to one of
                         the 2 treatments. Recall that the correlation was found within my data whereas my hypothetical
                         experiment seeks to answer the question “Would they have converted had I made them view at least
-                        3 options.” </p>
+                        3 options.”
+                    </p>
                     <p><strong>To do</strong> and <strong>To be forced to do</strong> are not just semantically but
                         statistically distinct.</p>
 
@@ -133,7 +134,7 @@
                     <p>However, if I was able to design such an experiment in which I randomly assigned some users to
                         treatment \( X = 1 \) and the others to treatment \(X = 0\), then association would be
                         causation, or</p>
-                    $$ \mathsf{P} \ ( Y = 1 \ | \ do(X) = 1) = \mathsf{P} \ ( Y = 1 \ | \ X = 1)$$
+                    $$ \mathsf{P} \ ( Y = 1 \ | \ do(X) = 1) = \mathsf{P} \ ( Y = 1 \ | \ X = 1)$$
                     <p>It is proved that randomized experiments or randomized control trials (RCT) can yield convincing
                         causal relationships. However, it is not always physically feasible to conduct a RCT. In this
                         case, in order to restrict a random user to view less than 3 product options, we may have had to
@@ -167,7 +168,8 @@
                         cause of <i>Product View</i> and <i>Purchase Likelihood</i>, represented by two arrows pointing
                         from Intention to the other variables. The presence of one or more variables that renders
                         causation distinct from association between treatment and outcome is called
-                        <strong>confounding</strong> and Intention is referred to as <strong>confounder</strong>.</p>
+                        <strong>confounding</strong> and Intention is referred to as <strong>confounder</strong>.
+                    </p>
                     <p>Some literature restricts the definition of confounding to biases due to common causes of
                         treatment and outcome and uses different terms for other sources of biases. Such diagram is
                         known as <strong>Directed Acyclic Graph (DAG)</strong>, which incorporates knowledge and
@@ -179,7 +181,7 @@
                         which explains why an association was found before Intention is introduced. If we look at the
                         data on users with low intention only, we may see that users do not make any purchase regardless
                         of how many options they have viewed. Mathematically, this is equivalent to</p>
-                    $$ \mathsf{P} \ (Y = 1 \ |\ X = 1,\ Z = 0) = \mathsf{P} \ ( Y = 1 \ | \ X = 0, \ Z = 0) $$
+                    $$ \mathsf{P} \ (Y = 1 \ |\ X = 1,\ Z = 0) = \mathsf{P} \ ( Y = 1 \ | \ X = 0, \ Z = 0) $$
 
                     <p>Given that our model is robust, we can get the same result by conditioning on users with high
                         intention. Then we can conclude that viewing 3 or more products does not cause users to
@@ -194,7 +196,8 @@
                         our visitors remained unidentified. Other methods to justify causality include Judea Pearl’s
                         <strong>do-calculus</strong> and <strong>front-door</strong> criterion (manipulation the direct
                         path from X to Y without passing through \(Z\)). How to find causality is a massive topic, which
-                        I will explain in details in another article.</p>
+                        I will explain in details in another article.
+                    </p>
 
                     <h3>Conclusion</h3>
                     <p>Humans are endowed with the ability to reason causally. In the face of discrepancy, we are
@@ -228,7 +231,7 @@
                 <a href="https://twitter.com/isVy08"><i class="svg-icon twitter"></i></a>
                 <a href="https://www.linkedin.com/in/isvy08/"><i class="svg-icon linkedin"></i></a>
                 <br>
-                <p style="font-size: 10px;">&copy; 2021 Vy Vo. Powered by Jekyll and Jekyll Now Theme</p>
+                <p style="font-size: 10px;">&copy; Vy Vo. Powered by Jekyll and Jekyll Now Theme</p>
 
             </footer>
         </div>
