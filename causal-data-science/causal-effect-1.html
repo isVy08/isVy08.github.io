@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-    
+
     <meta name="description" content="Vy Vo">
     <title>Causal A/B Testing: A Perfect Scenario</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -16,295 +17,478 @@
 
     <div class="wrapper-masthead">
         <div class="container">
-          <header class="masthead clearfix">
-            <a href="https://isvy08.github.io/" class="site-avatar"><img src="../icon/vv.png" /></a>
-  
-            <div class="site-info">
-              <h1 class="site-name"><a href="https://isvy08.github.io/">Vy Vo</a></h1>
-              <p class="site-description">What's life without whimsy</p>
-            </div>
-  
-            <nav>
-                <a href="../blog.html">Blog</a>
-                <a href="../projects.html">Projects</a>
-                <a href="../stories.html">Stories</a>
-                <a href="https://github.com/isVy08">GitHub</a>
-              </nav>
-          </header>
+            <header class="masthead clearfix">
+                <a href="https://isvy08.github.io/" class="site-avatar"><img src="../icon/vv.png" /></a>
+
+                <div class="site-info">
+                    <h1 class="site-name"><a href="https://isvy08.github.io/">Vy Vo</a></h1>
+                    <p class="site-description">What's life without whimsy</p>
+                </div>
+
+                <nav>
+                    <a href="../blog.html">Blog</a>
+                    <a href="../projects.html">Projects</a>
+                    <a href="../stories.html">Stories</a>
+                    <a href="https://github.com/isVy08">GitHub</a>
+                </nav>
+            </header>
         </div>
-      </div>
+    </div>
 
 
     <div id="main" role="main" class="container">
-        <div class="posts"> 
+        <div class="posts">
 
-    <article class="post" style="text-align: justify;">
-        <div>
-            <h1>A Perfect Scenario</h1>
-            <span><a href="intro.html" target="_blank">Intro to Causal A/B Testing</a></span>
-            
-            <p>
-                The most common examples of randomized experiments in causal inference literature, often called randomized controlled trials (RCTs) are clinical trials that compare the effect of drugs, diagnostic procedures or other medical treatments. 
-                In these experiments, participants are divided into two groups: one group is assigned the treatment (experimental) and the other group either receives the conventional treatment (control) or does not get treated (e.g., a placebo). 
-                A/B test can further involve one or more variants of the treatment, which would then become an A/B/C or A/B/C/D test with more experimental groups accordingly. 
-            </p>
-            <p>
-                To make it simple, we assume the task is to compare the outcomes between when action \(A\) is taken and when action \(A\) is not taken. 
-                If the two outcomes differ, we say action \(A\) has a causal effect on the outcome. The knowledge is taken from Chapter 1 – 4 in the book <a href="https://cdn1.sph.harvard.edu/wp-content/uploads/sites/1268/2019/10/ci_hernanrobins_1oct19.pdf">Causal Inference: What If</a>  (Hernán & Robins, 2010). 
-                I borrow the same notations and examples for convenience.  
-            </p>
-           
-            <h3>Measures of Causal Effect</h3>
-            <p>
-                Consider two random variables: a binary treatment variable \(A\) (1 = treated, 0 = untreated) and a binary outcome variable \(Y\) (1 = die, 0 = alive)
-                <li>\(Y^{a=1}\) is the outcome variable that would have been observed under the treatment value \(a=1\)</li>
-                <li>\(Y^{a=0}\) is the outcome variable that would have been observed under the treatment value \(a=0\)</li>  
-            </p>
-            <p>
-                Suppose for some god-know-how reasons, you are magically given the data in Table 1 (extracted from Table 1.1, page 5)
-                <table style="width: 50%;">
-                    <tr>
-                      <th style="font-weight: bold;">Participants</th>
-                      <th style="font-weight: bold;">\(Y^{a=0}\)</th> 
-                      <th style="font-weight: bold;">\(Y^{a=1}\)</th>
-                    </tr>
-                    <tr>
-                      <td>Rheia</td><td>0</td><td>1</td>
-                    </tr>
-                    <tr>
-                      <td>Kronos</td><td>1</td><td>0</td>
-                    </tr>   
-                    <tr>
-                      <td>Demeter</td><td>0</td><td>0</td>
-                    </tr>  
-                    <tr>
-                      <td>Hades</td><td>0</td><td>0</td>
-                    </tr> 
-                    <tr>
-                      <td>Hera</td><td>0</td><td>0</td>
-                    </tr>                 
-                    <tr>
-                        <td>Artemis</td><td>1</td><td>1</td>
-                    </tr>                 
-                    <tr>
-                        <td>Apollo</td><td>1</td><td>0</td>
-                    </tr>                 
-                </table>
-                <figcaption style="font-size: small; text-align: center;">Table 1</figcaption>  
-                  
-            </p>
-            <p>
-                For the individual Kronos, \(Y^{a=0}=1\) means that she would die if not given the treatment and \(Y^{a=1}=1\) means she would survive if got treated. 
-                Because \(Y^{a=0} \ne Y^{a=1} \), we say the treatment \(A\) <strong>has a causal effect</strong> on Kronos' outcome. 
-                In contrast, the outcomes for Demeter are the same \(Y^{a=0} = Y^{a=1} = 0\), which says that \(A\) has <strong>no causal effect</strong> for Demeter. 
-                These are called <i>potential</i> or <i>counterfactual outcomes</i>, since in reality, only one of such situations is actually observed for an individual. 
-                He either receives the treatment or not. 
-            </p>
-            <p>
-                However, we still can aggregate the effects to calculate the <strong>average causal effect</strong> of a population of all individuals.
-                We say there is an average causal effect of treatment \(A\) on outcome \(Y\) if 
-                $$\mathrm{E}(Y^{a=1}) \ne \mathrm{E}(Y^{a=0})$$
-            </p>
-            <p>
-                As we are considering binary scenarios, \(\mathrm{E}(Y^{a=1}) = \mathrm{P}(Y^{a=1} = 1)\). 
-                Similarly, \(\mathrm{E}(Y^{a=0}) = \mathrm{P}(Y^{a=0} = 1)\). 
-                In this case, these simply are equal to the proportions of individuals who die under each treatment value, \(\mathrm{P}(Y^{a=0} = 1) = 3/7\) and \(\mathrm{P}(Y^{a=1} = 1) = 2/7\). 
-            </p>
-            <p>
-                \(A\) does have a causal effect on \(Y\). I must emphasize this does not rule the null effect for individuals. 
-                When there is no causal effect for any individuals in the population, the average causal effect is zero, but not the other way around.
-            </p>
-            <p>
-                In the book, the authors refer to these quantities as causal/counteractional risks. There are multiple ways to measure causal effects
-                $$\quad\quad\quad\quad\quad (1) \ \mathrm{P}(Y^{a=1} = 1) - \mathrm{P}(Y^{a=0} = 1) \ \textrm{: causal risk difference}$$
-                $$(2)\quad\quad\quad\quad \frac{\mathrm{P}(Y^{a=1} = 1)}{\mathrm{P}(Y^{a=0} = 1)} \ \textrm{: causal risk ratio}$$
-                $$\quad\quad\quad \ (3) \quad \frac{\mathrm{P}(Y^{a=1} = 1)/\mathrm{P}(Y^{a=1} = 0)}{\mathrm{P}(Y^{a=0} = 1)/\mathrm{P}(Y^{a=0} = 0)} \ \text{: causal odds ratio}$$
-            </p>
-    
-            <h3>Non-graphical Illustration of Why Causation is not Association</h3>
+            <article class="post" style="text-align: justify;">
+                <div>
+                    <h1>A Perfect Scenario</h1>
+                    <span><a href="intro.html" target="_blank">Intro to Causal A/B Testing</a></span>
 
-            <p>
-                The fact \(A\) is statistically correlated with \(Y\) in the observation data does not imply \(A\) has a causal effect on \(Y\) is beyond question. 
-                This is because the relationship between \(A\) and \(Y\) may be confounded - roughly saying that there may be a third variable that is a common cause of \(A\) and \(Y\). 
-                For example, the patients in the experimental group has more serious condition than the control group. This will be best understood when we have a causal graph as discussed in <a href="../blog/causality-2.html">Intro to Causal Thinking (Part 2)</a>. 
-                We will visit causal models later in the tutorial, but here under the potential outcome framework, Hernán & Robins provide another perspective that sheds light on this fundamental discrepancy.   
-            </p>
-            <p>In reality, this is the data we can actually collect (extracted from Table 2.1)</p>
-            <table style="width: 50%;">
-                <tr>
-                  <th style="font-weight: bold;">Participants</th>
-                  <th style="font-weight: bold;">\(A\)</th>
-                  <th style="font-weight: bold;">\(Y\)</th>  
-                  <th style="font-weight: bold;">\(Y^{a=0}\)</th> 
-                  <th style="font-weight: bold;">\(Y^{a=1}\)</th>
-                </tr>
-                
-                <tr><td>Rheia</td><td>0</td><td>0</td><td>0</td><td>?</td></tr>  
-                <tr><td>Kronos</td><td>0</td><td>1</td><td>1</td><td>?</td></tr> 
-                <tr><td>Demeter</td><td>0</td><td>0</td><td>0</td><td>?</td></tr> 
-                <tr><td>Hades</td><td>0</td><td>0</td><td>0</td><td>?</td></tr> 
-                <tr><td>Hera</td><td>1</td><td>0</td><td>?</td><td>0</td></tr> 
-                <tr><td>Artemis</td><td>0</td><td>1</td><td>1</td><td>?</td></tr> 
-                <tr><td>Apollo</td><td>0</td><td>1</td><td>1</td><td>?</td></tr> 
-            </table>
-            <figcaption style="font-size: small; text-align: center;">Table 2</figcaption>  
-              
-        </p>
-        <p>
-            The missing values ? indicate counterfactual outcomes never observed. What is commonly mistaken with causal effect is the conditional probabilities from such observational data. 
-            We have \(\mathrm{P}(Y=1|A=1)\) is the proportion of individuals who die among those receiving the treatment, and \(\mathrm{P}(Y=1|A=0)\) is the proportion of individuals who die among those who not. 
-            A quick calculation yields \(\mathrm{P}(Y=1|A=1) = 0\) and \(\mathrm{P}(Y=1|A=0) = 3/6 = 0.5\). 
-        </p>
-        <p>
-            If \(\mathrm{P}(Y=1|A=1) = \mathrm{P}(Y=1|A=0)\), then \(A\) and \(Y\) are independent, in other words \(A\) does not predict \(Y\). In our example, there exists a correlation between these two variables.
-            You may already see that the conditional probabilities and the average causal effects calculated above are not equal. This is the first sign. 
-            Second, in the full example where there are 20 individuals in the population, the average causal effect is found zero, but \(A\) and \(Y\) are still correlated. So, do check it out in the book.  
-        </p>
-        <p>
-            If you do the calculation manually, you must observe that causal effects are calculated over the entire population in Table 1, while associational probabilities only take half of the population into account.  
-            Figure 1.1 in the book illustrates this best
-            <figure style="text-align: center;">
-                <img src='causation-isnot-association.png' alt='causation-vs-association'/>
-                <figcaption style="font-size: small;">Figure taken from the book</figcaption>
-            </figure>
-            <br>I quote the authors' explanation:
-        </p>
-        <q class="caption" style="font-style: italic;">That is, inferences about causation are concerned with what if questions in counterfactual worlds, such as “what would be the risk if everybody had been treated?” and “what would be the risk if everybody had been untreated?”, 
-            whereas inferences about association are concerned with questions in the actual world, such as “what is the risk in the treated?” and “what is the risk in the untreated?” - Hernán & Robins (2010).</q>
-        
-        <h3>Randomization</h3>
-        <p>
-            Ok, so potential outcomes are impossible, and observational data cannot provide the true causal effect. Now what? 
-            <br><br>
-            We return to our very assumption of a perfect scenario. Provided an ideal randomized experiment with sufficient control, association is causation. 
-            Suppose we are still given the data in Table 2, randomization guarantees whether a person is treated or not is determined purely by chance, or there would be no confounding bias.
-            Formally, the counterfactual outcome \(Y^{a}\) and observed treatment \(A\) are <strong>independent</strong>, \(Y^{a} \perp A\).
-        </p>
-        <p>
-            The key concept is <strong>Exchangeability</strong>. This means if the experimental group became the control group, and the control group now received the treatment, the expected outcome would be the same. 
-            Thus, the average causal risk in the treated equals the average risk among the untreated group, and must equal to the marginal average risk the whole population. 
-            $$\mathrm{E}(Y^{a}|A=1) = \mathrm{E}(Y^{a}|A=0) = \mathrm{E}(Y^{a}) \quad (*)$$
-            Randomization allows for exchangeability. Therefore, our ideal randomized experiment permits us to compute the counterfactual risk under treatment in the population because it is equal to the associational probability in the treated.
-            $$\mathrm{P}(Y^{a=1} = 1) = \mathrm{P}(Y=1|A=1)$$ 
-        </p>
-        <p>
-            If the missing values in Table 2 were filled in, we would be able to determine whether exchangeability holds in the population by comparing \(\mathrm{P}(Y^{a=0}=1|A=1)\) with \(\mathrm{P}(Y^{a=0}=1|A=0)\). 
-            Again, this is impossible. However, lack of exchangeability does not imply our experiment is not randomized. We can design an experiment in which exchangeability (or randomization) holds within subsets of the population.
-            Let me introduce <strong>Conditional Randomization</strong>.  
-        </p>
-        <h3>Conditional Randomization</h3>
-        <p>
-            So far, we have had our first touch with one kind of experiemental design - randomly assigning treatment to all individuals, for instance by flipping a coin with 0.60 probability of landing heads, resulting in 60% of participants getting the treatment, and 40% assigned to the control group accordingly.
-            This design is referred to as <i>marginally randomized</i>. On the other hand, a <i>conditionally randomized</i> experiment is one in which randomization probabilities depend on a third variable \(L\), where \(L\) can represent a patient's condition for example.
-            You would start by classifying all individuals into two groups: \(L=1\) (e.g., critical condition) and \(L=0\) (e.g., non-critical condition). 
-            Then you'd use two coins: one with, let's say 0.7 probabilty of assigning treatment to those in critical conditional, and the other with 0.5 probability of assigning treatment to those in non-critical condition.
-        </p>
-        <p>
-            Conditional randomization ensures the treated and untreated group are exchangeable within a subset of individuals, i.e., <strong>Conditional Exchangeability</strong>.
-            This leads to \(Y^{a} \perp A |L\) for all levels of \(L\). We can modify formula \((*)\) to be
-            $$\mathrm{E}(Y^{a}|A=1, L=1) = \mathrm{E}(Y^{a}|A=0, L=1) = \mathrm{E}(Y^{a}|L=1)$$
-            that is, the average causal effect in treated equals the average causal effect among the untreated group, <span style="text-decoration: underline;">given that they all are in the critical condition</span> at the time of treatment assignment.
-        </p>
-        <p>The question now is how to calculate causal effects under conditional exchangeability? Suppose we are given data in Table 3, there are two ways to do this.</p>
-        <table style="width: 50%;">
-            <tr>
-              <th style="font-weight: bold;">Participants</th>
-              <th style="font-weight: bold;">\(L\)</th> 
-              <th style="font-weight: bold;">\(A\)</th>
-              <th style="font-weight: bold;">\(Y\)</th>  
-            </tr>
-            
-            <tr><td>Rheia</td><td>0</td><td>0</td><td>0</td></tr>  
-            <tr><td>Kronos</td><td>0</td><td>0</td><td>1</td></tr> 
-            <tr><td>Demeter</td><td>0</td><td>0</td><td>0</td></tr> 
-            <tr><td>Hades</td><td>0</td><td>0</td><td>0</td></tr> 
-            <tr><td>Hera</td><td>0</td><td>1</td><td>0</td></tr> 
-            <tr><td>Artemis</td><td>1</td><td>0</td><td>1</td></tr> 
-            <tr><td>Apollo</td><td>1</td><td>0</td><td>1</td></tr> 
-        </table>
-        <figcaption style="font-size: small; text-align: center;">Table 3</figcaption>  
-        <h4>1. Standardization</h4>
-        <p>
-            Trivially, the causal risks just need to be weighted by the probability of assigning individuals to \(L=0\) and \(L=1\) groups respectively
-            <br><br>
-            <li>\(\mathrm{E}(Y^{a=0}) = \mathrm{E}(Y^{a=0}|L=1) \times \mathrm{P}(L=1) + \mathrm{E}(Y^{a=0}|L=0) \times \mathrm{P}(L=0)\) </li>
-            <li>\(\mathrm{E}(Y^{a=1}) = \mathrm{E}(Y^{a=1}|L=1) \times \mathrm{P}(L=1) + \mathrm{E}(Y^{a=1}|L=0) \times \mathrm{P}(L=0)\)</li>
-        </p>
-        <p>
-            Because of randomization, we have causal risks equal to conditional probabilites. Combining everything together, we can easily compute
-            $$\mathrm{E}(Y^{a=0}) =  \mathrm{P}(Y^{a=0}=1) = \mathrm{P}(Y^{a=0}=1|L=1) \times \mathrm{P}(L=1) + \mathrm{P}(Y^{a=0}=1|L=0) \times \mathrm{P}(L=0)$$
-            $$= \mathrm{P}(Y=1|A=0, L=1) \times \mathrm{P}(L=1) + \mathrm{P}(Y=1|A=0, L=0) \times \mathrm{P}(L=0)$$
-            $$= 1 \times 2/7 + 1/4 \times 5/7 = 13/28$$
-            Analogously, we can derive \(\mathrm{E}(Y^{a=1})= 0\).  
-        </p>
-        <p>
-            More generally,
-            $$\mathrm{E}(Y^{a}) = \sum_l \mathrm{E}(Y|A=a,L=l) \times \mathrm{P}(L=l)$$
-        </p>
-        <h4>2. Inverse Probability Weighting</h4>
-        <p>
-            Inverse probability weighting (IPW) and Standardization are in fact equivalent, but the intuition behind IPW is pretty interesting. 
-            The data in Table 3 can be represented tree-like as
-            <figure style="text-align: center;">
-                <img src='ipw-orig.png' alt='ipw-original-population'/>
-                <figcaption style="font-size: small;">Original Population</figcaption>
-            </figure>
-            <br>
-            Recall that \(\mathrm{P}(Y^{a=0}=1)\) measures the counterfactual risk of death had <strong>all</strong> individuals remained untreated.
-            <br><br>
-            Our data shows that all patients in critical condition, \(L=1\), die under no treatment, so 2 deaths would have occured (and actually occured) had everyone in \(L=1\) not been treated.
-            Meanwhile in the subset \(L=0\), 4 are not treated and 1 of them dies. If all 5 had not been treated, there would have been \(5 \times 1/4 = 5/4\) deaths. 
-            Ignoring the decimal points, had everyone in the population been untreated, the total deaths would have been \(2 + 5/4\). Thus, we have
-            $$\mathrm{E}(Y^{a=0}) = \mathrm{P}(Y^{a=0}=1) = (2+5/4)/7 = 13/28$$
-        </p>
-        <p>
-            To understand why it is called Inverse Probability Weighting, we first generate pseudo-populations.<br>
-            <figure style="text-align: center;">
-                <img src='ipw-pseudo.png' alt='ipw-pseudo-population'/>
-                <figcaption style="font-size: small;">Pseudo Population</figcaption>
-            </figure>
-            <br>
-            The only difference between the two figures is that in each subset of \(L\), each of the treated and untreated group now has the size equal to the total size orginally, while we keep the death-surival ratio constant.
-            To compute \(\mathrm{P}(Y^{a=0}=1)\), focus on the untreated on both sides. The left subset has \(5 \times 1/4\) people with \(Y=1\), and the right subset has \(2 \times 2/2\) people with \(Y=1\).
-            Hence, the total deaths had all been untreated are \(2 + 5/4\).
-        </p>   
-        <p> 
-            In the original population for \(L=0\), the proportion of the untreated is \(4/5\). 
-            To create 5 people, we weight every individual by \(5/4\), which is exactly the inverse of the probabilty of assigning treatment \(4/5\), and so on for the other groups.
-            In general, we have the inverse probabily \(W^A = 1/\mathrm{P}(A|L)\). 
-        </p>     
-        <p>
-            You may be confused about the zero denominator when do the calculation for the treated group in \(L=1\). 
-            We will discuss the assumption of positivity in another article, so for now just leave it as \(0 \times 2/0 = 2\)!
-            <br><br>
-            To check your understanding, here's a quick exercise: <br>Calculate \(\mathrm{E}(Y^{a=1})\) using IPW to see whether it equals zero.
-        </p>    
-        <p>
-            Until this point, we have looked at how to calculate the average causal effect of the entire population. 
-            However, we are sometimes more interested in the causal effect of a specific subset, for example the causal effect of the subset of \(L=1\) individuals.
-            <br><br>
-            Join me in the next discussions<br>
-            <span><a href="causal-effect-2.html" target="_blank">A Not-so-Perfect Scenario</a></span><br>
-            <span><a href="cs-tools.html" target="_blank">Case Studies & Tools</a></span> 
-        </p>
+                    <p>
+                        The most common examples of randomized experiments in causal inference literature, often called
+                        randomized controlled trials (RCTs) are clinical trials that compare the effect of drugs,
+                        diagnostic procedures or other medical treatments.
+                        In these experiments, participants are divided into two groups: one group is assigned the
+                        treatment (experimental) and the other group either receives the conventional treatment
+                        (control) or does not get treated (e.g., a placebo).
+                        A/B test can further involve one or more variants of the treatment, which would then become an
+                        A/B/C or A/B/C/D test with more experimental groups accordingly.
+                    </p>
+                    <p>
+                        To make it simple, we assume the task is to compare the outcomes between when action \(A\) is
+                        taken and when action \(A\) is not taken.
+                        If the two outcomes differ, we say action \(A\) has a causal effect on the outcome. The
+                        knowledge is taken from Chapter 1 – 4 in the book <a
+                            href="https://cdn1.sph.harvard.edu/wp-content/uploads/sites/1268/2019/10/ci_hernanrobins_1oct19.pdf">Causal
+                            Inference: What If</a> (Hernán & Robins, 2010).
+                        I borrow the same notations and examples for convenience.
+                    </p>
+
+                    <h3>Measures of Causal Effect</h3>
+                    <p>
+                        Consider two random variables: a binary treatment variable \(A\) (1 = treated, 0 = untreated)
+                        and a binary outcome variable \(Y\) (1 = die, 0 = alive)
+                        <li>\(Y^{a=1}\) is the outcome variable that would have been observed under the treatment value
+                            \(a=1\)</li>
+                        <li>\(Y^{a=0}\) is the outcome variable that would have been observed under the treatment value
+                            \(a=0\)</li>
+                    </p>
+                    <p>
+                        Suppose for some god-know-how reasons, you are magically given the data in Table 1 (extracted
+                        from Table 1.1, page 5)
+                    <table style="width: 50%;">
+                        <tr>
+                            <th style="font-weight: bold;">Participants</th>
+                            <th style="font-weight: bold;">\(Y^{a=0}\)</th>
+                            <th style="font-weight: bold;">\(Y^{a=1}\)</th>
+                        </tr>
+                        <tr>
+                            <td>Rheia</td>
+                            <td>0</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>Kronos</td>
+                            <td>1</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>Demeter</td>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>Hades</td>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>Hera</td>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>Artemis</td>
+                            <td>1</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>Apollo</td>
+                            <td>1</td>
+                            <td>0</td>
+                        </tr>
+                    </table>
+                    <figcaption style="font-size: small; text-align: center;">Table 1</figcaption>
+
+                    </p>
+                    <p>
+                        For the individual Kronos, \(Y^{a=0}=1\) means that she would die if not given the treatment and
+                        \(Y^{a=1}=1\) means she would survive if got treated.
+                        Because \(Y^{a=0} \ne Y^{a=1} \), we say the treatment \(A\) <strong>has a causal
+                            effect</strong> on Kronos' outcome.
+                        In contrast, the outcomes for Demeter are the same \(Y^{a=0} = Y^{a=1} = 0\), which says that
+                        \(A\) has <strong>no causal effect</strong> for Demeter.
+                        These are called <i>potential</i> or <i>counterfactual outcomes</i>, since in reality, only one
+                        of such situations is actually observed for an individual.
+                        He either receives the treatment or not.
+                    </p>
+                    <p>
+                        However, we still can aggregate the effects to calculate the <strong>average causal
+                            effect</strong> of a population of all individuals.
+                        We say there is an average causal effect of treatment \(A\) on outcome \(Y\) if
+                        $$\mathrm{E}(Y^{a=1}) \ne \mathrm{E}(Y^{a=0})$$
+                    </p>
+                    <p>
+                        As we are considering binary scenarios, \(\mathrm{E}(Y^{a=1}) = \mathrm{P}(Y^{a=1} = 1)\).
+                        Similarly, \(\mathrm{E}(Y^{a=0}) = \mathrm{P}(Y^{a=0} = 1)\).
+                        In this case, these simply are equal to the proportions of individuals who die under each
+                        treatment value, \(\mathrm{P}(Y^{a=0} = 1) = 3/7\) and \(\mathrm{P}(Y^{a=1} = 1) = 2/7\).
+                    </p>
+                    <p>
+                        \(A\) does have a causal effect on \(Y\). I must emphasize this does not rule the null effect
+                        for individuals.
+                        When there is no causal effect for any individuals in the population, the average causal effect
+                        is zero, but not the other way around.
+                    </p>
+                    <p>
+                        In the book, the authors refer to these quantities as causal/counteractional risks. There are
+                        multiple ways to measure causal effects
+                        $$\quad\quad\quad\quad\quad (1) \ \mathrm{P}(Y^{a=1} = 1) - \mathrm{P}(Y^{a=0} = 1) \ \textrm{:
+                        causal risk difference}$$
+                        $$(2)\quad\quad\quad\quad \frac{\mathrm{P}(Y^{a=1} = 1)}{\mathrm{P}(Y^{a=0} = 1)} \ \textrm{:
+                        causal risk ratio}$$
+                        $$\quad\quad\quad \ (3) \quad \frac{\mathrm{P}(Y^{a=1} = 1)/\mathrm{P}(Y^{a=1} =
+                        0)}{\mathrm{P}(Y^{a=0} = 1)/\mathrm{P}(Y^{a=0} = 0)} \ \text{: causal odds ratio}$$
+                    </p>
+
+                    <h3>Non-graphical Illustration of Why Causation is not Association</h3>
+
+                    <p>
+                        The fact \(A\) is statistically correlated with \(Y\) in the observation data does not imply
+                        \(A\) has a causal effect on \(Y\) is beyond question.
+                        This is because the relationship between \(A\) and \(Y\) may be confounded - roughly saying that
+                        there may be a third variable that is a common cause of \(A\) and \(Y\).
+                        For example, the patients in the experimental group has more serious condition than the control
+                        group. This will be best understood when we have a causal graph as discussed in <a
+                            href="../blog/causality-2.html">Intro to Causal Thinking (Part 2)</a>.
+                        We will visit causal models later in the tutorial, but here under the potential outcome
+                        framework, Hernán & Robins provide another perspective that sheds light on this fundamental
+                        discrepancy.
+                    </p>
+                    <p>In reality, this is the data we can actually collect (extracted from Table 2.1)</p>
+                    <table style="width: 50%;">
+                        <tr>
+                            <th style="font-weight: bold;">Participants</th>
+                            <th style="font-weight: bold;">\(A\)</th>
+                            <th style="font-weight: bold;">\(Y\)</th>
+                            <th style="font-weight: bold;">\(Y^{a=0}\)</th>
+                            <th style="font-weight: bold;">\(Y^{a=1}\)</th>
+                        </tr>
+
+                        <tr>
+                            <td>Rheia</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>?</td>
+                        </tr>
+                        <tr>
+                            <td>Kronos</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>?</td>
+                        </tr>
+                        <tr>
+                            <td>Demeter</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>?</td>
+                        </tr>
+                        <tr>
+                            <td>Hades</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>?</td>
+                        </tr>
+                        <tr>
+                            <td>Hera</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>?</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>Artemis</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>?</td>
+                        </tr>
+                        <tr>
+                            <td>Apollo</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>?</td>
+                        </tr>
+                    </table>
+                    <figcaption style="font-size: small; text-align: center;">Table 2</figcaption>
+
+                    </p>
+                    <p>
+                        The missing values ? indicate counterfactual outcomes never observed. What is commonly mistaken
+                        with causal effect is the conditional probabilities from such observational data.
+                        We have \(\mathrm{P}(Y=1|A=1)\) is the proportion of individuals who die among those receiving
+                        the treatment, and \(\mathrm{P}(Y=1|A=0)\) is the proportion of individuals who die among those
+                        who not.
+                        A quick calculation yields \(\mathrm{P}(Y=1|A=1) = 0\) and \(\mathrm{P}(Y=1|A=0) = 3/6 = 0.5\).
+                    </p>
+                    <p>
+                        If \(\mathrm{P}(Y=1|A=1) = \mathrm{P}(Y=1|A=0)\), then \(A\) and \(Y\) are independent, in other
+                        words \(A\) does not predict \(Y\). In our example, there exists a correlation between these two
+                        variables.
+                        You may already see that the conditional probabilities and the average causal effects calculated
+                        above are not equal. This is the first sign.
+                        Second, in the full example where there are 20 individuals in the population, the average causal
+                        effect is found zero, but \(A\) and \(Y\) are still correlated. So, do check it out in the book.
+                    </p>
+                    <p>
+                        If you do the calculation manually, you must observe that causal effects are calculated over the
+                        entire population in Table 1, while associational probabilities only take half of the population
+                        into account.
+                        Figure 1.1 in the book illustrates this best
+                    <figure style="text-align: center;">
+                        <img src='causation-isnot-association.png' alt='causation-vs-association' />
+                        <figcaption style="font-size: small;">Figure taken from the book</figcaption>
+                    </figure>
+                    <br>I quote the authors' explanation:
+                    </p>
+                    <q class="caption" style="font-style: italic;">That is, inferences about causation are concerned
+                        with what if questions in counterfactual worlds, such as “what would be the risk if everybody
+                        had been treated?” and “what would be the risk if everybody had been untreated?”,
+                        whereas inferences about association are concerned with questions in the actual world, such as
+                        “what is the risk in the treated?” and “what is the risk in the untreated?” - Hernán & Robins
+                        (2010).</q>
+
+                    <h3>Randomization</h3>
+                    <p>
+                        Ok, so potential outcomes are impossible, and observational data cannot provide the true causal
+                        effect. Now what?
+                        <br><br>
+                        We return to our very assumption of a perfect scenario. Provided an ideal randomized experiment
+                        with sufficient control, association is causation.
+                        Suppose we are still given the data in Table 2, randomization guarantees whether a person is
+                        treated or not is determined purely by chance, or there would be no confounding bias.
+                        Formally, the counterfactual outcome \(Y^{a}\) and observed treatment \(A\) are
+                        <strong>independent</strong>, \(Y^{a} \perp A\).
+                    </p>
+                    <p>
+                        The key concept is <strong>Exchangeability</strong>. This means if the experimental group became
+                        the control group, and the control group now received the treatment, the expected outcome would
+                        be the same.
+                        Thus, the average causal risk in the treated equals the average risk among the untreated group,
+                        and must equal to the marginal average risk the whole population.
+                        $$\mathrm{E}(Y^{a}|A=1) = \mathrm{E}(Y^{a}|A=0) = \mathrm{E}(Y^{a}) \quad (*)$$
+                        Randomization allows for exchangeability. Therefore, our ideal randomized experiment permits us
+                        to compute the counterfactual risk under treatment in the population because it is equal to the
+                        associational probability in the treated.
+                        $$\mathrm{P}(Y^{a=1} = 1) = \mathrm{P}(Y=1|A=1)$$
+                    </p>
+                    <p>
+                        If the missing values in Table 2 were filled in, we would be able to determine whether
+                        exchangeability holds in the population by comparing \(\mathrm{P}(Y^{a=0}=1|A=1)\) with
+                        \(\mathrm{P}(Y^{a=0}=1|A=0)\).
+                        Again, this is impossible. However, lack of exchangeability does not imply our experiment is not
+                        randomized. We can design an experiment in which exchangeability (or randomization) holds within
+                        subsets of the population.
+                        Let me introduce <strong>Conditional Randomization</strong>.
+                    </p>
+                    <h3>Conditional Randomization</h3>
+                    <p>
+                        So far, we have had our first touch with one kind of experiemental design - randomly assigning
+                        treatment to all individuals, for instance by flipping a coin with 0.60 probability of landing
+                        heads, resulting in 60% of participants getting the treatment, and 40% assigned to the control
+                        group accordingly.
+                        This design is referred to as <i>marginally randomized</i>. On the other hand, a
+                        <i>conditionally randomized</i> experiment is one in which randomization probabilities depend on
+                        a third variable \(L\), where \(L\) can represent a patient's condition for example.
+                        You would start by classifying all individuals into two groups: \(L=1\) (e.g., critical
+                        condition) and \(L=0\) (e.g., non-critical condition).
+                        Then you'd use two coins: one with, let's say 0.7 probabilty of assigning treatment to those in
+                        critical conditional, and the other with 0.5 probability of assigning treatment to those in
+                        non-critical condition.
+                    </p>
+                    <p>
+                        Conditional randomization ensures the treated and untreated group are exchangeable within a
+                        subset of individuals, i.e., <strong>Conditional Exchangeability</strong>.
+                        This leads to \(Y^{a} \perp A |L\) for all levels of \(L\). We can modify formula \((*)\) to be
+                        $$\mathrm{E}(Y^{a}|A=1, L=1) = \mathrm{E}(Y^{a}|A=0, L=1) = \mathrm{E}(Y^{a}|L=1)$$
+                        that is, the average causal effect in treated equals the average causal effect among the
+                        untreated group, <span style="text-decoration: underline;">given that they all are in the
+                            critical condition</span> at the time of treatment assignment.
+                    </p>
+                    <p>The question now is how to calculate causal effects under conditional exchangeability? Suppose we
+                        are given data in Table 3, there are two ways to do this.</p>
+                    <table style="width: 50%;">
+                        <tr>
+                            <th style="font-weight: bold;">Participants</th>
+                            <th style="font-weight: bold;">\(L\)</th>
+                            <th style="font-weight: bold;">\(A\)</th>
+                            <th style="font-weight: bold;">\(Y\)</th>
+                        </tr>
+
+                        <tr>
+                            <td>Rheia</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>Kronos</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>Demeter</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>Hades</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>Hera</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>Artemis</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>Apollo</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>1</td>
+                        </tr>
+                    </table>
+                    <figcaption style="font-size: small; text-align: center;">Table 3</figcaption>
+                    <h4>1. Standardization</h4>
+                    <p>
+                        Trivially, the causal risks just need to be weighted by the probability of assigning individuals
+                        to \(L=0\) and \(L=1\) groups respectively
+                        <br><br>
+                        <li>\(\mathrm{E}(Y^{a=0}) = \mathrm{E}(Y^{a=0}|L=1) \times \mathrm{P}(L=1) +
+                            \mathrm{E}(Y^{a=0}|L=0) \times \mathrm{P}(L=0)\) </li>
+                        <li>\(\mathrm{E}(Y^{a=1}) = \mathrm{E}(Y^{a=1}|L=1) \times \mathrm{P}(L=1) +
+                            \mathrm{E}(Y^{a=1}|L=0) \times \mathrm{P}(L=0)\)</li>
+                    </p>
+                    <p>
+                        Because of randomization, we have causal risks equal to conditional probabilites. Combining
+                        everything together, we can easily compute
+                        $$\mathrm{E}(Y^{a=0}) = \mathrm{P}(Y^{a=0}=1) = \mathrm{P}(Y^{a=0}=1|L=1) \times \mathrm{P}(L=1)
+                        + \mathrm{P}(Y^{a=0}=1|L=0) \times \mathrm{P}(L=0)$$
+                        $$= \mathrm{P}(Y=1|A=0, L=1) \times \mathrm{P}(L=1) + \mathrm{P}(Y=1|A=0, L=0) \times
+                        \mathrm{P}(L=0)$$
+                        $$= 1 \times 2/7 + 1/4 \times 5/7 = 13/28$$
+                        Analogously, we can derive \(\mathrm{E}(Y^{a=1})= 0\).
+                    </p>
+                    <p>
+                        More generally,
+                        $$\mathrm{E}(Y^{a}) = \sum_l \mathrm{E}(Y|A=a,L=l) \times \mathrm{P}(L=l)$$
+                    </p>
+                    <h4>2. Inverse Probability Weighting</h4>
+                    <p>
+                        Inverse probability weighting (IPW) and Standardization are in fact equivalent, but the
+                        intuition behind IPW is pretty interesting.
+                        The data in Table 3 can be represented tree-like as
+                    <figure style="text-align: center;">
+                        <img src='ipw-orig.png' alt='ipw-original-population' />
+                        <figcaption style="font-size: small;">Original Population</figcaption>
+                    </figure>
+                    <br>
+                    Recall that \(\mathrm{P}(Y^{a=0}=1)\) measures the counterfactual risk of death had
+                    <strong>all</strong> individuals remained untreated.
+                    <br><br>
+                    Our data shows that all patients in critical condition, \(L=1\), die under no treatment, so 2 deaths
+                    would have occured (and actually occured) had everyone in \(L=1\) not been treated.
+                    Meanwhile in the subset \(L=0\), 4 are not treated and 1 of them dies. If all 5 had not been
+                    treated, there would have been \(5 \times 1/4 = 5/4\) deaths.
+                    Ignoring the decimal points, had everyone in the population been untreated, the total deaths would
+                    have been \(2 + 5/4\). Thus, we have
+                    $$\mathrm{E}(Y^{a=0}) = \mathrm{P}(Y^{a=0}=1) = (2+5/4)/7 = 13/28$$
+                    </p>
+                    <p>
+                        To understand why it is called Inverse Probability Weighting, we first generate
+                        pseudo-populations.<br>
+                    <figure style="text-align: center;">
+                        <img src='ipw-pseudo.png' alt='ipw-pseudo-population' />
+                        <figcaption style="font-size: small;">Pseudo Population</figcaption>
+                    </figure>
+                    <br>
+                    The only difference between the two figures is that in each subset of \(L\), each of the treated and
+                    untreated group now has the size equal to the total size orginally, while we keep the death-surival
+                    ratio constant.
+                    To compute \(\mathrm{P}(Y^{a=0}=1)\), focus on the untreated on both sides. The left subset has \(5
+                    \times 1/4\) people with \(Y=1\), and the right subset has \(2 \times 2/2\) people with \(Y=1\).
+                    Hence, the total deaths had all been untreated are \(2 + 5/4\).
+                    </p>
+                    <p>
+                        In the original population for \(L=0\), the proportion of the untreated is \(4/5\).
+                        To create 5 people, we weight every individual by \(5/4\), which is exactly the inverse of the
+                        probabilty of assigning treatment \(4/5\), and so on for the other groups.
+                        In general, we have the inverse probabily \(W^A = 1/\mathrm{P}(A|L)\).
+                    </p>
+                    <p>
+                        You may be confused about the zero denominator when do the calculation for the treated group in
+                        \(L=1\).
+                        We will discuss the assumption of positivity in another article, so for now just leave it as \(0
+                        \times 2/0 = 2\)!
+                        <br><br>
+                        To check your understanding, here's a quick exercise: <br>Calculate \(\mathrm{E}(Y^{a=1})\)
+                        using IPW to see whether it equals zero.
+                    </p>
+                    <p>
+                        Until this point, we have looked at how to calculate the average causal effect of the entire
+                        population.
+                        However, we are sometimes more interested in the causal effect of a specific subset, for example
+                        the causal effect of the subset of \(L=1\) individuals.
+                        <br><br>
+                        Join me in the next discussions<br>
+                        <span><a href="causal-effect-2.html" target="_blank">A Not-so-Perfect Scenario</a></span><br>
+                        <span><a href="cs-tools.html" target="_blank">Case Studies & Tools</a></span>
+                    </p>
 
 
-        </div>
-    </article>
+                </div>
+            </article>
         </div>
     </div>
     <div class="wrapper-footer">
         <div class="container">
-        <footer class="footer">
+            <footer class="footer">
 
 
-        <a href="https://www.facebook.com/isVy08"><i class="svg-icon facebook"></i></a>        
-        <a href="https://twitter.com/isVy08"><i class="svg-icon twitter"></i></a>
-        <a href="https://www.linkedin.com/in/isvy08/"><i class="svg-icon linkedin"></i></a>
-        <br><p style="font-size: 10px;">&copy; 2021 Vy Vo. Powered by Jekyll and Jekyll Now Theme</p>   
+                <a href="https://www.facebook.com/isVy08"><i class="svg-icon facebook"></i></a>
+                <a href="https://twitter.com/isVy08"><i class="svg-icon twitter"></i></a>
+                <a href="https://www.linkedin.com/in/isvy08/"><i class="svg-icon linkedin"></i></a>
+                <br>
+                <p style="font-size: 10px;">&copy; Vy Vo. Powered by Jekyll and Jekyll Now Theme</p>
 
-        </footer>
+            </footer>
         </div>
-    </div> 
+    </div>
 </body>
+
 </html>
