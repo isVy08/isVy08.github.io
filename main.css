@@ -427,6 +427,12 @@ nav a {
   font-size: 16px;
 }
 
+.note {
+  color: grey;
+  font-weight: lighter;
+  font-size: 14px;
+}
+
 .wrapper-footer {
   margin-top: 50px;
   border-top: 1px solid #ddd;
