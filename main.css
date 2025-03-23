@@ -212,14 +212,15 @@ p {
 }
 
 a {
-  color: #4183c4;
+  /* color: #4183c4; */
+  color: #265ac1;
   text-decoration: none;
   cursor: pointer;
 }
 
 a:hover,
 a:active {
-  color: #4183c4;
+  color: #265ac1;
 }
 
 ul,
