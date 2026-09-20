@@ -1,119 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-
-  <meta name="description" content="Vy Vo">
-  <meta property="og:description" content="Poetry" />
-  <title>This Again</title>
-
-  <link rel="stylesheet" href="../main.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>This Again — Vy Vo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../main.css">
 </head>
-
 <body>
-
-  <div class="wrapper-masthead">
-    <div class="container">
-      <header class="masthead clearfix">
-        <a href="https://isvy08.github.io/" class="site-avatar"><img src="../assets/vv.png" /></a>
-
-        <div class="site-info">
-          <h1 class="site-name"><a href="https://isvy08.github.io/">Vy Vo</a></h1>
-          <p class="site-description">What's life without whimsy</p>
-        </div>
-
-        <nav>
-          <a href="../blog.html">Research</a>
-          <a href="../stories.html">Stories</a>
-          <a href="https://github.com/isVy08">GitHub</a>
-        </nav>
-      </header>
-    </div>
+<header class="site-header">
+  <div class="nav-inner">
+    <a href="../index.html" class="brand-link">
+      <img src="https://isvy08.github.io/assets/vv.png" alt="Vy Vo" class="brand-avatar">
+      <span class="brand-text">
+        <span class="brand-name">Vy Vo</span>
+        <span class="brand-tagline">What's life without whimsy</span>
+      </span>
+    </a>
+    <nav class="nav-links">
+      <a href="../index.html" class="nav-link">About</a>
+      <a href="../research.html" class="nav-link">Research</a>
+      <a href="../stories.html" class="nav-link is-active">Stories</a>
+      <a href="https://github.com/isVy08" target="_blank" rel="noreferrer" class="btn-secondary">GitHub</a>
+    </nav>
   </div>
-
-
-  <div id="main" role="main" class="container">
-    <div class="posts">
-
-
-      <article class="post" style="text-align: justify;">
-        <h1>This Again</h1>
-        <div class="caption">Beat: <a href="https://www.youtube.com/watch?v=j_Z8sTSY-DM">
-            I Burned LA down</a></div>
-        <p>
-          (Verse 1)<br>
-          If we could ever meet again,<br>
-          would you stop to say hello, and pretend we're still friends<br>
-          I've been busy filling up the hollow souls buried deep into scars years ago.<br>
-          <br>
-          Anything you said,<br>
-          when you walked away<br>
-          I held it all inside,<br>
-          until this day<br>
-          <br>
-          (Chorus)<br>
-          Ooh, already left the town<br>
-          to be honest, I don't know how<br>
-          but I still see you around,<br>
-          there go many sleepless nights<br>
-          <br>
-          Going through your words<br>
-          that you said you cared, but you were never there.<br>
-          There used to be a fire sparking in your eyes,<br>
-          and the chemistry that we shared.<br>
-          <br>
-          (Version 2)<br>
-          Is it just me,<br>
-          or all these good times are left behind,<br>
-          and old faces start to be replaced?<br>
-          <br>
-          Memories flying around<br>
-          in flakes of disturbances<br>
-          I can't help mourning the death of familiarity.<br>
-          <br>
-          (Chorus)<br>
-          Ooh, I already left the town<br>
-          to be honest, I don't know how<br>
-          but I still see you around,<br>
-          there go many sleepless nights<br>
-          <br>
-          Going through your words<br>
-          that you said you cared, but you were never there.<br>
-          There used to be a fire sparking in our eyes,<br>
-          and the chemistry that we shared.<br>
-          <br>
-          (Chorus)<br>
-          Ooh, after all these years<br>
-          Your voice never disappears<br>
-          I'm just nowhere to be near<br>
-          forgetting you<br>
-          <br>
-          I stand here wondering why time passes us by<br>
-          how many goodbyes I need to feel ok?<br>
-
-        </p>
-
-      </article>
+</header>
+<main class="page-main article-main">
+  <div id="article-root"></div>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+     <div class="social-icons">
+      <a href="https://scholar.google.com/citations?user=3CpFpFkAAAAJ&hl=en&oi=ao"><i class="svg-icon scholar"></i></a>
+      <a href="https://x.com/isVy08/"><i class="svg-icon x"></i></a>
+      <a href="https://www.linkedin.com/in/isvy08/"><i class="svg-icon linkedin"></i></a>
     </div>
+    <span class="copyright">© Vy Vo</span>
   </div>
-  <div class="wrapper-footer">
-    <div class="container">
-      <footer class="footer">
-
-
-        <a href="https://scholar.google.com/citations?user=3CpFpFkAAAAJ&hl=en&oi=ao"><i class="svg-icon scholar"></i></a>
-        <a href="https://twitter.com/isVy08"><i class="svg-icon twitter"></i></a>
-        <a href="https://www.linkedin.com/in/isvy08/"><i class="svg-icon linkedin"></i></a>
-        <br>
-        <p style="font-size: 10px;">&copy; Vy Vo. Powered by Jekyll and Jekyll Now Theme</p>
-
-      </footer>
-    </div>
-  </div>
-
+</footer>
+<script src="../main.js"></script>
+<script src="../templates.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  renderPoemArticle(document.getElementById('article-root'), {
+    date: "December 2022",
+    kind: "Lyrics",
+    title: "This Again",
+    stanzas: [
+      ["Beat: <a href=\"https://www.youtube.com/watch?v=j_Z8sTSY-DM\" target=\"_blank\" rel=\"noreferrer\">I Burned LA down</a>"],
+      ["(Verse 1)", "If we could ever meet again,", "would you stop to say hello, and pretend we're still friends", "I've been busy filling up the hollow souls buried deep into scars years ago."],
+      ["Anything you said,", "when you walked away", "I held it all inside,", "until this day"],
+      ["(Chorus)", "Ooh, already left the town", "to be honest, I don't know how", "but I still see you around,", "there go many sleepless nights"],
+      ["Going through your words", "that you said you cared, but you were never there.", "There used to be a fire sparking in your eyes,", "and the chemistry that we shared."],
+      ["(Version 2)", "Is it just me,", "or all these good times are left behind,", "and old faces start to be replaced?"],
+      ["Memories flying around", "in flakes of disturbances", "I can't help mourning the death of familiarity."],
+      ["(Chorus)", "Ooh, I already left the town", "to be honest, I don't know how", "but I still see you around,", "there go many sleepless nights"],
+      ["Going through your words", "that you said you cared, but you were never there.", "There used to be a fire sparking in our eyes,", "and the chemistry that we shared."],
+      ["(Chorus)", "Ooh, after all these years", "Your voice never disappears", "I'm just nowhere to be near", "forgetting you"],
+      ["I stand here wondering why time passes us by", "how many goodbyes I need to feel ok?"]
+    ]
+  });
+});
+</script>
 </body>
-
 </html>

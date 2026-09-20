@@ -1,117 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-
-  <meta name="description" content="Vy Vo">
-  <meta property="og:description" content="Poem" />
-  <title>Escape</title>
-
-  <link rel="stylesheet" href="../main.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Escape — Vy Vo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../main.css">
 </head>
-
 <body>
-
-  <div class="wrapper-masthead">
-    <div class="container">
-      <header class="masthead clearfix">
-        <a href="https://isvy08.github.io/" class="site-avatar"><img src="../assets/vv.png" /></a>
-
-        <div class="site-info">
-          <h1 class="site-name"><a href="https://isvy08.github.io/">Vy Vo</a></h1>
-          <p class="site-description">What's life without whimsy</p>
-        </div>
-
-        <nav>
-          <a href="../blog.html">Research</a>
-          <a href="../stories.html">Stories</a>
-          <a href="https://github.com/isVy08">GitHub</a>
-        </nav>
-      </header>
-    </div>
+<header class="site-header">
+  <div class="nav-inner">
+    <a href="../index.html" class="brand-link">
+      <img src="https://isvy08.github.io/assets/vv.png" alt="Vy Vo" class="brand-avatar">
+      <span class="brand-text">
+        <span class="brand-name">Vy Vo</span>
+        <span class="brand-tagline">What's life without whimsy</span>
+      </span>
+    </a>
+    <nav class="nav-links">
+      <a href="../index.html" class="nav-link">About</a>
+      <a href="../research.html" class="nav-link">Research</a>
+      <a href="../stories.html" class="nav-link is-active">Stories</a>
+      <a href="https://github.com/isVy08" target="_blank" rel="noreferrer" class="btn-secondary">GitHub</a>
+    </nav>
   </div>
-
-
-  <div id="main" role="main" class="container">
-    <div class="posts">
-
-
-      <article class="post" style="text-align: justify;">
-
-        <h1>Escape</h1>
-        <p>
-          Thought I've learned enough lessons,<br>
-          But I couldn't be any more wrong<br>
-          Just trying to let someone in<br>
-          And it stirs up all sorts of emotions.<br>
-          <br>
-          How can betrayal even work, <br>
-          If things are yet to begin?<br>
-          After all this time, I still get hurt<br>
-          By the little words, <br>
-          And a tiny bit of imagination. <br>
-          <br>
-          I overthink my overthoughts, <br>
-          Leaving them entangled, <br>
-          Constantly catching me off guard, <br>
-          But I never care to pull the brakes<br>
-          Keep watching it ride me much too hard.<br>
-          <br>
-          I build up my own mental prison, <br>
-          Abuse it for a brief moment of high,<br>
-          Then I trap myself in, for god knows what reason,<br>
-          It's the price to pay,<br>
-          When you play with fire. <br>
-          <br>
-          As always, I give it my all,<br>
-          It's a do-or-die, that's just how I live,<br>
-          I put up the wall when the party is over, <br>
-          Picking up the broken pieces, <br>
-          Placing them all back together. <br>
-          <br>
-          It takes courage to not see the world as what it is,<br>
-          Rather what it should have been, <br>
-          Strangers would say I'm way too idealistic, <br>
-          But lots of healing must be done from within. <br>
-          <br>
-          All you need is a leap of faith<br>
-          To move forward,<br>
-          And let the misery stay. <br>
-          <br>
-          Sometimes, <br>
-          What you can only do is, <br>
-          To sit and wait<br>
-          For the pain to come, <br>
-          To go away, <br>
-          To come back, <br>
-          And to be replaced.<br>
-
-
-        </p>
-
-
-
-      </article>
+</header>
+<main class="page-main article-main">
+  <div id="article-root"></div>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+     <div class="social-icons">
+      <a href="https://scholar.google.com/citations?user=3CpFpFkAAAAJ&hl=en&oi=ao"><i class="svg-icon scholar"></i></a>
+      <a href="https://x.com/isVy08/"><i class="svg-icon x"></i></a>
+      <a href="https://www.linkedin.com/in/isvy08/"><i class="svg-icon linkedin"></i></a>
     </div>
+    <span class="copyright">© Vy Vo</span>
   </div>
-  <div class="wrapper-footer">
-    <div class="container">
-      <footer class="footer">
-
-
-        <a href="https://scholar.google.com/citations?user=3CpFpFkAAAAJ&hl=en&oi=ao"><i class="svg-icon scholar"></i></a>
-        <a href="https://twitter.com/isVy08"><i class="svg-icon twitter"></i></a>
-        <a href="https://www.linkedin.com/in/isvy08/"><i class="svg-icon linkedin"></i></a>
-        <br>
-        <p style="font-size: 10px;">&copy; Vy Vo. Powered by Jekyll and Jekyll Now Theme</p>
-
-      </footer>
-    </div>
-  </div>
-
+</footer>
+<script src="../main.js"></script>
+<script src="../templates.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  renderPoemArticle(document.getElementById('article-root'), {
+    date: "May 2023",
+    kind: "Poetry",
+    title: "Escape",
+    stanzas: [
+      ["Thought I've learned enough lessons,", "But I couldn't be any more wrong", "Just trying to let someone in", "And it stirs up all sorts of emotions."],
+      ["How can betrayal even work,", "If things are yet to begin?", "After all this time, I still get hurt", "By the little words,", "And a tiny bit of imagination."],
+      ["I overthink my overthoughts,", "Leaving them entangled,", "Constantly catching me off guard,", "But I never care to pull the brakes", "Keep watching it ride me much too hard."],
+      ["I build up my own mental prison,", "Abuse it for a brief moment of high,", "Then I trap myself in, for god knows what reason,", "It's the price to pay,", "When you play with fire."],
+      ["As always, I give it my all,", "It's a do-or-die, that's just how I live,", "I put up the wall when the party is over,", "Picking up the broken pieces,", "Placing them all back together."],
+      ["It takes courage to not see the world as what it is,", "Rather what it should have been,", "Strangers would say I'm way too idealistic,", "But lots of healing must be done from within."],
+      ["All you need is a leap of faith", "To move forward,", "And let the misery stay."],
+      ["Sometimes,", "What you can only do is,", "To sit and wait", "For the pain to come,", "To go away,", "To come back,", "And to be replaced."]
+    ]
+  });
+});
+</script>
 </body>
-
 </html>

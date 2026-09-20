@@ -1,318 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-
-  <meta name="description" content="Vy Vo">
-  <meta property="og:description" content="Vy Vo's Blog" />
-  <title>Vy Vo</title>
-  <link rel="stylesheet" href="main.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research — Vy Vo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="main.css">
 </head>
-
 <body>
-
-  <div class="wrapper-masthead">
-    <div class="container">
-      <header class="masthead clearfix">
-        <a href="https://isvy08.github.io/" class="site-avatar"><img src="assets/vv.png" /></a>
-
-        <div class="site-info">
-          <h1 class="site-name"><a href="https://isvy08.github.io/">Vy Vo</a></h1>
-          <p class="site-description">What's life without whimsy</p>
-        </div>
-
-        <nav>
-          <a href="research.html">Research</a>
-          <!-- <a href="projects.html">Projects</a> -->
-          <a href="stories.html">Stories</a>
-          <a href="https://github.com/isVy08">GitHub</a>
-        </nav>
-      </header>
-    </div>
+<header class="site-header">
+  <div class="nav-inner">
+    <a href="index.html" class="brand-link">
+      <img src="https://isvy08.github.io/assets/vv.png" alt="Vy Vo" class="brand-avatar">
+      <span class="brand-text">
+        <span class="brand-name">Vy Vo</span>
+        <span class="brand-tagline">What's life without whimsy</span>
+      </span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="nav-link">About</a>
+      <a href="research.html" class="nav-link is-active">Research</a>
+      <a href="stories.html" class="nav-link">Stories</a>
+      <a href="https://github.com/isVy08" target="_blank" rel="noreferrer" class="btn-secondary">GitHub</a>
+    </nav>
   </div>
-
-  <!--Second div is for the main contain-->
-  <div id="main" role="main" class="container">
-    <div class="posts">
-      <!--Filter-->
-
-      <div id="myBtnContainer">
-        <button class="btn active" onclick="filterSelection('all')">All</button>
-        <button class="btn" onclick="filterSelection('publication')">Publications</button>
-        <button class="btn" onclick="filterSelection('blog')">Blog</button>
+</header>
+<main class="page-main research-main">
+  <h6 class="section-label">Research</h6>
+  <div class="tab-row">
+    <button class="tab-btn is-active" data-tab="All">All</button>
+    <button class="tab-btn" data-tab="Publication">Publication</button>
+    <button class="tab-btn" data-tab="Blog">Blog</button>
+  </div>
+  <div class="research-list">
+    <article class="research-item" data-kind="Publication">
+      <div class="research-meta">
+        <span class="research-date">June 2026</span>
+        <span class="tag tag-outline">Publication</span>
       </div>
-      <br>
-
-      <div style="font-size: 18px;">
-
-
-        <!--Article-->
-         <div class="topic publication">
-          <div class="content">
-
-            <span class="caption">June 2026</span><br>
-            <a href="https://arxiv.org/pdf/2601.16249" target="_blank">Ordering-based Causal Discovery from Generalized Score Matching</a>
-
-            <br><span class="author"><strong>Vo, V.</strong>, Le, T., Zhao, H., Bonilla, E., & Phung, D.</span>
-            <br><span class="caption"> Proceedings of the 32nd ACM SIGKDD Conference on Knowledge Discovery and Data
-              Mining, 2026.
-            </span>
-
-            </span>
-          </div>
-        </div>
-
-        <div class="topic publication">
-          <div class="content">
-
-            <span class="caption">May 2026</span><br>
-            <a href="https://openreview.net/pdf?id=WtbPaWO8lH" target="_blank">Causal Discovery in the Wild: A Voting-Theoretic Ensemble Approach</a>
-
-            <br><span class="author"><strong>Vo, V.</strong>, Li, H., & Gong, M.</span>
-            <br><span class="caption">Proceedings of the 14th International Conference on Learning
-              Representations, 2026.
-
-            </span>
-
-
-          </div>
-        </div>
-
-        <div class="topic publication">
-          <div class="content">
-
-            <span class="caption">June 2025</span><br>
-            <a href="https://arxiv.org/pdf/2502.10716" target="_blank">Why Domain Generalization Fails? A View of Necessity and Sufficiency
-            </a>
-
-            <br><span class="author">Vuong, L., Dang, H., <strong>Vo, V.</strong>, Do, TT., Do, Harandi, M., T., Le, T., & Phung,
-              D.</span>
-            </span>
-          </div>
-        </div>
-
-       
-
-
-        <div class="topic publication">
-          <div class="content">
-
-            <span class="caption">February 2025</span><br>
-            <a href="https://arxiv.org/abs/2506.11493" target="_blank">Preserving Clusters in Prompt Learning for Unsupervised Domain
-              Adaptation</a>
-
-            <br><span class="author">Vuong, L., Phan, H., <strong>Vo, V.</strong>, Bui, A., Do, T., Le, T., & Phung,
-              D.</span>
-            <br><span class="caption">Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition,
-              2025.
-
-            </span>
-          </div>
-        </div>
-
-        
-
-
-
-        <div class="topic publication">
-          <div class="content">
-
-            <span class="caption">February 2025</span><br>
-            <a href="https://arxiv.org/abs/2502.08148" target="_blank">ACCESS: A Benchmark for
-              Abstract Causal Event Discovery and Reasoning
-            </a>
-
-            <br><span class="author"><strong>Vo, V.</strong>, Qu, L., Feng, T., Hua, Y., Kang, X., Fan, S., Dwyer, T.,
-              Soon, L. & Haffari, G.</span>
-            <br><span class="caption">Proceedings of the Conference of the North American Chapter of the
-              Association for Computational Linguistics, 2025.
-            </span>
-
-
-          </div>
-        </div>
-
-        <div class="topic publication">
-          <div class="content">
-
-            <span class="caption">February 2024</span><br>
-            <a href="https://arxiv.org/abs/2402.15255" target="_blank">Optimal Transport for Structure Learning Under
-              Missing Data</a>
-
-            <br><span class="author"><strong>Vo, V.</strong>, Zhao, H., Le, T., Bonilla, E., & Phung, D.</span>
-            <br><span class="caption">Proceedings of the 41st International Conference on Machine Learning, 2024.
-            </span>
-
-
-          </div>
-        </div>
-
-        <div class="topic publication">
-          <div class="content">
-
-            <span class="caption">February 2024</span><br>
-            <a href="https://arxiv.org/abs/2305.15927" target="_blank">Parameter Estimation in DAGs from Incomplete Data
-              via Optimal Transport.</a>
-            <br><span class="author"><strong>Vo, V.</strong>, Le, T., Vuong, L., Zhao, H., Bonilla, E., & Phung,
-              D.</span>
-            <br><span class="caption">Proceedings of the 41st International Conference on Machine Learning, 2024.
-            </span>
-
-          </div>
-        </div>
-
-        <div class="topic publication">
-          <div class="content">
-
-            <span class="caption">July 2023</span><br>
-            <a href="https://arxiv.org/abs/2403.13204" target="_blank">Diversity-Aware Agnostic Ensemble of Sharpness
-              Minimizers
-            </a>
-            <br><span class="author">Bui A., <strong>Vo, V.</strong>, Pham T., Phung, D. & Le, T.,</span>
-
-          </div>
-        </div>
-
-        <!-- <div class="topic blog">
-          <div class="content">
-
-            <span class="caption">June 2023</span><br>
-            <a href="research/DIVOT.pdf" target="_blank">Optimal Transport for Causal Discovery</a>
-            <br><span class="caption">This is a summary of the paper Optimal Transport For Causal Discovery (Tu et al.,
-              2022).</span>
-
-          </div>
-        </div> -->
-
-
-        <div class="topic publication">
-          <div class="content">
-
-            <span class="caption">May 2023</span><br>
-            <a href="https://arxiv.org/abs/2209.13446" target="_blank">Feature-based Learning for Diverse and
-              Privacy-Preserving
-              Counterfactual Explanations</a>
-            <br><span class="author"><strong>Vo, V.</strong>, Le, T., Nguyen, V., Zhao, H., Bonilla, E., Haffari, G., &
-              Phung, D.</span>
-            <br><span class="caption"> Proceedings of the 29th ACM SIGKDD Conference on Knowledge Discovery and Data
-              Mining, 2023.
-            </span>
-            <br><span class="caption" style="font-weight: bold;"> Best Student Research Paper Award</span>
-
-          </div>
-        </div>
-
-        <div class="topic publication">
-          <div class="content">
-
-            <span class="caption">January 2023</span><br>
-            <a href="https://openreview.net/pdf?id=5OygDd-4Eeh" target="_blank">An Additive Instance-Wise Approach to
-              Multi-class Model Interpretation</a>
-            <br><span class="author"><strong>Vo, V.</strong>, Nguyen, V., Le, T., Tran, Q. H., Haffari, G., Camtepe, S.,
-              & Phung,
-              D.</span>
-            <br><span class="caption">Proceedings of the 11th International Conference on Learning
-              Representations, 2023.
-            </span>
-          </div>
-        </div>
-
-
-        <div class="topic publication">
-          <div class="content">
-
-            <span class="caption">January 2022</span><br>
-            <a href="https://arxiv.org/pdf/2206.12261.pdf" target="_blank">Unsupervised Sentence Simplification via
-              Dependency Parsing</a>
-            <br><span class="author"><strong>Vo, V.</strong>, Wang, W., & Buntine, W.</span>
-          </div>
-        </div>
-
-        <!-- <div class="topic blog"> -->
-        <!-- <div class="content"> -->
-        <!-- <img src="icon/new.gif"> -->
-        <!-- <span class="caption">September 2021</span><br> -->
-
-        <!-- <a href="https://isvy08.github.io/causal-data-science/" target="_blank">Causal Data Science: A Beginner
-              Guide</a>
-            <br><span class="caption">A Handbook on Applying Causal Inference in Business (In progress).</span>
-          </div>
-
-        </div> -->
-
-
-        <!-- <div class="topic blog">
-          <div class="content">
-            <span class="caption">August 2021</span><br>
-            <a href="ai/artificial-brain.html" target="_blank">Inside an Artifical Brain</a>
-            <br><span class="caption">I explain the intuition behind important building blocks of an artificial brain
-              that are fundamental to human cognition.</span>
-          </div>
-
-        </div> -->
-
-        <!-- <div class="topic blog">
-          <div class="content">
-            <span class="caption">July 2021</span><br>
-            <a href="causality/5-generalized-sb.html" target="_blank">Generalized Score Functions for Causal
-              Discovery</a>
-            <br><span class="caption">This is a summary of the paper Generalized Score Functions for Causal Discovery
-              (Huang et al., 2018).</span>
-          </div>
-        </div> -->
-
-        <div class="topic blog">
-          <div class="content">
-            <span class="caption">June 2021</span><br>
-            <a href="causality/1-intro-to-causal-thinking.html" target="_blank">Introduction to Causal Thinking</a>
-            <br><span class="caption">If correlation is not causation, then what is?</span>
-          </div>
-        </div>
-
-        <div class="topic blog">
-          <div class="content">
-            <span class="caption">May 2021</span><br>
-            <a href="ai/teachml.html" target="_blank">How Machines Are Taught</a>
-            <br><span class="caption">Leaving those mathematical fuzz aside, I am urged to take one step away from the
-              mainstream and rethink how machines learn.</span>
-
-
-          </div>
-        </div>
-
-        <div class="topic blog">
-
-          <div class="content">
-            <span class="caption">April 2021</span><br>
-            <a href="ai/glm.html" target="_blank">Assumptions of Linear Models</a>
-            <br><span class="caption">I explain the assumptions underlying Linear Regression, an old-school machine
-              learning model but widely used today.</span>
-            </span>
-          </div>
-        </div>
-
+      <div class="research-body">
+        <a href="https://arxiv.org/pdf/2601.16249" target="_blank" rel="noreferrer" class="research-title">Ordering-based Causal Discovery from Generalized Score Matching</a>
+        <p class="research-authors"><strong>Vo, V.</strong>, Le, T., Zhao, H., Bonilla, E., & Phung, D.</p>
+        <p class="research-venue">Proceedings of the 32nd ACM SIGKDD Conference on Knowledge Discovery and Data Mining, 2026.</p>
       </div>
-      <script src="main.js"></script>
-    </div>
-
+    </article>
+    <article class="research-item" data-kind="Publication">
+      <div class="research-meta">
+        <span class="research-date">May 2026</span>
+        <span class="tag tag-outline">Publication</span>
+      </div>
+      <div class="research-body">
+        <a href="https://openreview.net/pdf?id=WtbPaWO8lH" target="_blank" rel="noreferrer" class="research-title">Causal Discovery in the Wild: A Voting-Theoretic Ensemble Approach</a>
+        <p class="research-authors"><strong>Vo, V.</strong>, Li, H., & Gong, M.</p>
+        <p class="research-venue">Proceedings of the 14th International Conference on Learning Representations, 2026.</p>
+      </div>
+    </article>
+    <article class="research-item" data-kind="Publication">
+      <div class="research-meta">
+        <span class="research-date">June 2025</span>
+        <span class="tag tag-outline">Publication</span>
+      </div>
+      <div class="research-body">
+        <a href="https://arxiv.org/pdf/2502.10716" target="_blank" rel="noreferrer" class="research-title">Why Domain Generalization Fails? A View of Necessity and Sufficiency</a>
+        <p class="research-authors">Vuong, L., Dang, H., <strong>Vo, V.</strong>, Do, TT., Do, Harandi, M., T., Le, T., & Phung, D.</p>
+      </div>
+    </article>
+    <article class="research-item" data-kind="Publication">
+      <div class="research-meta">
+        <span class="research-date">February 2025</span>
+        <span class="tag tag-outline">Publication</span>
+      </div>
+      <div class="research-body">
+        <a href="https://arxiv.org/abs/2506.11493" target="_blank" rel="noreferrer" class="research-title">Preserving Clusters in Prompt Learning for Unsupervised Domain Adaptation</a>
+        <p class="research-authors">Vuong, L., Phan, H., <strong>Vo, V.</strong>, Bui, A., Do, T., Le, T., & Phung, D.</p>
+        <p class="research-venue">Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2025.</p>
+      </div>
+    </article>
+    <article class="research-item" data-kind="Publication">
+      <div class="research-meta">
+        <span class="research-date">February 2025</span>
+        <span class="tag tag-outline">Publication</span>
+      </div>
+      <div class="research-body">
+        <a href="https://arxiv.org/abs/2502.08148" target="_blank" rel="noreferrer" class="research-title">ACCESS: A Benchmark for Abstract Causal Event Discovery and Reasoning</a>
+        <p class="research-authors"><strong>Vo, V.</strong>, Qu, L., Feng, T., Hua, Y., Kang, X., Fan, S., Dwyer, T., Soon, L. & Haffari, G.</p>
+        <p class="research-venue">Proceedings of the Conference of the North American Chapter of the Association for Computational Linguistics, 2025.</p>
+      </div>
+    </article>
+    <article class="research-item" data-kind="Publication">
+      <div class="research-meta">
+        <span class="research-date">February 2024</span>
+        <span class="tag tag-outline">Publication</span>
+      </div>
+      <div class="research-body">
+        <a href="https://arxiv.org/abs/2402.15255" target="_blank" rel="noreferrer" class="research-title">Optimal Transport for Structure Learning Under Missing Data</a>
+        <p class="research-authors"><strong>Vo, V.</strong>, Zhao, H., Le, T., Bonilla, E., & Phung, D.</p>
+        <p class="research-venue">Proceedings of the 41st International Conference on Machine Learning, 2024.</p>
+      </div>
+    </article>
+    <article class="research-item" data-kind="Publication">
+      <div class="research-meta">
+        <span class="research-date">February 2024</span>
+        <span class="tag tag-outline">Publication</span>
+      </div>
+      <div class="research-body">
+        <a href="https://arxiv.org/abs/2305.15927" target="_blank" rel="noreferrer" class="research-title">Parameter Estimation in DAGs from Incomplete Data via Optimal Transport.</a>
+        <p class="research-authors"><strong>Vo, V.</strong>, Le, T., Vuong, L., Zhao, H., Bonilla, E., & Phung, D.</p>
+        <p class="research-venue">Proceedings of the 41st International Conference on Machine Learning, 2024.</p>
+      </div>
+    </article>
+    <article class="research-item" data-kind="Publication">
+      <div class="research-meta">
+        <span class="research-date">July 2023</span>
+        <span class="tag tag-outline">Publication</span>
+      </div>
+      <div class="research-body">
+        <a href="https://arxiv.org/abs/2403.13204" target="_blank" rel="noreferrer" class="research-title">Diversity-Aware Agnostic Ensemble of Sharpness Minimizers</a>
+        <p class="research-authors">Bui A., <strong>Vo, V.</strong>, Pham T., Phung, D. & Le, T.,</p>
+      </div>
+    </article>
+    <article class="research-item" data-kind="Publication">
+      <div class="research-meta">
+        <span class="research-date">May 2023</span>
+        <span class="tag tag-outline">Publication</span>
+      </div>
+      <div class="research-body">
+        <a href="https://arxiv.org/abs/2209.13446" target="_blank" rel="noreferrer" class="research-title">Feature-based Learning for Diverse and Privacy-Preserving Counterfactual Explanations</a>
+        <p class="research-authors"><strong>Vo, V.</strong>, Le, T., Nguyen, V., Zhao, H., Bonilla, E., Haffari, G., & Phung, D.</p>
+        <p class="research-venue">Proceedings of the 29th ACM SIGKDD Conference on Knowledge Discovery and Data Mining, 2023.</p>
+        <span class="tag tag-accent award-tag">Best Student Research Paper Award</span>
+      </div>
+    </article>
+    <article class="research-item" data-kind="Publication">
+      <div class="research-meta">
+        <span class="research-date">January 2023</span>
+        <span class="tag tag-outline">Publication</span>
+      </div>
+      <div class="research-body">
+        <a href="https://openreview.net/pdf?id=5OygDd-4Eeh" target="_blank" rel="noreferrer" class="research-title">An Additive Instance-Wise Approach to Multi-class Model Interpretation</a>
+        <p class="research-authors"><strong>Vo, V.</strong>, Nguyen, V., Le, T., Tran, Q. H., Haffari, G., Camtepe, S., & Phung, D.</p>
+        <p class="research-venue">Proceedings of the 11th International Conference on Learning Representations, 2023.</p>
+      </div>
+    </article>
+    <article class="research-item" data-kind="Publication">
+      <div class="research-meta">
+        <span class="research-date">January 2022</span>
+        <span class="tag tag-outline">Publication</span>
+      </div>
+      <div class="research-body">
+        <a href="https://arxiv.org/pdf/2206.12261.pdf" target="_blank" rel="noreferrer" class="research-title">Unsupervised Sentence Simplification via Dependency Parsing</a>
+        <p class="research-authors"><strong>Vo, V.</strong>, Wang, W., & Buntine, W.</p>
+      </div>
+    </article>
+    <article class="research-item" data-kind="Blog">
+      <div class="research-meta">
+        <span class="research-date">June 2021</span>
+        <span class="tag tag-outline">Blog</span>
+      </div>
+      <div class="research-body">
+        <a href="https://isvy08.github.io/causality/1-intro-to-causal-thinking.html" target="_blank" rel="noreferrer" class="research-title">Introduction to Causal Thinking</a>
+        <p class="research-blurb">If correlation is not causation, then what is?</p>
+      </div>
+    </article>
+    <article class="research-item" data-kind="Blog">
+      <div class="research-meta">
+        <span class="research-date">May 2021</span>
+        <span class="tag tag-outline">Blog</span>
+      </div>
+      <div class="research-body">
+        <a href="https://isvy08.github.io/ai/teachml.html" target="_blank" rel="noreferrer" class="research-title">How Machines Are Taught</a>
+        <p class="research-blurb">Leaving those mathematical fuzz aside, I am urged to take one step away from the mainstream and rethink how machines learn.</p>
+      </div>
+    </article>
+    <article class="research-item" data-kind="Blog">
+      <div class="research-meta">
+        <span class="research-date">April 2021</span>
+        <span class="tag tag-outline">Blog</span>
+      </div>
+      <div class="research-body">
+        <a href="https://isvy08.github.io/ai/glm.html" target="_blank" rel="noreferrer" class="research-title">Assumptions of Linear Models</a>
+        <p class="research-blurb">I explain the assumptions underlying Linear Regression, an old-school machine learning model but widely used today.</p>
+      </div>
+    </article>
   </div>
-  <div class="wrapper-footer">
-    <div class="container">
-      <footer class="footer">
-
-
-        <a href="https://scholar.google.com/citations?user=3CpFpFkAAAAJ&hl=en&oi=ao"><i class="svg-icon scholar"></i></a>
-        <a href="https://twitter.com/isVy08"><i class="svg-icon twitter"></i></a>
-        <a href="https://www.linkedin.com/in/isvy08/"><i class="svg-icon linkedin"></i></a>
-        <br>
-        <p style="font-size: 10px;">&copy; Vy Vo. Powered by Jekyll and Jekyll Now Theme</p>
-
-      </footer>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="social-icons">
+      <a href="https://scholar.google.com/citations?user=3CpFpFkAAAAJ&hl=en&oi=ao"><i class="svg-icon scholar"></i></a>
+      <a href="https://x.com/isVy08/"><i class="svg-icon x"></i></a>
+      <a href="https://www.linkedin.com/in/isvy08/"><i class="svg-icon linkedin"></i></a>
     </div>
+    <span class="copyright">© Vy Vo</span>
   </div>
+</footer>
+<script src="main.js"></script>
 </body>
-
 </html>
